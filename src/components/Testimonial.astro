@@ -1,6 +1,5 @@
 ---
 import Cloud from './Cloud.astro';
-import PhotoPlaceholder from './PhotoPlaceholder.astro';
 ---
 <section class="relative overflow-hidden bg-brand-50 px-4 py-16 md:px-8 lg:py-24" aria-labelledby="testimonial-title">
   <h2 id="testimonial-title" class="sr-only">What educators say</h2>
@@ -9,7 +8,14 @@ import PhotoPlaceholder from './PhotoPlaceholder.astro';
 
   <figure class="relative mx-auto flex max-w-[1200px] flex-col items-center gap-10 md:flex-row md:gap-16">
     <div class="relative h-[300px] w-[320px] shrink-0 sm:h-[360px] sm:w-[380px]">
-      <PhotoPlaceholder label="[PHOTO — Dr. Lori Lopez-Lopez]" tone="white" class="absolute top-0 left-0 size-[280px] rounded-full sm:size-[320px]" />
+      <img
+        src="/images/photos/lori-lopez-lopez.jpg"
+        width="640"
+        height="640"
+        loading="lazy"
+        alt="Portrait of Dr. Lori Lopez-Lopez"
+        class="absolute top-0 left-0 size-[280px] rounded-full object-cover sm:size-[320px]"
+      />
       <p class="absolute top-[170px] left-[170px] flex size-[150px] flex-col items-center justify-center gap-0.5 rounded-full bg-brand-800 text-center shadow-lg sm:top-[210px] sm:left-[230px]">
         <span class="text-display-md font-bold text-white">91%</span>
         <span class="text-xs font-bold text-brand-100">PARENT DEMAND<br />CONFIRMED</span>

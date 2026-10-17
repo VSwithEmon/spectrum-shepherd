@@ -25,6 +25,7 @@
   --color-muted: #536255;      /* text-tertiary (600) */
   --color-field: #838d7f;      /* text-quaternary (500), input borders */
   --color-line: #e9eaeb;       /* border-secondary */
+  --color-line-strong: #d5d7da; /* border-disabled, inactive carousel dots */
   --color-cream: #fefaf5;      /* Orange/25, page background */
 
   --color-yellow-100: #fef7c3;

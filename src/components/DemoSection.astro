@@ -3,7 +3,6 @@
 import Button from './Button.astro';
 import CheckItem from './CheckItem.astro';
 import FormField from './FormField.astro';
-import PhotoPlaceholder from './PhotoPlaceholder.astro';
 ---
 <section id="demo" class="scroll-mt-4 bg-white px-4 py-16 md:px-8 lg:py-24" aria-labelledby="demo-title">
   <div class="mx-auto flex max-w-[1200px] flex-col gap-12 lg:flex-row lg:items-start lg:gap-16">
@@ -16,7 +15,14 @@ import PhotoPlaceholder from './PhotoPlaceholder.astro';
         <CheckItem>Get your privacy questions answered</CheckItem>
         <CheckItem>Talk through funding options</CheckItem>
       </ul>
-      <PhotoPlaceholder label="[PHOTO — real team member who runs demos]" tone="orange" class="h-[220px] w-full rounded-4xl" />
+      <img
+        src="/images/photos/demo-host.jpg"
+        width="1100"
+        height="733"
+        loading="lazy"
+        alt="Two educators reviewing student progress data together on a laptop"
+        class="h-[220px] w-full rounded-4xl object-cover object-[center_35%]"
+      />
       <p class="text-muted">Just one teacher? <a href="#" class="font-bold text-brand-700 underline hover:text-brand-800">Start a free 45-day trial</a></p>
     </div>
 

@@ -1,7 +1,6 @@
 ---
 import Button from './Button.astro';
 import Hills from './Hills.astro';
-import PhotoPlaceholder from './PhotoPlaceholder.astro';
 import StatusChip from './StatusChip.astro';
 ---
 <section class="relative overflow-hidden bg-cream" aria-labelledby="hero-title">
@@ -37,11 +36,12 @@ import StatusChip from './StatusChip.astro';
     <!-- Product composition: positions are % of the 600×600 Figma frame -->
     <div class="relative aspect-square w-full max-w-[600px] shrink-0 lg:w-[600px]">
       <div aria-hidden="true" class="absolute top-[5%] left-[20%] aspect-square w-[76.67%] rounded-full bg-yellow-200"></div>
-      <PhotoPlaceholder
-        label="[PHOTO — real student, 16–20, smiling]"
-        tone="orange"
-        size="p-3 text-xs sm:p-6 sm:text-md"
-        class="absolute top-0 left-[56.67%] aspect-square w-[41.67%] rounded-full"
+      <img
+        src="/images/photos/hero-student.jpg"
+        width="600"
+        height="538"
+        alt="A teenage student wearing headphones, smiling while working through a lesson on a tablet"
+        class="absolute top-0 left-[56.67%] aspect-square w-[41.67%] rounded-full object-cover object-[40%_center]"
       />
       <div class="absolute top-[33.33%] left-0 aspect-[520/330] w-[86.67%] overflow-hidden rounded-2xl border border-line bg-white shadow-2xl">
         <img
