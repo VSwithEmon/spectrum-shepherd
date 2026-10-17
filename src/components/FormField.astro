@@ -1,0 +1,30 @@
+---
+// "HP / Form Field" — labelled input, or a select when `options` is given.
+interface Props {
+  id: string;
+  label: string;
+  type?: string;
+  placeholder?: string;
+  autocomplete?: string;
+  required?: boolean;
+  options?: string[];
+  class?: string;
+}
+const { id, label, type = 'text', placeholder, autocomplete, required = false, options, class: className = '' } = Astro.props;
+const control = 'w-full rounded-xl border-[1.5px] border-field bg-white px-4 py-3 text-md text-ink placeholder:text-muted';
+---
+<div class={`flex flex-col gap-1.5 ${className}`}>
+  <label for={id} class="font-bold">
+    {label}{required && <span class="sr-only"> (required)</span>}
+  </label>
+  {options ? (
+    <div class="relative">
+      <select id={id} name={id} class={`${control} appearance-none pr-11`}>
+        {options.map((o) => <option>{o}</option>)}
+      </select>
+      <img src="/images/icons/chevron-down.svg" width="20" height="20" alt="" class="pointer-events-none absolute top-1/2 right-4 -translate-y-1/2" />
+    </div>
+  ) : (
+    <input id={id} name={id} type={type} placeholder={placeholder} autocomplete={autocomplete} required={required} class={control} />
+  )}
+</div>

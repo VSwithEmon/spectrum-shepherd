@@ -1,0 +1,12 @@
+---
+// School names stand in for logo files until the client supplies them.
+const schools = ['Burr & Burton Academy', 'Cotting School', 'North Hunterdon', 'Kinnelon Schools', 'Voorhees HS', 'Newmark Education'];
+---
+<section class="bg-brand-700 px-4 pt-2 pb-8 md:px-8" aria-label="Schools using Shepherd">
+  <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-5">
+    <p class="text-center font-semibold text-white">Built with educators. Tested with students. Shaped in classrooms.</p>
+    <ul class="flex flex-wrap items-center justify-center gap-x-12 gap-y-3 font-bold text-brand-50">
+      {schools.map((s) => <li>{s}</li>)}
+    </ul>
+  </div>
+</section>

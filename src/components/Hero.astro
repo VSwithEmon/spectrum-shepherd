@@ -1,0 +1,71 @@
+---
+import Button from './Button.astro';
+import Hills from './Hills.astro';
+import PhotoPlaceholder from './PhotoPlaceholder.astro';
+import StatusChip from './StatusChip.astro';
+---
+<section class="relative overflow-hidden bg-cream" aria-labelledby="hero-title">
+  <div class="relative z-10 mx-auto flex max-w-[1200px] flex-col items-center gap-12 px-4 pt-8 pb-16 md:px-8 lg:flex-row lg:pt-12 lg:pb-12 xl:px-0">
+    <div class="flex w-full flex-col items-start gap-6 lg:flex-1">
+      <p class="flex items-center gap-1.5 rounded-full bg-brand-50 px-3 py-1 text-sm font-semibold text-brand-800">
+        <img src="/images/icons/dot.svg" width="8" height="8" alt="" />
+        AI life-skills coach · Ages 14–22
+      </p>
+      <h1 id="hero-title" class="text-display-md font-bold sm:text-display-lg">
+        Real-world skills.<br />
+        <span class="text-brand-600">Real independence.</span>
+      </h1>
+      <p class="text-lg text-muted sm:text-xl">
+        Short, personalized lessons students actually want to do — and IEP-ready progress reports their teachers don't have to write.
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <Button href="#">See it in action</Button>
+        <Button href="#demo" variant="secondary">Book a demo</Button>
+      </div>
+      <ul class="grid w-full gap-4 pt-2 sm:grid-cols-2">
+        <li class="flex flex-col gap-1 border-l-3 border-yellow-400 pl-4">
+          <span class="font-bold">For schools &amp; teachers</span>
+          <span class="text-sm text-muted">Ready-made curriculum and reports that prove impact.</span>
+        </li>
+        <li class="flex flex-col gap-1 border-l-3 border-yellow-400 pl-4">
+          <span class="font-bold">For students</span>
+          <span class="text-sm text-muted">Short lessons that build skills for everyday life.</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Product composition: positions are % of the 600×600 Figma frame -->
+    <div class="relative aspect-square w-full max-w-[600px] shrink-0 lg:w-[600px]">
+      <div aria-hidden="true" class="absolute top-[5%] left-[20%] aspect-square w-[76.67%] rounded-full bg-yellow-200"></div>
+      <PhotoPlaceholder
+        label="[PHOTO — real student, 16–20, smiling]"
+        tone="orange"
+        size="p-3 text-xs sm:p-6 sm:text-md"
+        class="absolute top-0 left-[56.67%] aspect-square w-[41.67%] rounded-full"
+      />
+      <div class="absolute top-[33.33%] left-0 aspect-[520/330] w-[86.67%] overflow-hidden rounded-2xl border border-line bg-white shadow-2xl">
+        <img
+          src="/images/teacher-dashboard.png"
+          width="1440"
+          height="1244"
+          alt="Shepherd teacher dashboard for William School, showing Classroom Pulse stats and the classroom roster"
+          class="w-full"
+          fetchpriority="high"
+        />
+      </div>
+      <div class="absolute top-[38.33%] left-[70%] w-[28.67%] rounded-4xl bg-brand-950 p-[1%] shadow-2xl">
+        <img
+          src="/images/student-app-home.png"
+          width="750"
+          height="1624"
+          alt="Shepherd student app home screen with a message from the coach and options to browse lessons or play games"
+          class="w-full rounded-3xl"
+        />
+      </div>
+      <StatusChip title="Lesson complete" caption="Budgeting for a concert ticket" class="top-[19.67%] left-[-4%] origin-top-left max-sm:scale-75" />
+      <StatusChip title="Progress note saved" caption="Linked to IEP goal" class="top-[91.33%] left-[25%] origin-top-left max-sm:scale-75" />
+    </div>
+  </div>
+
+  <Hills class="-mt-6 lg:-mt-16" />
+</section>

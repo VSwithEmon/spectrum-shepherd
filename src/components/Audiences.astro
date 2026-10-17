@@ -1,0 +1,40 @@
+---
+import AudienceCard from './AudienceCard.astro';
+---
+<section class="px-4 py-16 md:px-8 lg:py-24" aria-labelledby="audiences-title">
+  <div class="mx-auto flex max-w-[1200px] flex-col gap-8">
+    <div class="flex flex-col items-center gap-3 pb-4 text-center">
+      <p class="text-sm font-bold text-brand-700">WHO IT'S FOR</p>
+      <h2 id="audiences-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">One platform for everyone in a student's corner.</h2>
+    </div>
+
+    <AudienceCard
+      tone="brand"
+      eyebrow="FOR SCHOOLS"
+      headline={['Lead with evidence.', 'Meet compliance.', 'Scale with confidence.']}
+      benefits={['Transition Evidence Reports', 'Indicator 13 support', 'IDEA Part B & Title IV-A ready', 'Consistent across classrooms']}
+      cta={{ label: 'Explore for schools →', href: '#' }}
+      photo="[PHOTO — real special education leader with students]"
+      stat={{ value: 'Indicator 13', caption: 'evidence, built automatically' }}
+    />
+    <AudienceCard
+      tone="yellow"
+      photoSide="left"
+      eyebrow="FOR TEACHERS"
+      headline={['Save planning time.', 'Personalize every lesson.', 'Skip the paperwork.']}
+      benefits={['Ready-made life-skills lessons', 'IEP-linked progress notes', 'Students work independently', 'Free 45-day trial']}
+      cta={{ label: 'Start your free trial →', href: '#' }}
+      photo="[PHOTO — real teacher working with a small group]"
+      stat={{ value: '10 min', caption: 'to a personalized class' }}
+    />
+    <AudienceCard
+      tone="orange"
+      eyebrow="FOR STUDENTS"
+      headline={['Learn what matters.', 'Practice what they love.', 'Grow real independence.']}
+      benefits={['Lessons under 10 minutes', 'Built on their interests', 'Any device, anywhere', 'Reading-level support']}
+      cta={{ label: 'See the student app →', href: '#' }}
+      photo="[PHOTO — real student, 16–20, practicing a real task]"
+      stat={{ value: '< 10 min', caption: 'per lesson' }}
+    />
+  </div>
+</section>

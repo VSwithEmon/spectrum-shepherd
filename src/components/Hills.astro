@@ -1,0 +1,47 @@
+---
+// Decorative section edge: layered green hills with a dotted trail (echoing the
+// dotted logo) climbing toward a rising sun — the path to independence.
+// The front hill's color must match the section that follows.
+interface Props {
+  front?: 'brand-700' | 'brand-800';
+  trail?: boolean;
+  class?: string;
+}
+const { front = 'brand-700', trail = true, class: className = '' } = Astro.props;
+const frontFill = front === 'brand-700' ? 'fill-brand-700' : 'fill-brand-800';
+---
+<svg
+  aria-hidden="true"
+  focusable="false"
+  viewBox="0 0 1440 180"
+  preserveAspectRatio="xMidYMax slice"
+  class={`block h-[90px] w-full sm:h-[140px] lg:h-auto ${className}`}
+>
+  {trail && <circle cx="1250" cy="72" r="34" class="fill-yellow-300" />}
+  <path class="fill-brand-200" d="M0 120C240 60 420 70 620 110S1000 150 1200 80S1400 60 1440 70V180H0Z" />
+  <path class="fill-brand-500" d="M0 150C200 110 380 100 560 130S900 170 1100 120S1380 100 1440 115V180H0Z" />
+  {trail && (
+    <path
+      class="hills-trail"
+      d="M60 158C220 136 380 128 560 142S880 152 1100 128S1220 110 1250 106"
+      fill="none"
+      stroke="#ffffff"
+      stroke-width="6"
+      stroke-linecap="round"
+    />
+  )}
+  <path class={frontFill} d="M0 170C300 150 500 142 760 160S1200 176 1440 150V181H0Z" />
+</svg>
+
+<style>
+  .hills-trail {
+    stroke-dasharray: 0 16;
+    animation: hills-march 1.6s linear infinite;
+  }
+  @keyframes hills-march {
+    to { stroke-dashoffset: -16; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hills-trail { animation: none; }
+  }
+</style>

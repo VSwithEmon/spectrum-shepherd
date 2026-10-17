@@ -1,0 +1,25 @@
+---
+// Beta results shown as three "suns".
+const stats = [
+  { value: '91%', caption: 'parent demand confirmed', sun: 'bg-yellow-300' },
+  { value: '8 of 8', caption: 'pilot schools became customers', sun: 'bg-orange-200' },
+  { value: '77%', caption: "of students say it's more engaging than other school learning", sun: 'bg-brand-200' },
+];
+---
+<section class="bg-white px-4 py-16 md:px-8 lg:py-24" aria-labelledby="results-title">
+  <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-12">
+    <div class="flex flex-col items-center gap-3 text-center">
+      <p class="text-sm font-bold text-brand-700">SPRING 2026 BETA</p>
+      <h2 id="results-title" class="text-display-sm font-bold md:text-display-md">What our first schools saw</h2>
+    </div>
+    <dl class="grid w-full gap-10 sm:grid-cols-3">
+      {stats.map((s, i) => (
+        <div class={`flex flex-col items-center gap-5 text-center ${i === 1 ? 'sm:mt-16' : ''}`}>
+          <dt class="max-w-[240px] text-lg text-muted">{s.caption}</dt>
+          <dd class={`order-first flex aspect-square w-[200px] items-center justify-center rounded-full text-display-lg font-bold lg:w-[240px] lg:text-display-xl ${s.sun}`}>{s.value}</dd>
+        </div>
+      ))}
+    </dl>
+    <p class="text-center text-sm text-muted">8 schools · 50 learners · public, private and specialty programs in NJ, MA, VT and NYC</p>
+  </div>
+</section>

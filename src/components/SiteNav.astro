@@ -1,0 +1,70 @@
+---
+import Logo from './Logo.astro';
+import Button from './Button.astro';
+
+interface Props { demoHref?: string }
+const { demoHref = '/book-a-demo' } = Astro.props;
+
+// Pages for these links don't exist yet.
+const links = [
+  { label: 'Teachers', href: '#' },
+  { label: 'Schools', href: '#' },
+  { label: 'The App', href: '#' },
+  { label: 'About', href: '#' },
+  { label: 'Resources', href: '#' },
+];
+---
+<header class="relative z-20 bg-cream">
+  <div class="mx-auto flex max-w-[1200px] items-center justify-between gap-6 px-4 py-5 md:px-8 xl:px-0">
+    <Logo />
+
+    <nav aria-label="Main" class="hidden lg:block">
+      <ul class="flex items-center gap-1">
+        {links.map((l) => (
+          <li><a href={l.href} class="block rounded-lg px-5 py-1.5 font-medium hover:bg-brand-25 hover:text-brand-800">{l.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="hidden items-center gap-6 lg:flex">
+      <a href="#" class="font-semibold text-brand-700 hover:text-brand-800">Log in</a>
+      <Button href={demoHref}>Book a demo</Button>
+    </div>
+
+    <button
+      type="button"
+      class="menu-toggle inline-flex min-h-11 items-center gap-2 rounded-lg border border-brand-50 bg-brand-25 px-4 font-semibold text-brand-800 lg:hidden"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
+      Menu
+    </button>
+  </div>
+
+  <nav id="mobile-menu" aria-label="Main" class="hidden border-t border-line bg-cream px-4 pb-6 md:px-8 lg:hidden">
+    <ul class="flex flex-col py-2">
+      {links.map((l) => (
+        <li><a href={l.href} class="block py-3 text-lg font-medium">{l.label}</a></li>
+      ))}
+      <li><a href="#" class="block py-3 text-lg font-semibold text-brand-700">Log in</a></li>
+    </ul>
+    <Button href={demoHref} full>Book a demo</Button>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  toggle?.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', String(!open));
+    menu?.classList.toggle('hidden', open);
+  });
+  menu?.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).closest('a')) {
+      toggle?.setAttribute('aria-expanded', 'false');
+      menu.classList.add('hidden');
+    }
+  });
+</script>

@@ -1,0 +1,9 @@
+---
+// "LP / Check Item" — use inside a <ul>.
+interface Props { class?: string }
+const { class: className = '' } = Astro.props;
+---
+<li class={`flex items-start gap-3 font-medium ${className}`}>
+  <img src="/images/icons/check-circle.svg" width="24" height="24" alt="" class="shrink-0" />
+  <span><slot /></span>
+</li>

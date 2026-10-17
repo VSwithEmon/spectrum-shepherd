@@ -1,0 +1,30 @@
+---
+import Cloud from './Cloud.astro';
+import PhotoPlaceholder from './PhotoPlaceholder.astro';
+---
+<section class="relative overflow-hidden bg-brand-50 px-4 py-16 md:px-8 lg:py-24" aria-labelledby="testimonial-title">
+  <h2 id="testimonial-title" class="sr-only">What educators say</h2>
+  <Cloud class="top-[30px] left-[-50px] h-[90px] w-[240px]" />
+  <Cloud class="right-[-60px] bottom-[50px] hidden h-[96px] w-[260px] md:block" />
+
+  <figure class="relative mx-auto flex max-w-[1200px] flex-col items-center gap-10 md:flex-row md:gap-16">
+    <div class="relative h-[300px] w-[320px] shrink-0 sm:h-[360px] sm:w-[380px]">
+      <PhotoPlaceholder label="[PHOTO — Dr. Lori Lopez-Lopez]" tone="white" class="absolute top-0 left-0 size-[280px] rounded-full sm:size-[320px]" />
+      <p class="absolute top-[170px] left-[170px] flex size-[150px] flex-col items-center justify-center gap-0.5 rounded-full bg-brand-800 text-center shadow-lg sm:top-[210px] sm:left-[230px]">
+        <span class="text-display-md font-bold text-white">91%</span>
+        <span class="text-xs font-bold text-brand-100">PARENT DEMAND<br />CONFIRMED</span>
+      </p>
+    </div>
+    <div class="flex flex-col items-start gap-6 md:flex-1">
+      <span aria-hidden="true" class="text-display-2xl font-bold text-brand-600">“</span>
+      <blockquote class="flex flex-col gap-6">
+        <p class="text-display-xs font-bold sm:text-display-sm">I see the value both as a teacher and as an administrator.</p>
+        <p class="text-lg text-muted">As a teacher, it gives us a highly effective tool for explicit functional and social skills instruction. As an administrator, it lets us monitor progress that's typically far too subjective.</p>
+      </blockquote>
+      <figcaption class="flex flex-col">
+        <span class="text-lg font-bold">Dr. Lori Lopez-Lopez</span>
+        <span class="text-muted">Teacher and Administrator, Special Education</span>
+      </figcaption>
+    </div>
+  </figure>
+</section>

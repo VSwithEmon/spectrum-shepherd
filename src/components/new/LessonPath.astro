@@ -1,0 +1,37 @@
+---
+// Green "path" section: four real lessons as stops along a dotted trail.
+const stops = [
+  { topic: 'Money & budgeting', title: 'Budgeting for a concert ticket', icon: 'M12 5v14M15.5 8.5C15.5 7.1 14 6 12 6s-3.5 1-3.5 2.4c0 3.6 7 1.9 7 5.4 0 1.5-1.5 2.4-3.5 2.4s-3.5-1.1-3.5-2.6' },
+  { topic: 'Social & communication', title: 'Initiating greetings', icon: 'M4 5h16v11H9l-5 4z' },
+  { topic: 'Self-awareness', title: 'Identifying and naming emotions', icon: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM8.5 14.5s1.2 1.5 3.5 1.5 3.5-1.5 3.5-1.5M9 9.5h.01M15 9.5h.01' },
+  { topic: 'Community safety', title: 'Crossing safely at signals', icon: 'M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z' },
+];
+---
+<section class="on-dark relative bg-brand-700 text-white" aria-labelledby="path-title">
+  <div class="mx-auto flex max-w-[1200px] flex-col gap-12 px-4 pt-16 pb-16 md:px-8 lg:pt-20 lg:pb-24 xl:px-0">
+    <div class="mx-auto flex max-w-[720px] flex-col items-center gap-4 text-center">
+      <h2 id="path-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">One small lesson at a time</h2>
+      <p class="text-lg text-brand-50">Shepherd's Special Interests Engine turns real-world tasks into practice students want to come back to.</p>
+    </div>
+
+    <div class="relative">
+      <svg aria-hidden="true" viewBox="0 0 1200 200" preserveAspectRatio="none" class="absolute inset-x-0 top-0 hidden h-[200px] w-full lg:block">
+        <path d="M150 48C300 48 300 112 450 112S600 48 750 48 900 112 1050 112" fill="none" class="stroke-yellow-300" stroke-width="5" stroke-linecap="round" stroke-dasharray="0 16" vector-effect="non-scaling-stroke" />
+      </svg>
+      <ol class="relative grid gap-10 border-l-4 border-dotted border-yellow-300 pl-8 sm:grid-cols-2 sm:border-0 sm:pl-0 lg:grid-cols-4">
+        {stops.map((s, i) => (
+          <li class={`flex flex-col gap-3 sm:items-center sm:text-center ${i % 2 === 1 ? 'lg:mt-16' : ''}`}>
+            <span aria-hidden="true" class="flex size-24 items-center justify-center rounded-full bg-white shadow-lg">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" class="stroke-brand-700" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d={s.icon} /></svg>
+            </span>
+            <span class="text-sm font-bold text-yellow-300">{s.topic}</span>
+            <span class="text-display-xs font-bold">{s.title}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+  <svg aria-hidden="true" viewBox="0 0 1440 80" preserveAspectRatio="none" class="block h-12 w-full bg-cream lg:h-20">
+    <path d="M0 0H1440V20C1080 90 360 90 0 20Z" class="fill-brand-700" />
+  </svg>
+</section>

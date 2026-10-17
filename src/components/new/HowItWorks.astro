@@ -1,0 +1,28 @@
+---
+// Copy from the client's v3 landing page ("Set it up once. It keeps going.").
+const steps = [
+  { n: '1', title: 'Goals, in.', body: "Drop in IEP goals and each student's interests. Ten minutes, once — no IT ticket.", dot: 'bg-yellow-300' },
+  { n: '2', title: 'Skills, stacked.', body: 'Bite-sized lessons, usually under 10 minutes, framed around what each student loves.', dot: 'bg-orange-200' },
+  { n: '3', title: 'Receipts, ready.', body: 'Accuracy, prompt level and self-initiation are captured as they work. One click to a progress report.', dot: 'bg-brand-200' },
+];
+---
+<section class="px-4 py-16 md:px-8 lg:py-24" aria-labelledby="how-title">
+  <div class="mx-auto flex max-w-[1200px] flex-col gap-14">
+    <div class="flex flex-col items-center gap-3 text-center">
+      <p class="text-sm font-bold text-brand-700">HOW IT WORKS</p>
+      <h2 id="how-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">Set it up once. It keeps going.</h2>
+    </div>
+    <ol class="relative grid gap-12 md:grid-cols-3 md:gap-6">
+      <span aria-hidden="true" class="absolute top-8 right-[16%] left-[16%] hidden border-t-4 border-dotted border-brand-300 md:block"></span>
+      {steps.map((s) => (
+        <li class="relative flex flex-col items-center gap-4 rounded-4xl border border-line bg-white px-8 pb-10 text-center">
+          <span class={`-mt-8 flex size-16 items-center justify-center rounded-full text-display-xs font-bold ring-8 ring-cream ${s.dot}`}>
+            <span class="sr-only">Step </span>{s.n}
+          </span>
+          <h3 class="text-display-xs font-bold">{s.title}</h3>
+          <p class="text-muted">{s.body}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>

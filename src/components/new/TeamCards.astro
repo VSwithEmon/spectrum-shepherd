@@ -1,0 +1,49 @@
+---
+// Three side-by-side role cards, each with a ringed photo badge.
+import Button from '../Button.astro';
+import CheckItem from '../CheckItem.astro';
+import PhotoPlaceholder from '../PhotoPlaceholder.astro';
+import DottedRing from './DottedRing.astro';
+
+const cards = [
+  {
+    eyebrow: 'FOR TEACHERS', title: 'Save planning time. Skip the paperwork.',
+    benefits: ['Ready-made life-skills lessons', 'IEP-linked progress notes', 'Students work independently'],
+    cta: { label: 'Start free 45-day trial', href: '#', variant: 'primary' as const },
+    photo: '[PHOTO — real teacher]', card: 'bg-yellow-200', eyebrowColor: 'text-yellow-800', ring: 'stroke-yellow-800', tone: 'white' as const,
+  },
+  {
+    eyebrow: 'FOR PROGRAM LEADERS', title: 'Lead with evidence. Meet compliance.',
+    benefits: ['Transition Evidence Reports', 'Indicator 13 support', 'IDEA Part B & Title IV-A ready'],
+    cta: { label: 'Book a demo', href: '/book-a-demo', variant: 'light' as const },
+    photo: '[PHOTO — real program leader]', card: 'on-dark bg-brand-800 text-white', eyebrowColor: 'text-yellow-300', ring: 'stroke-yellow-300', tone: 'white' as const,
+  },
+  {
+    eyebrow: 'FOR STUDENTS', title: 'Practice what they love. Grow real independence.',
+    benefits: ['Lessons under 10 minutes', 'Built on their interests', 'Any device, anywhere'],
+    cta: { label: 'See the student app', href: '#', variant: 'primary' as const },
+    photo: '[PHOTO — real student]', card: 'bg-orange-100', eyebrowColor: 'text-orange-800', ring: 'stroke-orange-700', tone: 'white' as const,
+  },
+];
+---
+<section class="px-4 pb-16 md:px-8 lg:pb-24" aria-labelledby="team-title">
+  <div class="mx-auto flex max-w-[1200px] flex-col gap-10">
+    <h2 id="team-title" class="text-center text-display-sm font-bold md:text-display-md">One platform for everyone in a student's corner</h2>
+    <ul class="grid gap-6 lg:grid-cols-3">
+      {cards.map((c) => (
+        <li class={`flex flex-col items-start gap-5 rounded-[32px] p-8 ${c.card}`}>
+          <div class="relative mb-2 size-24">
+            <PhotoPlaceholder label={c.photo} tone={c.tone} size="p-2 text-[10px]" class="size-full rounded-full" />
+            <DottedRing class="-inset-[12%] size-[124%]" color={c.ring} />
+          </div>
+          <p class={`text-sm font-bold ${c.eyebrowColor}`}>{c.eyebrow}</p>
+          <h3 class="text-display-xs font-bold">{c.title}</h3>
+          <ul class="flex flex-col gap-3">
+            {c.benefits.map((b) => <CheckItem>{b}</CheckItem>)}
+          </ul>
+          <Button href={c.cta.href} variant={c.cta.variant} class="mt-auto">{c.cta.label} →</Button>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

@@ -1,0 +1,13 @@
+---
+// "HP / Cloud" — decorative. Pass size/position utilities via class.
+interface Props {
+  class?: string;
+  tone?: 'white' | 'brand';
+}
+const { class: className = '', tone = 'white' } = Astro.props;
+const fill = tone === 'white' ? 'bg-white' : 'bg-brand-700';
+---
+<div aria-hidden="true" class={`pointer-events-none absolute ${className}`}>
+  <span class={`absolute inset-[33.33%_0_0_0] rounded-full ${fill}`}></span>
+  <span class={`absolute inset-[0_32%_0_20%] rounded-full ${fill}`}></span>
+</div>

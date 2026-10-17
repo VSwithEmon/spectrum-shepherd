@@ -1,0 +1,13 @@
+---
+// "HP / Floating Stat" — white chip overlaid on a photo.
+interface Props {
+  value: string;
+  caption: string;
+  class?: string;
+}
+const { value, caption, class: className = '' } = Astro.props;
+---
+<p class={`absolute flex flex-col rounded-2xl bg-white px-4 py-3 shadow-lg ${className}`}>
+  <span class="text-display-xs font-bold">{value}</span>
+  <span class="text-sm font-medium text-muted">{caption}</span>
+</p>

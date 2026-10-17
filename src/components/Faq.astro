@@ -1,0 +1,33 @@
+---
+// Answers use only facts already approved for the site; pricing is left for the client.
+const faqs = [
+  { q: 'What is Spectrum Shepherd?', a: 'An AI life-skills coach for neurodiverse students aged 14–22. Students practice short, personalized lessons built around their interests, and teachers get IEP-ready progress reports.' },
+  { q: 'How does the free trial work?', a: 'Teachers can try Shepherd free for 45 days. No credit card and no district approval needed.' },
+  { q: 'Can grant funds pay for Shepherd?', a: 'Shepherd is designed for IDEA Part B and Title IV-A use, and FY2026 grant funds can cover it for your transition program. Our funding guide walks you through it.' },
+  { q: 'How is student data protected?', a: 'Shepherd is built for FERPA compliance and student data security. [Add: DPA, privacy pledge or certifications]' },
+  { q: 'Does anything need to be installed?', a: 'No. Shepherd is 100% web-based and works on any device — at school, at home or in the community.' },
+  { q: 'How much does Shepherd cost?', a: '[Client to supply pricing details.]' },
+];
+---
+<section class="bg-white px-4 py-16 md:px-8 lg:py-24" aria-labelledby="faq-title">
+  <div class="mx-auto grid max-w-[1200px] gap-10 lg:grid-cols-[1fr_1.5fr] lg:gap-16">
+    <div class="flex flex-col items-start gap-4">
+      <h2 id="faq-title" class="text-display-sm font-bold md:text-display-md">Questions schools ask</h2>
+      <p class="text-lg text-muted">Something we haven't covered? We're happy to walk you through it.</p>
+      <a href="/book-a-demo" class="text-lg font-bold text-brand-700 underline hover:text-brand-800">Book a 15-minute demo →</a>
+    </div>
+    <div class="flex flex-col gap-3">
+      {faqs.map((f) => (
+        <details class="group rounded-2xl border border-line bg-cream px-5 open:bg-brand-25">
+          <summary class="flex min-h-14 cursor-pointer list-none items-center justify-between gap-4 py-4 text-lg font-semibold [&::-webkit-details-marker]:hidden">
+            {f.q}
+            <span aria-hidden="true" class="flex size-8 shrink-0 items-center justify-center rounded-full bg-brand-700 text-white transition group-open:rotate-45">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 5v14M5 12h14" /></svg>
+            </span>
+          </summary>
+          <p class="pb-5 text-lg text-muted">{f.a}</p>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

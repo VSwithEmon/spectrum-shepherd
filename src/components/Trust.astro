@@ -1,0 +1,24 @@
+---
+const pillars = [
+  { title: 'IDEA Part B & Title IV-A', body: 'Designed for compliance with both funding sources.' },
+  { title: 'Indicator 13', body: 'Transition evidence captured as students work.' },
+  { title: 'Student data privacy', body: 'Built for FERPA compliance. [Add: DPA, privacy pledge or certifications]' },
+  { title: 'Nothing to install', body: '100% web-based. Works on any device.' },
+];
+---
+<section class="px-4 py-16 md:px-8 lg:py-24" aria-labelledby="trust-title">
+  <div class="mx-auto flex max-w-[1200px] flex-col gap-8">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <h2 id="trust-title" class="text-display-xs font-bold sm:text-display-md">Built to pass district review.</h2>
+      <a href="#" class="text-lg font-bold text-brand-700 underline hover:text-brand-800">Visit the Trust Center →</a>
+    </div>
+    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      {pillars.map((p) => (
+        <li class="flex flex-col gap-2 rounded-4xl border border-line bg-white p-6">
+          <h3 class="text-xl font-bold">{p.title}</h3>
+          <p class="text-muted">{p.body}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

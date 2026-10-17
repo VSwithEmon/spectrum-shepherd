@@ -1,0 +1,39 @@
+---
+// Inline demo form used on the current homepage (#demo).
+import Button from './Button.astro';
+import CheckItem from './CheckItem.astro';
+import FormField from './FormField.astro';
+import PhotoPlaceholder from './PhotoPlaceholder.astro';
+---
+<section id="demo" class="scroll-mt-4 bg-white px-4 py-16 md:px-8 lg:py-24" aria-labelledby="demo-title">
+  <div class="mx-auto flex max-w-[1200px] flex-col gap-12 lg:flex-row lg:items-start lg:gap-16">
+    <div class="flex flex-col items-start gap-6 lg:flex-1">
+      <p class="text-sm font-bold text-brand-700">BOOK A DEMO</p>
+      <h2 id="demo-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">See Shepherd with your students in mind.</h2>
+      <p class="text-lg text-muted">A 15-minute walkthrough for special education and transition leaders.</p>
+      <ul class="flex flex-col gap-3">
+        <CheckItem>See the Transition Evidence Report</CheckItem>
+        <CheckItem>Get your privacy questions answered</CheckItem>
+        <CheckItem>Talk through funding options</CheckItem>
+      </ul>
+      <PhotoPlaceholder label="[PHOTO — real team member who runs demos]" tone="orange" class="h-[220px] w-full rounded-4xl" />
+      <p class="text-muted">Just one teacher? <a href="#" class="font-bold text-brand-700 underline hover:text-brand-800">Start a free 45-day trial</a></p>
+    </div>
+
+    <!-- TODO: point action at the form service once the client chooses one. -->
+    <form method="post" class="flex flex-col gap-4 rounded-4xl border border-line bg-cream p-6 shadow-md sm:p-10 lg:flex-1" aria-labelledby="demo-title">
+      <div class="grid gap-4 sm:grid-cols-2">
+        <FormField id="first-name" label="First name" autocomplete="given-name" required />
+        <FormField id="last-name" label="Last name" autocomplete="family-name" required />
+      </div>
+      <FormField id="email" label="Work email" type="email" placeholder="you@district.org" autocomplete="email" required />
+      <FormField id="organization" label="School or district" autocomplete="organization" required />
+      <div class="grid gap-4 sm:grid-cols-2">
+        <FormField id="role" label="Your role" options={['Special ed director', 'Transition coordinator', 'Principal', 'Teacher', 'Other']} />
+        <FormField id="students" label="Students aged 14–22" options={['Under 25', '25–100', '100–500', '500+']} />
+      </div>
+      <Button type="submit" full>Book my demo</Button>
+      <p class="text-sm text-muted">We'll reply within one school day to pick a time. See our <a href="/privacy" class="text-brand-700 underline hover:text-brand-800">privacy policy</a>.</p>
+    </form>
+  </div>
+</section>

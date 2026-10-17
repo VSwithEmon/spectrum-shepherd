@@ -1,0 +1,20 @@
+---
+// "HP / Placeholder" — keep the bracketed brief until the client supplies a real photo.
+interface Props {
+  label: string;
+  tone?: 'brand' | 'yellow' | 'orange' | 'white';
+  class?: string;
+  /** Padding + type size utilities; override for small slots. */
+  size?: string;
+}
+const { label, tone = 'orange', class: className = '', size = 'p-8 text-md' } = Astro.props;
+const tones = {
+  brand: 'bg-brand-50 text-brand-800',
+  yellow: 'bg-yellow-100 text-yellow-800',
+  orange: 'bg-orange-100 text-orange-800',
+  white: 'bg-white text-brand-800',
+};
+---
+<div role="img" aria-label={`Photo placeholder: ${label.replace(/^\[|\]$/g, '')}`} class={`flex items-center justify-center text-center font-bold ${size} ${tones[tone]} ${className}`}>
+  <span aria-hidden="true">{label}</span>
+</div>

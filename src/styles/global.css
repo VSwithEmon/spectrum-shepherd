@@ -1,0 +1,81 @@
+@import "tailwindcss";
+
+/* Design tokens from the Figma file (Spectrum Shepherd design system, Homepage v4). */
+@theme {
+  --font-sans: "Montserrat", system-ui, sans-serif;
+
+  --color-*: initial;
+  --color-white: #ffffff;
+  --color-transparent: transparent;
+
+  --color-brand-25: #f3fdf4;
+  --color-brand-50: #daf1db;
+  --color-brand-100: #c5e2c6;
+  --color-brand-200: #a9d4ab;
+  --color-brand-300: #82c084;
+  --color-brand-400: #69b46d;
+  --color-brand-500: #44a148;
+  --color-brand-600: #3e9342;
+  --color-brand-700: #307233;
+  --color-brand-800: #255928;
+  --color-brand-900: #1d441e;
+  --color-brand-950: #0d2d0d;
+
+  --color-ink: #1a2718;        /* text-primary (900) */
+  --color-muted: #536255;      /* text-tertiary (600) */
+  --color-field: #838d7f;      /* text-quaternary (500), input borders */
+  --color-line: #e9eaeb;       /* border-secondary */
+  --color-cream: #fefaf5;      /* Orange/25, page background */
+
+  --color-yellow-100: #fef7c3;
+  --color-yellow-200: #feee95;
+  --color-yellow-300: #fde272;
+  --color-yellow-400: #fac515;
+  --color-yellow-800: #854a0e;
+  --color-orange-50: #fef6ee;
+  --color-orange-100: #fdead7;
+  --color-orange-200: #f9dbaf;
+  --color-orange-400: #f38744;
+  --color-orange-700: #b93815;
+  --color-orange-800: #932f19;
+  --color-orange-alert: #c4320a;
+  --color-warning-25: #fffcf5;
+  --color-sky-50: #f0f9ff;
+  --color-sky-800: #065986;
+
+  /* Type scale: Text xs–xl, Display xs–2xl */
+  --text-xs: 12px;   --text-xs--line-height: 18px;
+  --text-sm: 14px;   --text-sm--line-height: 20px;
+  --text-md: 16px;   --text-md--line-height: 24px;
+  --text-lg: 18px;   --text-lg--line-height: 28px;
+  --text-xl: 20px;   --text-xl--line-height: 30px;
+  --text-display-xs: 24px; --text-display-xs--line-height: 32px;
+  --text-display-sm: 30px; --text-display-sm--line-height: 38px;
+  --text-display-md: 36px; --text-display-md--line-height: 44px; --text-display-md--letter-spacing: -0.02em;
+  --text-display-lg: 48px; --text-display-lg--line-height: 60px; --text-display-lg--letter-spacing: -0.02em;
+  --text-display-xl: 60px; --text-display-xl--line-height: 72px; --text-display-xl--letter-spacing: -0.02em;
+  --text-display-2xl: 72px; --text-display-2xl--line-height: 90px; --text-display-2xl--letter-spacing: -0.02em;
+
+  --radius-lg: 10px;
+  --radius-xl: 12px;
+  --radius-2xl: 16px;
+  --radius-3xl: 20px;
+  --radius-4xl: 24px;
+
+  --shadow-md: 0 4px 6px -1px rgb(10 13 18 / 0.1), 0 2px 4px -2px rgb(10 13 18 / 0.06);
+  --shadow-lg: 0 12px 16px -4px rgb(10 13 18 / 0.08), 0 4px 6px -2px rgb(10 13 18 / 0.03), 0 2px 2px -1px rgb(10 13 18 / 0.04);
+  --shadow-2xl: 0 24px 48px -12px rgb(10 13 18 / 0.18), 0 4px 4px -2px rgb(10 13 18 / 0.04);
+  --shadow-report: 0 20px 41px 0 rgb(0 0 0 / 0.25);
+  --shadow-button: 0 1px 2px 0 rgb(10 13 18 / 0.05), inset 0 -2px 0 0 rgb(10 13 18 / 0.14), inset 0 0 0 1px rgb(10 13 18 / 0.12);
+}
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+  }
+  body { @apply bg-cream font-sans text-md text-ink antialiased; }
+  :focus-visible { outline: 3px solid var(--color-brand-800); outline-offset: 3px; border-radius: 4px; }
+  .on-dark :focus-visible { outline-color: var(--color-white); }
+}

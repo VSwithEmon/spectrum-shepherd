@@ -1,0 +1,53 @@
+---
+// "Report Mock (sample data)" — illustrative Transition Evidence Report, not a real student.
+const skills = [
+  { name: 'Daily living & self-care', pct: 86, bar: 'bg-brand-500' },
+  { name: 'Money & budgeting', pct: 64, bar: 'bg-brand-500' },
+  { name: 'Community safety', pct: 41, bar: 'bg-orange-400', flag: 'Behind pace' },
+];
+const metrics = [
+  { label: 'Accuracy', value: '82%' },
+  { label: 'Prompting', value: 'Verbal → Visual' },
+  { label: 'Self-starts', value: '9 this week' },
+];
+---
+<figure class="flex w-full max-w-[516px] flex-col gap-5 rounded-[20px] bg-white p-5 shadow-report sm:p-7">
+  <figcaption class="sr-only">Sample Transition Evidence Report with illustrative data</figcaption>
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <div class="flex items-center gap-2.5">
+      <span class="rounded-lg bg-brand-50 p-2"><img src="/images/icons/report-file.svg" width="19" height="19" alt="" /></span>
+      <div>
+        <p class="text-[15.5px] leading-6 font-bold">Transition Evidence Report</p>
+        <p class="text-xs font-medium text-muted">Sample student · Age 16 · Spring term</p>
+      </div>
+    </div>
+    <p class="rounded-full bg-brand-50 px-2.5 py-0.5 text-xs font-semibold text-brand-700">Ready to review</p>
+  </div>
+  <hr class="border-line" />
+  {skills.map((s) => (
+    <div class="flex flex-col gap-2">
+      <div class="flex items-center justify-between gap-2">
+        <p class="flex items-center gap-1.5 text-sm font-semibold">
+          {s.name}
+          {s.flag && <span class="rounded-full bg-orange-50 px-1.5 py-px text-[10.3px] leading-4 font-semibold text-orange-alert">{s.flag}</span>}
+        </p>
+        <p class="text-xs font-semibold text-muted">{s.pct}% mastery</p>
+      </div>
+      <div class="h-2 overflow-hidden rounded-full bg-line" role="presentation">
+        <div class={`h-full rounded-full ${s.bar}`} style={`width:${s.pct}%`}></div>
+      </div>
+    </div>
+  ))}
+  <div class="grid grid-cols-3 gap-2.5">
+    {metrics.map((m) => (
+      <div class="rounded-[14px] border border-line bg-warning-25 p-3">
+        <p class="text-[10.3px] leading-4 font-medium text-muted">{m.label}</p>
+        <p class="text-sm font-bold">{m.value}</p>
+      </div>
+    ))}
+  </div>
+  <p class="flex items-center gap-2 rounded-[14px] bg-sky-50 p-3.5 text-xs font-semibold text-sky-800">
+    <img src="/images/icons/report-arrow.svg" width="17" height="17" alt="" />
+    Practice next: crossing safely at signals
+  </p>
+</figure>

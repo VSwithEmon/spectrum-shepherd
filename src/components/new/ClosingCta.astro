@@ -1,0 +1,20 @@
+---
+// Closing panel: green card with a dotted trail running up to a corner sun.
+import Button from '../Button.astro';
+---
+<section class="px-4 py-16 md:px-8 lg:py-24" aria-labelledby="closing-title">
+  <div class="on-dark relative mx-auto max-w-[1200px] overflow-hidden rounded-[40px] bg-brand-700 px-6 py-16 text-white sm:px-12 lg:py-20">
+    <span aria-hidden="true" class="absolute -top-20 -right-20 size-64 rounded-full bg-yellow-300"></span>
+    <svg aria-hidden="true" viewBox="0 0 1200 400" preserveAspectRatio="none" class="absolute inset-0 size-full">
+      <path d="M-20 380C260 330 520 360 760 250S1060 90 1130 60" fill="none" class="stroke-brand-400" stroke-width="5" stroke-linecap="round" stroke-dasharray="0 16" vector-effect="non-scaling-stroke" />
+    </svg>
+    <div class="relative flex max-w-[640px] flex-col items-start gap-6">
+      <h2 id="closing-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">Start building real independence</h2>
+      <p class="text-lg text-brand-50">See how Shepherd fits your students, your goals and your funding.</p>
+      <div class="flex flex-wrap gap-3">
+        <Button href="/book-a-demo" variant="light">Book a demo</Button>
+        <Button href="#" variant="outline-light">Start free 45-day trial</Button>
+      </div>
+    </div>
+  </div>
+</section>
