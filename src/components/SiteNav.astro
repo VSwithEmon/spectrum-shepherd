@@ -1,70 +1,251 @@
 ---
+// Floating nav bar (Figma: Nav bar + HP3 / Nav Item, "Nav — Schools menu (open state)").
+// Menus use the disclosure pattern: a button toggles a panel of ordinary links.
 import Logo from './Logo.astro';
 import Button from './Button.astro';
 
 interface Props { demoHref?: string }
 const { demoHref = '/book-a-demo' } = Astro.props;
 
-// Pages for these links don't exist yet.
-const links = [
-  { label: 'Teachers', href: '#' },
-  { label: 'Schools', href: '#' },
-  { label: 'The App', href: '#' },
+const icons = {
+  book: 'M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 21V5M8 7h7',
+  report: 'M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M9 14l2 2 4-4',
+  gift: 'M20 12v9H4v-9M2 7h20v5H2zM12 21V7M12 7H8a2 2 0 1 1 0-4c3 0 4 4 4 4zM12 7h4a2 2 0 1 0 0-4c-3 0-4 4-4 4z',
+  shield: 'M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6zM9 12l2 2 4-4',
+  coin: 'M12 5v14M15.5 8.5C15.5 7.1 14 6 12 6s-3.5 1-3.5 2.4c0 3.6 7 1.9 7 5.4 0 1.5-1.5 2.4-3.5 2.4s-3.5-1.1-3.5-2.6',
+  pen: 'M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z',
+  video: 'M23 7l-7 5 7 5zM1 5h15v14H1z',
+};
+const tiles = {
+  brand: 'bg-brand-50 stroke-brand-700',
+  yellow: 'bg-yellow-100 stroke-yellow-800',
+  orange: 'bg-orange-100 stroke-orange-800',
+};
+
+type Menu = {
+  id: string;
+  items: { title: string; desc: string; href: string; icon: keyof typeof icons; tile: keyof typeof tiles }[];
+  card: { eyebrow: string; title: string; body: string; cta: string; href: string; tone: 'green' | 'yellow' | 'deep' };
+};
+const menus: Record<string, Menu> = {
+  Teachers: {
+    id: 'menu-teachers',
+    items: [
+      { title: 'Ready-made life-skills lessons', desc: "Written for each student's reading level.", href: '#', icon: 'book', tile: 'brand' },
+      { title: 'IEP-linked progress notes', desc: 'Captured automatically as students work.', href: '#', icon: 'report', tile: 'yellow' },
+      { title: 'Free 45-day trial', desc: 'No credit card. No district approval needed.', href: '#', icon: 'gift', tile: 'orange' },
+    ],
+    card: { eyebrow: 'FOR TEACHERS', title: 'Try Shepherd free for 45 days', body: 'Set up your class in minutes and see the first progress notes this week.', cta: 'Start free trial', href: '#', tone: 'yellow' },
+  },
+  Schools: {
+    id: 'menu-schools',
+    items: [
+      { title: 'Transition Evidence Reports', desc: 'IEP-ready progress, captured as students work.', href: '#', icon: 'report', tile: 'brand' },
+      { title: 'Indicator 13 support', desc: 'Transition evidence for compliance reviews.', href: '#', icon: 'shield', tile: 'yellow' },
+      { title: 'Funding guide', desc: 'How FY2026 grant funds can cover Shepherd.', href: '#', icon: 'coin', tile: 'orange' },
+    ],
+    card: { eyebrow: 'FOR PROGRAM LEADERS', title: 'See Shepherd in 15 minutes', body: 'The evidence report, privacy answers and funding — in one call.', cta: 'Book a demo', href: demoHref, tone: 'green' },
+  },
+  Resources: {
+    id: 'menu-resources',
+    items: [
+      { title: 'Funding guide', desc: 'How FY2026 grant funds can cover Shepherd.', href: '#', icon: 'coin', tile: 'orange' },
+      { title: 'Blog', desc: 'Articles and ideas for special educators.', href: '#', icon: 'pen', tile: 'brand' },
+      { title: 'Webinars', desc: 'Sessions for special education teams.', href: '#', icon: 'video', tile: 'yellow' },
+    ],
+    card: { eyebrow: 'TRUST CENTER', title: 'Built to pass district review', body: 'Privacy, security and compliance answers in one place.', cta: 'Trust Center', href: '#', tone: 'deep' },
+  },
+};
+const cardTones = {
+  green: { box: 'on-dark bg-brand-700 text-white', eyebrow: 'text-yellow-300', body: 'text-brand-50', btn: 'light' as const },
+  deep: { box: 'on-dark bg-brand-900 text-white', eyebrow: 'text-yellow-300', body: 'text-brand-50', btn: 'light' as const },
+  yellow: { box: 'bg-yellow-200 text-ink', eyebrow: 'text-yellow-800', body: 'text-ink', btn: 'primary' as const },
+};
+
+const links: { label: string; href?: string; badge?: string }[] = [
+  { label: 'Teachers' },
+  { label: 'Schools' },
+  { label: 'The App', href: '#', badge: 'New' },
   { label: 'About', href: '#' },
-  { label: 'Resources', href: '#' },
+  { label: 'Resources' },
 ];
+const itemClass = 'flex min-h-11 items-center gap-1.5 rounded-full px-4 font-semibold text-ink transition-colors hover:bg-white hover:text-brand-800 hover:shadow-md';
 ---
-<header class="relative z-20 bg-cream">
-  <div class="mx-auto flex max-w-[1200px] items-center justify-between gap-6 px-4 py-5 md:px-8 xl:px-0">
+<header class="site-nav sticky top-0 z-50 px-4 pt-4 pb-2 md:px-8" data-nav>
+  <div class="bar relative mx-auto flex max-w-[1200px] items-center justify-between gap-3 rounded-full border border-line bg-white/95 py-2 pr-2 pl-4 shadow-lg backdrop-blur-md transition-shadow sm:gap-4 sm:pl-6">
     <Logo />
 
-    <nav aria-label="Main" class="hidden lg:block">
-      <ul class="flex items-center gap-1">
-        {links.map((l) => (
-          <li><a href={l.href} class="block rounded-lg px-5 py-1.5 font-medium hover:bg-brand-25 hover:text-brand-800">{l.label}</a></li>
-        ))}
+    <nav aria-label="Main" class="hidden xl:block">
+      <ul class="flex items-center gap-0.5 rounded-full border border-brand-50 bg-brand-25 p-1">
+        {links.map((l) => {
+          const menu = menus[l.label];
+          return (
+            <li data-menu-item>
+              {menu ? (
+                <button
+                  type="button"
+                  class={`${itemClass} aria-expanded:bg-brand-700 aria-expanded:text-white aria-expanded:shadow-none`}
+                  aria-expanded="false"
+                  aria-controls={menu.id}
+                  data-menu-trigger
+                >
+                  {l.label}
+                  <svg aria-hidden="true" class="chev size-4 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6" /></svg>
+                </button>
+              ) : (
+                <a href={l.href} class={itemClass}>
+                  {l.label}
+                  {l.badge && <span class="rounded-full bg-yellow-300 px-1.5 py-0.5 text-xs font-bold text-ink">{l.badge}</span>}
+                </a>
+              )}
+
+              {menu && (
+                <div id={menu.id} hidden class="panel absolute top-full left-1/2 z-40 mt-3 w-[min(768px,calc(100vw-32px))] -translate-x-1/2">
+                  <div class="flex gap-4 rounded-4xl border border-line bg-white p-4 shadow-2xl">
+                    <ul class="flex flex-1 flex-col gap-1">
+                      {menu.items.map((it) => (
+                        <li>
+                          <a href={it.href} class="group flex items-center gap-4 rounded-2xl px-4 py-3 transition-colors hover:bg-brand-25 focus-visible:bg-brand-25">
+                            <span aria-hidden="true" class={`flex size-12 shrink-0 items-center justify-center rounded-xl ${tiles[it.tile]}`}>
+                              <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d={icons[it.icon]} /></svg>
+                            </span>
+                            <span class="flex flex-1 flex-col">
+                              <span class="font-bold">{it.title}</span>
+                              <span class="text-sm text-muted">{it.desc}</span>
+                            </span>
+                            <svg aria-hidden="true" class="size-5 shrink-0 text-brand-700 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6" /></svg>
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                    <div class={`relative flex w-[280px] shrink-0 flex-col items-start gap-3 overflow-hidden rounded-3xl p-6 ${cardTones[menu.card.tone].box}`}>
+                      <span aria-hidden="true" class="absolute -top-14 -right-14 size-36 rounded-full bg-yellow-300"></span>
+                      <p class={`relative text-xs font-bold ${cardTones[menu.card.tone].eyebrow}`}>{menu.card.eyebrow}</p>
+                      <p class="relative text-display-xs font-bold">{menu.card.title}</p>
+                      <p class={`relative text-sm ${cardTones[menu.card.tone].body}`}>{menu.card.body}</p>
+                      <Button href={menu.card.href} variant={cardTones[menu.card.tone].btn} shape="pill" full class="relative mt-auto">{menu.card.cta} →</Button>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </li>
+          );
+        })}
       </ul>
     </nav>
 
-    <div class="hidden items-center gap-6 lg:flex">
-      <a href="#" class="font-semibold text-brand-700 hover:text-brand-800">Log in</a>
-      <Button href={demoHref}>Book a demo</Button>
+    <div class="hidden items-center gap-2 xl:flex">
+      <a href="#" class="flex min-h-11 items-center gap-2 rounded-full px-4 font-semibold text-brand-700 hover:bg-brand-25 hover:text-brand-800">
+        <svg aria-hidden="true" class="size-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21a8 8 0 0 0-16 0M12 13a5 5 0 1 0 0-10 5 5 0 0 0 0 10z" /></svg>
+        Log in
+      </a>
+      <Button href={demoHref} shape="pill">
+        Book a demo
+        <svg aria-hidden="true" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 6l6 6-6 6" /></svg>
+      </Button>
     </div>
 
     <button
       type="button"
-      class="menu-toggle inline-flex min-h-11 items-center gap-2 rounded-lg border border-brand-50 bg-brand-25 px-4 font-semibold text-brand-800 lg:hidden"
+      class="menu-toggle inline-flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-full bg-brand-25 px-4 font-semibold text-brand-800 max-[379px]:px-0 xl:hidden"
       aria-expanded="false"
       aria-controls="mobile-menu"
     >
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
-      Menu
+      <!-- Icon-only on very small phones (under 380px); the label stays for screen readers. -->
+      <span class="max-[379px]:sr-only">Menu</span>
     </button>
   </div>
 
-  <nav id="mobile-menu" aria-label="Main" class="hidden border-t border-line bg-cream px-4 pb-6 md:px-8 lg:hidden">
-    <ul class="flex flex-col py-2">
+  <nav id="mobile-menu" aria-label="Main" hidden class="mx-auto mt-3 max-w-[1200px] rounded-4xl border border-line bg-white p-4 shadow-2xl xl:hidden">
+    <ul class="flex flex-col">
       {links.map((l) => (
-        <li><a href={l.href} class="block py-3 text-lg font-medium">{l.label}</a></li>
+        <li>
+          <a href={l.href ?? '#'} class="flex min-h-12 items-center gap-2 rounded-2xl px-4 text-lg font-semibold hover:bg-brand-25">
+            {l.label}
+            {l.badge && <span class="rounded-full bg-yellow-300 px-1.5 py-0.5 text-xs font-bold text-ink">{l.badge}</span>}
+          </a>
+        </li>
       ))}
-      <li><a href="#" class="block py-3 text-lg font-semibold text-brand-700">Log in</a></li>
+      <li><a href="#" class="flex min-h-12 items-center rounded-2xl px-4 text-lg font-semibold text-brand-700 hover:bg-brand-25">Log in</a></li>
     </ul>
-    <Button href={demoHref} full>Book a demo</Button>
+    <Button href={demoHref} shape="pill" full class="mt-3">Book a demo</Button>
   </nav>
 </header>
 
+<style>
+  [data-menu-trigger][aria-expanded='true'] .chev { transform: rotate(180deg); }
+  .site-nav.is-scrolled .bar { box-shadow: var(--shadow-2xl); }
+  /* Invisible bridge so the pointer can cross the gap between trigger and panel. */
+  .panel::before { content: ''; position: absolute; inset: -14px 0 auto; height: 14px; }
+</style>
+
 <script>
-  const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
-  const menu = document.getElementById('mobile-menu');
-  toggle?.addEventListener('click', () => {
-    const open = toggle.getAttribute('aria-expanded') === 'true';
-    toggle.setAttribute('aria-expanded', String(!open));
-    menu?.classList.toggle('hidden', open);
+  const nav = document.querySelector<HTMLElement>('[data-nav]')!;
+
+  // Floating nav: publish its height (for anchor offsets and the pinned carousel)
+  // and deepen the shadow once the page has scrolled.
+  const publishHeight = () => document.documentElement.style.setProperty('--nav-h', `${nav.offsetHeight}px`);
+  publishHeight();
+  new ResizeObserver(publishHeight).observe(nav.querySelector('.bar')!);
+  const onScroll = () => nav.classList.toggle('is-scrolled', window.scrollY > 8);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+  const triggers = [...nav.querySelectorAll<HTMLButtonElement>('[data-menu-trigger]')];
+  const hoverable = window.matchMedia('(hover: hover) and (pointer: fine)');
+  const panelOf = (t: HTMLButtonElement) => document.getElementById(t.getAttribute('aria-controls')!)!;
+
+  const setOpen = (t: HTMLButtonElement, open: boolean) => {
+    t.setAttribute('aria-expanded', String(open));
+    panelOf(t).hidden = !open;
+  };
+  const closeAll = (except?: HTMLButtonElement) => triggers.forEach((t) => t !== except && setOpen(t, false));
+
+  triggers.forEach((t) => {
+    const item = t.closest<HTMLElement>('[data-menu-item]')!;
+    let timer: number | undefined;
+
+    t.addEventListener('click', () => {
+      const open = t.getAttribute('aria-expanded') !== 'true';
+      closeAll(t);
+      setOpen(t, open);
+    });
+
+    item.addEventListener('mouseenter', () => {
+      if (!hoverable.matches) return;
+      clearTimeout(timer);
+      closeAll(t);
+      setOpen(t, true);
+    });
+    item.addEventListener('mouseleave', () => {
+      if (!hoverable.matches) return;
+      timer = window.setTimeout(() => setOpen(t, false), 150);
+    });
+
+    // Close when keyboard focus leaves this item and its panel.
+    item.addEventListener('focusout', (e) => {
+      if (!item.contains(e.relatedTarget as Node)) setOpen(t, false);
+    });
   });
-  menu?.addEventListener('click', (e) => {
-    if ((e.target as HTMLElement).closest('a')) {
-      toggle?.setAttribute('aria-expanded', 'false');
-      menu.classList.add('hidden');
-    }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape') return;
+    const open = triggers.find((t) => t.getAttribute('aria-expanded') === 'true');
+    if (open) { setOpen(open, false); open.focus(); }
+  });
+  document.addEventListener('click', (e) => {
+    if (!nav.contains(e.target as Node)) closeAll();
+  });
+
+  // Mobile menu
+  const toggle = nav.querySelector<HTMLButtonElement>('.menu-toggle')!;
+  const mobile = document.getElementById('mobile-menu')!;
+  toggle.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') !== 'true';
+    toggle.setAttribute('aria-expanded', String(open));
+    mobile.hidden = !open;
+  });
+  mobile.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).closest('a')) { toggle.setAttribute('aria-expanded', 'false'); mobile.hidden = true; }
   });
 </script>

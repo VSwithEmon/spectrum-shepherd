@@ -1,36 +1,61 @@
 ---
-import Cloud from './Cloud.astro';
+// "Two hats" testimonial (Figma: Testimonial — Two hats, node 38613:3802).
+// One blockquote, split visually into a pull quote and two colour-coded cards.
+// The blockquote uses display:contents so its parts can sit in the figure's grid
+// around the portrait while staying a single quote in the accessibility tree.
+import DottedRing from './new/DottedRing.astro';
 ---
 <section class="relative overflow-hidden bg-brand-50 px-4 py-16 md:px-8 lg:py-24" aria-labelledby="testimonial-title">
-  <h2 id="testimonial-title" class="sr-only">What educators say</h2>
-  <Cloud class="top-[30px] left-[-50px] h-[90px] w-[240px]" />
-  <Cloud class="right-[-60px] bottom-[50px] hidden h-[96px] w-[260px] md:block" />
+  <!-- Big decorations only where the headline can't collide with them (lg+). -->
+  <span aria-hidden="true" class="absolute -top-24 -left-24 size-40 rounded-full bg-yellow-300 md:size-48 lg:-top-40 lg:-left-36 lg:size-[360px]"></span>
+  <DottedRing class="-top-[210px] -left-[190px] hidden size-[460px] lg:block" color="stroke-brand-300" />
+  <span aria-hidden="true" class="pointer-events-none absolute -top-8 right-14 hidden text-[320px] leading-none font-bold text-brand-200 xl:block">”</span>
 
-  <figure class="relative mx-auto flex max-w-[1200px] flex-col items-center gap-10 md:flex-row md:gap-16">
-    <div class="relative h-[300px] w-[320px] shrink-0 sm:h-[360px] sm:w-[380px]">
-      <img
-        src="/images/photos/lori-lopez-lopez.jpg"
-        width="640"
-        height="640"
-        loading="lazy"
-        alt="Portrait of Dr. Lori Lopez-Lopez"
-        class="absolute top-0 left-0 size-[280px] rounded-full object-cover sm:size-[320px]"
-      />
-      <p class="absolute top-[170px] left-[170px] flex size-[150px] flex-col items-center justify-center gap-0.5 rounded-full bg-brand-800 text-center shadow-lg sm:top-[210px] sm:left-[230px]">
-        <span class="text-display-md font-bold text-white">91%</span>
-        <span class="text-xs font-bold text-brand-100">PARENT DEMAND<br />CONFIRMED</span>
-      </p>
-    </div>
-    <div class="flex flex-col items-start gap-6 md:flex-1">
-      <span aria-hidden="true" class="text-display-2xl font-bold text-brand-600">“</span>
-      <blockquote class="flex flex-col gap-6">
-        <p class="text-display-xs font-bold sm:text-display-sm">I see the value both as a teacher and as an administrator.</p>
-        <p class="text-lg text-muted">As a teacher, it gives us a highly effective tool for explicit functional and social skills instruction. As an administrator, it lets us monitor progress that's typically far too subjective.</p>
+  <div class="relative mx-auto flex max-w-[1200px] flex-col items-center gap-6">
+    <h2 id="testimonial-title" class="flex items-center gap-1.5 rounded-full bg-white px-3 py-1 text-xs font-bold text-brand-800">
+      <span aria-hidden="true" class="size-2 rounded-full bg-brand-600"></span>
+      FROM THE CLASSROOM
+    </h2>
+
+    <figure class="grid w-full items-center gap-8 md:grid-cols-2 lg:grid-cols-[1fr_260px_1fr] lg:gap-x-16 lg:gap-y-16">
+      <blockquote class="contents">
+        <p class="order-1 mx-auto max-w-[940px] text-center text-display-xs font-bold sm:text-display-sm md:col-span-2 md:text-display-md lg:col-span-3 lg:row-start-1 lg:text-display-lg">
+          “I see the value both as a <span class="text-yellow-800">teacher</span> and as an <span class="text-brand-700">administrator</span>.”
+        </p>
+        <p class="order-2 flex flex-col gap-5 self-stretch rounded-[32px] bg-yellow-200 p-6 text-lg font-medium shadow-lg sm:p-8 sm:text-xl md:col-start-1 md:row-start-2">
+          <span aria-hidden="true" class="flex size-12 items-center justify-center rounded-xl bg-white">
+            <svg class="size-6 stroke-yellow-800" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 21V5M8 7h7" /></svg>
+          </span>
+          <span><strong class="font-bold">As a teacher,</strong> it gives us a highly effective tool for explicit functional and social skills instruction.</span>
+        </p>
+        <p class="on-dark order-4 flex flex-col gap-5 self-stretch rounded-[32px] bg-brand-700 p-6 text-lg font-medium text-brand-50 shadow-lg sm:p-8 sm:text-xl md:col-start-2 md:row-start-2 lg:col-start-3">
+          <span aria-hidden="true" class="flex size-12 items-center justify-center rounded-xl bg-brand-800">
+            <svg class="size-6 stroke-yellow-300" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18M7 15l4-4 3 3 5-6" /></svg>
+          </span>
+          <span><strong class="font-bold text-white">As an administrator,</strong> it lets us monitor progress that's typically far too subjective. Our team can now set the trajectory and manage to it.</span>
+        </p>
       </blockquote>
-      <figcaption class="flex flex-col">
-        <span class="text-lg font-bold">Dr. Lori Lopez-Lopez</span>
-        <span class="text-muted">Teacher and Administrator, Special Education</span>
+
+      <figcaption class="relative order-3 flex flex-col items-center gap-4 text-center md:col-span-2 md:row-start-3 lg:col-span-1 lg:col-start-2 lg:row-start-2">
+        <!-- dotted trail joining the two cards through the portrait -->
+        <span aria-hidden="true" class="absolute top-[118px] -right-16 -left-16 hidden border-t-[5px] border-dotted border-brand-500 lg:block"></span>
+        <span class="relative block size-60">
+          <span aria-hidden="true" class="absolute inset-0 rounded-full bg-white"></span>
+          <img
+            src="/images/photos/lori-lopez-lopez.jpg"
+            width="640"
+            height="640"
+            loading="lazy"
+            alt="Portrait of Dr. Lori Lopez-Lopez"
+            class="absolute inset-5 size-[200px] rounded-full object-cover"
+          />
+          <DottedRing class="inset-0 size-full" spin />
+        </span>
+        <span class="flex flex-col">
+          <span class="text-lg font-bold">Dr. Lori Lopez-Lopez</span>
+          <span class="text-sm text-muted">Teacher and Administrator,<br />Special Education</span>
+        </span>
       </figcaption>
-    </div>
-  </figure>
+    </figure>
+  </div>
 </section>

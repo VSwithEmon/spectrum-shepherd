@@ -1,24 +1,74 @@
 ---
-const pillars = [
-  { title: 'IDEA Part B & Title IV-A', body: 'Designed for compliance with both funding sources.' },
-  { title: 'Indicator 13', body: 'Transition evidence captured as students work.' },
-  { title: 'Student data privacy', body: 'Built for FERPA compliance. [Add: DPA, privacy pledge or certifications]' },
-  { title: 'Nothing to install', body: '100% web-based. Works on any device.' },
+// "District review checklist" (Figma: Trust — District review checklist, node 38613:3817).
+// Used on the homepage and /book-a-demo. Checks and decorations are visual only.
+const items = [
+  { title: 'IDEA Part B & Title IV-A', body: 'Designed for compliance with both funding sources.', tile: 'bg-orange-100 stroke-orange-800',
+    icon: 'M12 5v14M15.5 8.5C15.5 7.1 14 6 12 6s-3.5 1-3.5 2.4c0 3.6 7 1.9 7 5.4 0 1.5-1.5 2.4-3.5 2.4s-3.5-1.1-3.5-2.6' },
+  { title: 'Indicator 13', body: 'Transition evidence captured as students work.', tile: 'bg-yellow-100 stroke-yellow-800',
+    icon: 'M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M9 14l2 2 4-4' },
+  { title: 'Student data privacy', body: 'Built for FERPA compliance. [Add: DPA, privacy pledge or certifications]', tile: 'bg-brand-50 stroke-brand-700',
+    icon: 'M5 11h14v10H5zM8 11V7a4 4 0 0 1 8 0v4' },
+  { title: 'Nothing to install', body: '100% web-based. Works on any device.', tile: 'bg-orange-50 stroke-orange-800',
+    icon: 'M3 5h18v11H3zM8 21h8M12 16v5' },
 ];
 ---
-<section class="px-4 py-16 md:px-8 lg:py-24" aria-labelledby="trust-title">
-  <div class="mx-auto flex max-w-[1200px] flex-col gap-8">
-    <div class="flex flex-wrap items-end justify-between gap-4">
-      <h2 id="trust-title" class="text-display-xs font-bold sm:text-display-md">Built to pass district review.</h2>
-      <a href="#" class="text-lg font-bold text-brand-700 underline hover:text-brand-800">Visit the Trust Center →</a>
+<section class="overflow-hidden px-4 py-16 md:px-8 lg:py-24" aria-labelledby="trust-title">
+  <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-14 lg:flex-row lg:gap-20">
+    <div class="flex flex-col items-start gap-6 lg:flex-1">
+      <p class="flex items-center gap-1.5 rounded-full bg-brand-50 px-3 py-1 text-xs font-bold text-brand-800">
+        <svg aria-hidden="true" class="size-3.5 stroke-brand-700" viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z" /></svg>
+        BUILT TO PASS REVIEW
+      </p>
+      <h2 id="trust-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">
+        Built to pass <span class="text-brand-700">district review</span>.
+      </h2>
+      <p class="text-lg text-muted sm:text-xl">Everything a technology and special education review will ask about, in one place.</p>
+      <a href="#" class="flex items-center gap-2 text-lg font-bold text-brand-700 underline hover:text-brand-800">
+        Visit the Trust Center
+        <svg aria-hidden="true" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+      </a>
     </div>
-    <ul class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-      {pillars.map((p) => (
-        <li class="flex flex-col gap-2 rounded-4xl border border-line bg-white p-6">
-          <h3 class="text-xl font-bold">{p.title}</h3>
-          <p class="text-muted">{p.body}</p>
-        </li>
-      ))}
-    </ul>
+
+    <div class="relative w-full max-w-[640px] py-6 sm:px-10 sm:py-10 lg:w-[640px] lg:shrink-0">
+      <span aria-hidden="true" class="absolute -top-6 right-0 size-40 rounded-full bg-yellow-300 sm:-top-10 sm:size-60"></span>
+      <svg aria-hidden="true" class="absolute bottom-0 -left-6 hidden h-[400px] w-[140px] sm:block" viewBox="0 0 140 560" fill="none">
+        <path d="M10 540C120 470 160 380 60 300" class="stroke-brand-400" stroke-width="5" stroke-linecap="round" stroke-dasharray="0 14" />
+      </svg>
+
+      <div class="relative">
+        <span aria-hidden="true" class="absolute inset-0 translate-x-[18px] translate-y-[14px] rotate-6 rounded-[32px] bg-yellow-200"></span>
+        <div class="relative flex flex-col gap-5 rounded-[32px] border border-line bg-white p-5 shadow-2xl sm:p-8">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-3">
+              <span aria-hidden="true" class="flex size-11 shrink-0 items-center justify-center rounded-xl bg-brand-700">
+                <svg class="size-[22px] stroke-white" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2M9 14l2 2 4-4" /></svg>
+              </span>
+              <p class="flex flex-col">
+                <span class="text-lg font-bold">District review checklist</span>
+                <span class="text-sm text-muted">Technology &amp; special education</span>
+              </p>
+            </div>
+            <span class="rounded-full bg-brand-50 px-3 py-1 text-xs font-bold text-brand-800">4 key areas</span>
+          </div>
+          <hr class="border-line" />
+          <ul class="flex flex-col gap-1">
+            {items.map((it, i) => (
+              <li class={`flex items-center gap-3 rounded-2xl px-3 py-3 sm:gap-4 sm:px-4 ${i % 2 === 0 ? 'bg-cream' : ''}`}>
+                <span aria-hidden="true" class={`hidden size-11 shrink-0 items-center justify-center rounded-xl sm:flex ${it.tile}`}>
+                  <svg class="size-[22px]" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d={it.icon} /></svg>
+                </span>
+                <div class="flex flex-1 flex-col gap-0.5">
+                  <h3 class="font-bold">{it.title}</h3>
+                  <p class="text-sm text-muted">{it.body}</p>
+                </div>
+                <span aria-hidden="true" class="flex size-8 shrink-0 items-center justify-center rounded-full bg-brand-700">
+                  <svg class="size-4 stroke-white" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7" /></svg>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
