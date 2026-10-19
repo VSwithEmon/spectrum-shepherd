@@ -1,10 +1,13 @@
 ---
-// Review aid: switch between the current homepage (/) and Figma's Homepage Design v2 (/v2).
-interface Props { active: 'current' | 'v2' }
+// Review aid: switch between the homepage designs in Figma's "Homepage Design" section.
+// /v3 and /v4 are the green-first versions of V1 (/) and /v2.
+interface Props { active: 'v1' | 'v2' | 'v3' | 'v4' }
 const { active } = Astro.props;
 const options = [
-  { id: 'current', label: 'Current', href: '/' },
+  { id: 'v1', label: 'V1', href: '/' },
   { id: 'v2', label: 'V2', href: '/v2' },
+  { id: 'v3', label: 'V3', href: '/v3' },
+  { id: 'v4', label: 'V4', href: '/v4' },
 ];
 ---
 <nav

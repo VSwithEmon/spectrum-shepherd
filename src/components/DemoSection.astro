@@ -19,7 +19,7 @@ const steps = [
       </svg>
 
       <div class="relative flex flex-col items-start gap-6 lg:flex-1">
-        <p class="flex items-center gap-1.5 rounded-full bg-brand-800 px-3 py-1 text-xs font-bold text-yellow-300">
+        <p class="flex items-center gap-1.5 rounded-full bg-brand-800 px-3 py-1 text-xs font-bold text-yellow-300 calm:text-brand-100">
           <span aria-hidden="true" class="size-2 rounded-full bg-yellow-300"></span>
           BOOK A DEMO
         </p>
@@ -44,7 +44,7 @@ const steps = [
         <ol class="flex w-full flex-col gap-3" aria-label="How it works">
           {steps.map((s, i) => (
             <li class="flex items-center gap-3 text-lg font-semibold">
-              <span aria-hidden="true" class="flex size-9 shrink-0 items-center justify-center rounded-full bg-yellow-300 font-bold text-ink">{i + 1}</span>
+              <span aria-hidden="true" class="flex size-9 shrink-0 items-center justify-center rounded-full bg-yellow-300 font-bold text-ink calm:bg-brand-200">{i + 1}</span>
               {s}
             </li>
           ))}
@@ -72,7 +72,7 @@ const steps = [
       </form>
     </div>
 
-    <p class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 rounded-full bg-yellow-200 px-6 py-3 text-center font-bold">
+    <p class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 rounded-full bg-yellow-200 px-6 py-3 text-center font-bold calm:bg-brand-50">
       Just one teacher?
       <a href="#" class="text-brand-800 underline hover:text-ink">Start a free 45-day trial →</a>
     </p>

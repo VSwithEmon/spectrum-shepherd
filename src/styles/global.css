@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+/* Green-first palette (Figma "Homepage Design" v3/v4): pages set <body data-palette="calm">
+   and components swap large yellow areas with `calm:` utilities. Small yellow accents stay. */
+@custom-variant calm (&:where([data-palette="calm"] *));
+
 /* Design tokens from the Figma file (Spectrum Shepherd design system, Homepage v4). */
 @theme {
   --font-sans: "Montserrat", system-ui, sans-serif;

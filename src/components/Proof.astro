@@ -23,10 +23,10 @@ const tag = 'self-start rounded-full px-3 py-1 text-xs font-bold';
 
     <ul class="grid gap-4 md:grid-cols-2 lg:grid-cols-[384fr_384fr_400fr] lg:grid-rows-[272px_272px]">
       <!-- 91% — tall yellow card -->
-      <li class="relative flex min-h-[340px] flex-col justify-between overflow-hidden rounded-[32px] bg-yellow-300 p-8 md:row-span-2 lg:min-h-0">
+      <li class="relative flex min-h-[340px] flex-col justify-between overflow-hidden rounded-[32px] bg-yellow-300 p-8 md:row-span-2 lg:min-h-0 calm:bg-brand-100">
         <span aria-hidden="true" class="absolute -top-[90px] -right-[76px] size-[260px] rounded-full bg-orange-400/90"></span>
-        <DottedRing class="-top-[130px] -right-[116px] size-[340px] opacity-50" color="stroke-yellow-800" />
-        <span class={`relative bg-white text-yellow-800 ${tag}`}>PARENTS</span>
+        <DottedRing class="-top-[130px] -right-[116px] size-[340px] opacity-50" color="stroke-yellow-800 calm:stroke-brand-700" />
+        <span class={`relative bg-white text-yellow-800 calm:text-brand-700 ${tag}`}>PARENTS</span>
         <p class="relative flex flex-col gap-2">
           <span class="text-display-xl font-bold lg:text-display-2xl">91%</span>
           <span class="text-display-xs font-bold">parent demand confirmed</span>
@@ -52,7 +52,7 @@ const tag = 'self-start rounded-full px-3 py-1 text-xs font-bold';
       <!-- 8 of 8 — green card with eight filled dots -->
       <li class="on-dark flex min-h-[260px] flex-col justify-between gap-8 overflow-hidden rounded-[32px] bg-brand-700 p-8 text-white lg:min-h-0">
         <div class="flex flex-wrap items-center justify-between gap-4">
-          <span class={`bg-brand-800 text-yellow-300 ${tag}`}>SCHOOLS</span>
+          <span class={`bg-brand-800 text-yellow-300 calm:text-brand-100 ${tag}`}>SCHOOLS</span>
           <span aria-hidden="true" class="flex gap-2">
             {Array.from({ length: 8 }).map(() => <span class="size-5 rounded-full bg-yellow-300"></span>)}
           </span>
