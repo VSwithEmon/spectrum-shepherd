@@ -1,0 +1,26 @@
+---
+// Homepage Design (v2) from Figma (node 38641:75698), for review next to the current homepage.
+// Same sections as the current homepage, plus the compact logo strip, stacked audience cards,
+// How it works, FAQ and the closing CTA.
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import LogoStrip from '../components/v2/LogoStrip.astro';
+import Proof from '../components/Proof.astro';
+import AudienceStack from '../components/v2/AudienceStack.astro';
+import ComplianceBridge from '../components/ComplianceBridge.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import Testimonial from '../components/Testimonial.astro';
+import Faq from '../components/Faq.astro';
+import ClosingCta from '../components/ClosingCta.astro';
+---
+<Base title="Spectrum Shepherd — AI life-skills coach for students 14–22" designToggle="v2">
+  <Hero />
+  <LogoStrip />
+  <Proof />
+  <AudienceStack />
+  <ComplianceBridge />
+  <HowItWorks />
+  <Testimonial />
+  <Faq />
+  <ClosingCta />
+</Base>

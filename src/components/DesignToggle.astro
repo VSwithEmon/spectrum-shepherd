@@ -1,10 +1,10 @@
 ---
-// Review aid: switch between the current homepage (/) and the new direction (/new).
-interface Props { active: 'current' | 'new' }
+// Review aid: switch between the current homepage (/) and Figma's Homepage Design v2 (/v2).
+interface Props { active: 'current' | 'v2' }
 const { active } = Astro.props;
 const options = [
   { id: 'current', label: 'Current', href: '/' },
-  { id: 'new', label: 'New', href: '/new' },
+  { id: 'v2', label: 'V2', href: '/v2' },
 ];
 ---
 <nav

@@ -1,0 +1,11 @@
+---
+// "Logo Band" in Homepage Design (v2): a compact strip under the hero. School names stand in
+// for logo files until the client supplies them (Figma: "School logos (replace with supplied logo files)").
+const schools = ['Burr & Burton Academy', 'Cotting School', 'North Hunterdon', 'Kinnelon Schools', 'Voorhees HS', 'Newmark Education'];
+---
+<section class="on-dark flex flex-col items-center gap-5 bg-brand-700 px-4 pt-2 pb-8 text-white md:px-8" aria-label="Schools that helped shape Shepherd">
+  <p class="text-center font-semibold">Built with educators. Tested with students. Shaped in classrooms.</p>
+  <ul class="flex max-w-[1200px] flex-wrap items-center justify-center gap-x-12 gap-y-3 font-bold text-brand-50">
+    {schools.map((s) => <li>{s}</li>)}
+  </ul>
+</section>

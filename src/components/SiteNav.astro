@@ -24,34 +24,35 @@ const tiles = {
 
 type Menu = {
   id: string;
-  items: { title: string; desc: string; href: string; icon: keyof typeof icons; tile: keyof typeof tiles }[];
+  // `img` (illustrated icon in public/images/icons/illustrated/) replaces the line icon when set.
+  items: { title: string; desc: string; href: string; icon: keyof typeof icons; tile: keyof typeof tiles; img?: string }[];
   card: { eyebrow: string; title: string; body: string; cta: string; href: string; tone: 'green' | 'yellow' | 'deep' };
 };
 const menus: Record<string, Menu> = {
   Teachers: {
     id: 'menu-teachers',
     items: [
-      { title: 'Ready-made life-skills lessons', desc: "Written for each student's reading level.", href: '#', icon: 'book', tile: 'brand' },
-      { title: 'IEP-linked progress notes', desc: 'Captured automatically as students work.', href: '#', icon: 'report', tile: 'yellow' },
-      { title: 'Free 45-day trial', desc: 'No credit card. No district approval needed.', href: '#', icon: 'gift', tile: 'orange' },
+      { title: 'Ready-made life-skills lessons', desc: "Written for each student's reading level.", href: '#', icon: 'book', tile: 'brand', img: 'book.png' },
+      { title: 'IEP-linked progress notes', desc: 'Captured automatically as students work.', href: '#', icon: 'report', tile: 'yellow', img: 'report.svg' },
+      { title: 'Free 45-day trial', desc: 'No credit card. No district approval needed.', href: '#', icon: 'gift', tile: 'orange', img: 'hands.png' },
     ],
     card: { eyebrow: 'FOR TEACHERS', title: 'Try Shepherd free for 45 days', body: 'Set up your class in minutes and see the first progress notes this week.', cta: 'Start free trial', href: '#', tone: 'yellow' },
   },
   Schools: {
     id: 'menu-schools',
     items: [
-      { title: 'Transition Evidence Reports', desc: 'IEP-ready progress, captured as students work.', href: '#', icon: 'report', tile: 'brand' },
-      { title: 'Indicator 13 support', desc: 'Transition evidence for compliance reviews.', href: '#', icon: 'shield', tile: 'yellow' },
-      { title: 'Funding guide', desc: 'How FY2026 grant funds can cover Shepherd.', href: '#', icon: 'coin', tile: 'orange' },
+      { title: 'Transition Evidence Reports', desc: 'IEP-ready progress, captured as students work.', href: '#', icon: 'report', tile: 'brand', img: 'report.svg' },
+      { title: 'Indicator 13 support', desc: 'Transition evidence for compliance reviews.', href: '#', icon: 'shield', tile: 'yellow', img: 'plant.png' },
+      { title: 'Funding guide', desc: 'How FY2026 grant funds can cover Shepherd.', href: '#', icon: 'coin', tile: 'orange', img: 'briefcase.png' },
     ],
     card: { eyebrow: 'FOR PROGRAM LEADERS', title: 'See Shepherd in 15 minutes', body: 'The evidence report, privacy answers and funding — in one call.', cta: 'Book a demo', href: demoHref, tone: 'green' },
   },
   Resources: {
     id: 'menu-resources',
     items: [
-      { title: 'Funding guide', desc: 'How FY2026 grant funds can cover Shepherd.', href: '#', icon: 'coin', tile: 'orange' },
-      { title: 'Blog', desc: 'Articles and ideas for special educators.', href: '#', icon: 'pen', tile: 'brand' },
-      { title: 'Webinars', desc: 'Sessions for special education teams.', href: '#', icon: 'video', tile: 'yellow' },
+      { title: 'Funding guide', desc: 'How FY2026 grant funds can cover Shepherd.', href: '#', icon: 'coin', tile: 'orange', img: 'briefcase.png' },
+      { title: 'Blog', desc: 'Articles and ideas for special educators.', href: '#', icon: 'pen', tile: 'brand', img: 'bulb.png' },
+      { title: 'Webinars', desc: 'Sessions for special education teams.', href: '#', icon: 'video', tile: 'yellow', img: 'people.png' },
     ],
     card: { eyebrow: 'TRUST CENTER', title: 'Built to pass district review', body: 'Privacy, security and compliance answers in one place.', cta: 'Trust Center', href: '#', tone: 'deep' },
   },
@@ -107,7 +108,9 @@ const itemClass = 'flex min-h-11 items-center gap-1.5 rounded-full px-4 font-sem
                         <li>
                           <a href={it.href} class="group flex items-center gap-4 rounded-2xl px-4 py-3 transition-colors hover:bg-brand-25 focus-visible:bg-brand-25">
                             <span aria-hidden="true" class={`flex size-12 shrink-0 items-center justify-center rounded-xl ${tiles[it.tile]}`}>
-                              <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d={icons[it.icon]} /></svg>
+                              {it.img
+                                ? <img src={`/images/icons/illustrated/${it.img}`} width="32" height="32" alt="" class="size-8 object-contain" />
+                                : <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d={icons[it.icon]} /></svg>}
                             </span>
                             <span class="flex flex-1 flex-col">
                               <span class="font-bold">{it.title}</span>

@@ -5,7 +5,7 @@ Buyers are special education teachers (free 45-day trial) and school/district le
 
 ## Source designs
 - The current homepage is Figma frame "Homepage v4 — Redesign" (file `kf6bETSiXfVOzzNbTlCFA7`, node `38585:69285`, Landing Page page), built from the file's own design system. It's implemented in `src/pages/index.astro`.
-- `/new` (`src/pages/new.astro`, components in `src/components/new/`) is a second, code-only direction under client review: "the path to independence", inspired by but not copied from the references. A fixed Current/New switch (`DesignToggle.astro`) appears on both homepages only.
+- `/v2` (`src/pages/v2.astro`, new components in `src/components/v2/`) is Figma frame "Homepage Design (v2)" (node `38641:75698`), under client review. A fixed Current/V2 switch (`DesignToggle.astro`) appears on both homepages only.
 - `/book-a-demo` is the standalone demo-request page.
 - `option-b-homepage.html` ("Sunrise") is the earlier direction, kept for reference only.
 - The client's inspiration references are MagicSchool and Headspace: warm, polished, short headlines, real people, simple navigation.

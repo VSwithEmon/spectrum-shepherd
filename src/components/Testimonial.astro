@@ -3,7 +3,7 @@
 // One blockquote, split visually into a pull quote and two colour-coded cards.
 // The blockquote uses display:contents so its parts can sit in the figure's grid
 // around the portrait while staying a single quote in the accessibility tree.
-import DottedRing from './new/DottedRing.astro';
+import DottedRing from './DottedRing.astro';
 ---
 <section class="relative overflow-hidden bg-brand-50 px-4 py-16 md:px-8 lg:py-24" aria-labelledby="testimonial-title">
   <!-- Big decorations only where the headline can't collide with them (lg+). -->
@@ -24,13 +24,13 @@ import DottedRing from './new/DottedRing.astro';
         </p>
         <p class="order-2 flex flex-col gap-5 self-stretch rounded-[32px] bg-yellow-200 p-6 text-lg font-medium shadow-lg sm:p-8 sm:text-xl md:col-start-1 md:row-start-2">
           <span aria-hidden="true" class="flex size-12 items-center justify-center rounded-xl bg-white">
-            <svg class="size-6 stroke-yellow-800" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 21V5M8 7h7" /></svg>
+            <img src="/images/icons/illustrated/book.png" width="204" height="204" alt="" class="size-[34px] object-contain" />
           </span>
           <span><strong class="font-bold">As a teacher,</strong> it gives us a highly effective tool for explicit functional and social skills instruction.</span>
         </p>
         <p class="on-dark order-4 flex flex-col gap-5 self-stretch rounded-[32px] bg-brand-700 p-6 text-lg font-medium text-brand-50 shadow-lg sm:p-8 sm:text-xl md:col-start-2 md:row-start-2 lg:col-start-3">
-          <span aria-hidden="true" class="flex size-12 items-center justify-center rounded-xl bg-brand-800">
-            <svg class="size-6 stroke-yellow-300" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18M7 15l4-4 3 3 5-6" /></svg>
+          <span aria-hidden="true" class="flex size-12 items-center justify-center rounded-xl bg-brand-50">
+            <img src="/images/icons/illustrated/tools.png" width="192" height="192" alt="" class="size-[32px] object-contain" />
           </span>
           <span><strong class="font-bold text-white">As an administrator,</strong> it lets us monitor progress that's typically far too subjective. Our team can now set the trajectory and manage to it.</span>
         </p>

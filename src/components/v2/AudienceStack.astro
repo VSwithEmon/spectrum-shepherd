@@ -1,0 +1,104 @@
+---
+// "Who it's for" in Homepage Design (v2): the three audience cards stacked like a deck.
+// Desktop: each card sticks under the nav a little lower than the one before, so scrolling
+// slides the next card over the last and only its header edge shows. Small screens: plain list.
+// Pill tabs jump to a card and follow the scroll.
+import AudienceCard from '../AudienceCard.astro';
+import { audienceSlides as slides } from '../../data/audiences';
+
+const PEEK = 138; // px of each card left visible below the next one (Figma overlap: -298 on 436px cards)
+---
+<section class="audience-stack px-4 py-16 md:px-8 lg:py-24" aria-labelledby="audiences-title">
+  <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-3 text-center">
+    <p class="text-sm font-bold text-brand-700">WHO IT'S FOR</p>
+    <h2 id="audiences-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">One platform for everyone in a student's corner.</h2>
+  </div>
+
+  <div class="mx-auto mt-8 flex w-full max-w-[1200px] gap-2 overflow-x-auto [scrollbar-width:none] sm:justify-center sm:gap-3 [&::-webkit-scrollbar]:hidden" role="group" aria-label="Jump to an audience">
+    {slides.map((s, i) => (
+      <button
+        type="button"
+        data-index={i}
+        aria-controls={s.id}
+        aria-current={i === 0 ? 'true' : undefined}
+        class="tab flex min-h-11 shrink-0 items-center gap-2 rounded-full bg-orange-50 px-4 font-semibold whitespace-nowrap text-ink transition-colors hover:bg-orange-100 sm:min-h-12 sm:gap-2.5 sm:px-6 sm:text-lg"
+      >
+        <span aria-hidden="true" class="dot hidden size-2.5 rounded-full bg-white"></span>
+        {s.tab}
+      </button>
+    ))}
+  </div>
+
+  <ul class="stack mx-auto mt-8 flex max-w-[1120px] flex-col gap-8 lg:gap-10" data-peek={PEEK}>
+    {slides.map((s, i) => (
+      <li class="card lg:sticky" style={`--i:${i}; --peek:${PEEK}px`}>
+        <AudienceCard
+          id={s.id}
+          tone={s.tone}
+          eyebrow={s.eyebrow}
+          headline={s.headline}
+          benefits={s.benefits}
+          cta={s.cta}
+          photo={s.photo}
+          image={s.image}
+          stat={s.stat}
+        />
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .tab[aria-current='true'] { background: var(--color-brand-700); color: var(--color-white); }
+  .tab[aria-current='true'] .dot { display: block; }
+  /* Stick below the floating nav (--nav-h is set by SiteNav); each card sits PEEK px lower than the last. */
+  @media (min-width: 1024px) {
+    .card { top: calc(var(--nav-h, 96px) + 16px + var(--i) * var(--peek)); }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.audience-stack').forEach((section) => {
+    const tabs = [...section.querySelectorAll<HTMLButtonElement>('.tab')];
+    const stack = section.querySelector<HTMLElement>('.stack')!;
+    const cards = [...stack.querySelectorAll<HTMLElement>('.card')];
+    const wide = window.matchMedia('(min-width: 1024px)');
+    const calm = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const peek = Number(stack.dataset.peek);
+    const navH = () => parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--nav-h')) || 96;
+    const stickyTop = (i: number) => navH() + 16 + i * peek;
+
+    const setActive = (i: number) =>
+      tabs.forEach((t, k) => (k === i ? t.setAttribute('aria-current', 'true') : t.removeAttribute('aria-current')));
+
+    // Natural (unstuck) document position of card i.
+    const naturalTop = (i: number) => {
+      const gap = parseFloat(getComputedStyle(stack).rowGap) || 0;
+      const h = cards[0].offsetHeight;
+      return stack.getBoundingClientRect().top + window.scrollY + i * (h + gap);
+    };
+
+    const onScroll = () => {
+      let active = 0;
+      if (wide.matches) {
+        cards.forEach((_, i) => { if (naturalTop(i) - window.scrollY <= stickyTop(i) + 24) active = i; });
+      } else {
+        cards.forEach((c, i) => { if (c.getBoundingClientRect().top <= window.innerHeight * 0.4) active = i; });
+      }
+      setActive(active);
+    };
+
+    tabs.forEach((tab, i) =>
+      tab.addEventListener('click', () => {
+        const behavior = calm.matches ? 'auto' : 'smooth';
+        const top = wide.matches ? naturalTop(i) - stickyTop(i) : cards[i].getBoundingClientRect().top + window.scrollY - navH() - 16;
+        window.scrollTo({ top, behavior });
+        setActive(i);
+      }),
+    );
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+    onScroll();
+  });
+</script>

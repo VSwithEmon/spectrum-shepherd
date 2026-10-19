@@ -1,15 +1,12 @@
 ---
 // "District review checklist" (Figma: Trust — District review checklist, node 38613:3817).
 // Used on the homepage and /book-a-demo. Checks and decorations are visual only.
+// Icons are the illustrated skill icons from the mobile app (public/images/icons/illustrated/).
 const items = [
-  { title: 'IDEA Part B & Title IV-A', body: 'Designed for compliance with both funding sources.', tile: 'bg-orange-100 stroke-orange-800',
-    icon: 'M12 5v14M15.5 8.5C15.5 7.1 14 6 12 6s-3.5 1-3.5 2.4c0 3.6 7 1.9 7 5.4 0 1.5-1.5 2.4-3.5 2.4s-3.5-1.1-3.5-2.6' },
-  { title: 'Indicator 13', body: 'Transition evidence captured as students work.', tile: 'bg-yellow-100 stroke-yellow-800',
-    icon: 'M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5M9 14l2 2 4-4' },
-  { title: 'Student data privacy', body: 'Built for FERPA compliance. [Add: DPA, privacy pledge or certifications]', tile: 'bg-brand-50 stroke-brand-700',
-    icon: 'M5 11h14v10H5zM8 11V7a4 4 0 0 1 8 0v4' },
-  { title: 'Nothing to install', body: '100% web-based. Works on any device.', tile: 'bg-orange-50 stroke-orange-800',
-    icon: 'M3 5h18v11H3zM8 21h8M12 16v5' },
+  { title: 'IDEA Part B & Title IV-A', body: 'Designed for compliance with both funding sources.', tile: 'bg-orange-100', icon: 'briefcase' },
+  { title: 'Indicator 13', body: 'Transition evidence captured as students work.', tile: 'bg-yellow-100', icon: 'plant' },
+  { title: 'Student data privacy', body: 'Built for FERPA compliance. [Add: DPA, privacy pledge or certifications]', tile: 'bg-brand-50', icon: 'hands' },
+  { title: 'Nothing to install', body: '100% web-based. Works on any device.', tile: 'bg-orange-50', icon: 'bulb' },
 ];
 ---
 <section class="overflow-hidden px-4 py-16 md:px-8 lg:py-24" aria-labelledby="trust-title">
@@ -40,8 +37,8 @@ const items = [
         <div class="relative flex flex-col gap-5 rounded-[32px] border border-line bg-white p-5 shadow-2xl sm:p-8">
           <div class="flex flex-wrap items-center justify-between gap-3">
             <div class="flex items-center gap-3">
-              <span aria-hidden="true" class="flex size-11 shrink-0 items-center justify-center rounded-xl bg-brand-700">
-                <svg class="size-[22px] stroke-white" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 5a2 2 0 0 0 2 2h2a2 2 0 0 0 2-2M9 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2M9 14l2 2 4-4" /></svg>
+              <span aria-hidden="true" class="flex size-11 shrink-0 items-center justify-center rounded-xl bg-brand-50">
+                <img src="/images/icons/illustrated/people.png" width="204" height="204" alt="" class="size-[34px] object-contain" />
               </span>
               <p class="flex flex-col">
                 <span class="text-lg font-bold">District review checklist</span>
@@ -55,15 +52,13 @@ const items = [
             {items.map((it, i) => (
               <li class={`flex items-center gap-3 rounded-2xl px-3 py-3 sm:gap-4 sm:px-4 ${i % 2 === 0 ? 'bg-cream' : ''}`}>
                 <span aria-hidden="true" class={`hidden size-11 shrink-0 items-center justify-center rounded-xl sm:flex ${it.tile}`}>
-                  <svg class="size-[22px]" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d={it.icon} /></svg>
+                  <img src={`/images/icons/illustrated/${it.icon}.png`} width="204" height="204" alt="" class="size-[34px] object-contain" />
                 </span>
                 <div class="flex flex-1 flex-col gap-0.5">
                   <h3 class="font-bold">{it.title}</h3>
                   <p class="text-sm text-muted">{it.body}</p>
                 </div>
-                <span aria-hidden="true" class="flex size-8 shrink-0 items-center justify-center rounded-full bg-brand-700">
-                  <svg class="size-4 stroke-white" viewBox="0 0 24 24" fill="none" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12l5 5L20 7" /></svg>
-                </span>
+                <img aria-hidden="true" src="/images/icons/illustrated/check.svg" width="32" height="32" alt="" class="size-8 shrink-0" />
               </li>
             ))}
           </ul>
