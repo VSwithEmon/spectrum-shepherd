@@ -2,21 +2,35 @@
 import Button from './Button.astro';
 import Hills from './Hills.astro';
 import StatusChip from './StatusChip.astro';
+
+interface Props {
+  /** Eyebrow pill text. V1 (Oct 2026 Figma) drops the age range here. */
+  eyebrow?: string;
+  /** Lede copy; V1 uses the Figma wording at medium weight. */
+  lede?: string;
+  ledeWeight?: 'normal' | 'medium';
+  /** Dotted trail along the hills. */
+  trail?: boolean;
+}
+const {
+  eyebrow = 'AI life-skills coach · Ages 14–22',
+  lede = "Short, personalized lessons students actually want to do — and IEP-ready progress reports their teachers don't have to write.",
+  ledeWeight = 'normal',
+  trail = true,
+} = Astro.props;
 ---
 <section class="relative overflow-hidden bg-cream" aria-labelledby="hero-title">
   <div class="relative z-10 mx-auto flex max-w-[1200px] flex-col items-center gap-12 px-4 pt-8 pb-16 md:px-8 lg:flex-row lg:pt-12 lg:pb-12 xl:px-0">
     <div class="flex w-full flex-col items-start gap-6 lg:flex-1">
       <p class="flex items-center gap-1.5 rounded-full bg-brand-50 px-3 py-1 text-sm font-semibold text-brand-800">
         <img src="/images/icons/dot.svg" width="8" height="8" alt="" />
-        AI life-skills coach · Ages 14–22
+        {eyebrow}
       </p>
       <h1 id="hero-title" class="text-display-md font-bold sm:text-display-lg">
         Real-world skills.<br />
         <span class="text-brand-600">Real independence.</span>
       </h1>
-      <p class="text-lg text-muted sm:text-xl">
-        Short, personalized lessons students actually want to do — and IEP-ready progress reports their teachers don't have to write.
-      </p>
+      <p class={`text-lg text-muted sm:text-xl ${ledeWeight === 'medium' ? 'font-medium' : ''}`}>{lede}</p>
       <div class="flex flex-wrap gap-3">
         <Button href="#">See it in action</Button>
         <Button href="#demo" variant="secondary">Book a demo</Button>
@@ -67,5 +81,5 @@ import StatusChip from './StatusChip.astro';
     </div>
   </div>
 
-  <Hills class="-mt-6 lg:-mt-16" />
+  <Hills path={trail} class="-mt-6 lg:-mt-16" />
 </section>

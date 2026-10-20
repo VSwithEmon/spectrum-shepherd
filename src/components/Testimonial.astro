@@ -4,6 +4,12 @@
 // The blockquote uses display:contents so its parts can sit in the figure's grid
 // around the portrait while staying a single quote in the accessibility tree.
 import DottedRing from './DottedRing.astro';
+
+interface Props {
+  /** Colour "teacher" / "administrator" in the pull quote. V1 (node 38859:4300) keeps it all ink. */
+  highlight?: boolean;
+}
+const { highlight = true } = Astro.props;
 ---
 <section class="relative overflow-hidden bg-brand-50 px-4 py-16 md:px-8 lg:py-24" aria-labelledby="testimonial-title">
   <!-- Big decorations only where the headline can't collide with them (lg+). -->
@@ -20,7 +26,7 @@ import DottedRing from './DottedRing.astro';
     <figure class="grid w-full items-center gap-8 md:grid-cols-2 lg:grid-cols-[1fr_260px_1fr] lg:gap-x-16 lg:gap-y-16">
       <blockquote class="contents">
         <p class="order-1 mx-auto max-w-[940px] text-center text-display-xs font-bold sm:text-display-sm md:col-span-2 md:text-display-md lg:col-span-3 lg:row-start-1 lg:text-display-lg">
-          “I see the value both as a <span class="text-yellow-800">teacher</span> and as an <span class="text-brand-700">administrator</span>.”
+          “I see the value both as a <span class={highlight ? 'text-yellow-800' : undefined}>teacher</span> and as an <span class={highlight ? 'text-brand-700' : undefined}>administrator</span>.”
         </p>
         <p class="order-2 flex flex-col gap-5 self-stretch rounded-[32px] bg-yellow-200 p-6 text-lg font-medium shadow-lg sm:p-8 sm:text-xl md:col-start-1 md:row-start-2 calm:bg-white">
           <span aria-hidden="true" class="flex size-12 items-center justify-center rounded-xl bg-white calm:bg-brand-50">

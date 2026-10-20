@@ -5,9 +5,11 @@
 interface Props {
   front?: 'brand-700' | 'brand-800';
   trail?: boolean;
+  /** Dotted path only (keeps the sun). V1 hero (Oct 2026 Figma) has no path. */
+  path?: boolean;
   class?: string;
 }
-const { front = 'brand-700', trail = true, class: className = '' } = Astro.props;
+const { front = 'brand-700', trail = true, path = true, class: className = '' } = Astro.props;
 const frontFill = front === 'brand-700' ? 'fill-brand-700' : 'fill-brand-800';
 ---
 <svg
@@ -20,7 +22,7 @@ const frontFill = front === 'brand-700' ? 'fill-brand-700' : 'fill-brand-800';
   {trail && <circle cx="1250" cy="72" r="34" class="fill-yellow-300" />}
   <path class="fill-brand-200" d="M0 120C240 60 420 70 620 110S1000 150 1200 80S1400 60 1440 70V180H0Z" />
   <path class="fill-brand-500" d="M0 150C200 110 380 100 560 130S900 170 1100 120S1380 100 1440 115V180H0Z" />
-  {trail && (
+  {trail && path && (
     <path
       class="hills-trail"
       d="M60 158C220 136 380 128 560 142S880 152 1100 128S1220 110 1250 106"

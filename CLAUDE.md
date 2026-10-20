@@ -4,7 +4,7 @@ Marketing site for Spectrum Shepherd, an AI life-skills coach for neurodiverse s
 Buyers are special education teachers (free 45-day trial) and school/district leaders (15-min briefing).
 
 ## Source designs
-- The current homepage is Figma frame "Homepage v4 — Redesign" (file `kf6bETSiXfVOzzNbTlCFA7`, node `38585:69285`, Landing Page page), built from the file's own design system. It's implemented in `src/pages/index.astro`.
+- The current homepage (V1, `/`) is Figma frame "Homepage Design (v1)" in the "Website" section of file `6JMhALsrhqylYR6QjNPy9V` (node `38859:3660`; nav dropdown open states are `38859:2925`, `38859:2859`, `38859:2986`). It's implemented in `src/pages/index.astro`. V1-only differences from V3 are passed as props (`Hero` eyebrow/lede/trail, `LogoBand layout="row"`, `Testimonial highlight={false}`) so the other versions stay as they were. The earlier source was "Homepage v4 — Redesign" (file `kf6bETSiXfVOzzNbTlCFA7`, node `38585:69285`).
 - `/v2` (`src/pages/v2.astro`, new components in `src/components/v2/`) is Figma frame "Homepage Design (v2)" (node `38641:75698`), under client review.
 - `/v3` (Figma "Homepage Design (v3)", node `38678:11199`) and `/v4` ("Homepage Design (v4)", node `38677:69682`) are green-first versions of V1 and V2. They set `palette="calm"` on `Base`, which turns on the `calm:` variant (`global.css`); components use it to swap large yellow areas for brand greens. Keep yellow only as small accents there.
 - A fixed V1/V2/V3/V4 switch (`DesignToggle.astro`) appears on these homepages only; `/` is V1.

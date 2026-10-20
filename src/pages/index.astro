@@ -1,22 +1,24 @@
 ---
-// Homepage V1 (Figma "Homepage Design (v1)"). The other designs live at /v2, /v3 and /v4.
+// Homepage V1 — Figma "Homepage Design (v1)" in the "Website" section
+// (file 6JMhALsrhqylYR6QjNPy9V, node 38859:3660). The other designs live at /v2, /v3 and /v4.
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import LogoBand from '../components/LogoBand.astro';
 import Proof from '../components/Proof.astro';
-import ComplianceBridge from '../components/ComplianceBridge.astro';
 import Audiences from '../components/Audiences.astro';
 import Testimonial from '../components/Testimonial.astro';
-import Trust from '../components/Trust.astro';
 import DemoSection from '../components/DemoSection.astro';
 ---
 <Base title="Spectrum Shepherd — AI life-skills coach for students 14–22" demoHref="#demo" designToggle="v1">
-  <Hero />
-  <LogoBand />
+  <Hero
+    eyebrow="AI life-skills coach"
+    lede="Short, personalized lessons students actually want to do and IEP-ready progress reports their teachers don't have to write."
+    ledeWeight="medium"
+    trail={false}
+  />
+  <LogoBand layout="row" />
   <Proof />
   <Audiences />
-  <ComplianceBridge />
-  <Testimonial />
-  <Trust />
+  <Testimonial highlight={false} />
   <DemoSection />
 </Base>
