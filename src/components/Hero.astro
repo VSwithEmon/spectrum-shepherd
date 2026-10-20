@@ -57,25 +57,22 @@ const {
         alt="A teenage student wearing headphones, smiling while working through a lesson on a tablet"
         class="absolute top-0 left-[56.67%] aspect-square w-[41.67%] rounded-full object-cover object-[40%_center]"
       />
-      <div class="absolute top-[33.33%] left-0 aspect-[520/330] w-[86.67%] overflow-hidden rounded-2xl border border-line bg-white shadow-2xl">
-        <img
-          src="/images/teacher-dashboard.png"
-          width="1440"
-          height="1244"
-          alt="Shepherd teacher dashboard for William School, showing Classroom Pulse stats and the classroom roster"
-          class="w-full"
-          fetchpriority="high"
-        />
-      </div>
-      <div class="absolute top-[38.33%] left-[70%] w-[28.67%] rounded-4xl bg-brand-950 p-[1%] shadow-2xl">
-        <img
-          src="/images/student-app-home.png"
-          width="750"
-          height="1624"
-          alt="Shepherd student app home screen with a message from the coach and options to browse lessons or play games"
-          class="w-full rounded-3xl"
-        />
-      </div>
+      <!-- Product shots: cropped to the device frame with transparent corners; drop-shadow follows the shape. -->
+      <img
+        src="/images/teacher-dashboard.webp"
+        width="2080"
+        height="1320"
+        alt="Shepherd teacher dashboard for William School, showing Classroom Pulse stats and the classroom roster"
+        class="device-shot absolute top-[33.33%] left-0 w-[86.67%]"
+        fetchpriority="high"
+      />
+      <img
+        src="/images/student-app-home.webp"
+        width="688"
+        height="1432"
+        alt="Shepherd student app home screen with a message from the coach and options to browse lessons or play games"
+        class="device-shot absolute top-[38.33%] left-[70%] w-[28.67%]"
+      />
       <StatusChip title="Lesson complete" caption="Budgeting for a concert ticket" class="top-[19.67%] left-[-4%] origin-top-left max-sm:scale-75" />
       <StatusChip title="Progress note saved" caption="Linked to IEP goal" class="top-[91.33%] left-[25%] origin-top-left max-sm:scale-75" />
     </div>
@@ -83,3 +80,7 @@ const {
 
   <Hills path={trail} class="-mt-6 lg:-mt-16" />
 </section>
+
+<style>
+  .device-shot { filter: drop-shadow(0 24px 24px rgb(10 13 18 / 0.16)) drop-shadow(0 4px 4px rgb(10 13 18 / 0.04)); }
+</style>
