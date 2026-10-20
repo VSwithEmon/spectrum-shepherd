@@ -48,10 +48,7 @@ import PhotoPlaceholder from './PhotoPlaceholder.astro';
       </div>
       <FormField id="email" label="Work email" type="email" placeholder="you@district.org" autocomplete="email" required />
       <FormField id="organization" label="School or district" autocomplete="organization" required />
-      <div class="grid gap-4 sm:grid-cols-2">
-        <FormField id="role" label="Your role" options={['Special ed director', 'Transition coordinator', 'Principal', 'Teacher', 'Other']} />
-        <FormField id="students" label="Students aged 14–22" options={['Under 25', '25–100', '100–500', '500+']} />
-      </div>
+      <FormField id="role" label="Your role" options={['Special ed director', 'Transition coordinator', 'Principal', 'Teacher', 'Other']} />
       <div class="flex flex-col gap-1.5">
         <label for="notes" class="font-bold">What would you like to see? <span class="font-normal text-muted">(optional)</span></label>
         <textarea id="notes" name="notes" rows="3" class="w-full rounded-xl border-[1.5px] border-field bg-white px-4 py-3 text-md"></textarea>

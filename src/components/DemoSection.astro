@@ -63,10 +63,7 @@ const steps = [
         </div>
         <FormField id="email" label="Work email" type="email" placeholder="you@district.org" autocomplete="email" required />
         <FormField id="organization" label="School or district" autocomplete="organization" required />
-        <div class="grid gap-4 sm:grid-cols-2">
-          <FormField id="role" label="Your role" options={['Special ed director', 'Transition coordinator', 'Principal', 'Teacher', 'Other']} />
-          <FormField id="students" label="Students aged 14–22" options={['Under 25', '25–100', '100–500', '500+']} />
-        </div>
+        <FormField id="role" label="Your role" options={['Special ed director', 'Transition coordinator', 'Principal', 'Teacher', 'Other']} />
         <Button type="submit" full>Book my demo</Button>
         <p class="text-sm text-muted">We'll reply within one school day to pick a time. See our <a href="/privacy" class="text-brand-700 underline hover:text-brand-800">privacy policy</a>.</p>
       </form>
