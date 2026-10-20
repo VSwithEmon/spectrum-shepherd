@@ -4,10 +4,11 @@ Marketing site for Spectrum Shepherd, an AI life-skills coach for neurodiverse s
 Buyers are special education teachers (free 45-day trial) and school/district leaders (15-min briefing).
 
 ## Source designs
-- The current homepage (V1, `/`) is Figma frame "Homepage Design (v1)" in the "Website" section of file `6JMhALsrhqylYR6QjNPy9V` (node `38859:3660`; nav dropdown open states are `38859:2925`, `38859:2859`, `38859:2986`). It's implemented in `src/pages/index.astro`. V1-only differences from V3 are passed as props (`Hero` eyebrow/lede/trail, `LogoBand layout="row"`, `Testimonial highlight={false}`) so the other versions stay as they were. The earlier source was "Homepage v4 — Redesign" (file `kf6bETSiXfVOzzNbTlCFA7`, node `38585:69285`).
-- `/v2` (`src/pages/v2.astro`, new components in `src/components/v2/`) is Figma frame "Homepage Design (v2)" (node `38641:75698`), under client review.
-- `/v3` (Figma "Homepage Design (v3)", node `38678:11199`) and `/v4` ("Homepage Design (v4)", node `38677:69682`) are green-first versions of V1 and V2. They set `palette="calm"` on `Base`, which turns on the `calm:` variant (`global.css`); components use it to swap large yellow areas for brand greens. Keep yellow only as small accents there.
-- A fixed V1/V2/V3/V4 switch (`DesignToggle.astro`) appears on these homepages only; `/` is V1.
+- The current homepage (V1, `/`) is Figma frame "Homepage Design (v1)" in the "Website" section of file `6JMhALsrhqylYR6QjNPy9V` (node `38859:3660`; nav dropdown open states are `38859:2925`, `38859:2859`, `38859:2986`). It's implemented in `src/pages/index.astro`. V1-only differences are passed as props (`Hero` eyebrow/lede/trail, `LogoBand layout="row"`, `Testimonial highlight={false}`) so V2 stays as it is. The earlier source was "Homepage v4 — Redesign" (file `kf6bETSiXfVOzzNbTlCFA7`, node `38585:69285`).
+- `/v2` (`src/pages/v2.astro`, new components in `src/components/v2/`) is Figma frame "Homepage Design (v2)" in the same "Website" section (node `38859:3052`). It sets `palette="calm"` on `Base`, which turns on the `calm:` variant (`global.css`); components use it to swap large yellow areas for brand greens. Keep yellow only as small accents there.
+- V3 and V4 were removed (Oct 2026). `ComplianceBridge`, `HowItWorks` and `Faq` are no longer on any page but are kept for reuse.
+- A fixed V1/V2 switch (`DesignToggle.astro`) appears on these homepages only; `/` is V1.
+- Live site: Vercel project `spectrum-shepherd-5qfw` (https://spectrum-shepherd-5qfw.vercel.app), deployed from `VSwithEmon/spectrum-shepherd` main on every push.
 - `/book-a-demo` is the standalone demo-request page.
 - `option-b-homepage.html` ("Sunrise") is the earlier direction, kept for reference only.
 - The client's inspiration references are MagicSchool and Headspace: warm, polished, short headlines, real people, simple navigation.
