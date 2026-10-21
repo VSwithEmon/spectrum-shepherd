@@ -1,0 +1,21 @@
+---
+// Website icon family (Figma "Feedback kit", Oct 2026): check-in-a-circle baseline —
+// brand-50 disc, brand-600 ring, brand-700 rounded glyph. Adapted for the marketing
+// site rather than lifted from the student app's book/tools illustrations. Decorative.
+const glyphs = {
+  check: 'M8 12.4l2.6 2.6L16 9.6',
+  lesson: 'M12 8.6c-1.6-1.1-3.4-1.5-5.2-1.4v8.2c1.8-.1 3.6.3 5.2 1.4 1.6-1.1 3.4-1.5 5.2-1.4V7.2c-1.8-.1-3.6.3-5.2 1.4zM12 8.6v8.2',
+  progress: 'M7 15.8l3.2-3.4 2.6 2.2L17 9.6M14.2 9.6H17v2.8',
+  people: 'M9.4 11.4a1.9 1.9 0 1 0 0-3.8 1.9 1.9 0 0 0 0 3.8zM6.2 16.4c.4-1.8 1.6-2.9 3.2-2.9s2.8 1.1 3.2 2.9M15 11.2a1.6 1.6 0 1 0 0-3.2M15.6 13.6c1.2.2 2 1.2 2.3 2.8',
+  download: 'M12 7.4v6.8M9.2 11.4L12 14.2l2.8-2.8M8 16.6h8',
+  shield: 'M12 6.8l4.6 1.7v3.2c0 2.9-1.9 4.9-4.6 5.7-2.7-.8-4.6-2.8-4.6-5.7V8.5L12 6.8zM10 12.1l1.4 1.4 2.7-2.8',
+  spark: 'M12 7.2l1.3 3 3.2.3-2.4 2.1.7 3.1-2.8-1.6-2.8 1.6.7-3.1-2.4-2.1 3.2-.3L12 7.2z',
+};
+export type IconName = keyof typeof glyphs;
+interface Props { name: IconName; class?: string }
+const { name, class: className = 'size-12' } = Astro.props;
+---
+<svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" class={`shrink-0 ${className}`}>
+  <circle cx="12" cy="12" r="11.2" class="fill-brand-50 stroke-brand-600" stroke-width="0.8" />
+  <path d={glyphs[name]} class="stroke-brand-700" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+</svg>

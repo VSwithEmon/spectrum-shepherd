@@ -4,6 +4,10 @@
    and components swap large yellow areas with `calm:` utilities. Small yellow accents stay. */
 @custom-variant calm (&:where([data-palette="calm"] *));
 
+/* Lavender alternative (Figma "Homepage Design (v2) — lavender alternative", Oct 2026 feedback):
+   <body data-palette="lavender"> swaps the yellow accents for the lavender scale. */
+@custom-variant lavender (&:where([data-palette="lavender"] *));
+
 /* Design tokens from the Figma file (Spectrum Shepherd design system, Homepage v4). */
 @theme {
   --font-sans: "Montserrat", system-ui, sans-serif;
@@ -46,6 +50,14 @@
   --color-orange-alert: #c4320a;
   --color-warning-25: #fffcf5;
   --color-sky-50: #f0f9ff;
+  /* Figma "Deep Purple" utility scale — the lavender alternative's accent. */
+  --color-lavender-50: #f2f3fc;
+  --color-lavender-100: #e3e4f8;
+  --color-lavender-200: #c5c6f3;
+  --color-lavender-300: #aaaded;
+  --color-lavender-700: #5b5ea2;
+  --color-lavender-800: #46497d;
+  --color-blush-200: #ecd0eb;   /* Deep Violet 200, lavender sunset */
   --color-sky-800: #065986;
 
   /* Type scale: Text xs–xl, Display xs–2xl */

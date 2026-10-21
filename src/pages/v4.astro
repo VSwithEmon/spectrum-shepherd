@@ -1,0 +1,27 @@
+---
+// Homepage V4 — the lavender alternative of V3 (Oct 20, 2026 client feedback; Figma "Homepage
+// Design (v2) — lavender alternative"). `palette="lavender"` swaps the yellow accents for the
+// lavender scale via `lavender:` utilities; green stays the core brand colour.
+import Base from '../layouts/Base.astro';
+import Hero from '../components/Hero.astro';
+import LogoMarquee from '../components/v3/LogoMarquee.astro';
+import Results from '../components/v3/Results.astro';
+import DownloadBanner from '../components/v3/DownloadBanner.astro';
+import AudienceGrid from '../components/v3/AudienceGrid.astro';
+import Testimonial from '../components/v3/Testimonial.astro';
+import DemoSection from '../components/DemoSection.astro';
+---
+<Base title="Spectrum Shepherd — AI life-skills coach for students 14–22" demoHref="#demo" designToggle="v4" palette="lavender" refresh>
+  <Hero
+    refresh
+    lede="Short, personalized lessons students actually want to do and IEP-ready progress reports their teachers don't have to write."
+    ledeWeight="medium"
+    trail={false}
+  />
+  <LogoMarquee />
+  <Results />
+  <DownloadBanner />
+  <AudienceGrid />
+  <Testimonial />
+  <DemoSection refresh />
+</Base>

@@ -2,8 +2,11 @@
 import Button from './Button.astro';
 import Hills from './Hills.astro';
 import StatusChip from './StatusChip.astro';
+import Cloud from './Cloud.astro';
 
 interface Props {
+  /** Oct 2026 feedback (V3/V4): no eyebrow pill, free-trial CTA + microcopy, clouds and trees. */
+  refresh?: boolean;
   /** Eyebrow pill text. V1 (Oct 2026 Figma) drops the age range here. */
   eyebrow?: string;
   /** Lede copy; V1 uses the Figma wording at medium weight. */
@@ -13,34 +16,53 @@ interface Props {
   trail?: boolean;
 }
 const {
-  eyebrow = 'AI life-skills coach · Ages 14–22',
+  refresh = false,
+  eyebrow ='AI life-skills coach · Ages 14–22',
   lede = "Short, personalized lessons students actually want to do — and IEP-ready progress reports their teachers don't have to write.",
   ledeWeight = 'normal',
   trail = true,
 } = Astro.props;
 ---
 <section class="relative overflow-hidden bg-cream" aria-labelledby="hero-title">
+  {refresh && (
+    <Fragment>
+      <Cloud class="top-6 left-[44%] z-0 hidden h-[60px] w-[160px] opacity-90 shadow-none lg:block" />
+      <Cloud class="top-[300px] right-2 z-0 hidden h-[42px] w-[112px] opacity-90 xl:block" />
+    </Fragment>
+  )}
   <div class="relative z-10 mx-auto flex max-w-[1200px] flex-col items-center gap-12 px-4 pt-8 pb-16 md:px-8 lg:flex-row lg:pt-12 lg:pb-12 xl:px-0">
     <div class="flex w-full flex-col items-start gap-6 lg:flex-1">
-      <p class="flex items-center gap-1.5 rounded-full bg-brand-50 px-3 py-1 text-sm font-semibold text-brand-800">
-        <img src="/images/icons/dot.svg" width="8" height="8" alt="" />
-        {eyebrow}
-      </p>
+      {!refresh && (
+        <p class="flex items-center gap-1.5 rounded-full bg-brand-50 px-3 py-1 text-sm font-semibold text-brand-800">
+          <img src="/images/icons/dot.svg" width="8" height="8" alt="" />
+          {eyebrow}
+        </p>
+      )}
       <h1 id="hero-title" class="text-display-md font-bold sm:text-display-lg">
         Real-world skills.<br />
         <span class="text-brand-600">Real independence.</span>
       </h1>
       <p class={`text-lg text-muted sm:text-xl ${ledeWeight === 'medium' ? 'font-medium' : ''}`}>{lede}</p>
-      <div class="flex flex-wrap gap-3">
-        <Button href="#">See it in action</Button>
-        <Button href="#demo" variant="secondary">Book a demo</Button>
-      </div>
+      {refresh ? (
+        <div class="flex w-full flex-col gap-3">
+          <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <Button href="#">Start your 45-day free trial</Button>
+            <Button href="#demo" variant="secondary">Book a demo</Button>
+          </div>
+          <p class="text-center text-sm font-medium text-muted sm:text-left">First lesson in under five minutes · Built for FERPA compliance</p>
+        </div>
+      ) : (
+        <div class="flex flex-wrap gap-3">
+          <Button href="#">See it in action</Button>
+          <Button href="#demo" variant="secondary">Book a demo</Button>
+        </div>
+      )}
       <ul class="grid w-full gap-4 pt-2 sm:grid-cols-2">
-        <li class="flex flex-col gap-1 border-l-3 border-yellow-400 pl-4 calm:border-brand-500">
+        <li class="flex flex-col gap-1 border-l-3 border-yellow-400 pl-4 calm:border-brand-500 lavender:border-lavender-300">
           <span class="font-bold">For schools &amp; teachers</span>
           <span class="text-sm text-muted">Ready-made curriculum and reports that prove impact.</span>
         </li>
-        <li class="flex flex-col gap-1 border-l-3 border-yellow-400 pl-4 calm:border-brand-500">
+        <li class="flex flex-col gap-1 border-l-3 border-yellow-400 pl-4 calm:border-brand-500 lavender:border-lavender-300">
           <span class="font-bold">For students</span>
           <span class="text-sm text-muted">Short lessons that build skills for everyday life.</span>
         </li>
@@ -49,7 +71,7 @@ const {
 
     <!-- Product composition: positions are % of the 600×600 Figma frame -->
     <div class="relative aspect-square w-full max-w-[600px] shrink-0 lg:w-[600px]">
-      <div aria-hidden="true" class="absolute top-[5%] left-[20%] aspect-square w-[76.67%] rounded-full bg-yellow-200 calm:bg-brand-100"></div>
+      <div aria-hidden="true" class="absolute top-[5%] left-[20%] aspect-square w-[76.67%] rounded-full bg-yellow-200 calm:bg-brand-100 lavender:bg-lavender-200"></div>
       <img
         src="/images/photos/hero-student.jpg"
         width="600"
@@ -78,7 +100,7 @@ const {
     </div>
   </div>
 
-  <Hills path={trail} class="-mt-6 lg:-mt-16" />
+  <Hills path={trail} trees={refresh} class="-mt-6 lg:-mt-16" />
 </section>
 
 <style>

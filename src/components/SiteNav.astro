@@ -3,9 +3,16 @@
 // Menus use the disclosure pattern: a button toggles a panel of ordinary links.
 import Logo from './Logo.astro';
 import Button from './Button.astro';
+import BrandIcon, { type IconName } from './v3/BrandIcon.astro';
 
-interface Props { demoHref?: string }
-const { demoHref = '/book-a-demo' } = Astro.props;
+interface Props {
+  demoHref?: string;
+  /** Oct 2026 feedback (V3/V4): three menus, Sign up free + Book a demo, website icon family, no card eyebrows. */
+  refresh?: boolean;
+}
+const { demoHref = '/book-a-demo', refresh = false } = Astro.props;
+// Website icon family stand-ins for the line icons when `refresh` is on.
+const familyIcon: Record<string, IconName> = { book: 'lesson', report: 'progress', gift: 'spark', shield: 'shield', coin: 'download', pen: 'lesson', video: 'people' };
 
 const icons = {
   book: 'M4 5a2 2 0 0 1 2-2h13v16H6a2 2 0 0 0-2 2zM4 21V5M8 7h7',
@@ -60,16 +67,19 @@ const menus: Record<string, Menu> = {
 const cardTones = {
   green: { box: 'on-dark bg-brand-700 text-white', eyebrow: 'text-yellow-300', body: 'text-brand-50', btn: 'light' as const },
   deep: { box: 'on-dark bg-brand-900 text-white', eyebrow: 'text-yellow-300', body: 'text-brand-50', btn: 'light' as const },
-  yellow: { box: 'bg-yellow-200 text-ink', eyebrow: 'text-yellow-800', body: 'text-ink', btn: 'primary' as const },
+  yellow: { box: 'bg-yellow-200 text-ink lavender:bg-lavender-100', eyebrow: 'text-yellow-800', body: 'text-ink', btn: 'primary' as const },
 };
 
-const links: { label: string; href?: string; badge?: string }[] = [
-  { label: 'Teachers' },
-  { label: 'Schools' },
-  { label: 'The App', href: '#', badge: 'New' },
-  { label: 'About', href: '#' },
-  { label: 'Resources' },
-];
+// With `refresh`, "The App" and "About" move into the menus and the footer.
+const links: { label: string; href?: string; badge?: string }[] = refresh
+  ? [{ label: 'Teachers' }, { label: 'Schools' }, { label: 'Resources' }]
+  : [
+      { label: 'Teachers' },
+      { label: 'Schools' },
+      { label: 'The App', href: '#', badge: 'New' },
+      { label: 'About', href: '#' },
+      { label: 'Resources' },
+    ];
 const itemClass = 'flex min-h-11 items-center gap-1.5 rounded-full px-4 font-semibold text-ink transition-colors hover:bg-white hover:text-brand-800 hover:shadow-md';
 ---
 <header class="site-nav sticky top-0 z-50 px-4 pt-4 pb-2 md:px-8" data-nav>
@@ -107,11 +117,15 @@ const itemClass = 'flex min-h-11 items-center gap-1.5 rounded-full px-4 font-sem
                       {menu.items.map((it) => (
                         <li>
                           <a href={it.href} class="group flex items-center gap-4 rounded-2xl px-4 py-3 transition-colors hover:bg-brand-25 focus-visible:bg-brand-25">
-                            <span aria-hidden="true" class={`flex size-12 shrink-0 items-center justify-center rounded-xl ${tiles[it.tile]}`}>
-                              {it.img
-                                ? <img src={`/images/icons/illustrated/${it.img}`} width="32" height="32" alt="" class="size-8 object-contain" />
-                                : <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d={icons[it.icon]} /></svg>}
-                            </span>
+                            {refresh ? (
+                              <BrandIcon name={familyIcon[it.icon]} class="size-12" />
+                            ) : (
+                              <span aria-hidden="true" class={`flex size-12 shrink-0 items-center justify-center rounded-xl ${tiles[it.tile]}`}>
+                                {it.img
+                                  ? <img src={`/images/icons/illustrated/${it.img}`} width="32" height="32" alt="" class="size-8 object-contain" />
+                                  : <svg class="size-6" viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d={icons[it.icon]} /></svg>}
+                              </span>
+                            )}
                             <span class="flex flex-1 flex-col">
                               <span class="font-bold">{it.title}</span>
                               <span class="text-sm text-muted">{it.desc}</span>
@@ -122,8 +136,8 @@ const itemClass = 'flex min-h-11 items-center gap-1.5 rounded-full px-4 font-sem
                       ))}
                     </ul>
                     <div class={`relative flex w-[280px] shrink-0 flex-col items-start gap-3 overflow-hidden rounded-3xl p-6 ${cardTones[menu.card.tone].box}`}>
-                      <span aria-hidden="true" class="absolute -top-14 -right-14 size-36 rounded-full bg-yellow-300"></span>
-                      <p class={`relative text-xs font-bold ${cardTones[menu.card.tone].eyebrow}`}>{menu.card.eyebrow}</p>
+                      <span aria-hidden="true" class="absolute -top-14 -right-14 size-36 rounded-full bg-yellow-300 lavender:bg-lavender-200"></span>
+                      {!refresh && <p class={`relative text-xs font-bold ${cardTones[menu.card.tone].eyebrow}`}>{menu.card.eyebrow}</p>}
                       <p class="relative text-display-xs font-bold">{menu.card.title}</p>
                       <p class={`relative text-sm ${cardTones[menu.card.tone].body}`}>{menu.card.body}</p>
                       <Button href={menu.card.href} variant={cardTones[menu.card.tone].btn} shape="pill" full class="relative mt-auto">{menu.card.cta} →</Button>
@@ -142,12 +156,26 @@ const itemClass = 'flex min-h-11 items-center gap-1.5 rounded-full px-4 font-sem
         <svg aria-hidden="true" class="size-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21a8 8 0 0 0-16 0M12 13a5 5 0 1 0 0-10 5 5 0 0 0 0 10z" /></svg>
         Log in
       </a>
-      <Button href={demoHref} shape="pill">
-        Book a demo
-        <svg aria-hidden="true" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 6l6 6-6 6" /></svg>
-      </Button>
+      {refresh ? (
+        <Fragment>
+          <Button href={demoHref} variant="secondary" shape="pill">Book a demo</Button>
+          <Button href="#" shape="pill">
+            Sign up free
+            <svg aria-hidden="true" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 6l6 6-6 6" /></svg>
+          </Button>
+        </Fragment>
+      ) : (
+        <Button href={demoHref} shape="pill">
+          Book a demo
+          <svg aria-hidden="true" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 6l6 6-6 6" /></svg>
+        </Button>
+      )}
     </div>
 
+    {refresh && (
+      <!-- Tablet only; on phones Sign up free sits in the menu (no room beside the logo). -->
+      <div class="ml-auto hidden sm:block xl:hidden"><Button href="#" shape="pill">Sign up free</Button></div>
+    )}
     <button
       type="button"
       class="menu-toggle inline-flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-full bg-brand-25 px-4 font-semibold text-brand-800 max-[379px]:px-0 xl:hidden"
@@ -172,7 +200,14 @@ const itemClass = 'flex min-h-11 items-center gap-1.5 rounded-full px-4 font-sem
       ))}
       <li><a href="#" class="flex min-h-12 items-center rounded-2xl px-4 text-lg font-semibold text-brand-700 hover:bg-brand-25">Log in</a></li>
     </ul>
-    <Button href={demoHref} shape="pill" full class="mt-3">Book a demo</Button>
+    {refresh ? (
+      <div class="mt-3 flex flex-col gap-3">
+        <Button href="#" shape="pill" full>Sign up free</Button>
+        <Button href={demoHref} variant="secondary" shape="pill" full>Book a demo</Button>
+      </div>
+    ) : (
+      <Button href={demoHref} shape="pill" full class="mt-3">Book a demo</Button>
+    )}
   </nav>
 </header>
 

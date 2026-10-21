@@ -1,0 +1,52 @@
+---
+// Results (Oct 2026 feedback): new headline, no beta framing or states, one green panel with
+// three equal results (priority still open with the client), yellow only as a small accent.
+// The Shepherd swirl is a faint watermark; the dotted path uses varied dot sizes. All static.
+import BrandIcon, { type IconName } from './BrandIcon.astro';
+
+const results: { icon: IconName; value: string; label: string }[] = [
+  { icon: 'people', value: '91%', label: 'parent demand confirmed' },
+  { icon: 'spark', value: '77%', label: "of students say it's more engaging than other school learning" },
+  { icon: 'progress', value: 'IEP-ready', label: "progress reports teachers don't have to write" },
+];
+// Varied dot sizes along a gentle curve, echoing the dots in the Shepherd swirl.
+const dots = Array.from({ length: 16 }, (_, k) => {
+  const t = k / 15;
+  return { x: 20 + t * 200 + Math.sin(t * Math.PI) * 30, y: 10 + t * t * 130, r: (3 + Math.round(7 * Math.sin(t * Math.PI * 0.9 + 0.2))) / 2 };
+});
+---
+<section class="relative overflow-hidden bg-white px-4 pt-16 pb-10 md:px-8 lg:pt-24 lg:pb-12" aria-labelledby="results-title">
+  <svg aria-hidden="true" class="absolute top-28 left-[4%] hidden h-[150px] w-[260px] lg:block" viewBox="0 0 260 150">
+    {dots.map((d) => <circle cx={d.x} cy={d.y} r={d.r} class="fill-brand-300" />)}
+  </svg>
+
+  <div class="relative mx-auto flex max-w-[1200px] flex-col gap-10">
+    <h2 id="results-title" class="text-center text-display-sm font-bold md:text-display-md lg:text-display-lg">
+      Confidence for schools.<br />
+      <span class="text-brand-700">Engagement for students.</span>
+    </h2>
+
+    <div class="on-dark relative overflow-hidden rounded-3xl bg-brand-800 px-6 py-2 text-white md:rounded-[32px] md:p-14">
+      <span aria-hidden="true" class="swirl pointer-events-none absolute -top-16 -right-16 size-[300px] bg-white opacity-[0.07] md:-top-36 md:right-[-40px] md:size-[520px]"></span>
+      <ul class="relative grid md:grid-cols-3">
+        {results.map((r, i) => (
+          <li class={`flex flex-col gap-3 py-6 md:gap-5 md:py-0 ${i ? 'border-t border-brand-700 md:border-t-0 md:border-l md:pl-10' : ''} ${i < 2 ? 'md:pr-10' : ''}`}>
+            <BrandIcon name={r.icon} />
+            <p class="flex flex-col gap-3 md:gap-5">
+              <span class="text-display-lg font-bold md:text-display-xl">{r.value}</span>
+              <span aria-hidden="true" class="h-1 w-12 rounded-full bg-yellow-300 lavender:bg-lavender-200"></span>
+              <span class="text-md font-medium text-brand-50 md:text-lg">{r.label}</span>
+            </p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .swirl {
+    mask: url('/images/logo-mark.png') center / contain no-repeat;
+    -webkit-mask: url('/images/logo-mark.png') center / contain no-repeat;
+  }
+</style>

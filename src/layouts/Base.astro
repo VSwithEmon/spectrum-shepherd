@@ -13,9 +13,12 @@ interface Props {
   footerHills?: boolean;
   footerHillsBg?: string;
   /** Show the design switch (homepage review only). */
-  designToggle?: 'v1' | 'v2';
-  /** 'calm' = green-first palette with yellow only as small accents (enables `calm:` utilities). */
-  palette?: 'calm';
+  designToggle?: 'v1' | 'v2' | 'v3' | 'v4';
+  /** 'calm' = green-first palette with yellow only as small accents (enables `calm:` utilities).
+   *  'lavender' = lavender replaces yellow as the accent (enables `lavender:` utilities). */
+  palette?: 'calm' | 'lavender';
+  /** Oct 2026 feedback refresh for the nav and footer (V3/V4). */
+  refresh?: boolean;
 }
 const {
   title,
@@ -25,6 +28,7 @@ const {
   footerHillsBg = '',
   designToggle,
   palette,
+  refresh = false,
 } = Astro.props;
 ---
 <!doctype html>
@@ -40,11 +44,11 @@ const {
   </head>
   <body data-palette={palette}>
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-white focus:px-4 focus:py-3 focus:font-semibold focus:shadow-lg">Skip to main content</a>
-    <SiteNav demoHref={demoHref} />
+    <SiteNav demoHref={demoHref} refresh={refresh} />
     <main id="main">
       <slot />
     </main>
-    <SiteFooter hills={footerHills} hillsBg={footerHillsBg} />
+    <SiteFooter hills={footerHills} hillsBg={footerHillsBg} refresh={refresh} />
     {/* Room for the fixed design switch so it never covers the footer's legal links on phones. */}
     {designToggle && <div aria-hidden="true" class="h-20 bg-brand-800 md:hidden"></div>}
     {designToggle && <DesignToggle active={designToggle} />}

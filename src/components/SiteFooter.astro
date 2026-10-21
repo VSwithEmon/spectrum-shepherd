@@ -6,8 +6,10 @@ interface Props {
   hills?: boolean;
   /** Background behind the hills; match the section above. */
   hillsBg?: string;
+  /** Oct 2026 feedback (V3/V4): trees + setting sun on the hills; "Join our community" sized like the other headings. */
+  refresh?: boolean;
 }
-const { hills = true, hillsBg = '' } = Astro.props;
+const { hills = true, hillsBg = '', refresh = false } = Astro.props;
 
 const columns = [
   { title: 'Product', links: [{ label: 'Teachers', href: '#' }, { label: 'Schools', href: '#' }, { label: 'The App', href: '#' }] },
@@ -20,7 +22,7 @@ const social = [
   { label: 'LinkedIn', icon: '/images/icons/linkedin.svg', href: '#' },
 ];
 ---
-{hills && <Hills front="brand-800" trail={false} class={hillsBg} />}
+{hills && <Hills front="brand-800" trail={false} trees={refresh} sunset={refresh} class={hillsBg} />}
 <footer class="on-dark relative overflow-hidden bg-brand-800 px-4 pt-12 md:px-8">
   <div class="relative mx-auto max-w-[1200px]">
     <div class="flex flex-col gap-12 pb-12 lg:flex-row">
@@ -39,7 +41,7 @@ const social = [
           </nav>
         ))}
         <div class="flex flex-col gap-4">
-          <h2 class="text-xl font-bold text-white">Join our community</h2>
+          <h2 class={refresh ? 'font-bold text-white' : 'text-xl font-bold text-white'}>Join our community</h2>
           <ul class="flex gap-3">
             {social.map((s) => (
               <li>
