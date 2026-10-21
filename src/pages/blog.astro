@@ -1,0 +1,94 @@
+---
+// Blog ("Perspectives") — Figma "Blog (Perspectives) page", v1. Posts as listed on
+// spectrumshepherd.com/blog; the articles themselves still live there. The search box filters the
+// list in the browser (small vanilla script, no framework).
+import Base from '../layouts/Base.astro';
+import BrandIcon from '../components/v3/BrandIcon.astro';
+import DownloadBanner from '../components/v3/DownloadBanner.astro';
+import Cloud from '../components/Cloud.astro';
+import { posts } from '../data/posts';
+
+const [featured, ...rest] = posts;
+const tones = { brand: 'bg-brand-50', yellow: 'bg-yellow-100 lavender:bg-lavender-100', orange: 'bg-orange-100' };
+const haystack = (p: (typeof posts)[number]) => `${p.title} ${p.excerpt}`.toLowerCase();
+---
+<Base
+  title="Perspectives — special education transition resources — Spectrum Shepherd"
+  description="Practical advice, heartfelt stories, and expert viewpoints on navigating the journey to independence for autistic young adults."
+  refresh
+>
+  <section class="relative overflow-hidden bg-cream px-4 pt-12 pb-10 md:px-8 lg:pt-[72px]" aria-labelledby="blog-title">
+    <span aria-hidden="true" class="absolute -top-28 -right-24 size-[320px] rounded-full bg-yellow-200 lavender:bg-lavender-200"></span>
+    <Cloud class="top-[140px] right-[8%] hidden h-[60px] w-[160px] lg:block" />
+    <div class="relative mx-auto flex max-w-[1200px] flex-col gap-5">
+      <h1 id="blog-title" class="text-display-lg font-bold sm:text-display-xl">Perspectives</h1>
+      <p class="max-w-[720px] text-lg text-muted sm:text-xl">Practical advice, heartfelt stories, and expert viewpoints on navigating the journey to independence for autistic young adults.</p>
+      <div class="flex flex-col gap-4 pt-2 sm:flex-row sm:items-center sm:justify-between">
+        <p class="self-start rounded-full bg-brand-700 px-[18px] py-2.5 font-semibold text-white" aria-label="Showing all posts">All posts</p>
+        <form role="search" class="relative w-full sm:w-[340px]" id="blog-form">
+          <label for="blog-search" class="sr-only">Search articles</label>
+          <svg aria-hidden="true" class="absolute top-1/2 left-4 size-5 -translate-y-1/2 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" /></svg>
+          <input id="blog-search" type="search" placeholder="Search articles" autocomplete="off" class="min-h-12 w-full rounded-full border-[1.5px] border-line-strong bg-white pr-4 pl-11 text-md placeholder:text-muted" />
+        </form>
+      </div>
+      <p id="blog-status" class="sr-only" role="status"></p>
+    </div>
+  </section>
+
+  <section class="bg-cream px-4 pb-16 md:px-8 lg:pb-24" aria-label="Articles">
+    <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-10">
+      <article data-post data-text={haystack(featured)} class="relative grid w-full overflow-hidden rounded-[32px] border border-line bg-white lg:grid-cols-[600px_1fr]">
+        <div aria-hidden="true" class={`relative flex min-h-[220px] items-center justify-center ${tones[featured.tone]}`}>
+          <BrandIcon name={featured.icon} class="size-28" />
+          <span class="absolute top-6 right-8 size-3.5 rounded-full bg-brand-300"></span><span class="absolute top-14 right-14 size-2 rounded-full bg-brand-300"></span>
+          <span class="absolute bottom-10 left-8 size-2.5 rounded-full bg-brand-300"></span>
+        </div>
+        <div class="flex flex-col justify-center gap-4 p-6 sm:p-12">
+          <span class="self-start rounded-full bg-yellow-300 px-3 py-1 text-sm font-bold lavender:bg-lavender-200">Latest</span>
+          <h2 class="text-display-xs font-bold sm:text-display-sm"><a href={featured.url} class="after:absolute after:inset-0">{featured.title}</a></h2>
+          <p class="text-lg text-muted">{featured.excerpt}</p>
+          <p class="text-sm font-medium text-muted">{featured.date} · {featured.read} read</p>
+          <p class="font-semibold text-brand-700">Read article →</p>
+        </div>
+      </article>
+
+      <ul class="grid w-full gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {rest.map((p) => (
+          <li data-post data-text={haystack(p)} class="relative flex flex-col overflow-hidden rounded-3xl border border-line bg-white">
+            <div aria-hidden="true" class={`relative flex h-[200px] items-center justify-center ${tones[p.tone]}`}>
+              <BrandIcon name={p.icon} class="size-24" />
+              <span class="absolute top-5 right-6 size-3 rounded-full bg-brand-300"></span><span class="absolute bottom-7 left-6 size-2 rounded-full bg-brand-300"></span>
+            </div>
+            <div class="flex flex-1 flex-col gap-2.5 p-6">
+              <p class="text-sm font-medium text-muted">{p.date} · {p.read} read</p>
+              <h2 class="text-xl font-semibold"><a href={p.url} class="after:absolute after:inset-0">{p.title}</a></h2>
+              <p class="text-muted">{p.excerpt}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+      <p id="blog-empty" hidden class="py-10 text-center text-lg font-medium text-muted">No articles match your search. Try a different word.</p>
+    </div>
+  </section>
+
+  <DownloadBanner />
+</Base>
+
+<script>
+  const input = document.getElementById('blog-search') as HTMLInputElement;
+  const items = [...document.querySelectorAll<HTMLElement>('[data-post]')];
+  const status = document.getElementById('blog-status')!;
+  const empty = document.getElementById('blog-empty')!;
+  document.getElementById('blog-form')!.addEventListener('submit', (e) => e.preventDefault());
+  input.addEventListener('input', () => {
+    const q = input.value.trim().toLowerCase();
+    let shown = 0;
+    items.forEach((el) => {
+      const hit = !q || (el.dataset.text ?? '').includes(q);
+      el.hidden = !hit;
+      if (hit) shown++;
+    });
+    empty.hidden = shown > 0;
+    status.textContent = q ? `${shown} article${shown === 1 ? '' : 's'} found` : '';
+  });
+</script>

@@ -1,9 +1,9 @@
 ---
 // Shepherd logo: dotted mark (PNG used as a mask over brand green) + "shepherd" wordmark.
-interface Props { class?: string }
-const { class: className = '' } = Astro.props;
+interface Props { class?: string; href?: string }
+const { class: className = '', href = '/' } = Astro.props;
 ---
-<a href="/" aria-label="Spectrum Shepherd home" class={`flex shrink-0 items-center gap-1.5 ${className}`}>
+<a href={href} aria-label="Spectrum Shepherd home" class={`flex shrink-0 items-center gap-1.5 ${className}`}>
   <span aria-hidden="true" class="logo-mark size-10 bg-brand-500"></span>
   <img src="/images/logo-text.svg" width="117" height="24" alt="" />
 </a>

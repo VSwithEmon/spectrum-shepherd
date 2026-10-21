@@ -1,0 +1,173 @@
+---
+// Schools page — Figma "Schools page", v1. Content from spectrumshepherd.com/forschools;
+// layout in the V3 homepage style.
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/v3/PageHero.astro';
+import LogoMarquee from '../components/v3/LogoMarquee.astro';
+import BrandIcon from '../components/v3/BrandIcon.astro';
+import FaqSection from '../components/v3/FaqSection.astro';
+import CtaPanel from '../components/v3/CtaPanel.astro';
+import StatusChip from '../components/StatusChip.astro';
+import { site } from '../data/site';
+
+const heroCards = [
+  { label: 'SETUP', icon: 'check' as const, title: 'Goals, in.', body: 'Drop in IEP goals and the personal learning preferences of each student.', pos: 'lg:top-[1%] lg:left-[-3.3%] lg:-rotate-3' },
+  { label: 'PRACTICE', icon: 'lesson' as const, title: 'Skills, stacked.', body: 'Bite-sized lessons built around real-world skills, framed with their interests to hook them in.', pos: 'lg:top-[33.3%] lg:left-[28.3%] lg:rotate-2' },
+  { label: 'EVIDENCE', icon: 'progress' as const, title: 'Receipts, ready.', body: 'Audit-ready progress reports, generated automatically as students progress.', pos: 'lg:top-[61.7%] lg:left-[56.7%] lg:-rotate-2' },
+];
+const values = [
+  { icon: 'progress' as const, title: 'Simplify IEP transitions', body: 'Turn daily student app usage into professional, auditable progress notes. One-Click Reports tie directly to transition goals, capturing objective data on Prompt Levels, Accuracy and Self-Initiation.' },
+  { icon: 'lesson' as const, title: 'Less admin. More teaching.', body: 'Reduce administrative burnout by letting the platform handle differentiation and immediate feedback, so teachers reclaim their instructional bandwidth and focus on students, not manual data entry.' },
+  { icon: 'spark' as const, title: 'Built for the world after school', body: 'Move students from prompt-dependency toward durable self-initiation. A Special Interests Engine makes life-skill tasks intrinsically rewarding, so skills generalize into adult life.' },
+];
+const markers = [
+  { icon: 'check' as const, title: 'Accuracy', body: 'Success rates on specific life-skill task steps.' },
+  { icon: 'people' as const, title: 'Prompt level', body: 'The degree of support required — visual, verbal or physical.' },
+  { icon: 'spark' as const, title: 'Self-initiation', body: 'The frequency of task starts without external prompting.' },
+];
+const stops = [
+  { stage: 'Age 14', title: 'The lifelong companion', body: 'We build momentum long before school support ends, and remain a lifelong digital lifeline after the school system steps away.', pos: 'lg:left-0 lg:top-[30px]' },
+  { stage: 'Transition program', title: 'Strategic workforce integration', body: 'Embedding Shepherd in transitional programs today supports future hiring and training with our B2B employer partners.', pos: 'lg:left-[35%] lg:top-[150px]' },
+  { stage: 'The workforce', title: 'The path to employment', body: 'Employer training content can be translated through the platform, for a seamless move from classroom to workforce.', pos: 'lg:left-[70%] lg:top-[30px]' },
+];
+// Varied-size dotted path behind the journey (large screens), echoing the Shepherd swirl.
+const bez = (t: number, a: number, b: number, c: number, d: number) => (1 - t) ** 3 * a + 3 * (1 - t) ** 2 * t * b + 3 * (1 - t) * t * t * c + t ** 3 * d;
+const pathDots = Array.from({ length: 40 }, (_, k) => {
+  const t = k / 39;
+  return { x: bez(t, 60, 420, 780, 1140), y: bez(t, 300, 40, 330, 60), r: Math.max(1.5, (3 + 8 * Math.sin(Math.PI * t * 3) ** 2) / 2) };
+});
+const faqs = [
+  { q: 'How can schools strengthen transition and functional skills curriculum?', a: [
+    'Spectrum Shepherd helps schools deliver more consistent, personalized transition curriculum, life-skills curriculum and functional-skills instruction for learners ages 14–22.',
+    "Each learner's lesson queue is automatically tailored to their IEP goals, learning level and interests, while snack-sized lessons, usually under 10 minutes, help keep students focused and engaged. Schools can support priorities including daily living, self-care, communication, community safety, executive functioning, social and digital skills, and vocational readiness without requiring teachers to build every lesson from scratch.",
+    'For special education teams trying to make transition curriculum more individualized, more consistent and easier to sustain across classrooms, Shepherd provides a practical structure without adding another heavy lift.',
+  ] },
+  { q: 'How does Spectrum Shepherd fit into an existing special education curriculum?', a: [
+    'Shepherd is designed to complement the curriculum and routines teachers already use, not replace them.',
+    'Educators can use it with individual learners or small groups, while much of the personalization and lesson preparation happens automatically. This helps schools add more structured transition and functional-skills curriculum without creating a major new planning burden for teachers.',
+    'For administrators, that means strengthening transition programming without requiring staff to abandon their current curriculum model or build every individualized lesson themselves.',
+  ] },
+  { q: 'How can schools document transition progress more clearly?', a: [
+    'Schools need more than completed lessons. They need clear, defensible evidence of student progress that can support IEP reviews, transition planning, and federal and state reporting expectations.',
+    'Spectrum Shepherd helps educators track skill accuracy and prompt level, giving teams a clearer view of whether a learner can perform a skill and how much support they need. A gamified approach also helps measure generalization, giving students opportunities to apply what they have learned beyond the core lesson experience.',
+    'The Transition Evidence Report brings that information together in a structured, easy-to-review format. It helps teams see where a learner is progressing, where they are struggling, which concepts are causing difficulty, and how performance is changing over time.',
+    'For schools, that means stronger documentation to support IEP transition requirements, progress monitoring, program review, and state and federal compliance processes without asking teachers to manually assemble evidence from scattered notes and activities.',
+  ] },
+  { q: 'How does Shepherd help reduce teacher workload?', a: [
+    'One of the biggest barriers to strong transition instruction is not knowing what students need. It is finding the time to personalize lessons, create materials, track progress and document what happened across many different learners.',
+    "Spectrum Shepherd helps automate much of that underlying work. The platform tailors each learner's lesson queue to their goals, supports individualized instruction, and captures progress data as students work.",
+    'Teachers remain at the center of instruction, but spend less time building and managing the infrastructure around it.',
+  ] },
+  { q: 'How can schools show evidence of transition progress for IEP and compliance reviews?', a: [
+    'Strong transition programs need more than completed lessons. They need evidence that shows what a learner can do, how much support they need, where progress is occurring and where additional instruction may be required.',
+    "Spectrum Shepherd's progress data and Transition Evidence Report help teams bring that information into IEP reviews, transition planning and broader program discussions in a clearer, more organized way.",
+  ] },
+];
+---
+<Base
+  title="Transition and functional skills platform for schools — Spectrum Shepherd"
+  description="Empower your teachers and automate your compliance: personalized transition lessons and audit-ready evidence for special education programs."
+  refresh
+>
+  <PageHero
+    title="Empower your teachers."
+    accent="Automate your compliance."
+    lede="Skills that stick. Paperwork that writes itself. Shepherd gives special education teams personalized transition lessons and audit-ready evidence — without another heavy lift."
+    primary={{ label: 'Book a 15-min briefing', href: site.demo }}
+    secondary={{ label: 'See the outcomes', href: '#outcomes' }}
+    checks={['Teacher login to first lesson in under five minutes']}
+  >
+    <Fragment slot="visual">
+      <ul class="grid gap-4 sm:grid-cols-3 lg:block">
+        {heroCards.map((c) => (
+          <li class={`flex flex-col gap-3 rounded-3xl border border-brand-100 bg-white p-6 shadow-xl lg:absolute lg:w-[43.3%] ${c.pos}`}>
+            <span class="flex items-center justify-between">
+              <BrandIcon name={c.icon} class="size-11" />
+              <span class="text-xs font-bold text-brand-700">{c.label}</span>
+            </span>
+            <h2 class="text-display-xs font-bold">{c.title}</h2>
+            <p class="text-sm text-muted">{c.body}</p>
+          </li>
+        ))}
+      </ul>
+      <div class="hidden lg:block">
+        <StatusChip title="Under five minutes" caption="From teacher login to first lesson" class="top-[11.7%] left-[50%] z-10" />
+        <StatusChip title="Audit-ready reports" caption="Generated as students progress" class="top-[80%] left-[-3.3%] z-10" />
+      </div>
+    </Fragment>
+  </PageHero>
+
+  <LogoMarquee />
+
+  <section class="bg-white px-4 py-16 md:px-8 lg:py-24" aria-labelledby="values-title">
+    <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-12">
+      <h2 id="values-title" class="max-w-[820px] text-center text-display-sm font-bold md:text-display-md lg:text-display-lg">Skills that stick. Paperwork that writes itself.</h2>
+      <ul class="grid w-full gap-6 md:grid-cols-3">
+        {values.map((v) => (
+          <li class="flex flex-col gap-4 rounded-3xl border border-brand-100 bg-brand-25 p-8">
+            <BrandIcon name={v.icon} />
+            <h3 class="text-display-xs font-semibold">{v.title}</h3>
+            <p class="text-muted">{v.body}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section id="outcomes" class="scroll-mt-4 bg-white px-4 pb-16 md:px-8 lg:pb-24" aria-labelledby="outcomes-title">
+    <div class="on-dark relative mx-auto flex max-w-[1200px] flex-col gap-10 overflow-hidden rounded-3xl bg-brand-800 p-6 text-white sm:p-10 md:rounded-[32px] lg:p-16">
+      <span aria-hidden="true" class="swirl pointer-events-none absolute -top-20 -right-16 size-[320px] bg-white opacity-[0.07] lg:-top-36 lg:right-[-40px] lg:size-[520px]"></span>
+      <div class="relative flex flex-col gap-3">
+        <h2 id="outcomes-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">Measurable outcomes for every student</h2>
+        <p class="text-lg text-brand-50 sm:text-xl">We don't just track participation; we measure the independence markers.</p>
+      </div>
+      <ul class="relative grid md:grid-cols-3">
+        {markers.map((m, i) => (
+          <li class={`flex flex-col gap-3.5 py-6 md:py-0 ${i ? 'border-t border-brand-700 md:border-t-0 md:border-l md:pl-9' : ''} ${i < markers.length - 1 ? 'md:pr-9' : ''}`}>
+            <BrandIcon name={m.icon} />
+            <h3 class="text-display-xs font-bold">{m.title}</h3>
+            <span aria-hidden="true" class="h-1 w-12 rounded-full bg-yellow-300 lavender:bg-lavender-200"></span>
+            <p class="text-lg font-medium text-brand-50">{m.body}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="bg-cream px-4 py-16 md:px-8 lg:py-24" aria-labelledby="journey-title">
+    <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-12">
+      <div class="flex max-w-[820px] flex-col gap-4 text-center">
+        <h2 id="journey-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">Beyond the classroom: lifelong readiness</h2>
+        <p class="text-lg text-muted sm:text-xl">We enter the picture at age 14 to build momentum long before school support ends — and stay as a digital lifeline after.</p>
+      </div>
+      <ol class="relative grid w-full gap-6 lg:block lg:h-[360px]">
+        <svg aria-hidden="true" class="pointer-events-none absolute inset-0 hidden size-full lg:block" viewBox="0 0 1200 360" preserveAspectRatio="none">
+          {pathDots.map((d) => <circle cx={d.x} cy={d.y} r={d.r} class="fill-brand-300" />)}
+        </svg>
+        {stops.map((s) => (
+          <li class={`flex flex-col gap-2.5 rounded-3xl border border-line bg-white p-6 shadow-xl lg:absolute lg:w-[30%] ${s.pos}`}>
+            <span class="self-start rounded-full bg-yellow-300 px-3 py-1 text-sm font-bold lavender:bg-lavender-200">{s.stage}</span>
+            <h3 class="text-xl font-semibold">{s.title}</h3>
+            <p class="text-muted">{s.body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <CtaPanel
+    id="briefing"
+    title="Request a 15-minute briefing"
+    body="See how a growing group of leading programs use Shepherd to exceed family expectations and lead the transition conversation."
+    primary={{ label: 'Book a 15-min briefing', href: site.demo }}
+  />
+
+  <FaqSection title="Questions schools ask" items={faqs} />
+</Base>
+
+<style>
+  .swirl {
+    mask: url('/images/logo-mark.png') center / contain no-repeat;
+    -webkit-mask: url('/images/logo-mark.png') center / contain no-repeat;
+  }
+</style>

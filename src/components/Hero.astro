@@ -3,6 +3,7 @@ import Button from './Button.astro';
 import Hills from './Hills.astro';
 import StatusChip from './StatusChip.astro';
 import Cloud from './Cloud.astro';
+import { site } from '../data/site';
 
 interface Props {
   /** Oct 2026 feedback (V3/V4): no eyebrow pill, free-trial CTA + microcopy, clouds and trees. */
@@ -46,7 +47,7 @@ const {
       {refresh ? (
         <div class="flex w-full flex-col gap-3">
           <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <Button href="#">Start your 45-day free trial</Button>
+            <Button href={site.trial}>Start your 45-day free trial</Button>
             <Button href="#demo" variant="secondary">Book a demo</Button>
           </div>
           <p class="text-center text-sm font-medium text-muted sm:text-left">First lesson in under five minutes · Built for FERPA compliance</p>

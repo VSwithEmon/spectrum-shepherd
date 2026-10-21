@@ -1,5 +1,6 @@
 ---
 import Hills from './Hills.astro';
+import { site } from '../data/site';
 
 interface Props {
   /** Draw the hill edge above the footer. Off when the page's last section already ends in hills. */
@@ -11,10 +12,16 @@ interface Props {
 }
 const { hills = true, hillsBg = '', refresh = false } = Astro.props;
 
-const columns = [
-  { title: 'Product', links: [{ label: 'Teachers', href: '#' }, { label: 'Schools', href: '#' }, { label: 'The App', href: '#' }] },
-  { title: 'Company', links: [{ label: 'About', href: '#' }, { label: 'Resources', href: '#' }, { label: 'Log in', href: '#' }] },
-];
+// V1/V2 keep their placeholder links; the refresh designs (V3/V4 + inner pages) link the real pages.
+const columns = refresh
+  ? [
+      { title: 'Product', links: [{ label: 'Teachers', href: site.teachers }, { label: 'Schools', href: site.schools }, { label: 'The App', href: site.app }] },
+      { title: 'Company', links: [{ label: 'About', href: site.about }, { label: 'Resources', href: site.blog }, { label: 'Log in', href: site.login }] },
+    ]
+  : [
+      { title: 'Product', links: [{ label: 'Teachers', href: '#' }, { label: 'Schools', href: '#' }, { label: 'The App', href: '#' }] },
+      { title: 'Company', links: [{ label: 'About', href: '#' }, { label: 'Resources', href: '#' }, { label: 'Log in', href: '#' }] },
+    ];
 // Social profile URLs still to be supplied by the client.
 const social = [
   { label: 'Instagram', icon: '/images/icons/instagram.svg', href: '#' },

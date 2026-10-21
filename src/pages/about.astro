@@ -1,0 +1,129 @@
+---
+// About page — Figma "About page", v1. Content from spectrumshepherd.com/about; layout in the V3
+// homepage style. Long passages are paraphrased from the live page — verify against it
+// (marked "[Verify copy]"). Founder photos and titles are placeholders until supplied.
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/v3/PageHero.astro';
+import BrandIcon from '../components/v3/BrandIcon.astro';
+import CtaPanel from '../components/v3/CtaPanel.astro';
+import { site } from '../data/site';
+
+const chapters = [
+  { icon: 'people' as const, title: "A family's search", body: 'One family looked for a way to keep skills growing after school ended.' },
+  { icon: 'lesson' as const, title: 'An AI skills coach', body: 'That search grew into an AI skills coach trusted by a fast-growing number of leading schools and teachers.' },
+  { icon: 'progress' as const, title: 'A staff multiplier', body: 'Listening to special ed directors and teachers made it a staff multiplier: compliance automated, student passions at the center.' },
+];
+const founders = [
+  { name: 'William', initial: 'W' },
+  { name: 'Kevin', initial: 'K' },
+];
+---
+<Base
+  title="About — a vision rooted in personal experience — Spectrum Shepherd"
+  description="Spectrum Shepherd began at a kitchen table, when one family asked what happens after school support ends."
+  refresh
+>
+  <PageHero
+    title="A vision rooted in"
+    accent="personal experience."
+    lede="Spectrum Shepherd began at a kitchen table, with one family asking what happens after school support ends. [Verify copy against live About page.]"
+    primary={{ label: 'Meet the founders', href: '#founders' }}
+    secondary={{ label: 'Book a demo', href: site.demo }}
+  >
+    <Fragment slot="visual">
+      <div class="flex flex-col gap-4 sm:mx-auto sm:max-w-[420px] lg:block lg:max-w-none">
+        <figure class="flex flex-col gap-3.5 rounded-[28px] bg-white p-8 shadow-xl lg:absolute lg:top-[18%] lg:left-[6.7%] lg:w-[63%] lg:-rotate-3">
+          <span aria-hidden="true" class="text-[88px] leading-[56px] font-bold text-brand-300">“</span>
+          <blockquote class="text-display-xs font-bold sm:text-display-sm">What happens after school support ends?</blockquote>
+          <figcaption class="text-muted">The question one family asked — and the reason Spectrum Shepherd exists.</figcaption>
+        </figure>
+        <p class="on-dark flex flex-col gap-1.5 rounded-3xl bg-brand-700 p-6 text-white shadow-xl lg:absolute lg:top-[65%] lg:left-[55%] lg:w-[42%] lg:rotate-3">
+          <span class="text-display-lg font-bold">100%</span>
+          <span class="text-sm font-medium text-brand-50">conversion among participating schools in our 2026 trials</span>
+        </p>
+      </div>
+    </Fragment>
+  </PageHero>
+
+  <section class="bg-white px-4 py-16 md:px-8 lg:py-24" aria-labelledby="cliff-title">
+    <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-12">
+      <div class="flex max-w-[820px] flex-col gap-4 text-center">
+        <h2 id="cliff-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">The Transition Cliff is why we exist.</h2>
+        <p class="text-lg text-muted sm:text-xl">When school support ends, too many young adults fall off a cliff. As William's son Charlie approached graduation, that worry became a call to action. [Verify copy.]</p>
+      </div>
+      <figure class="flex w-full flex-col gap-5 rounded-[32px] bg-brand-25 p-5 sm:p-8">
+        <svg aria-hidden="true" viewBox="0 0 1200 380" fill="none" class="w-full">
+          <path d="M80 300H1120" class="stroke-brand-100" stroke-width="2" />
+          <path d="M80 120C300 120 520 116 700 112L708 300" class="stroke-line-strong" stroke-width="6" stroke-linecap="round" stroke-dasharray="2 14" />
+          <path d="M80 300C360 290 560 230 760 170S1040 90 1120 80" class="stroke-brand-700" stroke-width="7" stroke-linecap="round" stroke-dasharray="2 16" />
+          <circle cx="1120" cy="80" r="12" class="fill-yellow-300 stroke-brand-700" stroke-width="4" />
+          <circle cx="704" cy="112" r="10" class="fill-white stroke-field" stroke-width="3" />
+        </svg>
+        <div class="flex justify-between text-xs font-semibold text-muted sm:text-sm" aria-hidden="true">
+          <span>Age 14</span><span>Graduation · 22</span><span>Adult life</span>
+        </div>
+        <figcaption class="flex flex-wrap gap-x-8 gap-y-2 text-md font-semibold">
+          <span class="flex items-center gap-2 text-muted"><span aria-hidden="true" class="w-8 border-t-[6px] border-dotted border-line-strong"></span>Without support: the cliff at graduation</span>
+          <span class="flex items-center gap-2 text-brand-700"><span aria-hidden="true" class="w-8 border-t-[6px] border-dotted border-brand-700"></span>With Shepherd: the ramp into adult life</span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="bg-cream px-4 py-16 md:px-8 lg:py-24" aria-labelledby="story-title">
+    <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-12">
+      <h2 id="story-title" class="text-center text-display-sm font-bold md:text-display-md lg:text-display-lg">From a kitchen table to a staff multiplier</h2>
+      <ol class="grid w-full gap-6 md:grid-cols-3">
+        {chapters.map((c, i) => (
+          <li class="flex flex-col gap-3.5 rounded-3xl border border-line bg-white p-7">
+            <span class="flex items-center justify-between">
+              <BrandIcon name={c.icon} />
+              <span aria-hidden="true" class="text-display-xs font-bold text-brand-200">0{i + 1}</span>
+            </span>
+            <h3 class="text-xl font-semibold">{c.title}</h3>
+            <p class="text-muted">{c.body} [Verify copy.]</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section id="founders" class="scroll-mt-4 bg-white px-4 py-16 md:px-8 lg:py-24" aria-labelledby="founders-title">
+    <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-12">
+      <h2 id="founders-title" class="text-center text-display-sm font-bold md:text-display-md lg:text-display-lg">Our founders</h2>
+      <ul class="flex flex-col items-center gap-8 sm:flex-row sm:justify-center">
+        {founders.map((f) => (
+          <li class="flex w-full max-w-[380px] flex-col items-center gap-3 rounded-[32px] border border-brand-100 bg-brand-25 px-8 py-9 text-center">
+            <!-- [PHOTO — {f.name} headshot from the current About page] -->
+            <span aria-hidden="true" class="flex size-[180px] items-center justify-center rounded-full border-[6px] border-yellow-300 bg-white text-display-xl font-bold text-brand-600 lavender:border-lavender-200">{f.initial}</span>
+            <h3 class="text-display-xs font-bold">{f.name}</h3>
+            <p class="font-medium text-muted">Co-founder · [title to confirm]</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="bg-white px-4 pb-16 md:px-8 lg:pb-24" aria-labelledby="mission-title">
+    <div class="on-dark relative mx-auto flex max-w-[1200px] flex-col items-center gap-7 overflow-hidden rounded-[40px] bg-brand-800 px-6 py-16 text-center text-white sm:px-16 lg:px-24 lg:py-[72px]">
+      <span aria-hidden="true" class="swirl pointer-events-none absolute -top-20 -left-24 size-[360px] bg-white opacity-[0.07]"></span>
+      <h2 id="mission-title" class="relative text-display-sm font-bold md:text-display-md lg:text-display-lg">Our collective mission</h2>
+      <p class="relative max-w-[900px] text-lg text-brand-50 sm:text-xl">We are technologists, special educators, autism advocates and parents working to unlock potential in the autism community — teaching skills and automating evidence-based progress tracking so families and educators can focus on the person, not the paperwork. [Verify copy.]</p>
+      <p class="relative rounded-3xl bg-yellow-300 px-6 py-5 text-lg font-semibold text-ink sm:px-8 sm:text-xl lavender:bg-lavender-200">Finally, greater independence doesn't feel out of reach... it feels closer every day.</p>
+    </div>
+  </section>
+
+  <CtaPanel
+    id="walk-with-us"
+    title="Walk the path to independence with us."
+    body="See how Shepherd fits your students, your goals and your funding."
+    primary={{ label: 'Book a demo', href: site.demo }}
+  />
+</Base>
+
+<style>
+  .swirl {
+    mask: url('/images/logo-mark.png') center / contain no-repeat;
+    -webkit-mask: url('/images/logo-mark.png') center / contain no-repeat;
+  }
+</style>

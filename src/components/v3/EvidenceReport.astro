@@ -1,0 +1,60 @@
+---
+// Sample "Transition Evidence Report" (Figma v1, Teachers page). Illustrative data — the values
+// are readable as text (percent + status), the bars are decoration.
+const groups = [
+  { name: 'DAILY LIVING & SELF-CARE', count: '2 active skill suites', tone: 'bg-brand-50', rows: [
+    { skill: 'Emotional Regulation', target: 80, value: 74, status: 'on' },
+    { skill: 'Hygiene & Grooming', target: 85, value: 83, status: 'on' },
+  ] },
+  { name: 'SAFETY & INDEPENDENCE', count: '3 active skill suites', tone: 'bg-orange-50', rows: [
+    { skill: 'Communication', target: 65, value: 65, status: 'on' },
+    { skill: 'Personal Safety', target: 70, value: 22, status: 'focus' },
+    { skill: 'Advocacy', target: 60, value: 40, status: 'watch' },
+  ] },
+] as const;
+const status = {
+  on: { label: 'ON TRACK', chip: 'bg-brand-50 text-brand-800', bar: 'bg-brand-700' },
+  focus: { label: 'FOCUS', chip: 'bg-orange-50 text-orange-700', bar: 'bg-orange-700' },
+  watch: { label: 'WATCH', chip: 'bg-yellow-100 text-yellow-800', bar: 'bg-yellow-600' },
+};
+---
+<figure class="flex flex-col gap-3">
+  <div class="flex flex-col gap-3.5 rounded-3xl bg-white p-5 shadow-2xl sm:p-7">
+    <div class="flex items-center gap-3">
+      <span class="rounded-md bg-yellow-100 px-2 py-0.5 text-xs font-bold text-yellow-800">SAMPLE</span>
+      <p class="flex-1">
+        <span class="block font-semibold">Transition Evidence Report</span>
+        <span class="block text-xs text-muted">Mastery by Skill Suite</span>
+      </p>
+      <span class="hidden text-xs text-muted sm:block">Page 4 of 7</span>
+    </div>
+
+    {groups.map((g) => (
+      <div class="flex flex-col gap-3.5">
+        <p class={`flex items-center justify-between rounded-lg px-3 py-2 text-xs font-bold text-brand-800 ${g.tone}`}>
+          {g.name}<span class="font-normal text-muted">{g.count}</span>
+        </p>
+        {g.rows.map((r) => (
+          <div class="grid grid-cols-[1fr_44px_84px] items-center gap-x-3 gap-y-2 px-1 sm:grid-cols-[150px_1fr_44px_84px] sm:gap-x-4">
+            <p class="col-span-3 sm:col-span-1">
+              <span class="block text-sm font-semibold">{r.skill}</span>
+              <span class="block text-xs text-muted">Target {r.target}%</span>
+            </p>
+            <span aria-hidden="true" class="relative h-2 rounded-full bg-line">
+              <span class={`absolute inset-y-0 left-0 rounded-full ${status[r.status].bar}`} style={`width:${r.value}%`}></span>
+              <span class="absolute -top-1 h-4 w-0.5 bg-ink" style={`left:${r.target}%`}></span>
+            </span>
+            <span class="text-right text-sm font-bold">{r.value}%</span>
+            <span class={`rounded-md px-2 py-0.5 text-center text-xs font-bold ${status[r.status].chip}`}>{status[r.status].label}</span>
+          </div>
+        ))}
+      </div>
+    ))}
+
+    <p class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
+      <span class="flex items-center gap-1.5"><span aria-hidden="true" class="h-2 w-5 rounded-full bg-brand-700"></span>Current progress</span>
+      <span class="flex items-center gap-1.5"><span aria-hidden="true" class="h-3.5 w-0.5 bg-ink"></span>End-of-year target</span>
+    </p>
+  </div>
+  <figcaption class="text-xs text-muted">Example. Sample report — learner data is illustrative and does not represent a real individual.</figcaption>
+</figure>

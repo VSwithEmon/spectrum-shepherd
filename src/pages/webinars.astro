@@ -1,0 +1,57 @@
+---
+// Webinars — Figma "Webinars page", v1. Sessions as listed on spectrumshepherd.com/webinars;
+// the videos still live there. Presenter is Dr. Lori Lopez-Lopez on the current thumbnails.
+import Base from '../layouts/Base.astro';
+import Button from '../components/Button.astro';
+import CtaPanel from '../components/v3/CtaPanel.astro';
+import { webinars } from '../data/webinars';
+import { site } from '../data/site';
+
+const panels = ['bg-brand-700', 'bg-brand-800', 'bg-brand-600', 'bg-brand-900'];
+---
+<Base
+  title="Webinars — special education transition webinars — Spectrum Shepherd"
+  description="Short, practical on-demand sessions for special education and transition teams."
+  refresh
+>
+  <section class="relative overflow-hidden bg-cream px-4 pt-12 pb-10 md:px-8 lg:pt-[72px]" aria-labelledby="webinars-title">
+    <span aria-hidden="true" class="absolute -top-28 -right-24 size-[320px] rounded-full bg-yellow-200 lavender:bg-lavender-200"></span>
+    <div class="relative mx-auto flex max-w-[1200px] flex-col gap-5">
+      <h1 id="webinars-title" class="text-display-lg font-bold sm:text-display-xl">Webinars</h1>
+      <p class="max-w-[760px] text-lg text-muted sm:text-xl">Short, practical sessions for special education and transition teams — most are “5 in 25”: five strategies you can use tomorrow, in 25 minutes. Watch on demand, any time.</p>
+    </div>
+  </section>
+
+  <section class="bg-cream px-4 pb-16 md:px-8 lg:pb-24" aria-label="On-demand webinars">
+    <ul class="mx-auto grid max-w-[1200px] gap-6 md:grid-cols-2">
+      {webinars.map((w, i) => (
+        <li class="flex flex-col overflow-hidden rounded-[28px] border border-line bg-white">
+          <div aria-hidden="true" class={`relative flex h-[240px] items-center justify-between px-8 ${panels[i % panels.length]}`}>
+            <span class="absolute top-7 left-8 rounded-full bg-yellow-300 px-3.5 py-1.5 text-sm font-bold text-ink lavender:bg-lavender-200">Watch on demand</span>
+            <span class="mt-8 flex size-16 items-center justify-center rounded-full bg-white text-brand-800">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z" /></svg>
+            </span>
+            <img src="/images/photos/lori-lopez-lopez.jpg" width="640" height="640" loading="lazy" alt="" class="size-[150px] rounded-full border-[6px] border-white object-cover" />
+            <span class="absolute top-6 right-12 size-4 rounded-full bg-white/15"></span><span class="absolute right-6 bottom-12 size-5 rounded-full bg-white/15"></span>
+          </div>
+          <div class="flex flex-1 flex-col items-start gap-3.5 p-7">
+            <ul class="flex flex-wrap gap-2" aria-label="Topics">
+              {w.tags.map((t) => <li class="rounded-full border border-brand-100 bg-brand-25 px-2.5 py-1 text-xs font-semibold text-brand-800">{t}</li>)}
+            </ul>
+            <h2 class="text-display-xs font-semibold">{w.title}</h2>
+            <p class="text-muted">{w.description}</p>
+            <Button href={w.url} class="mt-auto">Watch webinar<span class="sr-only">: {w.title}</span></Button>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <CtaPanel
+    id="bring-it-home"
+    title="Bring these strategies to your classroom."
+    body="Try Shepherd with one student, or your whole classroom — 45 days free."
+    primary={{ label: 'Start your 45-day free trial', href: site.trial }}
+    secondary={{ label: 'Book a demo', href: site.demo }}
+  />
+</Base>

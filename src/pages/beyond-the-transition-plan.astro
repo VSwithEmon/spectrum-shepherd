@@ -1,0 +1,105 @@
+---
+// Beyond the Transition Plan — Figma "Beyond the Transition Plan (research) page", v1.
+// Content from spectrumshepherd.com/beyond-the-transition-plan. Study figures are quoted from the
+// current page; the long paragraphs are paraphrased from it (marked "[Verify copy]").
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/v3/PageHero.astro';
+import BrandIcon from '../components/v3/BrandIcon.astro';
+import CtaPanel from '../components/v3/CtaPanel.astro';
+import { site } from '../data/site';
+
+const questions = [
+  'Do assessments shape meaningful goals?',
+  'Do those goals drive instruction?',
+  'Do students practice relevant skills in authentic settings?',
+  'Can teams see progress?',
+  'Are adult systems connected early enough?',
+];
+const studies = [
+  { source: 'Tennessee Educator Study · 2026', value: '12.9%', label: 'of surveyed educators reported planning work-based activities at job sites.', body: '185 special education teachers across 57 Tennessee districts: 93% reported writing IEPs and transition plans, but job-site work experiences were much less common.', caveat: 'One-state evidence, not a national prevalence estimate.' },
+  { source: 'Findley, Ruble & McGrew · 2022', value: '< 25%', label: 'of IEPs included an annual goal addressing a documented social-skill or behavior need.', body: '20 autistic students across two states: more than two-thirds of IEPs documented a need, but fewer than one quarter included a matching annual goal.', caveat: 'Small sample, not a national prevalence estimate.' },
+];
+---
+<Base
+  title="Beyond the Transition Plan — special education transition research — Spectrum Shepherd"
+  description="What the evidence says about moving from compliant planning to coherent preparation for adult life."
+  refresh
+>
+  <PageHero
+    title="Beyond the"
+    accent="Transition Plan"
+    lede="What the evidence says about moving from compliant planning to coherent preparation for adult life."
+    primary={{ label: 'Download the full white paper (PDF)', href: site.whitePaper }}
+    checks={['A research synthesis', 'Free PDF']}
+  >
+    <Fragment slot="visual">
+      <!-- [IMAGE — white paper cover art; replace this mock with TransitionResearchCoverArt.png] -->
+      <div class="relative mx-auto w-[260px] max-w-full lg:absolute lg:top-[9%] lg:left-[25%] lg:mx-0 lg:w-[55%]">
+        <div class="on-dark relative flex aspect-[330/440] -rotate-3 flex-col justify-end gap-3.5 overflow-hidden rounded-2xl bg-brand-800 p-7 text-white shadow-2xl lg:-rotate-4 lg:p-8">
+          <span aria-hidden="true" class="swirl pointer-events-none absolute -top-8 left-[30%] size-[200px] bg-white opacity-[0.14]"></span>
+          <p class="relative text-xs font-bold text-yellow-300">SPECTRUM SHEPHERD RESEARCH</p>
+          <p class="relative text-display-xs font-bold lg:text-display-sm">Beyond the Transition Plan</p>
+          <p class="relative text-sm text-brand-50">From compliant planning to coherent preparation for adult life</p>
+        </div>
+        <span aria-hidden="true" class="absolute -right-2 -bottom-4 flex size-14 items-center justify-center rounded-full border-2 border-brand-600 bg-brand-50 text-brand-700 lg:-right-6 lg:-bottom-6 lg:size-16">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v10M8 11l4 4 4-4M6 19h12" /></svg>
+        </span>
+      </div>
+    </Fragment>
+  </PageHero>
+
+  <section class="on-dark bg-brand-700 px-4 py-16 text-white md:px-8 lg:py-24" aria-label="Research quote">
+    <figure class="mx-auto flex max-w-[1000px] flex-col items-center gap-6 text-center">
+      <blockquote class="text-display-xs font-bold sm:text-display-sm md:text-display-md">“Indicator 13 was originally designed to address compliance, not quality... a compliant IEP may not be high quality.”</blockquote>
+      <figcaption class="font-medium text-brand-50">Findley, Ruble &amp; McGrew (2022), study of transition-age autistic students — <cite>Research in Autism Spectrum Disorders</cite></figcaption>
+    </figure>
+  </section>
+
+  <section class="bg-white px-4 py-16 md:px-8 lg:py-24" aria-labelledby="execution-title">
+    <div class="mx-auto grid max-w-[1200px] items-center gap-10 lg:grid-cols-[460px_1fr] lg:gap-[72px]">
+      <div class="flex flex-col gap-5">
+        <h2 id="execution-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">The next challenge in transition is execution.</h2>
+        <p class="text-lg text-muted">Transition planning is now common in special education. The harder question is what happens after the plan is written. [Verify copy.]</p>
+      </div>
+      <ul class="flex flex-col rounded-[32px] border border-brand-100 bg-brand-25 px-6 py-4 sm:px-9 sm:py-6">
+        {questions.map((q) => (
+          <li class="flex items-center gap-4 border-b border-brand-100 py-4 text-lg font-medium last:border-b-0 sm:text-xl">
+            <BrandIcon name="check" class="size-9" />{q}
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="bg-cream px-4 py-16 md:px-8 lg:py-24" aria-labelledby="studies-title">
+    <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-12">
+      <h2 id="studies-title" class="text-center text-display-sm font-bold md:text-display-md lg:text-display-lg">What the research shows</h2>
+      <ul class="grid w-full gap-6 md:grid-cols-2">
+        {studies.map((s) => (
+          <li class="flex flex-col gap-3.5 rounded-[32px] border border-line bg-white p-8 sm:p-10">
+            <p class="text-sm font-bold text-brand-700">{s.source}</p>
+            <p class="text-display-xl font-bold">{s.value}</p>
+            <span aria-hidden="true" class="h-1 w-12 rounded-full bg-yellow-300 lavender:bg-lavender-200"></span>
+            <p class="text-xl font-semibold">{s.label}</p>
+            <p class="text-muted">{s.body}</p>
+            <p class="text-sm text-muted italic">{s.caveat}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <CtaPanel
+    id="white-paper"
+    title="Read the full synthesis."
+    body="Transition-plan quality, implementation capacity, functional readiness, and the systems that shape life after school."
+    primary={{ label: 'Download the full white paper (PDF)', href: site.whitePaper }}
+  />
+</Base>
+
+<style>
+  .swirl {
+    mask: url('/images/logo-mark.png') center / contain no-repeat;
+    -webkit-mask: url('/images/logo-mark.png') center / contain no-repeat;
+  }
+</style>

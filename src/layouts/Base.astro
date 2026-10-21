@@ -19,6 +19,8 @@ interface Props {
   palette?: 'calm' | 'lavender';
   /** Oct 2026 feedback refresh for the nav and footer (V3/V4). */
   refresh?: boolean;
+  /** Logo destination; refresh pages default to /v3. */
+  homeHref?: string;
 }
 const {
   title,
@@ -29,6 +31,7 @@ const {
   designToggle,
   palette,
   refresh = false,
+  homeHref,
 } = Astro.props;
 ---
 <!doctype html>
@@ -44,7 +47,7 @@ const {
   </head>
   <body data-palette={palette}>
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-white focus:px-4 focus:py-3 focus:font-semibold focus:shadow-lg">Skip to main content</a>
-    <SiteNav demoHref={demoHref} refresh={refresh} />
+    <SiteNav demoHref={demoHref} refresh={refresh} homeHref={homeHref} />
     <main id="main">
       <slot />
     </main>

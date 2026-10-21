@@ -3,6 +3,7 @@
 // Figma: "Book a Demo (#demo) — Invitation", node 38613:3826.
 import Button from './Button.astro';
 import FormField from './FormField.astro';
+import { site } from '../data/site';
 
 interface Props {
   /** Oct 2026 feedback (V3/V4): no eyebrow, human headline, varied-size dotted path. */
@@ -87,7 +88,7 @@ const steps = [
 
     <p class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 rounded-full bg-yellow-200 px-6 py-3 text-center font-bold calm:bg-brand-50 lavender:bg-lavender-100">
       Just one teacher?
-      <a href="#" class="text-brand-800 underline hover:text-ink">Start a free 45-day trial →</a>
+      <a href={refresh ? site.trial : '#'} class="text-brand-800 underline hover:text-ink">Start a free 45-day trial →</a>
     </p>
   </div>
 </section>

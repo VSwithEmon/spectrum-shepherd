@@ -6,6 +6,14 @@ import Button from '../Button.astro';
 import CheckItem from '../CheckItem.astro';
 import FloatingStat from '../FloatingStat.astro';
 import { audienceSlides } from '../../data/audiences';
+import { site } from '../../data/site';
+
+// Each card leads to its own page; teachers go straight to the free trial.
+const hrefs: Record<string, string> = {
+  'audience-schools': site.schools,
+  'audience-teachers': site.teachers,
+  'audience-students': site.app,
+};
 ---
 <section class="px-4 py-16 md:px-8 lg:py-24" aria-labelledby="audiences-title">
   <div class="mx-auto flex max-w-[1200px] flex-col gap-10">
@@ -26,7 +34,7 @@ import { audienceSlides } from '../../data/audiences';
             </ul>
           </div>
           <div class="px-6 pb-6 sm:px-7 sm:pb-7">
-            <Button href={s.cta.href} variant="secondary">{s.cta.label}</Button>
+            <Button href={hrefs[s.id] ?? s.cta.href} variant="secondary">{s.cta.label}</Button>
           </div>
         </li>
       ))}
