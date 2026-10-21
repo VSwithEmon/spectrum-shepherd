@@ -2,12 +2,12 @@
 // Individual blog posts and webinar videos still live on the current site (spectrumshepherd.com)
 // until they are migrated; those URLs are in posts.ts / webinars.ts.
 //
-// Account pages: /free-trial explains the 45-day trial, /sign-up is the account form and /login
+// Account pages: /sign-up is the account form (every free-trial button goes there) and /login
 // hands off to the Shepherd app. The marketing site never stores passwords: `appTrial` and
 // `appLogin` are the app's own sign-up and log-in endpoints, which the forms submit to / link to.
 export const site = {
   home: '/v3',
-  trial: '/free-trial',
+  trial: '/sign-up',
   signup: '/sign-up',
   login: '/login',
   demo: '/book-a-demo',
