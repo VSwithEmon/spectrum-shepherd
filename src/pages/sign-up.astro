@@ -1,0 +1,35 @@
+---
+// Sign up free — Figma "Sign up free page". Collects the teacher's details; the password is set in
+// the Shepherd app (the marketing site never handles passwords).
+// TODO: point `action` at the app's sign-up endpoint (or the client's form service) once confirmed.
+import Base from '../layouts/Base.astro';
+import AuthShell from '../components/v3/AuthShell.astro';
+import Button from '../components/Button.astro';
+import FormField from '../components/FormField.astro';
+import { site } from '../data/site';
+---
+<Base title="Sign up free — Spectrum Shepherd" description="Create your free Spectrum Shepherd account and start your 45-day free trial. No credit card, no district approval." refresh>
+  <AuthShell
+    eyebrow="Free for teachers · 45 days"
+    title="Create your free account."
+    lede="Set up your class in about ten minutes and see your first progress notes this week."
+    points={[{ icon: 'check', text: 'No credit card' }, { icon: 'check', text: 'No district approval needed' }, { icon: 'shield', text: 'Built for FERPA compliance' }]}
+  >
+    <form method="post" class="flex flex-col gap-4" aria-labelledby="signup-title">
+      <div class="flex flex-col gap-1">
+        <h2 id="signup-title" class="text-display-xs font-bold sm:text-display-sm">Sign up free</h2>
+        <p class="text-muted">Start your 45-day free trial. All fields are required.</p>
+      </div>
+      <div class="grid gap-4 sm:grid-cols-2">
+        <FormField id="first-name" label="First name" autocomplete="given-name" required />
+        <FormField id="last-name" label="Last name" autocomplete="family-name" required />
+      </div>
+      <FormField id="email" label="Work email" type="email" placeholder="you@school.org" autocomplete="email" required />
+      <FormField id="organization" label="School or district" autocomplete="organization" required />
+      <FormField id="role" label="Your role" options={['Teacher', 'Paraprofessional', 'Transition coordinator', 'Special ed director', 'Other']} />
+      <Button type="submit" full>Create my free account</Button>
+      <p class="text-sm text-muted">You'll set your password in the Shepherd app. By continuing you agree to our <a href="/terms" class="text-brand-700 underline hover:text-brand-800">Terms</a> and <a href="/privacy" class="text-brand-700 underline hover:text-brand-800">Privacy policy</a>.</p>
+    </form>
+    <p class="text-center font-medium">Already have an account? <a href={site.login} class="font-bold text-brand-700 underline hover:text-brand-800">Log in</a></p>
+  </AuthShell>
+</Base>

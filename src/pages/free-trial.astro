@@ -1,0 +1,135 @@
+---
+// Start your free trial — Figma "Free trial page". Landing page for the 45-day trial; every CTA
+// leads to /sign-up. Trial terms after day 45 are not published yet ("[Client to supply]").
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/v3/PageHero.astro';
+import LogoMarquee from '../components/v3/LogoMarquee.astro';
+import BrandIcon from '../components/v3/BrandIcon.astro';
+import FaqSection from '../components/v3/FaqSection.astro';
+import CtaPanel from '../components/v3/CtaPanel.astro';
+import { site } from '../data/site';
+
+const milestones = [
+  { when: 'Day 1', title: 'Set up your class', body: 'Add your students and drop in their IEP goals.' },
+  { when: 'This week', title: 'See your first progress notes', body: 'Captured as students work, tied to IEP goals.' },
+  { when: 'Day 45', title: 'Decide with real evidence', body: 'Still free. Still no credit card.' },
+];
+const gets = [
+  { icon: 'lesson' as const, title: 'Ready-made life-skills lessons', body: "Written for each student's reading level." },
+  { icon: 'progress' as const, title: 'IEP-linked progress notes', body: 'Captured automatically as students work.' },
+  { icon: 'people' as const, title: 'Students work independently', body: 'At their own level, around their interests.' },
+  { icon: 'download' as const, title: 'Transition Evidence Report', body: 'One click turns progress into a report.' },
+];
+const steps = [
+  { n: '1', label: 'Setup', icon: 'check' as const, title: 'Ten minutes, once.', body: 'Add your students and drop in their IEP goals. No training, no rollout, no IT ticket.' },
+  { n: '2', label: 'Daily', icon: 'lesson' as const, title: 'It personalizes for you.', body: "Each student gets lessons built around their goals, their level, and what they're interested in." },
+  { n: '3', label: 'Evidence', icon: 'progress' as const, title: 'Ready before the meeting.', body: 'Prompt levels, accuracy and self-initiation captured as they work. One click turns it into a progress report.' },
+];
+const faqs = [
+  { q: 'Do I need a credit card?', a: ['No. The 45-day trial is free, with no credit card.'] },
+  { q: 'Do I need district approval?', a: ['No district approval needed. Try it with one student or your whole classroom.'] },
+  { q: 'How long does setup take?', a: ['Ten minutes, once. Add your students and drop in their IEP goals — no training, no rollout, no IT ticket.'] },
+  { q: 'What happens after 45 days?', a: ['[Client to supply — pricing and next steps after the trial.]'] },
+];
+---
+<Base title="Start your 45-day free trial — Spectrum Shepherd" description="Try Spectrum Shepherd free for 45 days. No credit card and no district approval needed. Set up your class in about ten minutes." refresh>
+  <PageHero
+    title="Try Shepherd"
+    accent="free for 45 days."
+    lede="Set up your class in minutes and see the first progress notes this week."
+    primary={{ label: 'Sign up free', href: site.signup }}
+    secondary={{ label: 'Book a demo instead', href: site.demo }}
+    checks={['No credit card', 'No district approval needed']}
+  >
+    <Fragment slot="visual">
+      <div class="mx-auto flex w-full max-w-[460px] flex-col gap-1 rounded-[32px] border border-brand-100 bg-white p-7 shadow-2xl sm:p-9 lg:absolute lg:top-[11.7%] lg:left-[15%]">
+        <div class="flex items-center gap-4 pb-5">
+          <p class="flex size-24 shrink-0 flex-col items-center justify-center rounded-full bg-yellow-300 text-center lavender:bg-lavender-200">
+            <span class="text-display-md font-bold">45</span>
+            <span class="text-xs font-bold">days free</span>
+          </p>
+          <div>
+            <p class="text-display-xs font-bold">Your free trial</p>
+            <p class="text-sm font-medium text-muted">No credit card. No district approval.</p>
+          </div>
+        </div>
+        <ol>
+          {milestones.map((m, i) => (
+            <li class="flex gap-4">
+              <span class="flex flex-col items-center gap-1.5" aria-hidden="true">
+                <span class={`mt-1 size-5 rounded-full border-[3px] border-brand-800 ${i === 2 ? 'bg-yellow-300 lavender:bg-lavender-200' : 'bg-brand-600'}`}></span>
+                {i < 2 && <span class="flex flex-1 flex-col items-center justify-center gap-1.5"><span class="size-1 rounded-full bg-brand-300"></span><span class="size-1.5 rounded-full bg-brand-300"></span><span class="size-1 rounded-full bg-brand-300"></span></span>}
+              </span>
+              <span class={`flex flex-col gap-0.5 ${i < 2 ? 'pb-5' : ''}`}>
+                <span class="text-xs font-bold text-brand-700">{m.when}</span>
+                <span class="text-lg font-semibold">{m.title}</span>
+                <span class="text-sm text-muted">{m.body}</span>
+              </span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </Fragment>
+  </PageHero>
+
+  <LogoMarquee />
+
+  <section class="bg-white px-4 py-16 md:px-8 lg:py-24" aria-labelledby="gets-title">
+    <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-12">
+      <div class="flex max-w-[820px] flex-col gap-4 text-center">
+        <h2 id="gets-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">Everything you need to start</h2>
+        <p class="text-lg text-muted sm:text-xl">Full access for 45 days — for one student or your whole classroom.</p>
+      </div>
+      <ul class="grid w-full gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {gets.map((g) => (
+          <li class="flex flex-col gap-3 rounded-3xl border border-brand-100 bg-brand-25 p-6">
+            <BrandIcon name={g.icon} />
+            <h3 class="text-xl font-semibold">{g.title}</h3>
+            <p class="text-muted">{g.body}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="bg-cream px-4 py-16 md:px-8 lg:py-24" aria-labelledby="how-title">
+    <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-12">
+      <h2 id="how-title" class="text-center text-display-sm font-bold md:text-display-md lg:text-display-lg">Set it up once. It keeps going.</h2>
+      <ol class="grid w-full gap-6 md:grid-cols-3">
+        {steps.map((s) => (
+          <li class="flex flex-col gap-4 rounded-3xl border border-line bg-white p-8">
+            <div class="flex items-center justify-between">
+              <span class="flex items-center gap-2.5 font-semibold text-brand-700">
+                <span aria-hidden="true" class="flex size-9 items-center justify-center rounded-full bg-yellow-300 font-bold text-ink lavender:bg-lavender-200">{s.n}</span>{s.label}
+              </span>
+              <BrandIcon name={s.icon} />
+            </div>
+            <h3 class="text-display-xs font-semibold">{s.title}</h3>
+            <p class="text-muted">{s.body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="bg-brand-50 px-4 py-16 md:px-8 lg:py-24" aria-label="What teachers say">
+    <figure class="mx-auto flex max-w-[900px] flex-col items-center gap-6 text-center">
+      <span aria-hidden="true" class="text-[96px] leading-[56px] font-bold text-brand-300">“</span>
+      <blockquote class="text-display-xs font-bold sm:text-display-md">It was beautiful to see him use the learning to advocate for himself and get what he needed.</blockquote>
+      <figcaption class="flex items-center gap-3.5">
+        <span aria-hidden="true" class="flex size-12 items-center justify-center rounded-full bg-white text-lg font-bold text-brand-800">E</span>
+        <span class="flex flex-col text-left"><span class="font-semibold">Emily, Capstone Teacher</span><span class="text-sm text-muted">Cotting School · MA</span></span>
+      </figcaption>
+    </figure>
+  </section>
+
+  <FaqSection title="Trial questions" items={faqs} />
+
+  <CtaPanel
+    id="start"
+    title="Ready to try Shepherd?"
+    body="Forty-five days, free, no credit card. Set up in about ten minutes."
+    primary={{ label: 'Sign up free', href: site.signup }}
+    secondary={{ label: 'Book a demo', href: site.demo }}
+  />
+</Base>

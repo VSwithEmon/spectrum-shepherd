@@ -1,0 +1,25 @@
+---
+// Log in — Figma "Log in page". Shepherd accounts live in the app, so this page hands off to the
+// app's own secure log-in; no passwords are collected on the marketing site.
+import Base from '../layouts/Base.astro';
+import AuthShell from '../components/v3/AuthShell.astro';
+import Button from '../components/Button.astro';
+import { site } from '../data/site';
+---
+<Base title="Log in — Spectrum Shepherd" description="Log in to Spectrum Shepherd to pick up where you left off." refresh>
+  <AuthShell
+    eyebrow="Welcome back"
+    title="Pick up where you left off."
+    lede="Your students’ lessons, progress notes and Transition Evidence Reports are waiting."
+    points={[{ icon: 'lesson', text: 'Next week’s lessons are queued' }, { icon: 'progress', text: 'Progress notes saved as students work' }, { icon: 'shield', text: 'Student data protected' }]}
+  >
+    <div class="flex flex-col gap-1">
+      <h2 class="text-display-xs font-bold sm:text-display-sm">Log in to Shepherd</h2>
+      <p class="text-muted">You’ll continue to the secure Shepherd app to enter your email and password.</p>
+    </div>
+    <Button href={site.appLogin} full>Continue to log in</Button>
+    <p class="text-sm text-muted">Forgot your password? You can reset it on the app’s log-in screen.</p>
+    <hr class="border-line" />
+    <p class="text-center font-medium">New to Shepherd? <a href={site.trial} class="font-bold text-brand-700 underline hover:text-brand-800">Start your free trial</a></p>
+  </AuthShell>
+</Base>

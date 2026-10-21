@@ -1,12 +1,68 @@
 ---
+// Book a demo — Figma "Book a demo page". Standalone page in the V3 style; reuses the homepage's
+// demo panel (steps + form). Linked from every "Book a demo" button.
+// TODO: point the form action at the form service once the client chooses one (see DemoSection).
 import Base from '../layouts/Base.astro';
-import BookDemo from '../components/BookDemo.astro';
-import Trust from '../components/Trust.astro';
+import BrandIcon from '../components/v3/BrandIcon.astro';
+import DemoSection from '../components/DemoSection.astro';
+
+const covers = [
+  { icon: 'progress' as const, title: 'See the Transition Evidence Report', body: 'A sample report built from real student activity: mastery against every goal, and what to practice next.' },
+  { icon: 'shield' as const, title: 'Get your privacy questions answered', body: 'FERPA, student data security and what IT reviewers ask about — straight answers.' },
+  { icon: 'download' as const, title: 'Talk through funding options', body: "Designed for IDEA Part B and Title IV-A use — we'll show how programs cover Shepherd." },
+];
+const review = [
+  { icon: 'download' as const, title: 'IDEA Part B & Title IV-A', body: 'Designed for compliance with both funding sources.' },
+  { icon: 'progress' as const, title: 'Indicator 13', body: 'Transition evidence captured as students work.' },
+  { icon: 'shield' as const, title: 'Student data privacy', body: 'Built for FERPA compliance. [Add: DPA, privacy pledge or certifications]' },
+  { icon: 'spark' as const, title: 'Nothing to install', body: '100% web-based. Works on any device.' },
+];
 ---
 <Base
   title="Book a demo — Spectrum Shepherd"
   description="Book a 15-minute Spectrum Shepherd walkthrough for special education and transition leaders."
+  refresh
 >
-  <BookDemo />
-  <Trust />
+  <section class="relative overflow-hidden bg-cream px-4 pt-12 pb-4 md:px-8 lg:pt-[72px]" aria-labelledby="demo-page-title">
+    <span aria-hidden="true" class="absolute -top-28 -right-24 size-[320px] rounded-full bg-yellow-200 lavender:bg-lavender-200"></span>
+    <div class="relative mx-auto flex max-w-[760px] flex-col items-center gap-4 text-center">
+      <h1 id="demo-page-title" class="text-display-md font-bold sm:text-display-xl">Book a <span class="text-brand-600">15-minute demo.</span></h1>
+      <p class="text-lg text-muted sm:text-xl">See Shepherd with your students in mind. A 15-minute walkthrough for special education and transition leaders.</p>
+    </div>
+  </section>
+
+  <DemoSection refresh heading="The evidence report, privacy answers and funding — in one call." />
+
+  <section class="bg-white px-4 py-16 md:px-8 lg:py-24" aria-labelledby="cover-title">
+    <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-12">
+      <h2 id="cover-title" class="text-center text-display-sm font-bold md:text-display-md lg:text-display-lg">What we'll cover in 15 minutes</h2>
+      <ul class="grid w-full gap-6 md:grid-cols-3">
+        {covers.map((c) => (
+          <li class="flex flex-col gap-3.5 rounded-3xl border border-brand-100 bg-brand-25 p-8">
+            <BrandIcon name={c.icon} />
+            <h3 class="text-display-xs font-semibold">{c.title}</h3>
+            <p class="text-muted">{c.body}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="on-dark bg-brand-800 px-4 py-16 text-white md:px-8 lg:py-24" aria-labelledby="review-title">
+    <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-12">
+      <div class="flex max-w-[820px] flex-col gap-4 text-center">
+        <h2 id="review-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">Built to pass district review.</h2>
+        <p class="text-lg text-brand-50 sm:text-xl">Everything a technology and special education review will ask about, in one place.</p>
+      </div>
+      <ul class="grid w-full gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {review.map((r) => (
+          <li class="flex flex-col gap-3 rounded-3xl border border-white/15 bg-white/7 p-6">
+            <BrandIcon name={r.icon} />
+            <h3 class="text-xl font-semibold">{r.title}</h3>
+            <p class="text-brand-50">{r.body}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
 </Base>

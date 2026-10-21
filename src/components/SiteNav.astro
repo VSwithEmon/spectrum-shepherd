@@ -14,7 +14,7 @@ interface Props {
   homeHref?: string;
 }
 const { demoHref = '/book-a-demo', refresh = false, homeHref = refresh ? site.home : '/' } = Astro.props;
-const trialHref = refresh ? site.trial : '#';
+const trialHref = refresh ? site.signup : '#';
 const loginHref = refresh ? site.login : '#';
 // Website icon family stand-ins for the line icons when `refresh` is on.
 const familyIcon: Record<string, IconName> = { book: 'lesson', report: 'progress', gift: 'spark', shield: 'shield', coin: 'download', pen: 'lesson', video: 'people' };

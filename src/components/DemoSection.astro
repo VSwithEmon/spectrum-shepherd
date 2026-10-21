@@ -8,8 +8,10 @@ import { site } from '../data/site';
 interface Props {
   /** Oct 2026 feedback (V3/V4): no eyebrow, human headline, varied-size dotted path. */
   refresh?: boolean;
+  /** Panel headline override (defaults to the homepage wording). */
+  heading?: string;
 }
-const { refresh = false } = Astro.props;
+const { refresh = false, heading } = Astro.props;
 // Varied dot sizes along the trail, echoing the Shepherd swirl (static).
 const bez = (t: number, a: number, b: number, c: number, d: number) => (1 - t) ** 3 * a + 3 * (1 - t) ** 2 * t * b + 3 * (1 - t) * t * t * c + t ** 3 * d;
 const trailDots = Array.from({ length: 26 }, (_, k) => {
@@ -40,7 +42,7 @@ const steps = [
             BOOK A DEMO
           </p>
         )}
-        <h2 id="demo-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">{refresh ? 'Be the reason they’re ready.' : 'See Shepherd with your students in mind.'}</h2>
+        <h2 id="demo-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">{heading ?? (refresh ? 'Be the reason they’re ready.' : 'See Shepherd with your students in mind.')}</h2>
         <p class="text-lg text-brand-50">A 15-minute walkthrough for special education and transition leaders.</p>
 
         <div class="relative h-[220px] w-full overflow-hidden rounded-3xl">

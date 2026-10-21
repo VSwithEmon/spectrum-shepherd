@@ -1,10 +1,15 @@
 // Site-wide destinations for the V3/V4 refresh (nav, footer, page CTAs).
 // Individual blog posts and webinar videos still live on the current site (spectrumshepherd.com)
 // until they are migrated; those URLs are in posts.ts / webinars.ts.
+//
+// Account pages: /free-trial explains the 45-day trial, /sign-up is the account form and /login
+// hands off to the Shepherd app. The marketing site never stores passwords: `appTrial` and
+// `appLogin` are the app's own sign-up and log-in endpoints, which the forms submit to / link to.
 export const site = {
   home: '/v3',
-  trial: 'https://app.shepherdskills.com/trial',
-  login: 'https://app.shepherdskills.com',
+  trial: '/free-trial',
+  signup: '/sign-up',
+  login: '/login',
   demo: '/book-a-demo',
   teachers: '/teachers',
   schools: '/schools',
@@ -14,4 +19,7 @@ export const site = {
   webinars: '/webinars',
   research: '/beyond-the-transition-plan',
   whitePaper: 'https://www.spectrumshepherd.com/_files/ugd/d236a4_825c2d446a3c427a8e36697fa7ba0182.pdf',
+  // The Shepherd app (separate system). Used as the sign-up form's action and the log-in destination.
+  appTrial: 'https://app.shepherdskills.com/trial',
+  appLogin: 'https://app.shepherdskills.com',
 };
