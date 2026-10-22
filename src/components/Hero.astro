@@ -27,27 +27,31 @@ const {
   trail = true,
 } = Astro.props;
 
-// Sky decor from the Figma "Landing Page" reference: positions follow the 1440×784 hero frame.
-// Clouds and birds are decorative and only shown where they can't sit behind text (lg+).
+// Sky decor, Figma "Homepage Design (v1) — main direction" hero (1440×784 frame): billowy cloud
+// towers, horizon cloud banks behind the hills, and a small bird flock. Left items are anchored to
+// the left edge, right items to the right edge, centre items by percentage. Decorative, lg+ only.
+// Flipped items mirror the Figma layers.
 const clouds = [
-  { src: 'cloud-top.svg', w: 214, h: 62, pos: 'top-2 -left-[30px] opacity-25' },
-  { src: 'cloud-top.svg', w: 214, h: 62, pos: 'top-2 -right-[14px] opacity-25' },
-  { src: 'cloud-left.svg', w: 467, h: 226, pos: 'top-[230px] -left-[150px]' },
-  { src: 'cloud-right.svg', w: 462, h: 219, pos: 'top-[300px] -right-[172px]' },
-  { src: 'cloud-low-left.svg', w: 454, h: 336, pos: 'top-[430px] -left-[120px]' },
-  { src: 'cloud-low-right.svg', w: 412, h: 313, pos: 'top-[440px] -right-[102px]' },
+  { src: 'cloud-left.svg', w: 467, h: 226, pos: 'top-[85px] -left-[199px]' },
+  { src: 'cloud-left.svg', w: 467, h: 226, pos: 'top-[125px] -right-[199px] -scale-x-100' },
+  { src: 'cloud-tower.svg', w: 399, h: 285, pos: 'top-[310px] right-[8px]' },
+  { src: 'cloud-tower.svg', w: 399, h: 285, pos: 'top-[330px] -left-[150px] -scale-x-100' },
+  { src: 'cloud-tower.svg', w: 134, h: 96, pos: 'top-[30px] left-[32.6%]' },
+  { src: 'cloud-tower.svg', w: 118, h: 84, pos: 'top-[20px] right-[22px] -scale-x-100' },
+  { src: 'cloud-bank.svg', w: 722, h: 188, pos: 'top-[484px] -left-[120px]' },
+  { src: 'cloud-bank.svg', w: 798, h: 208, pos: 'top-[464px] right-[8px] -scale-x-100' },
 ];
 const birds = [
-  { w: 50, pos: 'top-[30px] left-[27%]' },
-  { w: 35, pos: 'top-[60px] left-[48%]' },
-  { w: 82, pos: 'top-[170px] right-[12%]' },
-  { w: 50, pos: 'top-[110px] right-[3%]' },
-  { w: 28, pos: 'top-[330px] left-[4%]' },
-  { w: 25, pos: 'top-[470px] left-[44%]' },
-  { w: 35, pos: 'top-[520px] right-[2%]' },
+  { w: 35, pos: 'top-[74px] left-[41.5%]' },
+  { w: 44, pos: 'top-[56px] left-[44.2%]' },
+  { w: 54, pos: 'top-[40px] left-[47.5%]' },
+  { w: 42, pos: 'top-[58px] left-[51.2%]' },
+  { w: 31, pos: 'top-[76px] left-[53.9%]' },
+  { w: 37, pos: 'top-[250px] right-[75px]' },
+  { w: 27, pos: 'top-[268px] right-[43px]' },
 ];
 ---
-<section class={`relative overflow-hidden ${refresh ? 'bg-linear-to-b from-cream to-mist' : 'bg-cream'}`} aria-labelledby="hero-title">
+<section class={`relative overflow-hidden ${refresh ? 'bg-linear-to-b from-cream via-haze via-10% to-mist' : 'bg-cream'}`} aria-labelledby="hero-title">
   {refresh && (
     <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0 hidden lg:block">
       {clouds.map((c) => <img src={`/images/hero/${c.src}`} width={c.w} height={c.h} alt="" class={`absolute max-w-none ${c.pos}`} />)}
@@ -126,7 +130,7 @@ const birds = [
 
   {refresh && scene === 'pines'
     ? <PineHills class="relative -mt-4 h-[90px] sm:h-[150px] lg:-mt-24 lg:h-auto" />
-    : <Hills path={trail} trees={refresh} class="-mt-6 lg:-mt-16" />}
+    : <Hills path={trail} trees={refresh} grove={refresh} class="-mt-6 lg:-mt-16" />}
 </section>
 
 <style>

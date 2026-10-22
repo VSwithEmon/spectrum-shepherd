@@ -9,16 +9,19 @@ interface Props {
   path?: boolean;
   /** Trees on the back-hill crest so the shapes read as a landscape (Oct 2026 feedback). */
   trees?: boolean;
+  /** A few extra trees along the crest (V4 hero, Figma "Homepage Design (v2) — lavender alternative"). */
+  grove?: boolean;
   /** Setting sun sinking behind the back hill (yellow → peach; lavender → blush on data-palette="lavender"). */
   sunset?: boolean;
   class?: string;
 }
-const { front = 'brand-700', trail = true, path = true, trees = false, sunset = false, class: className = '' } = Astro.props;
+const { front = 'brand-700', trail = true, path = true, trees = false, grove = false, sunset = false, class: className = '' } = Astro.props;
 const frontFill = front === 'brand-700' ? 'fill-brand-700' : 'fill-brand-800';
 const sunId = `sunset-${Math.random().toString(36).slice(2, 8)}`;
 // [x of trunk base, y on the back-hill crest, kind, scale]
 const treeSpots: [number, number, 'round' | 'pine', number][] = [
   [104, 96, 'pine', 1], [128, 94, 'round', 0.85], [1190, 84, 'pine', 0.8], [1214, 81, 'round', 1], [1240, 78, 'pine', 0.9],
+  ...(grove ? ([[312, 78, 'pine', 0.85], [336, 78, 'round', 0.95], [875, 137, 'pine', 0.85], [1046, 122, 'round', 0.85]] as const) : []),
 ];
 ---
 <svg
