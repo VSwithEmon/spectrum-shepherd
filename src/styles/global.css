@@ -35,6 +35,7 @@
   --color-line: #e9eaeb;       /* border-secondary */
   --color-line-strong: #d5d7da; /* border-disabled, inactive carousel dots */
   --color-cream: #fefaf5;      /* Orange/25, page background */
+  --color-mist: #e2f3e4;       /* hero sky, bottom of the cream → mist gradient (Figma Landing Page) */
 
   --color-yellow-100: #fef7c3;
   --color-yellow-200: #feee95;

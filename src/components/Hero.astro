@@ -2,12 +2,14 @@
 import Button from './Button.astro';
 import Hills from './Hills.astro';
 import StatusChip from './StatusChip.astro';
-import Cloud from './Cloud.astro';
+import PineHills from './v3/PineHills.astro';
 import { site } from '../data/site';
 
 interface Props {
-  /** Oct 2026 feedback (V3/V4): no eyebrow pill, free-trial CTA + microcopy, clouds and trees. */
+  /** Oct 2026 feedback (V3/V4): no eyebrow pill, free-trial CTA + microcopy, sky, clouds, birds. */
   refresh?: boolean;
+  /** Refresh only. 'pines' = pine-tree hills (V3); 'classic' = layered hills with small trees (V4). */
+  scene?: 'pines' | 'classic';
   /** Eyebrow pill text. V1 (Oct 2026 Figma) drops the age range here. */
   eyebrow?: string;
   /** Lede copy; V1 uses the Figma wording at medium weight. */
@@ -18,18 +20,39 @@ interface Props {
 }
 const {
   refresh = false,
+  scene = 'pines',
   eyebrow ='AI life-skills coach · Ages 14–22',
   lede = "Short, personalized lessons students actually want to do — and IEP-ready progress reports their teachers don't have to write.",
   ledeWeight = 'normal',
   trail = true,
 } = Astro.props;
+
+// Sky decor from the Figma "Landing Page" reference: positions follow the 1440×784 hero frame.
+// Clouds and birds are decorative and only shown where they can't sit behind text (lg+).
+const clouds = [
+  { src: 'cloud-top.svg', w: 214, h: 62, pos: 'top-2 -left-[30px] opacity-25' },
+  { src: 'cloud-top.svg', w: 214, h: 62, pos: 'top-2 -right-[14px] opacity-25' },
+  { src: 'cloud-left.svg', w: 467, h: 226, pos: 'top-[230px] -left-[150px]' },
+  { src: 'cloud-right.svg', w: 462, h: 219, pos: 'top-[300px] -right-[172px]' },
+  { src: 'cloud-low-left.svg', w: 454, h: 336, pos: 'top-[430px] -left-[120px]' },
+  { src: 'cloud-low-right.svg', w: 412, h: 313, pos: 'top-[440px] -right-[102px]' },
+];
+const birds = [
+  { w: 50, pos: 'top-[30px] left-[27%]' },
+  { w: 35, pos: 'top-[60px] left-[48%]' },
+  { w: 82, pos: 'top-[170px] right-[12%]' },
+  { w: 50, pos: 'top-[110px] right-[3%]' },
+  { w: 28, pos: 'top-[330px] left-[4%]' },
+  { w: 25, pos: 'top-[470px] left-[44%]' },
+  { w: 35, pos: 'top-[520px] right-[2%]' },
+];
 ---
-<section class="relative overflow-hidden bg-cream" aria-labelledby="hero-title">
+<section class={`relative overflow-hidden ${refresh ? 'bg-linear-to-b from-cream to-mist' : 'bg-cream'}`} aria-labelledby="hero-title">
   {refresh && (
-    <Fragment>
-      <Cloud class="top-6 left-[44%] z-0 hidden h-[60px] w-[160px] opacity-90 shadow-none lg:block" />
-      <Cloud class="top-[300px] right-2 z-0 hidden h-[42px] w-[112px] opacity-90 xl:block" />
-    </Fragment>
+    <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0 hidden lg:block">
+      {clouds.map((c) => <img src={`/images/hero/${c.src}`} width={c.w} height={c.h} alt="" class={`absolute max-w-none ${c.pos}`} />)}
+      {birds.map((b) => <img src="/images/hero/bird.svg" width={b.w} height={Math.round(b.w * 31 / 80)} alt="" class={`absolute ${b.pos}`} />)}
+    </div>
   )}
   <div class="relative z-10 mx-auto flex max-w-[1200px] flex-col items-center gap-12 px-4 pt-8 pb-16 md:px-8 lg:flex-row lg:pt-12 lg:pb-12 xl:px-0">
     <div class="flex w-full flex-col items-start gap-6 lg:flex-1">
@@ -101,7 +124,9 @@ const {
     </div>
   </div>
 
-  <Hills path={trail} trees={refresh} class="-mt-6 lg:-mt-16" />
+  {refresh && scene === 'pines'
+    ? <PineHills class="relative -mt-4 h-[90px] sm:h-[150px] lg:-mt-24 lg:h-auto" />
+    : <Hills path={trail} trees={refresh} class="-mt-6 lg:-mt-16" />}
 </section>
 
 <style>
