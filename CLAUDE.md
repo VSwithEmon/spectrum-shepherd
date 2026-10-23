@@ -16,6 +16,18 @@ Buyers are special education teachers (free 45-day trial) and school/district le
 - `option-b-homepage.html` ("Sunrise") is the earlier direction, kept for reference only.
 - The client's inspiration references are MagicSchool and Headspace: warm, polished, short headlines, real people, simple navigation.
 
+## Current status (Oct 23, 2026)
+Figma file `kf6bETSiXfVOzzNbTlCFA7`, page "Home Page Design" (`38641:74923`). Each page has its own section with versions side by side.
+- **Built in code and pushed:** `/v3` (V1 direction) and `/v4` (lavender) incl. the new hero sky/clouds/birds, pine hills (V3) vs layered hills with extra trees (V4), V4 audiences as photo rows; inner pages `/teachers`, `/schools`, `/the-app`, `/about`, `/blog`, `/webinars`, `/beyond-the-transition-plan`; account pages `/book-a-demo`, `/sign-up`, `/login`.
+- **Figma only — NOT yet built:**
+  - **Teachers page v2/v3** (sections "Teachers page"): v3 has a new hero (large Lesson Library card + "45 days free" badge, plain cream, no clouds/logos — mirrors the live page, which has no school-logo row), a tagline-only band, and a redesigned closing CTA (split panel + trial timeline card). v2 got homepage-style clouds. `/teachers` in code is still the earlier v1.
+  - **Schools / App / About / Blog / Webinars / Research v2** designs (alternates; only v1 is built).
+  - **Mobile** designs for inner pages (code is responsive; only the homepage V1 has a Figma mobile frame).
+- **Figma components:** `Site / Nav` and `Site / Footer` (instances on all pages), `Decor / Cloud tower` and `Decor / Cloud bank`, icon family + trees in "Componnet" section. The old "Free trial page" Figma section is unused (no `/free-trial` page).
+- **Open client decisions:** company vs product logo (nav shows the product logo); which results to feature; transition-plan download title/destination; community link target; form actions and the Jessica Bershad review; lavender vs yellow; licensed photos to replace AI images; founder photos/titles; post-trial terms; teacher-story video.
+- **Deploy:** pushes go to `raselhossain036-star/spectrum-shepherd-site`; the live Vercel site deploys from `VSwithEmon/spectrum-shepherd`, so Emon must pull `main` (or give write access) for changes to go live.
+- **Working tips:** very long chat sessions burn the plan limit fast (every message re-reads the whole history, images are costly) — start fresh sessions and batch requests.
+
 ## Stack
 - Astro + Tailwind CSS v4, static output. One reusable component per homepage section in `src/components/`.
 - No client-side framework unless a section genuinely needs interactivity (the mobile menu is a small vanilla script).
