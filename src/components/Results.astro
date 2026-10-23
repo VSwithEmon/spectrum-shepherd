@@ -1,0 +1,54 @@
+---
+// Results (Figma node 38876:3944): one green panel with three equal takeaways, each with an
+// icon from the site icon family, a big value, a short yellow accent and a caption.
+// The values are the client's current results; which ones to feature is still open.
+const results = [
+  { icon: 'people', value: '91%', caption: 'Parent demand confirmed' },
+  { icon: 'spark', value: '77%', caption: 'Of students say it’s more engaging than other school learning' },
+  { icon: 'progress', value: 'IEP-ready', caption: 'Progress reports teachers don’t have to write' },
+];
+// Dot sizes swell and taper along the path, echoing the Shepherd swirl.
+const dots = [
+  [20, 10, 2], [39.57, 10.58, 3], [58.87, 12.31, 3.5], [77.63, 15.2, 4], [95.63, 19.24, 4.5], [112.65, 24.44, 4.5],
+  [128.53, 30.8, 5], [143.17, 38.31, 5], [156.5, 46.98, 5], [168.53, 56.8, 5], [179.31, 67.78, 4.5], [188.96, 79.91, 4],
+  [197.63, 93.2, 3.5], [205.54, 107.65, 3], [212.9, 123.24, 2.5], [220, 140, 2],
+];
+---
+<section class="bg-white px-4 py-16 md:px-8 lg:py-24" aria-labelledby="results-title">
+  <div class="relative mx-auto flex max-w-[1200px] flex-col gap-10">
+    {['left-[30px]', 'right-0 -scale-x-100'].map((pos) => (
+      <svg aria-hidden="true" class={`absolute top-[34px] hidden h-[150px] w-[260px] lg:block ${pos}`} viewBox="0 0 260 150">
+        {dots.map(([cx, cy, r]) => <circle cx={cx} cy={cy} r={r} class="fill-brand-300" />)}
+      </svg>
+    ))}
+
+    <h2 id="results-title" class="text-center text-[26px] leading-9 font-bold sm:text-display-sm md:text-display-md lg:text-display-lg">
+      Confidence for schools.<br />
+      <span class="text-brand-700">Engagement for students.</span>
+    </h2>
+
+    <div class="on-dark relative overflow-hidden rounded-[32px] bg-brand-800 p-8 sm:p-10 lg:p-14">
+      <span aria-hidden="true" class="swirl absolute -top-[150px] left-[70%] size-[520px] bg-white opacity-[0.07]"></span>
+      <ul class="relative grid gap-8 lg:grid-cols-3 lg:gap-0">
+        {results.map((r, i) => (
+          <li class={`flex flex-col items-start gap-5 ${i ? 'border-t border-brand-700 pt-8 lg:border-t-0 lg:border-l lg:pt-0 lg:pl-10' : ''} ${i < 2 ? 'lg:pr-10' : ''}`}>
+            <img src={`/images/icons/site/${r.icon}.svg`} width="48" height="48" alt="" />
+            <p class="flex flex-col items-start gap-5">
+              <span class="text-display-lg font-bold text-white lg:text-display-xl">{r.value}</span>
+              <span aria-hidden="true" class="h-1 w-12 rounded-sm bg-yellow-300"></span>
+              <span class="text-lg font-medium text-brand-50">{r.caption}</span>
+            </p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Large Shepherd swirl as a faint watermark (white at 7%). */
+  .swirl {
+    mask: url('/images/brand/swirl.png') center / contain no-repeat;
+    -webkit-mask: url('/images/brand/swirl.png') center / contain no-repeat;
+  }
+</style>

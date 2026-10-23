@@ -1,16 +1,9 @@
 ---
-// Shepherd logo: dotted mark (PNG used as a mask over brand green) + "shepherd" wordmark.
+// Spectrum Shepherd company logo (wordmark + swirl), per the client's choice over the Shepherd product logo.
+// The PNG is the asset from Figma; swap for an SVG when the client supplies one.
 interface Props { class?: string }
 const { class: className = '' } = Astro.props;
 ---
-<a href="/" aria-label="Spectrum Shepherd home" class={`flex shrink-0 items-center gap-1.5 ${className}`}>
-  <span aria-hidden="true" class="logo-mark size-10 bg-brand-500"></span>
-  <img src="/images/logo-text.svg" width="117" height="24" alt="" />
+<a href="/" class={`flex shrink-0 items-center ${className}`}>
+  <img src="/images/brand/spectrum-shepherd.png" width="111" height="40" alt="Spectrum Shepherd home" class="h-10 w-auto" />
 </a>
-
-<style>
-  .logo-mark {
-    mask: url('/images/logo-mark.png') center / 40px 40px no-repeat;
-    -webkit-mask: url('/images/logo-mark.png') center / 40px 40px no-repeat;
-  }
-</style>

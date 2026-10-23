@@ -1,16 +1,25 @@
 ---
-// Decorative section edge: layered green hills with a dotted trail (echoing the
-// dotted logo) climbing toward a rising sun — the path to independence.
-// The front hill's color must match the section that follows.
+// Decorative section edge: three layers of green hills with small trees on the back ridge
+// (Figma "Hills + trail (decorative)", homepage main direction). Static, no animation.
+// 'hero' has a small yellow sun behind the right ridge; 'footer' has a large setting sun.
+// The front hill is brand-700, so the section that follows should start in brand-700 or darker.
 interface Props {
-  front?: 'brand-700' | 'brand-800';
-  trail?: boolean;
-  /** Dotted path only (keeps the sun). V1 hero (Oct 2026 Figma) has no path. */
-  path?: boolean;
+  variant?: 'hero' | 'footer';
   class?: string;
 }
-const { front = 'brand-700', trail = true, path = true, class: className = '' } = Astro.props;
-const frontFill = front === 'brand-700' ? 'fill-brand-700' : 'fill-brand-800';
+const { variant = 'hero', class: className = '' } = Astro.props;
+const trees = [
+  'M75.62 88.96L85.53 106.71L72.05 108.98Z',
+  'M132.53 64.22L148.98 92.05L126.08 95.89Z',
+  'M172.02 71.48L181.93 89.24L168.45 91.5Z',
+  'M510.6 66.18L517.02 100.93L493.58 97.14Z',
+  'M600.02 83.53L604.71 108.89L587.6 106.13Z',
+  'M867.65 115.58L876.6 139.76L859.26 139.96Z',
+  'M1191.94 71.12L1204.97 93.37L1187.93 96.59Z',
+  'M1305.47 29.54L1323.31 60.04L1299.98 64.44Z',
+  'M1388.6 25.18L1395.02 59.92L1371.58 56.14Z',
+];
+const gid = `sunset-${Math.random().toString(36).slice(2, 8)}`;
 ---
 <svg
   aria-hidden="true"
@@ -19,31 +28,22 @@ const frontFill = front === 'brand-700' ? 'fill-brand-700' : 'fill-brand-800';
   preserveAspectRatio="xMidYMax slice"
   class={`block h-[90px] w-full sm:h-[140px] lg:h-auto ${className}`}
 >
-  {trail && <circle cx="1250" cy="72" r="34" class="fill-yellow-300" />}
-  <path class="fill-brand-200" d="M0 120C240 60 420 70 620 110S1000 150 1200 80S1400 60 1440 70V180H0Z" />
-  <path class="fill-brand-500" d="M0 150C200 110 380 100 560 130S900 170 1100 120S1380 100 1440 115V180H0Z" />
-  {trail && path && (
-    <path
-      class="hills-trail"
-      d="M60 158C220 136 380 128 560 142S880 152 1100 128S1220 110 1250 106"
-      fill="none"
-      stroke="#ffffff"
-      stroke-width="6"
-      stroke-linecap="round"
-    />
+  {variant === 'footer' ? (
+    <>
+      <defs>
+        <linearGradient id={gid} x1="1040" y1="42" x2="1040" y2="234" gradientUnits="userSpaceOnUse">
+          <stop offset="0" stop-color="#FDE272" />
+          <stop offset="0.5" stop-color="#FDE272" />
+          <stop offset="1" stop-color="#F9DBAF" />
+        </linearGradient>
+      </defs>
+      <path d="M944 138.28A96 96 0 0 1 1136 138.28Z" fill={`url(#${gid})`} />
+    </>
+  ) : (
+    <circle cx="1250" cy="72" r="34" class="fill-yellow-300" />
   )}
-  <path class={frontFill} d="M0 170C300 150 500 142 760 160S1200 176 1440 150V181H0Z" />
+  <path class="fill-brand-200" d="M0 120C240 60 420 70 620 110C820 150 1000 150 1200 80C1400 10 1400 60 1440 70V180H0Z" />
+  <path class="fill-brand-500" d="M0 150C200 110 380 100 560 130C740 160 900 170 1100 120C1300 70 1380 100 1440 115V180H0Z" />
+  <path class="fill-brand-700" d="M0 170C300 150 500 142 760 160C1020 178 1200 176 1440 150V181H0Z" />
+  {trees.map((d) => <path class="fill-brand-200" d={d} />)}
 </svg>
-
-<style>
-  .hills-trail {
-    stroke-dasharray: 0 16;
-    animation: hills-march 1.6s linear infinite;
-  }
-  @keyframes hills-march {
-    to { stroke-dashoffset: -16; }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .hills-trail { animation: none; }
-  }
-</style>

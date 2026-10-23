@@ -2,7 +2,6 @@
 import '../styles/global.css';
 import SiteNav from '../components/SiteNav.astro';
 import SiteFooter from '../components/SiteFooter.astro';
-import DesignToggle from '../components/DesignToggle.astro';
 
 interface Props {
   title: string;
@@ -12,10 +11,6 @@ interface Props {
   /** Hill edge above the footer, and the background behind it (match the last section). */
   footerHills?: boolean;
   footerHillsBg?: string;
-  /** Show the design switch (homepage review only). */
-  designToggle?: 'v1' | 'v2';
-  /** 'calm' = green-first palette with yellow only as small accents (enables `calm:` utilities). */
-  palette?: 'calm';
 }
 const {
   title,
@@ -23,8 +18,6 @@ const {
   demoHref,
   footerHills = true,
   footerHillsBg = '',
-  designToggle,
-  palette,
 } = Astro.props;
 ---
 <!doctype html>
@@ -38,15 +31,12 @@ const {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </head>
-  <body data-palette={palette}>
+  <body>
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-white focus:px-4 focus:py-3 focus:font-semibold focus:shadow-lg">Skip to main content</a>
     <SiteNav demoHref={demoHref} />
     <main id="main">
       <slot />
     </main>
     <SiteFooter hills={footerHills} hillsBg={footerHillsBg} />
-    {/* Room for the fixed design switch so it never covers the footer's legal links on phones. */}
-    {designToggle && <div aria-hidden="true" class="h-20 bg-brand-800 md:hidden"></div>}
-    {designToggle && <DesignToggle active={designToggle} />}
   </body>
 </html>

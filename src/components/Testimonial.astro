@@ -1,67 +1,44 @@
 ---
-// "Two hats" testimonial (Figma: Testimonial — Two hats, node 38613:3802).
-// One blockquote, split visually into a pull quote and two colour-coded cards.
-// The blockquote uses display:contents so its parts can sit in the figure's grid
-// around the portrait while staying a single quote in the accessibility tree.
-import DottedRing from './DottedRing.astro';
-
-interface Props {
-  /** Colour "teacher" / "administrator" in the pull quote. V1 (node 38859:4300) keeps it all ink. */
-  highlight?: boolean;
-}
-const { highlight = true } = Astro.props;
+// "Two hats" testimonial (Figma node 38876:4108): portrait beside the pull quote, then the
+// teacher and administrator halves of the quote as two white cards. No motion.
+// One blockquote in the accessibility tree; `display: contents` lets its parts sit in the layout.
 ---
 <section class="relative overflow-hidden bg-brand-50 px-4 py-16 md:px-8 lg:py-24" aria-labelledby="testimonial-title">
-  <!-- Big decorations only where the headline can't collide with them (lg+). -->
-  <span aria-hidden="true" class="absolute -top-24 -left-24 size-40 rounded-full bg-yellow-300 md:size-48 lg:-top-40 lg:-left-36 lg:size-[360px] calm:bg-brand-200"></span>
-  <DottedRing class="-top-[210px] -left-[190px] hidden size-[460px] lg:block" color="stroke-brand-300" />
-  <span aria-hidden="true" class="pointer-events-none absolute -top-8 right-14 hidden text-[320px] leading-none font-bold text-brand-200 xl:block">”</span>
+  <span aria-hidden="true" class="pointer-events-none absolute -top-8 right-[60px] hidden text-[320px] leading-[320px] font-bold tracking-[-0.02em] text-brand-200 xl:block">”</span>
+  <h2 id="testimonial-title" class="sr-only">From the classroom</h2>
 
-  <div class="relative mx-auto flex max-w-[1200px] flex-col items-center gap-6">
-    <h2 id="testimonial-title" class="flex items-center gap-1.5 rounded-full bg-white px-3 py-1 text-xs font-bold text-brand-800">
-      <span aria-hidden="true" class="size-2 rounded-full bg-brand-600"></span>
-      FROM THE CLASSROOM
-    </h2>
-
-    <figure class="grid w-full items-center gap-8 md:grid-cols-2 lg:grid-cols-[1fr_260px_1fr] lg:gap-x-16 lg:gap-y-16">
-      <blockquote class="contents">
-        <p class="order-1 mx-auto max-w-[940px] text-center text-display-xs font-bold sm:text-display-sm md:col-span-2 md:text-display-md lg:col-span-3 lg:row-start-1 lg:text-display-lg">
-          “I see the value both as a <span class={highlight ? 'text-yellow-800' : undefined}>teacher</span> and as an <span class={highlight ? 'text-brand-700' : undefined}>administrator</span>.”
-        </p>
-        <p class="order-2 flex flex-col gap-5 self-stretch rounded-[32px] bg-yellow-200 p-6 text-lg font-medium shadow-lg sm:p-8 sm:text-xl md:col-start-1 md:row-start-2 calm:bg-white">
-          <span aria-hidden="true" class="flex size-12 items-center justify-center rounded-xl bg-white calm:bg-brand-50">
-            <img src="/images/icons/illustrated/book.png" width="204" height="204" alt="" class="size-[34px] object-contain" />
-          </span>
-          <span><strong class="font-bold">As a teacher,</strong> it gives us a highly effective tool for explicit functional and social skills instruction.</span>
-        </p>
-        <p class="on-dark order-4 flex flex-col gap-5 self-stretch rounded-[32px] bg-brand-700 p-6 text-lg font-medium text-brand-50 shadow-lg sm:p-8 sm:text-xl md:col-start-2 md:row-start-2 lg:col-start-3">
-          <span aria-hidden="true" class="flex size-12 items-center justify-center rounded-xl bg-brand-50">
-            <img src="/images/icons/illustrated/tools.png" width="192" height="192" alt="" class="size-[32px] object-contain" />
-          </span>
-          <span><strong class="font-bold text-white">As an administrator,</strong> it lets us monitor progress that's typically far too subjective. Our team can now set the trajectory and manage to it.</span>
-        </p>
-      </blockquote>
-
-      <figcaption class="relative order-3 flex flex-col items-center gap-4 text-center md:col-span-2 md:row-start-3 lg:col-span-1 lg:col-start-2 lg:row-start-2">
-        <!-- dotted trail joining the two cards through the portrait -->
-        <span aria-hidden="true" class="absolute top-[118px] -right-16 -left-16 hidden border-t-[5px] border-dotted border-brand-500 lg:block"></span>
-        <span class="relative block size-60">
-          <span aria-hidden="true" class="absolute inset-0 rounded-full bg-white"></span>
-          <img
-            src="/images/photos/lori-lopez-lopez.jpg"
-            width="640"
-            height="640"
-            loading="lazy"
-            alt="Portrait of Dr. Lori Lopez-Lopez"
-            class="absolute inset-5 size-[200px] rounded-full object-cover"
-          />
-          <DottedRing class="inset-0 size-full" spin />
-        </span>
-        <span class="flex flex-col">
+  <figure class="relative mx-auto flex max-w-[1200px] flex-col gap-10 lg:gap-16">
+    <div class="flex flex-col items-center gap-8 md:flex-row md:items-center md:justify-center md:gap-14">
+      <span class="relative block size-[160px] shrink-0 rounded-full bg-white p-[14px] sm:size-[216px] sm:p-[18px]">
+        <img
+          src="/images/photos/lori-lopez-lopez.jpg"
+          width="640"
+          height="640"
+          loading="lazy"
+          alt="Portrait of Dr. Lori Lopez-Lopez"
+          class="size-full rounded-full object-cover"
+        />
+      </span>
+      <div class="flex max-w-[760px] flex-col gap-6 text-center md:text-left">
+        <blockquote class="contents">
+          <p class="text-display-xs font-bold sm:text-display-sm md:text-display-md lg:text-display-lg">“I see the value both as a teacher and as an administrator.”</p>
+        </blockquote>
+        <figcaption class="flex flex-col">
           <span class="text-lg font-bold">Dr. Lori Lopez-Lopez</span>
-          <span class="text-sm text-muted">Teacher and Administrator,<br />Special Education</span>
-        </span>
-      </figcaption>
-    </figure>
-  </div>
+          <span class="text-sm text-muted">Teacher and Administrator, Special Education</span>
+        </figcaption>
+      </div>
+    </div>
+
+    <blockquote class="grid gap-6 md:grid-cols-2">
+      <p class="flex flex-col gap-5 rounded-[32px] bg-white p-6 text-lg font-medium shadow-lg sm:p-8 sm:text-xl">
+        <img src="/images/icons/site/lesson.svg" width="48" height="48" alt="" />
+        <span><strong class="font-bold">As a teacher,</strong> it gives us a highly effective tool for explicit functional and social skills instruction.</span>
+      </p>
+      <p class="flex flex-col gap-5 rounded-[32px] bg-white p-6 text-lg font-medium shadow-lg sm:p-8 sm:text-xl">
+        <img src="/images/icons/site/progress.svg" width="48" height="48" alt="" />
+        <span><strong class="font-bold">As an administrator,</strong> it lets us monitor progress that's typically far too subjective. Our team can now set the trajectory and manage to it.</span>
+      </p>
+    </blockquote>
+  </figure>
 </section>

@@ -4,10 +4,13 @@ Marketing site for Spectrum Shepherd, an AI life-skills coach for neurodiverse s
 Buyers are special education teachers (free 45-day trial) and school/district leaders (15-min briefing).
 
 ## Source designs
-- The current homepage (V1, `/`) is Figma frame "Homepage Design (v1)" in the "Website" section of file `6JMhALsrhqylYR6QjNPy9V` (node `38859:3660`; nav dropdown open states are `38859:2925`, `38859:2859`, `38859:2986`). It's implemented in `src/pages/index.astro`. V1-only differences are passed as props (`Hero` eyebrow/lede/trail, `LogoBand layout="row"`, `Testimonial highlight={false}`) so V2 stays as it is. The earlier source was "Homepage v4 — Redesign" (file `kf6bETSiXfVOzzNbTlCFA7`, node `38585:69285`).
-- `/v2` (`src/pages/v2.astro`, new components in `src/components/v2/`) is Figma frame "Homepage Design (v2)" in the same "Website" section (node `38859:3052`). It sets `palette="calm"` on `Base`, which turns on the `calm:` variant (`global.css`); components use it to swap large yellow areas for brand greens. Keep yellow only as small accents there.
-- V3 and V4 were removed (Oct 2026). `ComplianceBridge`, `HowItWorks` and `Faq` are no longer on any page but are kept for reuse.
-- A fixed V1/V2 switch (`DesignToggle.astro`) appears on these homepages only; `/` is V1.
+- The homepage (`src/pages/index.astro`) is Figma frame "Homepage Design (v1) — main direction (yellow accents)" (file `6JMhALsrhqylYR6QjNPy9V`, node `38876:3531`, "Web" page), built from the client's 20 Oct 2026 feedback. Nav menu open states: `38859:2925`, `38859:2859`, `38859:2986`.
+- Earlier rounds (V1 `38859:3660`, V2 `38859:3052`, V3/V4) were replaced by that single direction; they live in git history. `ComplianceBridge`, `HowItWorks`, `Faq`, `ClosingCta` and `Trust` are kept for reuse.
+- Client direction to keep: green core palette, yellow as the main accent, peach secondary, orange only as a small touch. Clouds, tree-topped hills and setting sun; dotted paths with varied dot sizes (static); large Shepherd swirl as a faint watermark. No animation except the slow right-to-left school logo strip (`LogoBand`), which pauses on hover and stops for reduced motion.
+- Icons: the site icon family in `public/images/icons/site/` (check-in-a-circle baseline: brand-50 disc, brand-600 ring, brand-700 glyph). Don't reuse the student app's book/tools illustrations.
+- Logo: Spectrum Shepherd company logo (`public/images/brand/`), PNGs from Figma until the client supplies SVGs.
+- Photography: the client wants licensed (not AI) photos of teens and young adults (16–22). Current audience photos are Figma placeholders.
+- A lavender/purple alternative palette was requested but isn't designed yet.
 - Live site: Vercel project `spectrum-shepherd-5qfw` (https://spectrum-shepherd-5qfw.vercel.app), deployed from `VSwithEmon/spectrum-shepherd` main on every push.
 - `/book-a-demo` is the standalone demo-request page.
 - `option-b-homepage.html` ("Sunrise") is the earlier direction, kept for reference only.

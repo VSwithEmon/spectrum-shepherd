@@ -1,5 +1,6 @@
 ---
-// Floating nav bar (Figma: Nav bar + HP3 / Nav Item, "Nav — Schools menu (open state)").
+// Floating nav bar (Figma "Site / Nav" 38876:3378 and the menu open states):
+// Teachers · Schools · Resources, then Log in, Book a demo and Sign up free.
 // Menus use the disclosure pattern: a button toggles a panel of ordinary links.
 import Logo from './Logo.astro';
 import Button from './Button.astro';
@@ -66,8 +67,6 @@ const cardTones = {
 const links: { label: string; href?: string; badge?: string }[] = [
   { label: 'Teachers' },
   { label: 'Schools' },
-  { label: 'The App', href: '#', badge: 'New' },
-  { label: 'About', href: '#' },
   { label: 'Resources' },
 ];
 const itemClass = 'flex min-h-11 items-center gap-1.5 rounded-full px-4 font-semibold text-ink transition-colors hover:bg-white hover:text-brand-800 hover:shadow-md';
@@ -142,8 +141,9 @@ const itemClass = 'flex min-h-11 items-center gap-1.5 rounded-full px-4 font-sem
         <svg aria-hidden="true" class="size-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21a8 8 0 0 0-16 0M12 13a5 5 0 1 0 0-10 5 5 0 0 0 0 10z" /></svg>
         Log in
       </a>
-      <Button href={demoHref} shape="pill">
-        Book a demo
+      <Button href={demoHref} variant="secondary" shape="pill">Book a demo</Button>
+      <Button href="#" shape="pill">
+        Sign up free
         <svg aria-hidden="true" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 6l6 6-6 6" /></svg>
       </Button>
     </div>
@@ -160,19 +160,46 @@ const itemClass = 'flex min-h-11 items-center gap-1.5 rounded-full px-4 font-sem
     </button>
   </div>
 
-  <nav id="mobile-menu" aria-label="Main" hidden class="mx-auto mt-3 max-w-[1200px] rounded-4xl border border-line bg-white p-4 shadow-2xl xl:hidden">
+  <nav id="mobile-menu" aria-label="Main" hidden class="mx-auto mt-3 max-h-[calc(100dvh-120px)] max-w-[1200px] overflow-y-auto rounded-4xl border border-line bg-white p-3 shadow-2xl xl:hidden">
     <ul class="flex flex-col">
-      {links.map((l) => (
-        <li>
-          <a href={l.href ?? '#'} class="flex min-h-12 items-center gap-2 rounded-2xl px-4 text-lg font-semibold hover:bg-brand-25">
-            {l.label}
-            {l.badge && <span class="rounded-full bg-yellow-300 px-1.5 py-0.5 text-xs font-bold text-ink">{l.badge}</span>}
-          </a>
-        </li>
-      ))}
-      <li><a href="#" class="flex min-h-12 items-center rounded-2xl px-4 text-lg font-semibold text-brand-700 hover:bg-brand-25">Log in</a></li>
+      {links.map((l) => {
+        const menu = menus[l.label];
+        return (
+          <li class="border-b border-line last:border-b-0">
+            {menu ? (
+              <details class="group">
+                <summary class="flex min-h-12 cursor-pointer list-none items-center justify-between rounded-2xl px-4 text-lg font-semibold hover:bg-brand-25 [&::-webkit-details-marker]:hidden">
+                  {l.label}
+                  <svg aria-hidden="true" class="size-5 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6" /></svg>
+                </summary>
+                <ul class="flex flex-col gap-1 pb-3">
+                  {menu.items.map((it) => (
+                    <li>
+                      <a href={it.href} class="flex items-center gap-3 rounded-2xl px-3 py-2 hover:bg-brand-25">
+                        <span aria-hidden="true" class={`flex size-10 shrink-0 items-center justify-center rounded-xl ${tiles[it.tile]}`}>
+                          {it.img && <img src={`/images/icons/illustrated/${it.img}`} width="26" height="26" alt="" class="size-[26px] object-contain" />}
+                        </span>
+                        <span class="flex flex-col">
+                          <span class="font-bold">{it.title}</span>
+                          <span class="text-sm text-muted">{it.desc}</span>
+                        </span>
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </details>
+            ) : (
+              <a href={l.href ?? '#'} class="flex min-h-12 items-center rounded-2xl px-4 text-lg font-semibold hover:bg-brand-25">{l.label}</a>
+            )}
+          </li>
+        );
+      })}
+      <li><a href="#" class="flex min-h-12 items-center gap-2 rounded-2xl px-4 text-lg font-semibold text-brand-700 hover:bg-brand-25">Log in</a></li>
     </ul>
-    <Button href={demoHref} shape="pill" full class="mt-3">Book a demo</Button>
+    <div class="mt-2 grid gap-2 sm:grid-cols-2">
+      <Button href={demoHref} variant="secondary" shape="pill" full>Book a demo</Button>
+      <Button href="#" shape="pill" full>Sign up free</Button>
+    </div>
   </nav>
 </header>
 
