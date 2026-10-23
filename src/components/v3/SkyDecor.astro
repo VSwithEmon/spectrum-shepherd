@@ -1,0 +1,27 @@
+---
+// Sky for hero sections (Figma v1 homepage hero): cloud towers, top wisps, horizon banks and a bird
+// flock. Positions follow the 1440×784 hero frame; shown on large screens only. Decorative.
+const clouds = [
+  { src: 'cloud-left.svg', w: 467, h: 226, pos: 'top-[85px] -left-[199px]' },
+  { src: 'cloud-left.svg', w: 467, h: 226, pos: 'top-[125px] -right-[199px] -scale-x-100' },
+  { src: 'cloud-tower.svg', w: 399, h: 285, pos: 'top-[310px] right-[8px]' },
+  { src: 'cloud-tower.svg', w: 399, h: 285, pos: 'top-[330px] -left-[150px] -scale-x-100' },
+  { src: 'cloud-tower.svg', w: 134, h: 96, pos: 'top-[30px] left-[32.6%]' },
+  { src: 'cloud-tower.svg', w: 118, h: 84, pos: 'top-[20px] right-[22px] -scale-x-100' },
+  { src: 'cloud-bank.svg', w: 722, h: 188, pos: 'top-[484px] -left-[120px]' },
+  { src: 'cloud-bank.svg', w: 798, h: 208, pos: 'top-[464px] right-[8px] -scale-x-100' },
+];
+const birds = [
+  { w: 35, pos: 'top-[74px] left-[41.5%]' },
+  { w: 44, pos: 'top-[56px] left-[44.2%]' },
+  { w: 54, pos: 'top-[40px] left-[47.5%]' },
+  { w: 42, pos: 'top-[58px] left-[51.2%]' },
+  { w: 31, pos: 'top-[76px] left-[53.9%]' },
+  { w: 37, pos: 'top-[250px] right-[75px]' },
+  { w: 27, pos: 'top-[268px] right-[43px]' },
+];
+---
+<div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0 hidden lg:block">
+  {clouds.map((c) => <img src={`/images/hero/${c.src}`} width={c.w} height={c.h} alt="" class={`absolute max-w-none ${c.pos}`} />)}
+  {birds.map((b) => <img src="/images/hero/bird.svg" width={b.w} height={Math.round(b.w * 31 / 80)} alt="" class={`absolute ${b.pos}`} />)}
+</div>
