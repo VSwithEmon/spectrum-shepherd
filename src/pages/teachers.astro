@@ -197,15 +197,21 @@ const faqs = [
             </span>
           </figcaption>
         </figure>
-        <div class="on-dark relative flex min-h-[320px] flex-col justify-end gap-2 overflow-hidden rounded-[32px] bg-brand-700 p-8 text-white sm:p-10">
+        <!-- Teacher story video (from spectrumshepherd.com/teachers). The card shows a poster frame under a
+             green tint; the play button swaps in the real player with controls. -->
+        <div data-story class="on-dark relative flex min-h-[320px] flex-col justify-end gap-2 overflow-hidden rounded-[32px] bg-brand-800 p-8 text-white sm:p-10">
+          <img src="/images/photos/emily-story-poster.jpg" width="854" height="480" loading="lazy" alt="" class="absolute inset-0 size-full object-cover" />
+          <span aria-hidden="true" class="absolute inset-0 bg-linear-to-t from-brand-900/95 via-brand-800/75 to-brand-700/55"></span>
           <span aria-hidden="true" class="swirl pointer-events-none absolute -top-16 -right-10 size-[300px] bg-white opacity-10"></span>
-          <!-- [VIDEO — Emily Colisimo teacher story] placeholder until the client supplies the video link -->
-          <a href="#" aria-label="Play Emily Colisimo's teacher story (2 minutes)" class="absolute top-8 left-8 flex size-[72px] items-center justify-center rounded-full bg-white text-brand-800 hover:bg-brand-25 sm:top-10 sm:left-10">
+          <button type="button" data-story-play aria-label="Play Emily Colisimo's teacher story (2 minutes)" class="absolute top-8 left-8 flex size-[72px] cursor-pointer items-center justify-center rounded-full bg-white text-brand-800 shadow-lg transition-colors hover:bg-brand-25 sm:top-10 sm:left-10">
             <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z" /></svg>
-          </a>
-          <p class="text-sm font-semibold text-yellow-300">Teacher story · 2 min</p>
-          <p class="text-display-xs font-bold">Emily Colisimo</p>
-          <p class="text-brand-50">Capstone Teacher, Cotting School, Lexington, MA</p>
+          </button>
+          <p class="relative text-sm font-semibold text-yellow-300">Teacher story · 2 min</p>
+          <p class="relative text-display-xs font-bold">Emily Colisimo</p>
+          <p class="relative text-brand-50">Capstone Teacher, Cotting School, Lexington, MA</p>
+          <video data-story-video hidden controls preload="none" playsinline poster="/images/photos/emily-story-poster.jpg" class="absolute inset-0 size-full bg-black object-contain" aria-label="Emily Colisimo, Capstone Teacher at Cotting School, on what Shepherd changed in her classroom">
+            <source src="/videos/emily-colisimo-teacher-story.mp4" type="video/mp4" />
+          </video>
         </div>
       </div>
     </div>
@@ -215,3 +221,17 @@ const faqs = [
 
   <TrialCta />
 </Base>
+
+<script>
+  // Teacher story: swap the poster card for the player and start it.
+  document.querySelectorAll<HTMLElement>('[data-story]').forEach((card) => {
+    const btn = card.querySelector<HTMLButtonElement>('[data-story-play]');
+    const video = card.querySelector<HTMLVideoElement>('[data-story-video]');
+    btn?.addEventListener('click', () => {
+      if (!video) return;
+      video.hidden = false;
+      video.play().catch(() => {});
+      video.focus();
+    });
+  });
+</script>

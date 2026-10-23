@@ -1,6 +1,5 @@
 ---
-// Results (Figma "Results", homepage V1 and V2): heading framed by two dotted paths, then the
-// green stat panel. The values are the client's current results; which to feature is still open.
+// Results (Figma "Results", homepage V1 and V2): centred heading, then the green stat panel. The values are the client's current results; which to feature is still open.
 import StatPanel from './StatPanel.astro';
 
 const results = [
@@ -8,21 +7,9 @@ const results = [
   { icon: 'spark' as const, value: '77%', label: 'Of students say it’s more engaging than other school learning' },
   { icon: 'progress' as const, value: 'IEP-ready', label: 'Progress reports teachers don’t have to write' },
 ];
-// Dot sizes swell and taper along the path, echoing the Shepherd swirl.
-const dots = [
-  [20, 10, 2], [39.57, 10.58, 3], [58.87, 12.31, 3.5], [77.63, 15.2, 4], [95.63, 19.24, 4.5], [112.65, 24.44, 4.5],
-  [128.53, 30.8, 5], [143.17, 38.31, 5], [156.5, 46.98, 5], [168.53, 56.8, 5], [179.31, 67.78, 4.5], [188.96, 79.91, 4],
-  [197.63, 93.2, 3.5], [205.54, 107.65, 3], [212.9, 123.24, 2.5], [220, 140, 2],
-];
 ---
 <section class="bg-white px-5 py-16 md:px-8 lg:py-24" aria-labelledby="results-title">
-  <div class="relative mx-auto flex max-w-[1200px] flex-col gap-10">
-    {['left-[30px]', 'right-0 -scale-x-100'].map((pos) => (
-      <svg aria-hidden="true" class={`absolute top-[34px] hidden h-[150px] w-[260px] lg:block ${pos}`} viewBox="0 0 260 150">
-        {dots.map(([cx, cy, r]) => <circle cx={cx} cy={cy} r={r} class="fill-brand-300" />)}
-      </svg>
-    ))}
-
+  <div class="mx-auto flex max-w-[1200px] flex-col gap-10">
     <h2 id="results-title" class="text-center text-display-sm font-bold md:text-display-md lg:text-display-lg">
       Confidence for schools.<br />
       <span class="text-brand-700">Engagement for students.</span>
