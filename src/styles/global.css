@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
-/* Green-first palette (Figma "Homepage Design" v3/v4): pages set <body data-palette="calm">
-   and components swap large yellow areas with `calm:` utilities. Small yellow accents stay. */
-@custom-variant calm (&:where([data-palette="calm"] *));
+/* Lavender alternative (Figma "Homepage Design (v2) — lavender alternative"): pages set
+   <body data-palette="lavender"> and components swap yellow accents for lavender with `lavender:` utilities. */
+@custom-variant lavender (&:where([data-palette="lavender"] *));
 
 /* Design tokens from the Figma file (Spectrum Shepherd design system, Homepage v4). */
 @theme {
@@ -33,11 +33,16 @@
   --color-cream: #fefaf5;      /* Orange/25, page background */
   --color-sky: #e2f0e2;        /* hero sky at the horizon */
 
+  --color-yellow-50: #fefbe8;
   --color-yellow-100: #fef7c3;
   --color-yellow-200: #feee95;
   --color-yellow-300: #fde272;
   --color-yellow-400: #fac515;
   --color-yellow-800: #854a0e;
+  --color-lavender-25: #f2f3fc;
+  --color-lavender-100: #e3e4f8;
+  --color-lavender-200: #c5c6f3;
+  --color-lavender-300: #aaaded;
   --color-orange-50: #fef6ee;
   --color-orange-100: #fdead7;
   --color-orange-200: #f9dbaf;
@@ -86,4 +91,10 @@
   .on-dark :focus-visible { outline-color: var(--color-white); }
   /* Light surfaces nested inside dark ones (e.g. a white form on a green panel). */
   .on-light :focus-visible { outline-color: var(--color-brand-800); }
+}
+
+/* Large Shepherd swirl, used as a faint watermark (set the colour with bg-*). */
+.swirl {
+  mask: url('/images/brand/swirl.png') center / contain no-repeat;
+  -webkit-mask: url('/images/brand/swirl.png') center / contain no-repeat;
 }

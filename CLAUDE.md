@@ -7,10 +7,11 @@ Buyers are special education teachers (free 45-day trial) and school/district le
 - The homepage (`src/pages/index.astro`) is Figma frame "Homepage Design (v1) — main direction (yellow accents)" (file `6JMhALsrhqylYR6QjNPy9V`, node `38876:3531`, "Web" page), built from the client's 20 Oct 2026 feedback. Nav menu open states: `38859:2925`, `38859:2859`, `38859:2986`.
 - Earlier rounds (V1 `38859:3660`, V2 `38859:3052`, V3/V4) were replaced by that single direction; they live in git history. `ComplianceBridge`, `HowItWorks`, `Faq`, `ClosingCta` and `Trust` are kept for reuse.
 - Client direction to keep: green core palette, yellow as the main accent, peach secondary, orange only as a small touch. Clouds, tree-topped hills and setting sun; dotted paths with varied dot sizes (static); large Shepherd swirl as a faint watermark. No animation except the slow right-to-left school logo strip (`LogoBand`), which pauses on hover and stops for reduced motion.
-- Icons: the site icon family in `public/images/icons/site/` (check-in-a-circle baseline: brand-50 disc, brand-600 ring, brand-700 glyph). Don't reuse the student app's book/tools illustrations.
+- Icons: the illustrated "Icon v2" family in `public/images/icons/v2/` (pale disc, green hatched sticker, white glyph with dark outline). Don't reuse the student app's book/tools illustrations.
 - Logo: Spectrum Shepherd company logo (`public/images/brand/`), PNGs from Figma until the client supplies SVGs.
 - Photography: the client wants licensed (not AI) photos of teens and young adults (16–22). Current audience photos are Figma placeholders.
-- A lavender/purple alternative palette was requested but isn't designed yet.
+- `/v2` is Figma "Homepage Design (v2) — lavender alternative" (node `38877:5873`, mobile `38877:7143`; V1 mobile `38877:6499`): same sections, `palette="lavender"` on `Base` (sets `data-palette`, `lavender:` variant swaps yellow accents), audiences as alternating rows (`AudienceRows`). A floating V1/V2 switch (`DesignToggle`) sits on both homepages for review.
+- `/teachers` is Figma "Teachers — Desktop 1440 (v1)" (node `38877:7930`); its sections live in `src/components/teachers/`. Hero, logo band and stat panel are shared (`PageHero`, `LogoBand logos={false}`, `StatPanel`).
 - Live site: Vercel project `spectrum-shepherd-5qfw` (https://spectrum-shepherd-5qfw.vercel.app), deployed from `VSwithEmon/spectrum-shepherd` main on every push.
 - `/book-a-demo` is the standalone demo-request page.
 - `option-b-homepage.html` ("Sunrise") is the earlier direction, kept for reference only.

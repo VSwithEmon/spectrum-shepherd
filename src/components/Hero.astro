@@ -1,75 +1,59 @@
 ---
-// Hero (Figma "Homepage Design (v1) — main direction", node 38876:3533): copy + product
-// composition over a cloudy sky that ends in tree-topped hills.
-import Button from './Button.astro';
-import Hills from './Hills.astro';
-import HeroSky from './HeroSky.astro';
+// Homepage hero (Figma "Homepage Design (v1/v2)", Hero): student photo, teacher dashboard and
+// student app over the sun, with two floating status chips.
+import PageHero from './PageHero.astro';
 import StatusChip from './StatusChip.astro';
 ---
-<section class="hero relative overflow-hidden" aria-labelledby="hero-title">
-  <HeroSky />
-  <div class="relative z-10 mx-auto flex max-w-[1200px] flex-col items-center gap-12 px-4 pt-8 pb-16 md:px-8 lg:flex-row lg:pt-12 lg:pb-12 xl:px-0">
-    <div class="flex w-full flex-col items-start gap-6 lg:flex-1">
-      <h1 id="hero-title" class="text-display-md font-bold sm:text-display-lg">
-        Real-world skills.<br />
-        <span class="text-brand-600">Real independence.</span>
-      </h1>
-      <p class="text-lg font-medium text-muted sm:text-xl">
-        Short, personalized lessons students actually want to do and IEP-ready progress reports their teachers don't have to write.
-      </p>
-      <div class="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap">
-        <Button href="#">Start your 45-day free trial</Button>
-        <Button href="#demo" variant="secondary">Book a demo</Button>
-      </div>
-      <p class="text-sm font-medium text-muted">First lesson in under five minutes · Built for FERPA compliance</p>
-      <ul class="grid w-full gap-4 pt-2 sm:grid-cols-2">
-        <li class="flex flex-col gap-1 border-l-3 border-yellow-400 pl-4">
-          <span class="font-bold">For schools &amp; teachers</span>
-          <span class="text-sm text-muted">Ready-made curriculum and reports that prove impact.</span>
-        </li>
-        <li class="flex flex-col gap-1 border-l-3 border-yellow-400 pl-4">
-          <span class="font-bold">For students</span>
-          <span class="text-sm text-muted">Short lessons that build skills for everyday life.</span>
-        </li>
-      </ul>
-    </div>
+<PageHero
+  lede="Short, personalized lessons students actually want to do and IEP-ready progress reports their teachers don't have to write."
+  primary={{ label: 'Start your 45-day free trial', href: '#' }}
+  secondary={{ label: 'Book a demo', href: '#demo' }}
+>
+  <Fragment slot="title">Real-world skills.<br /><span class="text-brand-600">Real independence.</span></Fragment>
 
-    <!-- Product composition: positions are % of the 600×600 Figma frame -->
-    <div class="relative aspect-square w-full max-w-[600px] shrink-0 lg:w-[600px]">
-      <div aria-hidden="true" class="absolute top-[5%] left-[20%] aspect-square w-[76.67%] rounded-full bg-yellow-300"></div>
-      <img
-        src="/images/photos/hero-student.jpg"
-        width="600"
-        height="538"
-        alt="A teenage student wearing headphones, smiling while working through a lesson on a tablet"
-        class="absolute top-0 left-[56.67%] aspect-square w-[41.67%] rounded-full object-cover object-[40%_center]"
-      />
-      <!-- Product shots: cropped to the device frame with transparent corners; drop-shadow follows the shape. -->
-      <img
-        src="/images/teacher-dashboard.webp"
-        width="2080"
-        height="1320"
-        alt="Shepherd teacher dashboard for William School, showing Classroom Pulse stats and the classroom roster"
-        class="device-shot absolute top-[33.33%] left-0 w-[86.67%]"
-        fetchpriority="high"
-      />
-      <img
-        src="/images/student-app-home.webp"
-        width="688"
-        height="1432"
-        alt="Shepherd student app home screen with a message from the coach and options to browse lessons or play games"
-        class="device-shot absolute top-[38.33%] left-[70%] w-[28.67%]"
-      />
-      <StatusChip title="Lesson complete" caption="Budgeting for a concert ticket" class="top-[19.67%] left-[-4%] origin-top-left max-sm:left-0 max-sm:scale-75" />
-      <StatusChip title="Progress note saved" caption="Linked to IEP goal" class="top-[91.33%] left-[25%] origin-top-left max-sm:scale-75" />
-    </div>
-  </div>
+  <Fragment slot="extra">
+    <p class="w-full text-center text-sm font-medium text-muted sm:text-left">First lesson in under five minutes · Built for FERPA compliance</p>
+    <ul class="grid w-full gap-4 pt-2 sm:grid-cols-2">
+      <li class="flex flex-col gap-1 border-l-3 border-yellow-400 pl-4 lavender:border-lavender-300">
+        <span class="font-bold">For schools &amp; teachers</span>
+        <span class="text-sm text-muted">Ready-made curriculum and reports that prove impact.</span>
+      </li>
+      <li class="flex flex-col gap-1 border-l-3 border-yellow-400 pl-4 lavender:border-lavender-300">
+        <span class="font-bold">For students</span>
+        <span class="text-sm text-muted">Short lessons that build skills for everyday life.</span>
+      </li>
+    </ul>
+  </Fragment>
 
-  <Hills class="relative -mt-6 lg:-mt-16" />
-</section>
+  <Fragment slot="visual">
+    <img
+      src="/images/photos/hero-student.jpg"
+      width="600"
+      height="538"
+      alt="A teenage student wearing headphones, smiling while working through a lesson on a tablet"
+      class="absolute top-0 left-[56.67%] aspect-square w-[41.67%] rounded-full object-cover object-[40%_center]"
+    />
+    <!-- Product shots: cropped to the device frame with transparent corners; drop-shadow follows the shape. -->
+    <img
+      src="/images/teacher-dashboard.webp"
+      width="2080"
+      height="1320"
+      alt="Shepherd teacher dashboard for William School, showing Classroom Pulse stats and the classroom roster"
+      class="device-shot absolute top-[33.33%] left-0 w-[86.67%]"
+      fetchpriority="high"
+    />
+    <img
+      src="/images/student-app-home.webp"
+      width="688"
+      height="1432"
+      alt="Shepherd student app home screen with a message from the coach and options to browse lessons or play games"
+      class="device-shot absolute top-[38.33%] left-[70%] w-[28.67%]"
+    />
+    <StatusChip title="Lesson complete" caption="Budgeting for a concert ticket" class="top-[19.67%] left-[-4%] origin-top-left max-sm:left-0 max-sm:scale-75" />
+    <StatusChip title="Progress note saved" caption="Linked to IEP goal" class="top-[91.33%] left-[25%] origin-top-left max-sm:scale-75" />
+  </Fragment>
+</PageHero>
 
 <style>
-  /* Sky: cream at the top easing into pale green at the horizon (Figma hero fill). */
-  .hero { background: linear-gradient(180deg, var(--color-cream) 0%, var(--color-sky) 80%); }
   .device-shot { filter: drop-shadow(0 24px 24px rgb(10 13 18 / 0.16)) drop-shadow(0 4px 4px rgb(10 13 18 / 0.04)); }
 </style>

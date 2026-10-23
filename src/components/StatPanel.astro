@@ -1,0 +1,31 @@
+---
+// Green results panel (Figma "Results panel"): equal columns, each with an icon from the
+// illustrated icon family, a big value, a short accent bar (yellow; lavender on the lavender
+// palette) and a caption. A large Shepherd swirl sits behind as a faint watermark.
+interface Props {
+  items: { icon: 'people' | 'spark' | 'progress' | 'lesson' | 'check' | 'shield' | 'download'; value: string; label: string }[];
+}
+const { items } = Astro.props;
+---
+<div class="on-dark relative overflow-hidden rounded-[32px] bg-brand-800 px-6 py-2 text-white sm:px-10 sm:py-4 lg:p-14">
+  <span aria-hidden="true" class="swirl pointer-events-none absolute -top-[150px] left-[70%] size-[520px] bg-white opacity-[0.07] max-lg:-top-16 max-lg:left-auto max-lg:-right-24 max-lg:size-[320px]"></span>
+  <ul class="relative grid lg:grid-cols-3">
+    {items.map((r, i) => (
+      <li class={`flex flex-col items-start gap-5 py-7 lg:py-0 ${i ? 'border-t border-brand-700 lg:border-t-0 lg:border-l lg:pl-10' : ''} ${i < items.length - 1 ? 'lg:pr-10' : ''}`}>
+        <img src={`/images/icons/v2/${r.icon}.svg`} width="48" height="48" alt="" />
+        <p class="flex flex-col items-start gap-5">
+          <span class="text-display-lg font-bold text-white lg:text-display-xl">{r.value}</span>
+          <span aria-hidden="true" class="h-1 w-12 rounded-sm bg-yellow-300 lavender:bg-lavender-200"></span>
+          <span class="text-md font-medium text-brand-50 sm:text-lg">{r.label}</span>
+        </p>
+      </li>
+    ))}
+  </ul>
+</div>
+
+<style>
+  .swirl {
+    mask: url('/images/brand/swirl.png') center / contain no-repeat;
+    -webkit-mask: url('/images/brand/swirl.png') center / contain no-repeat;
+  }
+</style>

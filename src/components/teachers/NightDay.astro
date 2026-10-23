@@ -1,0 +1,64 @@
+---
+// "Sunday night scaries, before and after" (Teachers v1, Figma): one rounded panel split into a
+// dark night sky ("building it yourself") and a warm sunset ("with Shepherd"), joined by an arrow
+// badge. Moon, stars, sun, hills and trees are decorative. Both halves stay readable text lists.
+
+interface Props { before: string[]; after: string[] }
+const { before, after } = Astro.props;
+const stars = [
+  'top-[40px] right-[210px] size-[6px]', 'top-[150px] right-[270px] size-1', 'top-[130px] right-[90px] size-1',
+  'top-[24px] right-[150px] size-[5px]', 'top-[96px] right-[40px] size-[3px]', 'top-[196px] right-[170px] size-1',
+];
+---
+<section class="bg-cream px-4 py-16 md:px-8 lg:py-24" aria-labelledby="scaries-title">
+  <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-12">
+    <div class="flex max-w-[820px] flex-col gap-4 text-center">
+      <h2 id="scaries-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">Sunday night scaries, before and after</h2>
+      <p class="text-lg text-muted sm:text-xl">The lessons are already written. The personalization happens on its own. The paperwork writes itself as students work.</p>
+    </div>
+
+    <div class="relative grid w-full overflow-hidden rounded-[32px] shadow-xl md:grid-cols-2 lg:rounded-[40px]">
+      <section aria-labelledby="before-title" class="on-dark relative flex flex-col gap-6 overflow-hidden bg-brand-900 px-6 py-10 text-white sm:px-12 md:pr-[72px] md:pb-14 lg:px-14">
+        <svg aria-hidden="true" class="absolute top-10 right-8 hidden size-[72px] md:block" viewBox="0 0 72 72"><path d="M50 58A28 28 0 1 1 42 6a22 22 0 1 0 8 52z" class="fill-lavender-100" /></svg>
+        {stars.map((s) => <span aria-hidden="true" class={`absolute hidden rounded-full bg-white/70 md:block ${s}`}></span>)}
+        <p class="relative flex items-center gap-2 self-start rounded-full bg-white/12 px-3.5 py-1.5 text-sm font-semibold text-brand-50">
+          <span aria-hidden="true" class="size-2 rounded-full bg-yellow-300 lavender:bg-lavender-200"></span>Sunday night, without Shepherd
+        </p>
+        <h3 id="before-title" class="relative text-display-xs font-bold sm:text-display-sm">Building it yourself</h3>
+        <ul class="relative flex flex-col gap-4.5">
+          {before.map((t) => (
+            <li class="flex items-start gap-3.5 text-lg text-brand-100">
+              <svg aria-hidden="true" class="mt-0.5 size-6 shrink-0" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11.2" class="stroke-brand-300" stroke-width="0.8" stroke-dasharray="2 2" /><path d="M8 12h8" class="stroke-brand-200" stroke-width="1.6" stroke-linecap="round" /></svg>
+              {t}
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section aria-labelledby="after-title" class="relative flex flex-col gap-6 overflow-hidden bg-yellow-50 px-6 pt-10 pb-44 sm:px-12 md:pb-48 md:pl-[72px] lg:px-14 lg:pl-[88px] lavender:bg-lavender-25">
+        <span aria-hidden="true" class="absolute right-16 bottom-14 hidden size-[200px] rounded-full md:block bg-linear-to-b from-yellow-300 to-orange-200 lavender:from-lavender-200 lavender:to-orange-200"></span>
+        <svg aria-hidden="true" class="absolute inset-x-0 bottom-0 h-auto w-full" viewBox="0 0 640 150" preserveAspectRatio="xMidYMax slice">
+          <path d="M0 70C120 30 230 40 330 70S520 110 640 50V150H0Z" class="fill-brand-200" />
+          <path d="M0 105C140 80 260 78 380 98S560 118 640 95V150H0Z" class="fill-brand-500" />
+          <path d="M0 130C160 118 300 115 440 126S580 136 640 124V150H0Z" class="fill-brand-700" />
+          <g class="fill-brand-900"><rect x="58" y="76" width="4" height="22" rx="2" /><rect x="84" y="80" width="4" height="20" rx="2" /><rect x="548" y="70" width="4" height="22" rx="2" /><rect x="574" y="66" width="4" height="26" rx="2" /></g>
+          <path d="M60 30L74 74H46Z" class="fill-brand-700" /><ellipse cx="86" cy="64" rx="14" ry="16" class="fill-brand-600" />
+          <ellipse cx="550" cy="54" rx="14" ry="16" class="fill-brand-600" /><path d="M576 20L590 66H562Z" class="fill-brand-700" />
+        </svg>
+        <p class="relative flex items-center gap-2 self-start rounded-full bg-white px-3.5 py-1.5 text-sm font-semibold text-brand-800">
+          <span aria-hidden="true" class="size-2 rounded-full bg-brand-600"></span>Sunday night, with Shepherd
+        </p>
+        <h3 id="after-title" class="relative text-display-xs font-bold sm:text-display-sm">Next week is already there.</h3>
+        <ul class="relative flex flex-col gap-4.5">
+          {after.map((t) => (
+            <li class="flex items-start gap-3.5 text-lg font-medium"><img src="/images/icons/v2/check.svg" width="48" height="48" alt="" class="mt-0.5 size-6 shrink-0" />{t}</li>
+          ))}
+        </ul>
+      </section>
+
+      <span aria-hidden="true" class="absolute top-1/2 left-1/2 hidden size-[72px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border-4 border-brand-100 bg-white md:flex">
+        <svg class="size-8" viewBox="0 0 24 24" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6" class="stroke-brand-700" stroke-width="2.4" /></svg>
+      </span>
+    </div>
+  </div>
+</section>

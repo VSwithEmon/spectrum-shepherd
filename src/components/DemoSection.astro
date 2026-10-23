@@ -18,19 +18,19 @@ const dots = [
   [735.72, 70.43, 1.5], [760, 40, 1.5],
 ];
 ---
-<section id="demo" class="scroll-mt-4 bg-cream px-4 pt-16 pb-12 md:px-8 lg:pt-24" aria-labelledby="demo-title">
+<section id="demo" class="scroll-mt-4 bg-cream px-3 pt-12 pb-12 sm:px-4 md:px-8 lg:pt-24" aria-labelledby="demo-title">
   <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-6">
-    <div class="on-dark relative flex w-full flex-col gap-10 overflow-hidden rounded-[40px] bg-brand-700 p-6 text-white sm:p-10 lg:flex-row lg:items-start lg:gap-12 lg:p-12">
-      <span aria-hidden="true" class="absolute -top-20 -right-20 size-44 rounded-full bg-yellow-300 lg:-top-[110px] lg:-right-[90px] lg:size-[260px]"></span>
+    <div class="on-dark relative flex w-full flex-col gap-10 overflow-hidden rounded-[28px] bg-brand-700 p-4 pt-8 text-white sm:rounded-[40px] sm:p-10 lg:flex-row lg:items-start lg:gap-12 lg:p-12">
+      <span aria-hidden="true" class="absolute -top-20 -right-20 size-44 rounded-full bg-yellow-300 lavender:bg-lavender-200 lg:-top-[110px] lg:-right-[90px] lg:size-[260px]"></span>
       <svg aria-hidden="true" class="absolute top-[466px] left-0 hidden h-[400px] w-[780px] lg:block" viewBox="0 0 780 400">
         {dots.map(([cx, cy, r]) => <circle cx={cx} cy={cy} r={r} class="fill-brand-400" />)}
       </svg>
 
-      <div class="relative flex flex-col items-start gap-6 lg:flex-1">
+      <div class="relative flex flex-col items-start gap-6 px-3 sm:px-0 lg:flex-1">
         <h2 id="demo-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">Be the reason <br class="hidden lg:inline" />they’re ready.</h2>
         <p class="text-lg text-brand-50">A 15-minute walkthrough for special education and transition leaders.</p>
 
-        <div class="relative h-[220px] w-full overflow-hidden rounded-3xl">
+        <div class="relative hidden h-[220px] w-full overflow-hidden rounded-3xl md:block">
           <img
             src="/images/photos/demo-host.jpg"
             width="1100"
@@ -48,7 +48,7 @@ const dots = [
         <ol class="flex w-full flex-col gap-3" aria-label="How it works">
           {steps.map((s, i) => (
             <li class="flex items-center gap-3 text-lg font-semibold">
-              <span aria-hidden="true" class="flex size-9 shrink-0 items-center justify-center rounded-full bg-yellow-300 font-bold text-ink">{i + 1}</span>
+              <span aria-hidden="true" class="flex size-9 shrink-0 items-center justify-center rounded-full bg-yellow-300 font-bold text-ink lavender:bg-lavender-200">{i + 1}</span>
               {s}
             </li>
           ))}
@@ -56,7 +56,7 @@ const dots = [
       </div>
 
       <!-- TODO: point action at the form service once the client chooses one. -->
-      <form method="post" class="on-light relative flex w-full flex-col gap-4 rounded-[32px] bg-white p-6 text-ink shadow-2xl sm:p-10 lg:w-[540px] lg:shrink-0" aria-labelledby="demo-form-title">
+      <form method="post" class="on-light relative flex w-full flex-col gap-4 rounded-[24px] bg-white p-5 text-ink shadow-2xl sm:rounded-[32px] sm:p-10 lg:w-[540px] lg:shrink-0" aria-labelledby="demo-form-title">
         <div class="flex flex-col gap-1">
           <h3 id="demo-form-title" class="text-display-xs font-bold">Book your 15-minute demo</h3>
           <p class="text-sm text-muted">All fields are required.</p>
@@ -73,7 +73,7 @@ const dots = [
       </form>
     </div>
 
-    <p class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 rounded-full bg-yellow-200 px-6 py-3 text-center font-bold">
+    <p class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 rounded-full bg-yellow-200 px-6 py-3 text-center font-bold lavender:bg-lavender-100">
       Just one teacher?
       <a href="#" class="text-brand-800 underline hover:text-ink">Start a free 45-day trial →</a>
     </p>

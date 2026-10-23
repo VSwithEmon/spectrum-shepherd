@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import SiteNav from '../components/SiteNav.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import DesignToggle from '../components/DesignToggle.astro';
 
 interface Props {
   title: string;
@@ -11,6 +12,10 @@ interface Props {
   /** Hill edge above the footer, and the background behind it (match the last section). */
   footerHills?: boolean;
   footerHillsBg?: string;
+  /** Alternative palette: 'lavender' swaps the yellow accents for lavender (Figma Homepage V2). */
+  palette?: 'lavender';
+  /** Floating V1/V2 switch for comparing the two homepage directions. */
+  designToggle?: 'v1' | 'v2';
 }
 const {
   title,
@@ -18,6 +23,8 @@ const {
   demoHref,
   footerHills = true,
   footerHillsBg = '',
+  palette,
+  designToggle,
 } = Astro.props;
 ---
 <!doctype html>
@@ -31,12 +38,13 @@ const {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </head>
-  <body>
+  <body data-palette={palette}>
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-white focus:px-4 focus:py-3 focus:font-semibold focus:shadow-lg">Skip to main content</a>
     <SiteNav demoHref={demoHref} />
     <main id="main">
       <slot />
     </main>
     <SiteFooter hills={footerHills} hillsBg={footerHillsBg} />
+    {designToggle && <DesignToggle active={designToggle} />}
   </body>
 </html>

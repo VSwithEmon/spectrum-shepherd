@@ -13,24 +13,30 @@ const schools: School[] = [
   { name: 'Voorhees HS', logo: '/images/logos/voorhees.png', size: 'size-8' },
   { name: 'Newmark Education', logo: '/images/logos/newmark.png', size: 'size-[29px]' },
 ];
+interface Props {
+  /** School logo strip under the tagline. The Teachers page shows the tagline only. */
+  logos?: boolean;
+}
+const { logos = true } = Astro.props;
 const beats = [
   { lead: 'Built with', word: 'educators.', tilt: 'rotate-2' },
   { lead: 'Tested with', word: 'students.', tilt: '-rotate-2' },
   { lead: 'Shaped in', word: 'classrooms.', tilt: 'rotate-2' },
 ];
 ---
-<section class="overflow-hidden bg-brand-700 pt-4 pb-16 text-white" aria-labelledby="schools-title">
+<section class={`overflow-hidden bg-brand-700 text-white ${logos ? 'pt-4 pb-16' : 'py-12 lg:py-14'}`} aria-labelledby="schools-title">
   <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-10">
     <h2 id="schools-title" class="flex flex-wrap items-center justify-center gap-x-3 gap-y-3 px-4 text-center text-xl font-bold sm:text-display-xs md:px-8 md:text-display-sm lg:text-display-md">
       {beats.map((b) => (
         <span class="flex items-center gap-2 sm:gap-3">
           {b.lead}
-          <span class={`inline-block rounded-full bg-yellow-300 px-3 py-0.5 text-ink sm:px-4 ${b.tilt}`}>{b.word}</span>
+          <span class={`inline-block rounded-full bg-yellow-300 px-3 py-0.5 text-ink sm:px-4 lavender:bg-lavender-200 ${b.tilt}`}>{b.word}</span>
         </span>
       ))}
     </h2>
   </div>
 
+  {logos && (
   <div class="marquee relative mt-10" aria-label="Schools that helped shape Shepherd" role="region">
     <div class="track flex w-max">
       {[0, 1].map((copy) => (
@@ -50,6 +56,7 @@ const beats = [
       ))}
     </div>
   </div>
+  )}
 </section>
 
 <style>
