@@ -25,7 +25,8 @@ Figma file `kf6bETSiXfVOzzNbTlCFA7`, page "Home Page Design" (`38641:74923`). Ea
   - **Schools / App / About / Blog / Webinars / Research v2** designs (alternates; only v1 is built).
   - **Mobile** designs for inner pages (code is responsive; only the homepage V1 has a Figma mobile frame).
 - **Figma components:** `Site / Nav` and `Site / Footer` (instances on all pages), `Decor / Cloud tower` and `Decor / Cloud bank`, icon family + trees in "Componnet" section. The old "Free trial page" Figma section is unused (no `/free-trial` page).
-- **Open client decisions:** company vs product logo (nav shows the product logo); which results to feature; transition-plan download title/destination; community link target; form actions and the Jessica Bershad review; lavender vs yellow; licensed photos to replace AI images; founder photos/titles; post-trial terms; teacher-story video.
+- **Logo:** nav logo is the client-supplied `public/images/logo.png` (166×60, white background, used in `Logo.astro`); replace with an SVG / larger transparent PNG when available. `logo-mark.png` is still used as a decorative watermark mask.
+- **Open client decisions:** which results to feature; transition-plan download title/destination; community link target; form actions and the Jessica Bershad review; lavender vs yellow; licensed photos to replace AI images; founder photos/titles; post-trial terms; teacher-story video.
 - **Deploy:** pushes go to `raselhossain036-star/spectrum-shepherd-site`; the live Vercel site deploys from `VSwithEmon/spectrum-shepherd`, so Emon must pull `main` (or give write access) for changes to go live.
 - **Working tips:** very long chat sessions burn the plan limit fast (every message re-reads the whole history, images are costly) — start fresh sessions and batch requests.
 

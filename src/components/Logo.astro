@@ -1,16 +1,10 @@
 ---
-// Shepherd logo: dotted mark (PNG used as a mask over brand green) + "shepherd" wordmark.
+// Spectrum Shepherd logo (client-supplied artwork: "SPECTRUM shepherd" + dotted ring), public/images/logo.png.
+// The file is 166×60 on a white background, so it sits on the white nav bar; swap in an SVG or a
+// larger transparent PNG when the client supplies one.
 interface Props { class?: string; href?: string }
 const { class: className = '', href = '/' } = Astro.props;
 ---
-<a href={href} aria-label="Spectrum Shepherd home" class={`flex shrink-0 items-center gap-1.5 ${className}`}>
-  <span aria-hidden="true" class="logo-mark size-10 bg-brand-500"></span>
-  <img src="/images/logo-text.svg" width="117" height="24" alt="" />
+<a href={href} aria-label="Spectrum Shepherd home" class={`flex shrink-0 items-center ${className}`}>
+  <img src="/images/logo.png" width="166" height="60" alt="" class="h-11 w-auto" />
 </a>
-
-<style>
-  .logo-mark {
-    mask: url('/images/logo-mark.png') center / 40px 40px no-repeat;
-    -webkit-mask: url('/images/logo-mark.png') center / 40px 40px no-repeat;
-  }
-</style>
