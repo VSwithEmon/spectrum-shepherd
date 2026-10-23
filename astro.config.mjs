@@ -4,10 +4,10 @@ import tailwindcss from '@tailwindcss/vite';
 import sanity from '@sanity/astro';
 import react from '@astrojs/react';
 
-// Sanity project for the blog. Set PUBLIC_SANITY_PROJECT_ID (and optionally PUBLIC_SANITY_DATASET)
-// in Vercel and in a local .env. Without a project ID the blog builds with an empty list.
+// Sanity project for the blog ("Spectrum Shepherd website", sanity.io/manage). The ID is public (it
+// ships in the Studio bundle); PUBLIC_SANITY_PROJECT_ID / PUBLIC_SANITY_DATASET override it if set.
 const env = loadEnv(process.env.NODE_ENV ?? 'production', process.cwd(), '');
-const projectId = env.PUBLIC_SANITY_PROJECT_ID || 'not-configured';
+const projectId = env.PUBLIC_SANITY_PROJECT_ID || 'jhozhuio';
 const dataset = env.PUBLIC_SANITY_DATASET || 'production';
 
 export default defineConfig({

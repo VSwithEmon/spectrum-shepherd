@@ -3,7 +3,7 @@ import { sanityClient } from 'sanity:client';
 import { createImageUrlBuilder } from '@sanity/image-url';
 import { categories } from '../sanity/schemaTypes/post';
 
-export const configured = !!import.meta.env.PUBLIC_SANITY_PROJECT_ID;
+export const configured = !!sanityClient.config().projectId;
 
 const builder = createImageUrlBuilder(sanityClient);
 /** Image URL from a Sanity image (respects the editor's hotspot/crop). */
@@ -37,15 +37,21 @@ const cardFields = `_id, title, "slug": slug.current, excerpt, category, publish
 // Published posts only: drafts stay in the Studio until the editor presses Publish.
 const live = `_type == "post" && defined(slug.current) && publishedAt <= now() && !(_id in path("drafts.**"))`;
 
-export async function getPosts(): Promise<PostCard[]> {
+// On Vercel a failed fetch fails the build (so a Sanity outage never publishes an empty blog);
+// locally, without network access to Sanity, the blog builds empty with a warning.
+async function query<T>(groq: string): Promise<T[]> {
   if (!configured) return [];
-  return sanityClient.fetch(`*[${live}] | order(publishedAt desc) { ${cardFields} }`);
+  try {
+    return await sanityClient.fetch(groq);
+  } catch (err) {
+    if (process.env.VERCEL) throw err;
+    console.warn(`[blog] Could not reach Sanity, building the blog without posts: ${(err as Error).message}`);
+    return [];
+  }
 }
 
-export async function getPostsWithBody(): Promise<Post[]> {
-  if (!configured) return [];
-  return sanityClient.fetch(`*[${live}] | order(publishedAt desc) { ${cardFields}, body, seoDescription }`);
-}
+export const getPosts = () => query<PostCard>(`*[${live}] | order(publishedAt desc) { ${cardFields} }`);
+export const getPostsWithBody = () => query<Post>(`*[${live}] | order(publishedAt desc) { ${cardFields}, body, seoDescription }`);
 
 export const categoryTitle = (v: string) => categories.find((c) => c.value === v)?.title ?? v;
 export const readTime = (words = 0) => `${Math.max(1, Math.round(words / 220))} min read`;

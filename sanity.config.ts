@@ -6,7 +6,7 @@ import { schemaTypes } from './src/sanity/schemaTypes';
 export default defineConfig({
   name: 'spectrum-shepherd',
   title: 'Spectrum Shepherd blog',
-  projectId: import.meta.env.PUBLIC_SANITY_PROJECT_ID,
+  projectId: import.meta.env.PUBLIC_SANITY_PROJECT_ID || 'jhozhuio',
   dataset: import.meta.env.PUBLIC_SANITY_DATASET || 'production',
   plugins: [
     structureTool({
