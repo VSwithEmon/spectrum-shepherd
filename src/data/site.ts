@@ -12,6 +12,7 @@ export const site = {
   login: '/login',
   demo: '/book-a-demo',
   teachers: '/teachers',
+  teachersV2: '/teachers-v2', // Teachers page for the lavender homepage (V4)
   schools: '/schools',
   app: '/the-app',
   about: '/about',

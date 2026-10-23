@@ -9,13 +9,15 @@ interface Props {
   hillsBg?: string;
   /** Oct 2026 feedback (V3/V4): trees + setting sun on the hills; "Join our community" sized like the other headings. */
   refresh?: boolean;
+  /** Where the footer's Teachers link goes (V3 → /teachers, V4 → /teachers-v2). */
+  teachersHref?: string;
 }
-const { hills = true, hillsBg = '', refresh = false } = Astro.props;
+const { hills = true, hillsBg = '', refresh = false, teachersHref = site.teachers } = Astro.props;
 
 // V1/V2 keep their placeholder links; the refresh designs (V3/V4 + inner pages) link the real pages.
 const columns = refresh
   ? [
-      { title: 'Product', links: [{ label: 'Teachers', href: site.teachers }, { label: 'Schools', href: site.schools }, { label: 'The App', href: site.app }] },
+      { title: 'Product', links: [{ label: 'Teachers', href: teachersHref }, { label: 'Schools', href: site.schools }, { label: 'The App', href: site.app }] },
       { title: 'Company', links: [{ label: 'About', href: site.about }, { label: 'Resources', href: site.blog }, { label: 'Log in', href: site.login }] },
     ]
   : [

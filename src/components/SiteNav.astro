@@ -12,8 +12,10 @@ interface Props {
   refresh?: boolean;
   /** Where the logo goes. The refresh designs (V3/V4 and their inner pages) point at V3. */
   homeHref?: string;
+  /** Where Teachers links go: /teachers (V3) or /teachers-v2 (V4). */
+  teachersHref?: string;
 }
-const { demoHref = '/book-a-demo', refresh = false, homeHref = refresh ? site.home : '/' } = Astro.props;
+const { demoHref = '/book-a-demo', refresh = false, homeHref = refresh ? site.home : '/', teachersHref = site.teachers } = Astro.props;
 const trialHref = refresh ? site.signup : '#';
 const loginHref = refresh ? site.login : '#';
 // Website icon family stand-ins for the line icons when `refresh` is on.
@@ -73,8 +75,8 @@ if (refresh) {
   // V3/V4: link the menu items to the new inner pages. The App and About live in the footer
   // (and the mobile menu); Resources mirrors the current site's Blog / Webinars / research.
   const hrefByTitle: Record<string, string> = {
-    'Ready-made life-skills lessons': site.teachers,
-    'IEP-linked progress notes': `${site.teachers}#evidence`,
+    'Ready-made life-skills lessons': teachersHref,
+    'IEP-linked progress notes': `${teachersHref}#evidence`,
     'Free 45-day trial': site.trial,
     'Transition Evidence Reports': `${site.schools}#outcomes`,
     'Indicator 13 support': site.schools,
@@ -97,7 +99,7 @@ const cardTones = {
 
 // With `refresh`, "The App" and "About" move into the menus and the footer.
 const links: { label: string; href?: string; badge?: string }[] = refresh
-  ? [{ label: 'Teachers', href: site.teachers }, { label: 'Schools', href: site.schools }, { label: 'Resources', href: site.blog }]
+  ? [{ label: 'Teachers', href: teachersHref }, { label: 'Schools', href: site.schools }, { label: 'Resources', href: site.blog }]
   : [
       { label: 'Teachers' },
       { label: 'Schools' },

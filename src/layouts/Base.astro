@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import SiteNav from '../components/SiteNav.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import { site } from '../data/site';
 import DesignToggle from '../components/DesignToggle.astro';
 
 interface Props {
@@ -33,6 +34,8 @@ const {
   refresh = false,
   homeHref,
 } = Astro.props;
+// Lavender homepage (V4) links Teachers to /teachers-v2; V3 and everything else to /teachers.
+const teachersHref = palette === 'lavender' ? site.teachersV2 : site.teachers;
 ---
 <!doctype html>
 <html lang="en">
@@ -47,11 +50,11 @@ const {
   </head>
   <body data-palette={palette}>
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-white focus:px-4 focus:py-3 focus:font-semibold focus:shadow-lg">Skip to main content</a>
-    <SiteNav demoHref={demoHref} refresh={refresh} homeHref={homeHref} />
+    <SiteNav demoHref={demoHref} refresh={refresh} homeHref={homeHref} teachersHref={teachersHref} />
     <main id="main">
       <slot />
     </main>
-    <SiteFooter hills={footerHills} hillsBg={footerHillsBg} refresh={refresh} />
+    <SiteFooter hills={footerHills} hillsBg={footerHillsBg} refresh={refresh} teachersHref={teachersHref} />
     {/* Room for the fixed design switch so it never covers the footer's legal links on phones. */}
     {designToggle && <div aria-hidden="true" class="h-20 bg-brand-800 md:hidden"></div>}
     {designToggle && <DesignToggle active={designToggle} />}
