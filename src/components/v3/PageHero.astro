@@ -18,8 +18,8 @@ interface Props {
   checks?: string[];
   /** Soft sun circle behind the visual (large screens). */
   sun?: boolean;
-  /** 'pines' = pine-tree hills (V3 homepage style); 'classic' = layered hills with trees (V4). */
-  scene?: 'pines' | 'classic';
+  /** 'pines' = pine-tree hills (V3 style); 'classic' = layered hills with trees (V4); 'none' = clouds only. */
+  scene?: 'pines' | 'classic' | 'none';
 }
 const { title, accent, lede, primary, secondary, checks = [], sun = true, scene = 'pines' } = Astro.props;
 ---
@@ -52,5 +52,5 @@ const { title, accent, lede, primary, secondary, checks = [], sun = true, scene 
 
   {scene === 'classic'
     ? <Hills path={false} trees grove class="-mt-6 lg:-mt-16" />
-    : <PineHills class="relative -mt-4 h-[90px] sm:h-[150px] lg:-mt-24 lg:h-auto" />}
+    : scene === 'pines' ? <PineHills class="relative -mt-4 h-[90px] sm:h-[150px] lg:-mt-24 lg:h-auto" /> : null}
 </section>

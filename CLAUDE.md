@@ -18,9 +18,10 @@ Buyers are special education teachers (free 45-day trial) and school/district le
 
 ## Current status (Oct 23, 2026)
 Figma file `kf6bETSiXfVOzzNbTlCFA7`, page "Home Page Design" (`38641:74923`). Each page has its own section with versions side by side.
+- **Teachers pages (built):** `/teachers` = Figma Teachers v1, linked from homepage V3 (nav, footer, audience card); `/teachers-v2` = Figma Teachers v2 in the lavender style, linked from homepage V4. Base picks the link from `palette` (`teachersHref`). Both use a tagline-only band (the live page has no school-logo row), the `TrialCta` split closing panel; v1 adds the night-vs-sunset `NightDay` panel and has no hills under the hero, v2 has classic hills + plain before/after cards.
 - **Built in code and pushed:** `/v3` (V1 direction) and `/v4` (lavender) incl. the new hero sky/clouds/birds, pine hills (V3) vs layered hills with extra trees (V4), V4 audiences as photo rows; inner pages `/teachers`, `/schools`, `/the-app`, `/about`, `/blog`, `/webinars`, `/beyond-the-transition-plan`; account pages `/book-a-demo`, `/sign-up`, `/login`.
 - **Figma only — NOT yet built:**
-  - **Teachers page v2/v3** (sections "Teachers page"): v3 has a new hero (large Lesson Library card + "45 days free" badge, plain cream, no clouds/logos — mirrors the live page, which has no school-logo row), a tagline-only band, and a redesigned closing CTA (split panel + trial timeline card). v2 got homepage-style clouds. `/teachers` in code is still the earlier v1.
+  - (Teachers v1/v2 are now built — see below.)
   - **Schools / App / About / Blog / Webinars / Research v2** designs (alternates; only v1 is built).
   - **Mobile** designs for inner pages (code is responsive; only the homepage V1 has a Figma mobile frame).
 - **Figma components:** `Site / Nav` and `Site / Footer` (instances on all pages), `Decor / Cloud tower` and `Decor / Cloud bank`, icon family + trees in "Componnet" section. The old "Free trial page" Figma section is unused (no `/free-trial` page).

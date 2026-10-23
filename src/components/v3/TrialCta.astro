@@ -1,0 +1,74 @@
+---
+// Closing call-to-action for the Teachers pages (Figma "Closing CTA"): split green panel with the
+// pitch and buttons on the left and a tilted "Your free trial" timeline card on the right, pine
+// hills along the bottom. The trial milestones are text, the hills and swirl are decorative.
+import Button from '../Button.astro';
+import BrandIcon from './BrandIcon.astro';
+import { site } from '../../data/site';
+
+const milestones = [
+  { when: 'Day 1', title: 'Set up your class', body: 'Add your students and drop in their IEP goals.' },
+  { when: 'This week', title: 'See your first progress notes', body: 'Captured as students work, tied to IEP goals.' },
+  { when: 'Day 45', title: 'Decide with real evidence', body: 'Still free. Still no credit card.' },
+];
+const checks = ['No credit card', 'No district approval', 'Set up in about 10 minutes'];
+---
+<section id="trial" class="px-4 py-16 md:px-8 lg:py-24" aria-labelledby="trial-title">
+  <div class="on-dark relative mx-auto flex max-w-[1200px] flex-col items-center gap-10 overflow-hidden rounded-[32px] bg-brand-800 px-6 pt-12 pb-40 text-white sm:px-12 lg:flex-row lg:gap-14 lg:rounded-[40px] lg:px-[72px] lg:pt-16 lg:pb-32">
+    <span aria-hidden="true" class="swirl pointer-events-none absolute -top-28 -left-20 size-[360px] bg-white opacity-[0.07]"></span>
+    <svg aria-hidden="true" class="absolute inset-x-0 bottom-0 h-auto w-full" viewBox="0 0 1200 130" preserveAspectRatio="xMidYMax slice">
+      <path d="M0 60C200 10 380 20 600 60S1000 100 1200 30V130H0Z" class="fill-brand-600" fill-opacity="0.55" />
+      <path d="M0 95C240 55 480 50 700 80S1040 110 1200 80V130H0Z" class="fill-brand-700" />
+      <g class="fill-brand-800"><path d="M120 50L136 96H104Z" /><path d="M400 62L414 100H386Z" /><path d="M980 70L996 108H964Z" /><path d="M1100 54L1114 96H1086Z" /></g>
+    </svg>
+
+    <div class="relative flex flex-1 flex-col items-start gap-5">
+      <h2 id="trial-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">
+        Try it with one student.<br />
+        <span class="text-yellow-300 lavender:text-lavender-200">Or your whole classroom.</span>
+      </h2>
+      <p class="text-lg text-brand-50 sm:text-xl">Forty-five days, free, no setup needed.</p>
+      <div class="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+        <Button href={site.trial} variant="light">Start your 45-day free trial</Button>
+        <Button href={site.demo} variant="outline-light">Book a demo</Button>
+      </div>
+      <ul class="flex flex-wrap gap-x-6 gap-y-2 font-medium">
+        {checks.map((c) => <li class="flex items-center gap-2"><BrandIcon name="check" class="size-6" />{c}</li>)}
+      </ul>
+    </div>
+
+    <div class="relative w-full max-w-[420px] rounded-[32px] bg-white p-7 text-ink shadow-2xl sm:p-9 lg:w-[400px] lg:shrink-0 lg:rotate-2">
+      <div class="flex items-center gap-4 pb-5">
+        <p class="flex size-24 shrink-0 flex-col items-center justify-center rounded-full bg-yellow-300 text-center lavender:bg-lavender-200">
+          <span class="text-display-md font-bold">45</span><span class="text-xs font-bold">days free</span>
+        </p>
+        <div>
+          <p class="text-display-xs font-bold">Your free trial</p>
+          <p class="text-sm font-medium text-muted">No credit card. No district approval.</p>
+        </div>
+      </div>
+      <ol>
+        {milestones.map((m, i) => (
+          <li class="flex gap-4">
+            <span class="flex flex-col items-center gap-1.5" aria-hidden="true">
+              <span class={`mt-1 size-5 rounded-full border-[3px] border-brand-800 ${i === 2 ? 'bg-yellow-300 lavender:bg-lavender-200' : 'bg-brand-600'}`}></span>
+              {i < 2 && <span class="flex flex-1 flex-col items-center justify-center gap-1.5"><span class="size-1 rounded-full bg-brand-300"></span><span class="size-1.5 rounded-full bg-brand-300"></span><span class="size-1 rounded-full bg-brand-300"></span></span>}
+            </span>
+            <span class={`flex flex-col gap-0.5 ${i < 2 ? 'pb-5' : ''}`}>
+              <span class="text-xs font-bold text-brand-700">{m.when}</span>
+              <span class="text-lg font-semibold">{m.title}</span>
+              <span class="text-sm text-muted">{m.body}</span>
+            </span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>
+
+<style>
+  .swirl {
+    mask: url('/images/logo-mark.png') center / contain no-repeat;
+    -webkit-mask: url('/images/logo-mark.png') center / contain no-repeat;
+  }
+</style>

@@ -4,6 +4,12 @@
 // (the looping copy is aria-hidden); it pauses on hover/focus and stops for reduced motion.
 import { schools, type School } from '../../data/schools';
 
+interface Props {
+  /** false = tagline only (Teachers page: the live page has no school-logo row). */
+  logos?: boolean;
+}
+const { logos = true } = Astro.props;
+
 const beats = [
   { lead: 'Built with', word: 'educators.', tilt: 'rotate-2' },
   { lead: 'Tested with', word: 'students.', tilt: '-rotate-2' },
@@ -14,7 +20,7 @@ const pin = (s: School, i: number) =>
     i % 2 ? 'border-orange-400' : 'border-yellow-300 lavender:border-lavender-200'
   }`;
 ---
-<section class="overflow-hidden bg-brand-700 pt-4 pb-16 text-white" aria-labelledby="schools-title">
+<section class={`overflow-hidden bg-brand-700 pt-4 text-white ${logos ? 'pb-16' : 'pb-14 lg:pb-16'}`} aria-labelledby="schools-title">
   <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-10 px-4 md:px-8">
     <h2 id="schools-title" class="flex flex-wrap items-center justify-center gap-3 text-center text-xl font-bold sm:text-display-xs md:text-display-sm lg:text-display-md">
       {beats.map((b) => (
@@ -26,6 +32,7 @@ const pin = (s: School, i: number) =>
     </h2>
   </div>
 
+  {logos && (
   <div class="marquee relative mt-10" data-marquee>
     <div class="track flex w-max">
       {[0, 1].map((copy) => (
@@ -46,6 +53,7 @@ const pin = (s: School, i: number) =>
     <span aria-hidden="true" class="pointer-events-none absolute inset-y-0 left-0 w-12 bg-linear-to-r from-brand-700 to-transparent sm:w-40"></span>
     <span aria-hidden="true" class="pointer-events-none absolute inset-y-0 right-0 w-12 bg-linear-to-l from-brand-700 to-transparent sm:w-40"></span>
   </div>
+  )}
 </section>
 
 <style>
