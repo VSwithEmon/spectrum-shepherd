@@ -2,8 +2,11 @@
 // "Free download: [Transition plan]" lead-magnet strip (Figma node 38876:4001).
 // Placeholder title in brackets until the client names the resource; the link target is still to come.
 import Button from './Button.astro';
+/** Section background; match the section above (white on the homepage, cream on the blog). */
+interface Props { bg?: string }
+const { bg = 'bg-white' } = Astro.props;
 ---
-<section class="bg-white px-5 pb-16 md:px-8 lg:pb-24" aria-labelledby="download-title">
+<section class={`${bg} px-5 pb-16 md:px-8 lg:pb-24`} aria-labelledby="download-title">
   <div class="mx-auto flex max-w-[1200px] flex-col items-start gap-5 rounded-3xl border border-orange-200 bg-orange-50 px-6 py-6 sm:px-8 sm:py-7 md:flex-row md:items-center md:gap-6">
     <img src="/images/icons/v2/download.svg" width="48" height="48" alt="" class="shrink-0" />
     <div class="flex min-w-0 flex-1 flex-col gap-1">

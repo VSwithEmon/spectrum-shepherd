@@ -14,12 +14,13 @@ Buyers are special education teachers (free 45-day trial) and school/district le
 - `/teachers` is Figma "Teachers — Desktop 1440 (v1)" (node `38877:7930`); its sections live in `src/components/teachers/`. Hero, logo band and stat panel are shared (`PageHero`, `LogoBand logos={false}`, `StatPanel`).
 - Live site: Vercel project `spectrum-shepherd-5qfw` (https://spectrum-shepherd-5qfw.vercel.app), deployed from `VSwithEmon/spectrum-shepherd` main on every push.
 - `/book-a-demo` is the standalone demo-request page.
+- Blog: Sanity CMS. Editors write at `/studio` (Sanity Studio embedded via `@sanity/astro`, config in `sanity.config.ts`, schema in `src/sanity/schemaTypes/`). Pages `/blog` and `/blog/[slug]` are built statically from published posts (`src/lib/blog.ts`); publishing in the Studio calls a Vercel deploy hook to rebuild. Env: `PUBLIC_SANITY_PROJECT_ID`, `PUBLIC_SANITY_DATASET` (see `.env.example`). Without a project ID the blog shows an empty state. Every image requires alt text in the schema.
 - `option-b-homepage.html` ("Sunrise") is the earlier direction, kept for reference only.
 - The client's inspiration references are MagicSchool and Headspace: warm, polished, short headlines, real people, simple navigation.
 
 ## Stack
 - Astro + Tailwind CSS v4, static output. One reusable component per homepage section in `src/components/`.
-- No client-side framework unless a section genuinely needs interactivity (the mobile menu is a small vanilla script).
+- No client-side framework on public pages (the mobile menu, blog filter and video card are small vanilla scripts). React is installed only for the embedded Sanity Studio at `/studio`.
 
 ## Design tokens
 - Tokens live in `@theme` in `src/styles/global.css`, mirroring the Figma variables. Use those utilities, not raw hex values.

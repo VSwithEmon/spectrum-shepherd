@@ -1,0 +1,32 @@
+---
+// Blog list card: cover, category, title (the whole card is one link), summary, date and read time.
+import { imageUrl, categoryTitle, readTime, formatDate, type PostCard } from '../../lib/blog';
+interface Props { post: PostCard; featured?: boolean; headingLevel?: 'h2' | 'h3' }
+const { post, featured = false, headingLevel: H = 'h3' } = Astro.props;
+const w = featured ? 1200 : 760;
+const h = featured ? 760 : 480;
+---
+<article class={`group relative flex h-full flex-col overflow-hidden rounded-[28px] border border-line bg-white transition-shadow focus-within:shadow-xl hover:shadow-xl ${featured ? 'lg:flex-row' : ''}`}>
+  <div class={`relative shrink-0 overflow-hidden bg-brand-50 ${featured ? 'aspect-[16/10] lg:aspect-auto lg:w-[58%]' : 'aspect-[16/10]'}`}>
+    <img
+      src={imageUrl(post.coverImage, w, h)}
+      srcset={`${imageUrl(post.coverImage, Math.round(w / 2), Math.round(h / 2))} ${Math.round(w / 2)}w, ${imageUrl(post.coverImage, w, h)} ${w}w`}
+      sizes={featured ? '(min-width: 1024px) 700px, 100vw' : '(min-width: 1024px) 380px, (min-width: 768px) 50vw, 100vw'}
+      width={w}
+      height={h}
+      loading={featured ? 'eager' : 'lazy'}
+      alt={post.coverImage?.alt ?? ''}
+      class="size-full object-cover transition-transform duration-300 group-hover:scale-[1.02] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+    />
+  </div>
+  <div class={`flex flex-1 flex-col gap-3 p-6 ${featured ? 'sm:p-8 lg:justify-center lg:p-12' : ''}`}>
+    <p class="self-start rounded-full bg-yellow-100 px-3 py-1 text-xs font-bold text-yellow-800 lavender:bg-lavender-100">{categoryTitle(post.category)}</p>
+    <H class={`font-bold text-balance ${featured ? 'text-display-xs sm:text-display-sm' : 'text-xl'}`}>
+      <a href={`/blog/${post.slug}`} class="after:absolute after:inset-0 after:content-[''] focus-visible:outline-none group-focus-within:underline">{post.title}</a>
+    </H>
+    <p class={`text-muted ${featured ? 'text-lg' : ''}`}>{post.excerpt}</p>
+    <p class="mt-auto pt-2 text-sm font-medium text-muted">
+      <time datetime={post.publishedAt}>{formatDate(post.publishedAt)}</time> · {readTime(post.words)}
+    </p>
+  </div>
+</article>
