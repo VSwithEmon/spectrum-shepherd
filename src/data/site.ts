@@ -6,13 +6,13 @@
 // hands off to the Shepherd app. The marketing site never stores passwords: `appTrial` and
 // `appLogin` are the app's own sign-up and log-in endpoints, which the forms submit to / link to.
 export const site = {
-  home: '/v3',
+  home: '/v1',
   trial: '/sign-up',
   signup: '/sign-up',
   login: '/login',
   demo: '/book-a-demo',
   teachers: '/teachers',
-  teachersV2: '/teachers-v2', // Teachers page for the lavender homepage (V4)
+  teachersV2: '/teachers-v2', // Teachers page for the lavender homepage (V2)
   schools: '/schools',
   app: '/the-app',
   about: '/about',
@@ -26,8 +26,8 @@ export const site = {
 };
 
 // Two page sets, one per homepage design (Oct 2026):
-//  - V3 (yellow accents) links the v1 pages;
-//  - V4 (lavender accents) links the v2 pages, which swap every yellow accent for lavender
+//  - V1 (yellow accents) links the v1 pages;
+//  - V2 (lavender accents) links the v2 pages, which swap every yellow accent for lavender
 //    (`<Base palette="lavender">`).
 // Base picks the set from `palette`, so the nav, footer and logo stay inside the same design.
 export type PageSet = {
@@ -35,11 +35,11 @@ export type PageSet = {
   about: string; blog: string; webinars: string; research: string;
 };
 export const pagesV1: PageSet = {
-  home: '/v3', teachers: '/teachers', schools: '/schools', app: '/the-app',
+  home: '/v1', teachers: '/teachers', schools: '/schools', app: '/the-app',
   about: '/about', blog: '/blog', webinars: '/webinars', research: '/beyond-the-transition-plan',
 };
 export const pagesV2: PageSet = {
-  home: '/v4', teachers: '/teachers-v2', schools: '/schools-v2', app: '/the-app-v2',
+  home: '/v2', teachers: '/teachers-v2', schools: '/schools-v2', app: '/the-app-v2',
   about: '/about-v2', blog: '/blog-v2', webinars: '/webinars-v2', research: '/beyond-the-transition-plan-v2',
 };
 export const pagesFor = (palette?: 'lavender'): PageSet => (palette === 'lavender' ? pagesV2 : pagesV1);
