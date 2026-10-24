@@ -15,12 +15,12 @@ Buyers are special education teachers (free 45-day trial) and school/district le
 - The client's inspiration references are MagicSchool and Headspace: warm, polished, short headlines, real people, simple navigation.
 
 ## IN PROGRESS — inner pages build (started Oct 24, 2026) — read this first in a new session
-Goal: every v1 page matches its Figma frame and is linked from homepage V3; every v2 page is built from the v2 Figma frame and linked from homepage V4 with lavender accents (the hero sun and footer sun stay yellow on both).  picks the V2 page set ( in ) for the nav, footer and logo.
+Goal: every v1 page matches its Figma frame and is linked from homepage V3; every v2 page is built from the v2 Figma frame and linked from homepage V4 with lavender accents (the hero sun and footer sun stay yellow on both). `<Base palette="lavender">` picks the V2 page set (`pagesV2` in `src/data/site.ts`) for the nav, footer and logo.
 - [x] Nav + footer rebuilt from the Figma components; nav shows the current section (Teachers / Schools / Resources).
 - [x] v1 fixes: Schools (full rebuild), Teachers (hero hills, Questions style), App/About/Research (plain hero scene), Blog (Load more posts), Webinars (clouds closing panel).
-- [x] Schools v2 (), App v2 () written — still to screenshot-check against Figma.
-- [ ] About v2 (), Blog v2 (, short header; posts have  +  in ), Webinars v2 (, 2×2 cards; images in ), Research v2 (, cover ). Founder photos: , .
-- [ ] Link V4 homepage cards/menus to the v2 pages ( still points at ; use ), V3 to .
+- [x] Schools v2 (`/schools-v2`) and App v2 (`/the-app-v2`) written — still to screenshot-check against Figma.
+- [ ] About v2 (`/about-v2`), Blog v2 (`/blog-v2`, short header; posts have `thumb` + `group` in `src/data/posts.ts`), Webinars v2 (`/webinars-v2`, 2×2 cards; images in `public/images/webinars/`), Research v2 (`/beyond-the-transition-plan-v2`, cover `public/images/photos/whitepaper-cover.jpg`). Founder photos: `public/images/photos/founder-william.jpg`, `founder-kevin.jpg`.
+- [ ] Link V4 homepage cards/menus to the v2 pages (`AudienceRows` still points at `site.*`; use `pagesV2`), V3 to `pagesV1`.
 - [ ] Check 360 / 768 / 1440 widths, accessibility pass (one H1, labels, alt), update this file, then commit and push.
 Figma file kf6bETSiXfVOzzNbTlCFA7, page 38641:74923. v2 frames: Schools 38854:81539, App 38866:81824, About 38872:82583, Blog 38878:82736 (+short header 38880:82869), Webinars 38883:82960, Research 38894:83179.
 
