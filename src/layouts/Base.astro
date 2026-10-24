@@ -14,11 +14,10 @@ interface Props {
   footerHills?: boolean;
   footerHillsBg?: string;
   /** Show the design switch (homepage review only). */
-  designToggle?: 'v1' | 'v2' | 'v3' | 'v4';
-  /** 'calm' = green-first palette with yellow only as small accents (enables `calm:` utilities).
-   *  'lavender' = lavender replaces yellow as the accent (enables `lavender:` utilities). */
-  palette?: 'calm' | 'lavender';
-  /** Oct 2026 feedback refresh for the nav and footer (V3/V4). */
+  designToggle?: 'v3' | 'v4';
+  /** 'lavender' = lavender replaces yellow as the accent (enables `lavender:` utilities). */
+  palette?: 'lavender';
+  /** Oct 2026 refresh for the nav and footer (every page). */
   refresh?: boolean;
   /** Logo destination; refresh pages default to /v3. */
   homeHref?: string;

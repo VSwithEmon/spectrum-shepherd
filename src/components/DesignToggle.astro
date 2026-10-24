@@ -1,11 +1,9 @@
 ---
-// Review aid: switch between the homepage designs in Figma's "Homepage Design" section.
-// V3/V4 apply the Oct 20, 2026 client feedback to V1/V2 (V4 = lavender alternative).
-interface Props { active: 'v1' | 'v2' | 'v3' | 'v4' }
+// Review aid: switch between the two homepage designs from Figma's "Homepage Design( update here)"
+// section — V3 = Figma V1 (main direction, yellow accents), V4 = Figma V2 (lavender alternative).
+interface Props { active: 'v3' | 'v4' }
 const { active } = Astro.props;
 const options = [
-  { id: 'v1', label: 'V1', href: '/' },
-  { id: 'v2', label: 'V2', href: '/v2' },
   { id: 'v3', label: 'V3', href: '/v3' },
   { id: 'v4', label: 'V4', href: '/v4' },
 ];

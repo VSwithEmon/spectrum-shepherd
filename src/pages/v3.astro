@@ -1,7 +1,8 @@
 ---
-// Homepage V3 — V1 with the Oct 20, 2026 client feedback applied (Figma "Homepage Design (v1) —
-// main direction (yellow accents)" in "Homepage Design( update here)", file kf6bETSiXfVOzzNbTlCFA7).
-// Green core, yellow main accent, peach secondary, orange as a small touch.
+// Homepage V3 — the main direction: Figma "Homepage Design (v1) — main direction (yellow accents)"
+// in the "Homepage Design( update here)" section (file kf6bETSiXfVOzzNbTlCFA7, node 38709:6933).
+// Green core, yellow main accent, peach secondary, orange as a small touch. The site root (/)
+// redirects here. The lavender alternative is /v4.
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import LogoMarquee from '../components/v3/LogoMarquee.astro';
@@ -12,16 +13,11 @@ import Testimonial from '../components/v3/Testimonial.astro';
 import DemoSection from '../components/DemoSection.astro';
 ---
 <Base title="Spectrum Shepherd — AI life-skills coach for students 14–22" demoHref="#demo" designToggle="v3" refresh>
-  <Hero
-    refresh
-    lede="Short, personalized lessons students actually want to do and IEP-ready progress reports their teachers don't have to write."
-    ledeWeight="medium"
-    trail={false}
-  />
+  <Hero />
   <LogoMarquee />
-  <Results />
-  <DownloadBanner />
+  <Results capitalized />
+  <DownloadBanner title="Free download: [Transition plan]" />
   <AudienceGrid />
   <Testimonial />
-  <DemoSection refresh />
+  <DemoSection compact />
 </Base>

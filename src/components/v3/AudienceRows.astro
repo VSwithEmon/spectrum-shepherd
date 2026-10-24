@@ -34,7 +34,7 @@ const tints: Record<string, string> = {
               {s.headline.map((line, k) => <Fragment>{line}{k < s.headline.length - 1 && <br />}</Fragment>)}
             </h3>
             <ul class="flex flex-col gap-3 text-lg">
-              {s.benefits.map((b) => <CheckItem>{b}</CheckItem>)}
+              {s.benefits.map((b) => <CheckItem v2>{b}</CheckItem>)}
             </ul>
             <Button href={hrefs[s.id] ?? s.cta.href}>{s.cta.label}</Button>
           </div>

@@ -1,23 +1,24 @@
 ---
-// Inline demo form on the current homepage (#demo).
-// Figma: "Book a Demo (#demo) — Invitation", node 38613:3826.
+// Inline demo form on the homepages (#demo) and /book-a-demo.
+// Figma: "Book a Demo (#demo) — Invitation" (homepage V1/V2, Oct 2026).
+// The 'Students aged 14–22' field is deliberately not built: the client had it removed (Oct 20, 2026).
 import Button from './Button.astro';
 import FormField from './FormField.astro';
 import { site } from '../data/site';
 
 interface Props {
-  /** Oct 2026 feedback (V3/V4): no eyebrow, human headline, varied-size dotted path. */
-  refresh?: boolean;
   /** Panel headline override (defaults to the homepage wording). */
   heading?: string;
+  /** Homepages: the trial strip sits 48px above the footer hills (Figma) instead of 96px. */
+  compact?: boolean;
 }
-const { refresh = false, heading } = Astro.props;
-// Varied dot sizes along the trail, echoing the Shepherd swirl (static).
-const bez = (t: number, a: number, b: number, c: number, d: number) => (1 - t) ** 3 * a + 3 * (1 - t) ** 2 * t * b + 3 * (1 - t) * t * t * c + t ** 3 * d;
-const trailDots = Array.from({ length: 26 }, (_, k) => {
-  const t = k / 25;
-  return { x: bez(t, 20, 300, 560, 760), y: bez(t, 380, 400, 300, 40), r: Math.max(1.5, (3 + 8 * Math.sin(Math.PI * t) ** 1.5) / 2) };
-});
+const { heading = 'Be the reason they’re ready.', compact = false } = Astro.props;
+// Dotted trail from the Figma panel (x, y, size in a 780×400 box), echoing the Shepherd swirl.
+const trailDots: [number, number, number][] = [
+  [19, 379, 3], [52, 380, 3], [85, 380, 4], [117, 379, 5], [150, 377, 6], [182, 374, 7], [214, 369, 8], [246, 364, 8], [277, 357, 9],
+  [308, 348, 10], [339, 339, 10], [369, 328, 11], [399, 316, 11], [429, 303, 11], [459, 288, 11], [489, 273, 10], [518, 255, 10],
+  [546, 237, 9], [575, 218, 8], [602, 196, 8], [630, 174, 7], [657, 150, 6], [683, 124, 5], [709, 97, 4], [734, 69, 3], [759, 39, 3],
+];
 
 const steps = [
   'Tell us about your program',
@@ -25,27 +26,19 @@ const steps = [
   'Walk through the evidence report, privacy and funding',
 ];
 ---
-<section id="demo" class={`scroll-mt-4 px-4 md:px-8 lg:py-24 ${refresh ? 'pt-12 pb-4 sm:py-16' : 'py-16'}`} aria-labelledby="demo-title">
+<section id="demo" class={`scroll-mt-4 px-4 pt-12 pb-4 sm:py-16 md:px-8 lg:pt-24 ${compact ? 'lg:pb-12' : 'lg:pb-24'}`} aria-labelledby="demo-title">
   <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-6">
     <div class="on-dark relative flex w-full flex-col gap-10 overflow-hidden rounded-[40px] bg-brand-700 p-6 text-white sm:p-10 lg:flex-row lg:items-start lg:gap-12 lg:p-12">
       <span aria-hidden="true" class="absolute -top-20 -right-20 size-44 rounded-full bg-yellow-300 lg:-top-[110px] lg:-right-[90px] lg:size-[260px] lavender:bg-lavender-200"></span>
-      <svg aria-hidden="true" class="absolute -bottom-10 left-0 hidden h-[400px] w-[780px] md:block" viewBox="0 0 780 400" fill="none">
-        {refresh
-          ? trailDots.map((d) => <circle cx={d.x} cy={d.y} r={d.r} class="fill-brand-400" />)
-          : <path d="M20 380C180 330 300 400 470 300S700 120 760 40" class="stroke-brand-400" stroke-width="5" stroke-linecap="round" stroke-dasharray="0 16" />}
+      <svg aria-hidden="true" class="absolute -bottom-[124px] left-0 hidden h-[400px] w-[780px] md:block" viewBox="0 0 780 400">
+        {trailDots.map(([x, y, d]) => <circle cx={x + d / 2} cy={y + d / 2} r={d / 2} class="fill-brand-400" />)}
       </svg>
 
       <div class="relative flex flex-col items-start gap-6 lg:flex-1">
-        {!refresh && (
-          <p class="flex items-center gap-1.5 rounded-full bg-brand-800 px-3 py-1 text-xs font-bold text-yellow-300 calm:text-brand-100">
-            <span aria-hidden="true" class="size-2 rounded-full bg-yellow-300"></span>
-            BOOK A DEMO
-          </p>
-        )}
-        <h2 id="demo-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">{heading ?? (refresh ? 'Be the reason they’re ready.' : 'See Shepherd with your students in mind.')}</h2>
+        <h2 id="demo-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">{heading}</h2>
         <p class="text-lg text-brand-50">A 15-minute walkthrough for special education and transition leaders.</p>
 
-        <div class="relative h-[220px] w-full overflow-hidden rounded-3xl">
+        <div class="relative hidden h-[220px] w-full overflow-hidden rounded-3xl sm:block">
           <img
             src="/images/photos/demo-host.jpg"
             width="1100"
@@ -63,7 +56,7 @@ const steps = [
         <ol class="flex w-full flex-col gap-3" aria-label="How it works">
           {steps.map((s, i) => (
             <li class="flex items-center gap-3 text-lg font-semibold">
-              <span aria-hidden="true" class="flex size-9 shrink-0 items-center justify-center rounded-full bg-yellow-300 font-bold text-ink calm:bg-brand-200 lavender:bg-lavender-200">{i + 1}</span>
+              <span aria-hidden="true" class="flex size-9 shrink-0 items-center justify-center rounded-full bg-yellow-300 font-bold text-ink lavender:bg-lavender-200">{i + 1}</span>
               {s}
             </li>
           ))}
@@ -88,9 +81,9 @@ const steps = [
       </form>
     </div>
 
-    <p class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 rounded-full bg-yellow-200 px-6 py-3 text-center font-bold calm:bg-brand-50 lavender:bg-lavender-100">
+    <p class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 rounded-full bg-yellow-200 px-6 py-3 text-center font-bold lavender:bg-lavender-100">
       Just one teacher?
-      <a href={refresh ? site.trial : '#'} class="text-brand-800 underline hover:text-ink">Start a free 45-day trial →</a>
+      <a href={site.trial} class="text-brand-800 underline hover:text-ink">Start a free 45-day trial →</a>
     </p>
   </div>
 </section>

@@ -1,0 +1,36 @@
+---
+// Hero hills (Figma "Homepage Design" V1 + V2 hero, "Hills + trail", 1440×180): three layered
+// hills, pale tree silhouettes along the back crest and a small sun setting behind the right hill.
+// Geometry is the Figma vector data. The front hill (brand-700) runs into the logo band below.
+// On phones the art is cropped to its right 390px at 0.45 scale (Figma mobile hero). Decorative.
+interface Props { class?: string }
+const { class: className = '' } = Astro.props;
+
+// Tree silhouettes: [width, height, a, b, c, d, tx, ty] — Figma relative transform, 3-point polygon.
+const trees: [number, number, number, number, number, number, number, number][] = [
+  [15.78, 25.54, 0.986, -0.166, 0.166, 0.986, 67.839, 90.264],
+  [26.82, 40.22, 0.986, -0.166, 0.166, 0.986, 119.311, 66.439],
+  [15.78, 25.54, 0.986, -0.166, 0.166, 0.986, 164.238, 72.787],
+  [27.42, 44.36, 0.987, 0.159, -0.159, 0.987, 497.07, 64],
+  [20.02, 32.39, 0.987, 0.159, -0.159, 0.987, 590.143, 81.932],
+  [20.01, 32.38, 1, -0.011, 0.011, 1, 857.646, 115.691],
+  [20.01, 32.38, 0.983, -0.185, 0.185, 0.983, 1182.111, 72.971],
+  [27.42, 44.36, 0.983, -0.185, 0.185, 0.983, 1292, 32.086],
+  [27.42, 44.36, 0.987, 0.159, -0.159, 0.987, 1375.07, 23],
+];
+---
+<svg
+  aria-hidden="true"
+  focusable="false"
+  viewBox="0 0 1440 180"
+  preserveAspectRatio="xMaxYMax slice"
+  class={`block h-[81px] w-full sm:h-[140px] lg:h-auto ${className}`}
+>
+  <circle cx="1250" cy="72" r="34" class="fill-yellow-300" />
+  <path transform="translate(0 43.357)" class="fill-brand-200" d="M0 76.642C240 16.642 420 26.642 620 66.642C820 106.642 1000 106.642 1200 36.642C1400 -33.358 1400 16.642 1440 26.642V136.642H0Z" />
+  <path transform="translate(0 92.295)" class="fill-brand-500" d="M0 57.706C200 17.706 380 7.706 560 37.706C740 67.706 900 77.706 1100 27.706C1300 -22.294 1380 7.706 1440 22.706V87.706H0Z" />
+  <path transform="translate(0 149.973)" class="fill-brand-700" d="M0 20.027C300 0.027 500 -7.973 760 10.027C1020 28.027 1200 26.027 1440 0.027V30.027H0Z" />
+  {trees.map(([w, h, a, b, c, d, tx, ty]) => (
+    <path transform={`matrix(${a} ${b} ${c} ${d} ${tx} ${ty})`} class="fill-brand-200" d={`M${w / 2} 0L${w} ${h}H0Z`} />
+  ))}
+</svg>

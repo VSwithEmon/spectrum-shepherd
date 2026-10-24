@@ -1,25 +1,35 @@
 ---
-// Results (Oct 2026 feedback): new headline, no beta framing or states, one green panel with
-// three equal results (priority still open with the client), yellow only as a small accent.
-// The dotted path uses varied dot sizes. All static.
+// Results (Oct 2026 feedback; Figma "Results"): headline, one green panel with three equal results
+// (priority still open with the client), yellow only as a small accent. A varied-size dotted path
+// curls in from each side of the headline (the right one mirrors the left). All static.
 import StatPanel from './StatPanel.astro';
 import type { IconName } from './BrandIcon.astro';
 
+interface Props {
+  /** Figma V1 (homepage V3) starts each caption with a capital; V2 (homepage V4) keeps them lowercase. */
+  capitalized?: boolean;
+}
+const { capitalized = false } = Astro.props;
+const caption = (s: string) => (capitalized ? s.charAt(0).toUpperCase() + s.slice(1) : s);
+
 const results: { icon: IconName; value: string; label: string }[] = [
-  { icon: 'people', value: '91%', label: 'parent demand confirmed' },
-  { icon: 'spark', value: '77%', label: "of students say it's more engaging than other school learning" },
-  { icon: 'progress', value: 'IEP-ready', label: "progress reports teachers don't have to write" },
+  { icon: 'people', value: '91%', label: caption('parent demand confirmed') },
+  { icon: 'spark', value: '77%', label: caption('of students say it’s more engaging than other school learning') },
+  { icon: 'progress', value: 'IEP-ready', label: caption('progress reports teachers don’t have to write') },
 ];
-// Varied dot sizes along a gentle curve, echoing the dots in the Shepherd swirl.
-const dots = Array.from({ length: 16 }, (_, k) => {
-  const t = k / 15;
-  return { x: 20 + t * 200 + Math.sin(t * Math.PI) * 30, y: 10 + t * t * 130, r: (3 + Math.round(7 * Math.sin(t * Math.PI * 0.9 + 0.2))) / 2 };
-});
+// Dots from the Figma path (x, y, size in a 260×150 box), echoing the dots in the Shepherd swirl.
+const dots: [number, number, number][] = [
+  [18, 8, 4], [37, 8, 6], [55, 9, 7], [74, 11, 8], [91, 15, 9], [108, 20, 9], [124, 26, 10], [138, 33, 10],
+  [152, 42, 10], [164, 52, 10], [175, 63, 9], [185, 76, 8], [194, 90, 7], [203, 105, 6], [210, 121, 5], [218, 138, 4],
+];
+const arcs = ['left-[calc(50%-570px)]', 'left-[calc(50%+340px)] -scale-x-100'];
 ---
-<section class="relative overflow-hidden bg-white px-4 pt-16 pb-10 md:px-8 lg:pt-24 lg:pb-12" aria-labelledby="results-title">
-  <svg aria-hidden="true" class="absolute top-28 left-[4%] hidden h-[150px] w-[260px] lg:block" viewBox="0 0 260 150">
-    {dots.map((d) => <circle cx={d.x} cy={d.y} r={d.r} class="fill-brand-300" />)}
-  </svg>
+<section class="relative overflow-hidden bg-white px-4 pt-16 pb-10 md:px-8 lg:pt-24 lg:pb-24" aria-labelledby="results-title">
+  {arcs.map((pos) => (
+    <svg aria-hidden="true" class={`absolute top-[130px] hidden h-[150px] w-[260px] lg:block ${pos}`} viewBox="0 0 260 150">
+      {dots.map(([x, y, s]) => <circle cx={x + s / 2} cy={y + s / 2} r={s / 2} class="fill-brand-300" />)}
+    </svg>
+  ))}
 
   <div class="relative mx-auto flex max-w-[1200px] flex-col gap-10">
     <h2 id="results-title" class="text-center text-display-sm font-bold md:text-display-md lg:text-display-lg">

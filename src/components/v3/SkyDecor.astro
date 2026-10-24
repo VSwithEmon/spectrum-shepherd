@@ -1,6 +1,12 @@
 ---
 // Sky for hero sections (Figma v1 homepage hero): cloud towers, top wisps, horizon banks and a bird
-// flock. Positions follow the 1440×784 hero frame; shown on large screens only. Decorative.
+// flock. Positions follow the 1440×784 hero frame and are shown on large screens only.
+// `mobile` adds the phone-sized scene from the Figma 390px hero (homepage only): the upper clouds and
+// birds hang from the top, the lower ones from the bottom edge so they stay beside the product art.
+// Decorative.
+interface Props { mobile?: boolean }
+const { mobile = false } = Astro.props;
+
 const clouds = [
   { src: 'cloud-left.svg', w: 467, h: 226, pos: 'top-[85px] -left-[199px]' },
   { src: 'cloud-left.svg', w: 467, h: 226, pos: 'top-[125px] -right-[199px] -scale-x-100' },
@@ -20,8 +26,31 @@ const birds = [
   { w: 37, pos: 'top-[250px] right-[75px]' },
   { w: 27, pos: 'top-[268px] right-[43px]' },
 ];
+// Phone scene (Figma "Homepage (v1) — Mobile 390" hero, 390×1050).
+const phoneClouds = [
+  { src: 'cloud-tower.svg', w: 168, h: 120, pos: 'top-[6px] left-[150px]' },
+  { src: 'cloud-tower.svg', w: 176, h: 126, pos: 'bottom-[580px] -left-[78px] -scale-x-100' },
+  { src: 'cloud-tower.svg', w: 210, h: 150, pos: 'bottom-[340px] -right-[42px]' },
+  { src: 'cloud-bank.svg', w: 319, h: 83, pos: 'bottom-[90px] -left-[60px]' },
+  { src: 'cloud-bank.svg', w: 319, h: 83, pos: 'bottom-[184px] -right-[79px] -scale-x-100' },
+];
+const phoneBirds = [
+  { w: 32, pos: 'top-[74px] right-[56px]' },
+  { w: 22, pos: 'top-[87px] right-[62px]' },
+  { w: 26, pos: 'bottom-[427px] left-[112px]' },
+  { w: 32, pos: 'bottom-[438px] left-[142px]' },
+  { w: 39, pos: 'bottom-[448px] left-[178px]' },
+  { w: 30, pos: 'bottom-[437px] left-[217px]' },
+  { w: 23, pos: 'bottom-[426px] left-[245px]' },
+];
 ---
 <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0 hidden lg:block">
   {clouds.map((c) => <img src={`/images/hero/${c.src}`} width={c.w} height={c.h} alt="" class={`absolute max-w-none ${c.pos}`} />)}
   {birds.map((b) => <img src="/images/hero/bird.svg" width={b.w} height={Math.round(b.w * 31 / 80)} alt="" class={`absolute ${b.pos}`} />)}
 </div>
+{mobile && (
+  <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0 overflow-hidden sm:hidden">
+    {phoneClouds.map((c) => <img src={`/images/hero/${c.src}`} width={c.w} height={c.h} alt="" class={`absolute max-w-none ${c.pos}`} />)}
+    {phoneBirds.map((b) => <img src="/images/hero/bird.svg" width={b.w} height={Math.round(b.w * 31 / 80)} alt="" class={`absolute ${b.pos}`} />)}
+  </div>
+)}

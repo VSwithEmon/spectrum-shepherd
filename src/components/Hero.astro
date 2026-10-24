@@ -1,96 +1,35 @@
 ---
+// Homepage hero (Figma "Homepage Design (v1)" / "(v2)" hero, 1440×784, Oct 2026): copy left,
+// product composition right, cream → mist sky with clouds and birds, layered hills with tree
+// silhouettes along the bottom. The V4 lavender look comes from the `lavender:` utilities.
 import Button from './Button.astro';
-import Hills from './Hills.astro';
 import StatusChip from './StatusChip.astro';
-import PineHills from './v3/PineHills.astro';
+import HeroHills from './v3/HeroHills.astro';
+import SkyDecor from './v3/SkyDecor.astro';
 import { site } from '../data/site';
-
-interface Props {
-  /** Oct 2026 feedback (V3/V4): no eyebrow pill, free-trial CTA + microcopy, sky, clouds, birds. */
-  refresh?: boolean;
-  /** Refresh only. 'pines' = pine-tree hills (V3); 'classic' = layered hills with small trees (V4). */
-  scene?: 'pines' | 'classic';
-  /** Eyebrow pill text. V1 (Oct 2026 Figma) drops the age range here. */
-  eyebrow?: string;
-  /** Lede copy; V1 uses the Figma wording at medium weight. */
-  lede?: string;
-  ledeWeight?: 'normal' | 'medium';
-  /** Dotted trail along the hills. */
-  trail?: boolean;
-}
-const {
-  refresh = false,
-  scene = 'pines',
-  eyebrow ='AI life-skills coach · Ages 14–22',
-  lede = "Short, personalized lessons students actually want to do — and IEP-ready progress reports their teachers don't have to write.",
-  ledeWeight = 'normal',
-  trail = true,
-} = Astro.props;
-
-// Sky decor, Figma "Homepage Design (v1) — main direction" hero (1440×784 frame): billowy cloud
-// towers, horizon cloud banks behind the hills, and a small bird flock. Left items are anchored to
-// the left edge, right items to the right edge, centre items by percentage. Decorative, lg+ only.
-// Flipped items mirror the Figma layers.
-const clouds = [
-  { src: 'cloud-left.svg', w: 467, h: 226, pos: 'top-[85px] -left-[199px]' },
-  { src: 'cloud-left.svg', w: 467, h: 226, pos: 'top-[125px] -right-[199px] -scale-x-100' },
-  { src: 'cloud-tower.svg', w: 399, h: 285, pos: 'top-[310px] right-[8px]' },
-  { src: 'cloud-tower.svg', w: 399, h: 285, pos: 'top-[330px] -left-[150px] -scale-x-100' },
-  { src: 'cloud-tower.svg', w: 134, h: 96, pos: 'top-[30px] left-[32.6%]' },
-  { src: 'cloud-tower.svg', w: 118, h: 84, pos: 'top-[20px] right-[22px] -scale-x-100' },
-  { src: 'cloud-bank.svg', w: 722, h: 188, pos: 'top-[484px] -left-[120px]' },
-  { src: 'cloud-bank.svg', w: 798, h: 208, pos: 'top-[464px] right-[8px] -scale-x-100' },
-];
-const birds = [
-  { w: 35, pos: 'top-[74px] left-[41.5%]' },
-  { w: 44, pos: 'top-[56px] left-[44.2%]' },
-  { w: 54, pos: 'top-[40px] left-[47.5%]' },
-  { w: 42, pos: 'top-[58px] left-[51.2%]' },
-  { w: 31, pos: 'top-[76px] left-[53.9%]' },
-  { w: 37, pos: 'top-[250px] right-[75px]' },
-  { w: 27, pos: 'top-[268px] right-[43px]' },
-];
 ---
-<section class={`relative overflow-hidden ${refresh ? 'bg-linear-to-b from-cream via-haze via-10% to-mist' : 'bg-cream'}`} aria-labelledby="hero-title">
-  {refresh && (
-    <div aria-hidden="true" class="pointer-events-none absolute inset-0 z-0 hidden lg:block">
-      {clouds.map((c) => <img src={`/images/hero/${c.src}`} width={c.w} height={c.h} alt="" class={`absolute max-w-none ${c.pos}`} />)}
-      {birds.map((b) => <img src="/images/hero/bird.svg" width={b.w} height={Math.round(b.w * 31 / 80)} alt="" class={`absolute ${b.pos}`} />)}
-    </div>
-  )}
-  <div class="relative z-10 mx-auto flex max-w-[1200px] flex-col items-center gap-12 px-4 pt-8 pb-16 md:px-8 lg:flex-row lg:pt-12 lg:pb-12 xl:px-0">
+<section class="relative overflow-hidden bg-linear-to-b from-cream via-haze via-10% to-mist" aria-labelledby="hero-title">
+  <SkyDecor mobile />
+  <div class="relative z-10 mx-auto flex max-w-[1200px] flex-col items-center gap-5 px-4 pt-6 pb-16 sm:gap-12 md:px-8 lg:flex-row lg:pb-0 xl:px-0">
     <div class="flex w-full flex-col items-start gap-6 lg:flex-1">
-      {!refresh && (
-        <p class="flex items-center gap-1.5 rounded-full bg-brand-50 px-3 py-1 text-sm font-semibold text-brand-800">
-          <img src="/images/icons/dot.svg" width="8" height="8" alt="" />
-          {eyebrow}
-        </p>
-      )}
-      <h1 id="hero-title" class="text-display-md font-bold sm:text-display-lg">
+      <h1 id="hero-title" class="text-[34px]/[42px] font-bold min-[380px]:text-[38px]/[46px] sm:text-display-lg">
         Real-world skills.<br />
         <span class="text-brand-600">Real independence.</span>
       </h1>
-      <p class={`text-lg text-muted sm:text-xl ${ledeWeight === 'medium' ? 'font-medium' : ''}`}>{lede}</p>
-      {refresh ? (
-        <div class="flex w-full flex-col gap-3">
-          <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-            <Button href={site.trial}>Start your 45-day free trial</Button>
-            <Button href="#demo" variant="secondary">Book a demo</Button>
-          </div>
-          <p class="text-center text-sm font-medium text-muted sm:text-left">First lesson in under five minutes · Built for FERPA compliance</p>
-        </div>
-      ) : (
-        <div class="flex flex-wrap gap-3">
-          <Button href="#">See it in action</Button>
+      <p class="text-[17px]/[27px] font-medium text-muted sm:text-xl">Short, personalized lessons students actually want to do and IEP-ready progress reports their teachers don't have to write.</p>
+      <div class="flex w-full flex-col gap-3">
+        <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
+          <Button href={site.trial}>Start your 45-day free trial</Button>
           <Button href="#demo" variant="secondary">Book a demo</Button>
         </div>
-      )}
+        <p class="text-center text-sm font-medium text-muted sm:text-left">First lesson in under five minutes · Built for FERPA compliance</p>
+      </div>
       <ul class="grid w-full gap-4 pt-2 sm:grid-cols-2">
-        <li class="flex flex-col gap-1 border-l-3 border-yellow-400 pl-4 calm:border-brand-500 lavender:border-lavender-300">
+        <li class="flex flex-col gap-1 border-l-3 border-yellow-400 pl-4 lavender:border-lavender-300">
           <span class="font-bold">For schools &amp; teachers</span>
           <span class="text-sm text-muted">Ready-made curriculum and reports that prove impact.</span>
         </li>
-        <li class="flex flex-col gap-1 border-l-3 border-yellow-400 pl-4 calm:border-brand-500 lavender:border-lavender-300">
+        <li class="flex flex-col gap-1 border-l-3 border-yellow-400 pl-4 lavender:border-lavender-300">
           <span class="font-bold">For students</span>
           <span class="text-sm text-muted">Short lessons that build skills for everyday life.</span>
         </li>
@@ -98,8 +37,8 @@ const birds = [
     </div>
 
     <!-- Product composition: positions are % of the 600×600 Figma frame -->
-    <div class="relative aspect-square w-full max-w-[600px] shrink-0 lg:w-[600px]">
-      <div aria-hidden="true" class="absolute top-[5%] left-[20%] aspect-square w-[76.67%] rounded-full bg-yellow-200 calm:bg-brand-100 lavender:bg-lavender-200"></div>
+    <div class="relative aspect-square w-full max-w-[330px] shrink-0 sm:max-w-[600px] lg:w-[600px]">
+      <div aria-hidden="true" class="absolute top-[5%] left-[20%] aspect-square w-[76.67%] rounded-full bg-yellow-200 lavender:bg-lavender-200"></div>
       <img
         src="/images/photos/hero-student.jpg"
         width="600"
@@ -123,14 +62,12 @@ const birds = [
         alt="Shepherd student app home screen with a message from the coach and options to browse lessons or play games"
         class="device-shot absolute top-[38.33%] left-[70%] w-[28.67%]"
       />
-      <StatusChip title="Lesson complete" caption="Budgeting for a concert ticket" class="top-[19.67%] left-[-4%] origin-top-left max-sm:scale-75" />
-      <StatusChip title="Progress note saved" caption="Linked to IEP goal" class="top-[91.33%] left-[25%] origin-top-left max-sm:scale-75" />
+      <StatusChip title="Lesson complete" caption="Budgeting for a concert ticket" class="top-[19.67%] left-[-4%] origin-top-left max-sm:scale-[0.55]" />
+      <StatusChip title="Progress note saved" caption="Linked to IEP goal" class="top-[91.33%] left-[25%] origin-top-left max-sm:scale-[0.55]" />
     </div>
   </div>
 
-  {refresh && scene === 'pines'
-    ? <PineHills class="relative -mt-4 h-[90px] sm:h-[150px] lg:-mt-24 lg:h-auto" />
-    : <Hills path={trail} trees={refresh} grove={refresh} class="-mt-6 lg:-mt-16" />}
+  <HeroHills class="relative -mt-[81px] sm:-mt-24 lg:-mt-[18px]" />
 </section>
 
 <style>

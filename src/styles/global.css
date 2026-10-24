@@ -1,9 +1,5 @@
 @import "tailwindcss";
 
-/* Green-first palette (Figma "Homepage Design" v3/v4): pages set <body data-palette="calm">
-   and components swap large yellow areas with `calm:` utilities. Small yellow accents stay. */
-@custom-variant calm (&:where([data-palette="calm"] *));
-
 /* Lavender alternative (Figma "Homepage Design (v2) — lavender alternative", Oct 2026 feedback):
    <body data-palette="lavender"> swaps the yellow accents for the lavender scale. */
 @custom-variant lavender (&:where([data-palette="lavender"] *));

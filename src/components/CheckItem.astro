@@ -1,9 +1,12 @@
 ---
-// "LP / Check Item" — use inside a <ul>.
-interface Props { class?: string }
-const { class: className = '' } = Astro.props;
+// "LP / Check Item" — use inside a <ul>. `v2` = the newer sticker check with a pale disc (Figma
+// "Icon v2 (illustrated) / check", used by the lavender V4 audience rows).
+interface Props { class?: string; v2?: boolean }
+const { class: className = '', v2 = false } = Astro.props;
 ---
 <li class={`flex items-start gap-3 font-medium ${className}`}>
-  <img src="/images/icons/illustrated/check.svg" width="24" height="24" alt="" class="shrink-0" />
+  {v2
+    ? <img src="/images/icons/illustrated/v2/check.svg" width="26" height="26" alt="" class="-mt-px -ml-px shrink-0" />
+    : <img src="/images/icons/illustrated/check.svg" width="24" height="24" alt="" class="shrink-0" />}
   <span><slot /></span>
 </li>

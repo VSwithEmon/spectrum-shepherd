@@ -1,4 +1,4 @@
-// Copy for the "Who it's for" cards. Shared by the carousel (Audiences.astro) and the stacked version (v2/AudienceStack.astro).
+// Copy for the "Who it's for" cards. Shared by the V3 card grid (v3/AudienceGrid.astro) and the V4 rows (v3/AudienceRows.astro).
 export const audienceSlides = [
   {
     id: 'audience-schools', tab: 'For schools', tone: 'brand' as const,
@@ -7,7 +7,7 @@ export const audienceSlides = [
     benefits: ['Transition Evidence Reports', 'Indicator 13 support', 'IDEA Part B & Title IV-A ready', 'Consistent across classrooms'],
     cta: { label: 'Explore for schools →', href: '#' },
     photo: '[PHOTO — real special education leader with students]',
-    image: { src: '/images/photos/audience-schools.jpg', alt: 'A special education teacher reviewing a lesson on a tablet with two students' },
+    image: { src: '/images/photos/audience-schools.jpg', alt: 'A teacher working with a group of young students seated around a classroom table' },
     stat: { value: 'Indicator 13', caption: 'evidence, built automatically' },
   },
   {
@@ -17,7 +17,7 @@ export const audienceSlides = [
     benefits: ['Ready-made life-skills lessons', 'IEP-linked progress notes', 'Students work independently', 'Free 45-day trial'],
     cta: { label: 'Start your free trial →', href: '#' },
     photo: '[PHOTO — real teacher working with a small group]',
-    image: { src: '/images/photos/audience-teachers.jpg', alt: 'A teacher working with a small group of students on laptops' },
+    image: { src: '/images/photos/audience-teachers.jpg', alt: 'Two educators and a student reading a book together at a classroom table' },
     stat: { value: '10 min', caption: 'to a personalized class' },
   },
   {
@@ -27,7 +27,7 @@ export const audienceSlides = [
     benefits: ['Lessons under 10 minutes', 'Built on their interests', 'Any device, anywhere', 'Reading-level support'],
     cta: { label: 'See the student app →', href: '#' },
     photo: '[PHOTO — real student, 16–20, practicing a real task]',
-    image: { src: '/images/photos/audience-students.jpg', alt: 'A student preparing a salad while following a Shepherd lesson on a tablet' },
+    image: { src: '/images/photos/audience-students.jpg', alt: 'A young student reading a book with a teacher in front of library shelves' },
     stat: { value: '< 10 min', caption: 'per lesson' },
   },
 ];

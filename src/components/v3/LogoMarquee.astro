@@ -16,8 +16,8 @@ const beats = [
   { lead: 'Shaped in', word: 'classrooms.', tilt: 'rotate-2' },
 ];
 const pin = (s: School, i: number) =>
-  `flex size-[52px] items-center justify-center overflow-hidden rounded-full border-[3px] shadow-lg ${s.bg ?? 'bg-white'} ${
-    i % 2 ? 'border-orange-400' : 'border-yellow-300 lavender:border-lavender-200'
+  `flex size-[45px] items-center justify-center overflow-hidden rounded-full border-[3px] shadow-lg ${s.bg ?? 'bg-white'} ${
+    i % 2 ? 'border-orange-400' : 'border-yellow-300'
   }`;
 ---
 <section class={`overflow-hidden bg-brand-700 pt-4 text-white ${logos ? 'pb-16' : 'pb-14 lg:pb-16'}`} aria-labelledby="schools-title">
@@ -36,22 +36,22 @@ const pin = (s: School, i: number) =>
   <div class="marquee relative mt-10" data-marquee>
     <div class="track flex w-max">
       {[0, 1].map((copy) => (
-        <ul class="flex shrink-0 items-start gap-12 pr-12 sm:gap-16 sm:pr-16" aria-label={copy ? undefined : 'Schools that helped shape Shepherd'} aria-hidden={copy ? 'true' : undefined}>
+        <ul class="flex shrink-0 items-start gap-12 pr-12 sm:gap-[72px] sm:pr-[72px]" aria-label={copy ? undefined : 'Schools that helped shape Shepherd'} aria-hidden={copy ? 'true' : undefined}>
           {schools.map((s, i) => (
-            <li class="flex w-[150px] flex-col items-center gap-2 text-center">
+            <li class="flex flex-col items-center gap-2 text-center">
               <span aria-hidden="true" class={pin(s, i)}>
                 {s.logo
-                  ? <img src={s.logo} width="256" height="256" loading="lazy" alt="" class={`object-contain ${s.bg ? 'size-[33px]' : 'size-[40px]'}`} />
+                  ? <img src={s.logo} width="256" height="256" loading="lazy" alt="" class="object-contain" style={`width:${s.logoSize}px;height:${s.logoSize}px`} />
                   : <span class="text-sm font-bold text-brand-800">{s.mono}</span>}
               </span>
-              <span class="text-sm font-bold text-brand-50 sm:text-md">{s.name}</span>
+              <span class="text-sm font-bold whitespace-nowrap text-brand-50 sm:text-md">{s.name}</span>
             </li>
           ))}
         </ul>
       ))}
     </div>
-    <span aria-hidden="true" class="pointer-events-none absolute inset-y-0 left-0 w-12 bg-linear-to-r from-brand-700 to-transparent sm:w-40"></span>
-    <span aria-hidden="true" class="pointer-events-none absolute inset-y-0 right-0 w-12 bg-linear-to-l from-brand-700 to-transparent sm:w-40"></span>
+    <span aria-hidden="true" class="pointer-events-none absolute inset-y-0 left-0 w-12 bg-linear-to-r from-brand-700 to-transparent sm:w-[200px]"></span>
+    <span aria-hidden="true" class="pointer-events-none absolute inset-y-0 right-0 w-12 bg-linear-to-l from-brand-700 to-transparent sm:w-[200px]"></span>
   </div>
   )}
 </section>
