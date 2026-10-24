@@ -18,6 +18,8 @@ interface Props {
   /** 'lavender' = lavender replaces yellow as the accent (enables `lavender:` utilities) and the nav,
    *  footer and logo link the v2 pages (V4 set). Without it everything links the v1 pages (V3 set). */
   palette?: 'lavender';
+  /** Standalone page: no nav or footer (the log-in card). */
+  bare?: boolean;
 }
 const {
   title,
@@ -27,6 +29,7 @@ const {
   footerHillsBg = '',
   designToggle,
   palette,
+  bare = false,
 } = Astro.props;
 const pages = pagesFor(palette);
 ---
@@ -43,11 +46,11 @@ const pages = pagesFor(palette);
   </head>
   <body data-palette={palette}>
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-white focus:px-4 focus:py-3 focus:font-semibold focus:shadow-lg">Skip to main content</a>
-    <SiteNav demoHref={demoHref} pages={pages} />
+    {!bare && <SiteNav demoHref={demoHref} pages={pages} />}
     <main id="main">
       <slot />
     </main>
-    <SiteFooter hills={footerHills} hillsBg={footerHillsBg} pages={pages} />
+    {!bare && <SiteFooter hills={footerHills} hillsBg={footerHillsBg} pages={pages} />}
     {/* Room for the fixed design switch so it never covers the footer's legal links on phones. */}
     {designToggle && <div aria-hidden="true" class="h-20 bg-brand-800 md:hidden"></div>}
     {designToggle && <DesignToggle active={designToggle} />}
