@@ -1,8 +1,10 @@
 ---
-// Blog ("Perspectives") v2 — Figma "Blog (Perspectives) — v3 (short header)" (Oct 2026; node 38880:82869),
+// Blog ("Perspectives") v2 — Figma "Blog (Perspectives) — v2" (Oct 2026; node 38878:82736, big hero),
 // linked from the lavender homepage (V4). Posts as listed on spectrumshepherd.com/blog; the articles still
 // live there. The search box filters the list in the browser (small vanilla script).
 import Base from '../layouts/Base.astro';
+import HeroHills from '../components/v3/HeroHills.astro';
+import SkyDecor from '../components/v3/SkyDecor.astro';
 import DownloadBanner from '../components/v3/DownloadBanner.astro';
 import { posts } from '../data/posts';
 
@@ -16,27 +18,28 @@ const text = (p: (typeof posts)[number]) => `${p.title} ${p.excerpt}`.toLowerCas
   title="Perspectives — special education transition resources — Spectrum Shepherd"
   description="Practical advice, heartfelt stories, and expert viewpoints on navigating the journey to independence for autistic young adults."
 >
-  <section class="bg-cream px-4 pt-12 pb-8 md:px-8 lg:pt-14" aria-labelledby="blog-title">
-    <div class="mx-auto flex max-w-[1200px] flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-      <div class="flex max-w-[680px] flex-col items-start gap-3">
-        <p class="flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3.5 py-1.5 text-sm font-semibold text-brand-800">
-          <span aria-hidden="true" class="size-2 rounded-full bg-brand-600"></span>The Shepherd blog
-        </p>
-        <h1 id="blog-title" class="text-display-md font-bold sm:text-display-lg">Welcome to <span class="text-brand-600">Perspectives</span></h1>
-        <p class="text-lg text-muted sm:text-xl">Practical advice, heartfelt stories, and expert viewpoints on navigating the journey to independence for autistic young adults.</p>
-      </div>
-      <div class="flex flex-col gap-3 sm:flex-row sm:items-center">
-        <p class="self-start rounded-full bg-brand-700 px-[18px] py-2.5 font-semibold text-white">All posts</p>
+  <section class="relative overflow-hidden bg-linear-to-b from-cream via-haze via-10% to-mist" aria-labelledby="blog-title">
+    <SkyDecor />
+    <HeroHills class="absolute inset-x-0 bottom-0 h-[81px] sm:h-[140px] lg:h-auto" />
+    <div class="relative z-10 mx-auto flex max-w-[760px] flex-col items-center gap-5 px-4 pt-12 pb-32 text-center md:px-8 lg:pt-[72px] lg:pb-[150px]">
+      <p class="flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3.5 py-1.5 text-sm font-semibold text-brand-800">
+        <span aria-hidden="true" class="size-2 rounded-full bg-brand-600"></span>The Shepherd blog
+      </p>
+      <h1 id="blog-title" class="text-display-md font-bold sm:text-display-lg lg:text-display-xl">Welcome to <span class="text-brand-600">Perspectives</span></h1>
+      <p class="text-lg text-muted sm:text-xl">Practical advice, heartfelt stories, and expert viewpoints on navigating the journey to independence for autistic young adults.</p>
+      <div class="flex w-full flex-col items-center justify-center gap-3 pt-2 sm:flex-row">
+        <p class="rounded-full bg-brand-700 px-[18px] py-2.5 font-semibold text-white">All posts</p>
         <form role="search" class="relative w-full sm:w-[320px]" id="blog-form">
           <label for="blog-search" class="sr-only">Search articles</label>
           <svg aria-hidden="true" class="absolute top-1/2 left-4 size-5 -translate-y-1/2 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" /></svg>
           <input id="blog-search" type="search" placeholder="Search articles" autocomplete="off" class="min-h-12 w-full rounded-full border-[1.5px] border-line-strong bg-white pr-4 pl-11 text-md placeholder:text-muted" />
         </form>
       </div>
+      <p id="blog-status" class="sr-only" role="status"></p>
     </div>
-    <p id="blog-status" class="sr-only" role="status"></p>
   </section>
 
+  <div class="h-8 bg-cream"></div>
   <section class="bg-cream px-4 pb-6 md:px-8" aria-label="Latest article">
     <article data-post data-text={text(featured)} class="relative mx-auto grid max-w-[1200px] items-center overflow-hidden rounded-[32px] border border-line bg-white shadow-xl lg:grid-cols-[600px_1fr] lg:gap-14 lg:pr-14">
       <img src={featured.thumb} width="800" height="600" alt="" class="aspect-[4/3] w-full object-cover lg:h-[446px] lg:aspect-auto" />

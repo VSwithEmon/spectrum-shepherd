@@ -1,12 +1,11 @@
 ---
-// The App page v2 — Figma "The App — v2" (Oct 2026; node 38866:81824), linked from the lavender homepage (V4).
-// Wording from spectrumshepherd.com/theapp, including the feature circle diagram. Yellow accents are lavender.
+// The App page v2 — Figma "The App — v2" (Oct 2026; node 38753:76753), linked from the lavender homepage (V4).
+// Wording from spectrumshepherd.com/theapp, including the feature circle diagram.
 import Base from '../layouts/Base.astro';
 import BrandIcon, { type IconName } from '../components/v3/BrandIcon.astro';
 import Button from '../components/Button.astro';
 import HeroHills from '../components/v3/HeroHills.astro';
 import SkyDecor from '../components/v3/SkyDecor.astro';
-import StatusChip from '../components/StatusChip.astro';
 import { site } from '../data/site';
 
 const points = [
@@ -44,28 +43,37 @@ const facts = [['18', 'skill domains'], ['400+', 'lessons'], ['3', 'skill levels
   <section class="relative overflow-hidden bg-linear-to-b from-cream via-haze via-10% to-mist" aria-labelledby="page-title">
     <SkyDecor />
     <HeroHills class="absolute inset-x-0 bottom-0 h-[81px] sm:h-[140px] lg:h-auto" />
-    <div class="relative z-10 mx-auto flex max-w-[1200px] flex-col items-center gap-12 px-4 pt-8 pb-28 sm:pb-32 md:px-8 lg:flex-row lg:pt-12 lg:pb-[150px] xl:px-0">
-      <div class="flex w-full flex-col items-start gap-6 lg:flex-1">
-        <h1 id="page-title" class="text-display-md font-bold sm:text-display-lg">AI skills coach <span class="text-brand-600">for neurodiverse students</span></h1>
-        <p class="text-lg text-muted sm:text-xl"><strong class="font-semibold text-ink">Shepherd is an AI-powered, habit-forming platform co-designed by special educators</strong> to help neurodiverse young adults master the complexities of adult life. By giving teachers an advanced AI co-pilot, Shepherd moves students from prompt-dependency to self-initiation.</p>
-        <p class="flex items-center gap-5 rounded-3xl border border-line bg-white p-4 pr-6 shadow-xl">
-          <span class="relative flex size-24 shrink-0 items-center justify-center rounded-full" style="background: conic-gradient(var(--color-brand-700) 77%, var(--color-brand-50) 0)">
-            <span class="absolute inset-[9px] rounded-full bg-white"></span>
-            <span class="relative text-display-xs font-bold text-brand-800">77%</span>
-          </span>
-          <span class="font-semibold">77% of students surveyed say Shepherd is more engaging than other school learning.</span>
-        </p>
-        <div class="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
-          <Button href={site.demo}>Request a demo</Button>
-          <Button href="#built-for-schools" variant="secondary">Built for schools</Button>
+    <div class="relative z-10 mx-auto flex max-w-[1200px] flex-col items-center gap-6 px-4 pt-10 pb-28 text-center sm:pb-32 md:px-8 lg:pt-14 lg:pb-[190px]">
+      <h1 id="page-title" class="max-w-[760px] text-display-md font-bold sm:text-display-lg lg:text-display-xl">Meet the <span class="text-brand-600">AI skills coach</span> for neurodiverse students.</h1>
+      <p class="max-w-[640px] text-lg text-muted sm:text-xl">Habit-forming, co-designed by special educators, and built around what each student loves — so they move from prompt-dependency to self-initiation.</p>
+      <div class="flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row">
+        <Button href={site.demo} variant="primary">Request a demo</Button>
+        <Button href={site.trial} variant="secondary">Start your 45-day free trial</Button>
+      </div>
+      <div class="relative mt-6 flex w-full max-w-[860px] flex-col items-center gap-6 lg:block lg:h-[420px]">
+        <span aria-hidden="true" class="absolute top-6 left-1/2 hidden size-[360px] -translate-x-1/2 rounded-full bg-yellow-200 lavender:bg-lavender-200 lg:block"></span>
+        <img src="/images/student-app-home.webp" width="688" height="1432" alt="Shepherd student app home screen with a message from the coach and options to browse lessons or play games" class="device-shot relative mx-auto w-[200px] lg:absolute lg:top-0 lg:left-1/2 lg:w-[230px] lg:-translate-x-1/2" />
+        <ul class="flex flex-col gap-3 lg:contents" aria-label="A conversation with the coach">
+          <li class="rounded-full bg-white px-5 py-3 text-left text-sm font-medium shadow-lg lg:absolute lg:top-[40px] lg:left-0">Ready for today’s quest?</li>
+          <li class="rounded-full bg-white px-5 py-3 text-left text-sm font-medium shadow-lg lg:absolute lg:top-[130px] lg:left-[10px]">Yes! How much do I need to save?</li>
+          <li class="rounded-full bg-white px-5 py-3 text-left text-sm font-medium shadow-lg lg:absolute lg:top-[200px] lg:left-0">Let’s budget it together, one step at a time.</li>
+        </ul>
+        <div class="flex flex-col items-center gap-3 lg:absolute lg:top-[30px] lg:right-0 lg:items-start" role="group" aria-label="Lessons formed around their interests">
+          <p class="text-sm font-semibold text-muted">Lessons formed around their interests</p>
+          <ul class="flex flex-wrap justify-center gap-2 lg:flex-col lg:items-start lg:gap-3">
+            {['Music', 'Basketball', 'Games', 'Cooking'].map((t) => <li class="rounded-full bg-white px-4 py-2 text-sm font-semibold shadow-md">{t}</li>)}
+          </ul>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="relative aspect-square w-full max-w-[600px] shrink-0 lg:w-[600px]">
-        <div aria-hidden="true" class="absolute top-[5%] left-[20%] aspect-square w-[76.67%] rounded-full bg-yellow-200 lavender:bg-lavender-200"></div>
-        <img src="/images/photos/hero-student.jpg" width="600" height="538" alt="A teenage student wearing headphones, smiling while working through a lesson on a tablet" class="absolute top-[20%] left-[21.7%] aspect-[460/340] w-[76.7%] rounded-[28px] border-8 border-brand-600 object-cover object-[40%_center] shadow-2xl" />
-        <img src="/images/student-app-home.webp" width="688" height="1432" alt="Shepherd student app home screen with a message from the coach and options to browse lessons or play games" class="device-shot absolute top-[10%] left-0 w-[31%]" />
-        <StatusChip title="Started on their own" caption="Self-initiation logged" class="top-[8%] left-[48%] z-10 origin-top-left max-sm:scale-75" />
+  <section class="on-dark bg-brand-800 px-4 py-16 text-white md:px-8 lg:py-20" aria-label="Student engagement">
+    <div class="mx-auto flex max-w-[1000px] flex-col items-center gap-6 text-center lg:flex-row lg:gap-14 lg:text-left">
+      <p class="text-[88px]/none font-bold text-yellow-300 lavender:text-lavender-200 lg:text-[140px]">77%</p>
+      <div class="flex flex-col gap-2">
+        <p class="text-display-xs font-semibold md:text-display-sm">of students surveyed say Shepherd is more engaging than other school learning.</p>
+        <p class="text-brand-50">Snack-sized lessons, usually under 10 minutes, built on their interests.</p>
       </div>
     </div>
   </section>

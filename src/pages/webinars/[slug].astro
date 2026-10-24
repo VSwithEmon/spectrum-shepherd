@@ -1,0 +1,72 @@
+---
+// Webinar detail (v1 only) — Figma "Webinar detail" (Oct 2026; node 38884:83071). Every "Watch webinar"
+// button on /webinars and /webinars-v2 opens one of these. Copy from the live spectrumshepherd.com
+// webinar pages; the presenter card only appears where the live page names one.
+// TODO: point the form `action` at the client's webinar registration service once confirmed.
+import Base from '../../layouts/Base.astro';
+import { site } from '../../data/site';
+import { webinars, webinarThumbs } from '../../data/webinars';
+
+export function getStaticPaths() {
+  return webinars.map((w, i) => ({ params: { slug: w.slug }, props: { w, thumb: webinarThumbs[i] } }));
+}
+const { w, thumb } = Astro.props;
+const paragraphs = w.body ?? [w.description];
+const fields = [
+  { id: 'first', label: 'First name', name: 'first_name', half: true, ac: 'given-name' },
+  { id: 'last', label: 'Last name', name: 'last_name', half: true, ac: 'family-name' },
+  { id: 'org', label: 'School / district or institution name', name: 'organization', ac: 'organization' },
+  { id: 'email', label: 'Work email', name: 'email', type: 'email', required: true, ac: 'email' },
+];
+---
+<Base
+  title={`${w.title} — Spectrum Shepherd webinar`}
+  description={w.description}
+>
+  <section class="bg-cream px-4 pt-8 pb-20 md:px-8 lg:pb-28" aria-labelledby="webinar-title">
+    <div class="mx-auto flex max-w-[1200px] flex-col gap-8">
+      <a href={site.webinars} class="self-start font-semibold text-brand-700 hover:text-brand-800">← Back to webinars</a>
+      <div class="grid items-start gap-10 lg:grid-cols-[1fr_456px] lg:gap-14">
+        <div class="flex flex-col items-start gap-6">
+          <ul class="flex flex-wrap gap-2" aria-label="Topics">
+            <li class="rounded-full bg-brand-50 px-3 py-1.5 text-sm font-semibold text-brand-800">Watch on demand</li>
+            {w.duration && <li class="rounded-full bg-yellow-300 px-3 py-1.5 text-sm font-bold">{w.duration}</li>}
+            {w.tags.map((t) => <li class="rounded-full bg-haze px-3 py-1.5 text-sm font-semibold text-brand-800">{t}</li>)}
+          </ul>
+          <h1 id="webinar-title" class="text-display-md font-bold sm:text-display-lg lg:text-display-xl">{w.title}</h1>
+          <div class="flex flex-col gap-5 text-lg text-muted sm:text-xl">
+            {paragraphs.map((p) => <p>{p}</p>)}
+          </div>
+          {w.speaker && (
+            <figure class="flex items-center gap-4 rounded-3xl border border-line bg-white p-5 pr-8 shadow-md">
+              <img src={w.speaker.photo} width="640" height="640" alt={`Portrait of ${w.speaker.name}`} class="size-20 rounded-full border-4 border-brand-600 object-cover" />
+              <figcaption class="flex flex-col">
+                <span class="text-sm font-semibold text-brand-700">Presented by</span>
+                <span class="text-xl font-semibold">{w.speaker.name}</span>
+                <span class="text-muted">{w.speaker.org}</span>
+              </figcaption>
+            </figure>
+          )}
+        </div>
+        <div class="overflow-hidden rounded-[32px] bg-white shadow-xl">
+          <div class="relative bg-haze">
+            <img src={thumb.src} width="900" height="900" alt="" class={`aspect-[4/3] w-full ${thumb.fit}`} />
+          </div>
+          <form method="post" class="flex flex-col gap-4 p-7" aria-labelledby="register-title">
+            <h2 id="register-title" class="text-display-xs font-bold">Register to watch</h2>
+            <div class="grid gap-4 sm:grid-cols-2">
+              {fields.map((f) => (
+                <div class={`flex flex-col gap-1.5 ${f.half ? '' : 'sm:col-span-2'}`}>
+                  <label for={f.id} class="text-sm font-semibold">{f.label}{f.required && <span aria-hidden="true"> *</span>}</label>
+                  <input id={f.id} name={f.name} type={f.type ?? 'text'} autocomplete={f.ac} required={f.required} class="min-h-12 rounded-lg border-[1.5px] border-line-strong bg-white px-3.5" />
+                </div>
+              ))}
+            </div>
+            <button type="submit" class="min-h-12 rounded-lg bg-brand-700 px-5 py-3 font-semibold text-white hover:bg-brand-800">Register</button>
+            <p class="text-sm text-muted">* Required</p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</Base>

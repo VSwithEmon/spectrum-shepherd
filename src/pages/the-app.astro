@@ -1,120 +1,148 @@
 ---
-// The App page — Figma "The App page", v1. Content from spectrumshepherd.com/theapp; layout in
-// the V3 homepage style.
+// The App page v1 — Figma "The App — v1" (Oct 2026; node 38866:81824), linked from the V3 homepage.
+// Wording from spectrumshepherd.com/theapp, including the feature circle diagram.
 import Base from '../layouts/Base.astro';
-import PageHero from '../components/v3/PageHero.astro';
-import LogoMarquee from '../components/v3/LogoMarquee.astro';
-import BrandIcon from '../components/v3/BrandIcon.astro';
-import CtaPanel from '../components/v3/CtaPanel.astro';
+import BrandIcon, { type IconName } from '../components/v3/BrandIcon.astro';
+import Button from '../components/Button.astro';
+import HeroHills from '../components/v3/HeroHills.astro';
+import SkyDecor from '../components/v3/SkyDecor.astro';
 import StatusChip from '../components/StatusChip.astro';
 import { site } from '../data/site';
 
-const stages = [
-  { title: 'Physical prompt', body: 'Hand-over-hand support to complete a step.', box: 'bg-[#f2f4f7] text-ink', badge: 'bg-white' },
-  { title: 'Verbal prompt', body: 'A spoken cue to start or continue.', box: 'bg-brand-50 text-ink', badge: 'bg-white' },
-  { title: 'Visual prompt', body: 'A picture or on-screen cue does the reminding.', box: 'bg-brand-200 text-brand-950', badge: 'bg-white' },
-  { title: 'Self-initiated', body: 'The student starts the task on their own.', box: 'bg-brand-700 text-white', badge: 'bg-yellow-300 text-ink lavender:bg-lavender-200' },
-];
-const features = [
-  { icon: 'people' as const, title: 'Teacher loved', body: 'Easy setup lets teachers guide each learning journey.' },
-  { icon: 'spark' as const, title: 'Zero-install', body: '100% web-based. No app store downloads required.' },
+const points = [
+  { icon: 'people' as const, title: 'Teacher loved', body: 'Easy setup allows teachers to guide learning journeys.' },
+  { icon: 'download' as const, title: 'Zero-install', body: '100% web-based. No app store downloads required.' },
   { icon: 'shield' as const, title: 'Privacy first', body: 'Built for FERPA compliance and student data security.' },
-  { icon: 'check' as const, title: 'Flexible access', body: 'Any device, anywhere — school, home, or transition-to-work programs.' },
+  { icon: 'route' as const, title: 'Flexible access', body: 'Accessible from any device, anywhere, perfect for school, home, or transition-to-work programs.' },
 ];
+
+// The live circle diagram: three rings around the learner. Positions are angles on each ring (degrees).
+const rings = [
+  { name: 'Classroom-ready', r: 258, nodes: [
+    { icon: 'shield', label: 'FERPA privacy', deg: 212 }, { icon: 'people', label: 'Teacher-guided', deg: 328 },
+    { icon: 'check', label: 'Any device', deg: 124 }, { icon: 'route', label: 'Web-based', deg: 56 },
+  ] },
+  { name: 'Personalized curriculum', r: 198, nodes: [
+    { icon: 'target', label: '18 domains', deg: 180 }, { icon: 'lesson', label: '400+ lessons', deg: 0 }, { icon: 'steps', label: '3 skill levels', deg: 90 },
+  ] },
+  { name: 'Engagement', r: 112, nodes: [
+    { icon: 'heart', label: 'Personal companion', deg: 225 }, { icon: 'spark', label: 'Adaptive AI', deg: 315 },
+    { icon: 'milestone', label: 'Passion engine', deg: 135 }, { icon: 'growth', label: 'Gamified growth', deg: 45 },
+  ] },
+] as { name: string; r: number; nodes: { icon: IconName; label: string; deg: number }[] }[];
+const placed = rings.flatMap((ring) => ring.nodes.map((n) => {
+  const a = (n.deg * Math.PI) / 180;
+  return { ...n, x: 290 + ring.r * Math.cos(a), y: 290 + ring.r * Math.sin(a) };
+}));
+const facts = [['18', 'skill domains'], ['400+', 'lessons'], ['3', 'skill levels'], ['100%', 'web-based']];
 ---
 <Base
   title="AI skills coach for neurodiverse students — Spectrum Shepherd"
   description="Shepherd is an AI-powered, habit-forming platform co-designed by special educators to help neurodiverse young adults master the complexities of adult life."
- 
 >
-  <PageHero
-    scene="plain"
-    title="AI skills coach"
-    accent="for neurodiverse students"
-    lede="Shepherd is an AI-powered, habit-forming platform co-designed by special educators to help neurodiverse young adults master the complexities of adult life. By giving teachers an advanced AI co-pilot, Shepherd moves students from prompt-dependency to self-initiation."
-    primary={{ label: 'Request a demo', href: site.demo }}
-    secondary={{ label: 'Built for schools', href: '#built-for-schools' }}
-    checks={['100% web-based', 'Built for FERPA compliance']}
-  >
-    <Fragment slot="visual">
-      <!-- Percent positions of the 600×600 frame, like the homepage hero, so it scales on phones. -->
-      <div class="relative mx-auto aspect-square w-full max-w-[600px]">
-        <div aria-hidden="true" class="absolute top-[5%] left-[20%] aspect-square w-[76.67%] rounded-full bg-yellow-200 lg:hidden lavender:bg-lavender-200"></div>
-        <img
-          src="/images/photos/hero-student.jpg"
-          width="600"
-          height="538"
-          alt="A teenage student wearing headphones, smiling while working through a lesson on a tablet"
-          class="absolute top-[10%] left-[6.7%] aspect-square w-[70%] rounded-full border-8 border-white object-cover object-[40%_center]"
-        />
-        <img
-          src="/images/student-app-home.webp"
-          width="688"
-          height="1432"
-          alt="Shepherd student app home screen with a message from the coach and options to browse lessons or play games"
-          class="absolute top-[33%] left-[66.7%] w-[28.7%] drop-shadow-xl"
-        />
-        <p class="absolute top-[66.7%] left-[-1.7%] hidden size-[28.3%] flex-col items-center justify-center rounded-full bg-yellow-300 p-4 text-center sm:flex lavender:bg-lavender-200">
-          <span class="text-display-md font-bold">77%</span>
-          <span class="text-xs font-semibold">of students say it's more engaging than other school learning</span>
+  <section class="relative overflow-hidden bg-linear-to-b from-cream via-haze via-10% to-mist" aria-labelledby="page-title">
+    <SkyDecor />
+    <HeroHills class="absolute inset-x-0 bottom-0 h-[81px] sm:h-[140px] lg:h-auto" />
+    <div class="relative z-10 mx-auto flex max-w-[1200px] flex-col items-center gap-12 px-4 pt-8 pb-28 sm:pb-32 md:px-8 lg:flex-row lg:pt-12 lg:pb-[150px] xl:px-0">
+      <div class="flex w-full flex-col items-start gap-6 lg:flex-1">
+        <h1 id="page-title" class="text-display-md font-bold sm:text-display-lg">AI skills coach <span class="text-brand-600">for neurodiverse students</span></h1>
+        <p class="text-lg text-muted sm:text-xl"><strong class="font-semibold text-ink">Shepherd is an AI-powered, habit-forming platform co-designed by special educators</strong> to help neurodiverse young adults master the complexities of adult life. By giving teachers an advanced AI co-pilot, Shepherd moves students from prompt-dependency to self-initiation.</p>
+        <p class="flex items-center gap-5 rounded-3xl border border-line bg-white p-4 pr-6 shadow-xl">
+          <span class="relative flex size-24 shrink-0 items-center justify-center rounded-full" style="background: conic-gradient(var(--color-brand-700) 77%, var(--color-brand-50) 0)">
+            <span class="absolute inset-[9px] rounded-full bg-white"></span>
+            <span class="relative text-display-xs font-bold text-brand-800">77%</span>
+          </span>
+          <span class="font-semibold">77% of students surveyed say Shepherd is more engaging than other school learning.</span>
         </p>
-        <div class="hidden lg:block">
-          <StatusChip title="Started on their own" caption="Self-initiation logged" class="top-[3.3%] left-[50%] z-10" />
+        <div class="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+          <Button href={site.demo}>Request a demo</Button>
+          <Button href="#built-for-schools" variant="secondary">Built for schools</Button>
         </div>
       </div>
-      <p class="mt-4 flex items-center justify-center gap-3 rounded-2xl bg-yellow-300 px-5 py-3 text-center font-semibold sm:hidden lavender:bg-lavender-200">
-        <span class="text-display-sm font-bold">77%</span>
-        of students say it's more engaging than other school learning
-      </p>
-    </Fragment>
-  </PageHero>
 
-  <LogoMarquee />
-
-  <section class="bg-white px-4 py-16 md:px-8 lg:py-24" aria-labelledby="prompt-title">
-    <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-12">
-      <div class="flex max-w-[820px] flex-col gap-4 text-center">
-        <h2 id="prompt-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">From prompt-dependency to self-initiation</h2>
-        <p class="text-lg text-muted sm:text-xl">Shepherd tracks how much support each student needs — and helps them need less of it, one small lesson at a time.</p>
-      </div>
-      <div class="flex w-full flex-col gap-5">
-        <span aria-hidden="true" class="block h-3.5 w-full rounded-full bg-linear-to-r from-line via-brand-200 to-brand-700"></span>
-        <ol class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {stages.map((s, i) => (
-            <li class={`flex flex-col gap-2.5 rounded-3xl p-7 ${s.box}`}>
-              <span class={`flex size-8 items-center justify-center rounded-full text-sm font-bold text-ink ${s.badge}`}>{i + 1}</span>
-              <h3 class="text-xl font-semibold">{s.title}</h3>
-              <p>{s.body}</p>
-            </li>
-          ))}
-        </ol>
-        <p class="text-center text-sm font-medium text-muted">Prompt level is captured on every task step, alongside accuracy and self-initiation.</p>
+      <div class="relative aspect-square w-full max-w-[600px] shrink-0 lg:w-[600px]">
+        <div aria-hidden="true" class="absolute top-[5%] left-[20%] aspect-square w-[76.67%] rounded-full bg-yellow-200 lavender:bg-lavender-200"></div>
+        <img src="/images/photos/hero-student.jpg" width="600" height="538" alt="A teenage student wearing headphones, smiling while working through a lesson on a tablet" class="absolute top-[20%] left-[21.7%] aspect-[460/340] w-[76.7%] rounded-[28px] border-8 border-brand-600 object-cover object-[40%_center] shadow-2xl" />
+        <img src="/images/student-app-home.webp" width="688" height="1432" alt="Shepherd student app home screen with a message from the coach and options to browse lessons or play games" class="device-shot absolute top-[10%] left-0 w-[31%]" />
+        <StatusChip title="Started on their own" caption="Self-initiation logged" class="top-[8%] left-[48%] z-10 origin-top-left max-sm:scale-75" />
       </div>
     </div>
   </section>
 
-  <section id="built-for-schools" class="scroll-mt-4 bg-brand-25 px-4 py-16 md:px-8 lg:py-24" aria-labelledby="schools-built-title">
-    <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-12">
-      <div class="flex max-w-[820px] flex-col gap-4 text-center">
-        <h2 id="schools-built-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">Built for schools</h2>
-        <p class="text-lg text-muted sm:text-xl">Classroom ready. IT approved.</p>
+  <section id="built-for-schools" class="scroll-mt-4 bg-white px-4 py-16 md:px-8 lg:py-24" aria-labelledby="schools-title">
+    <div class="mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[540px_1fr] lg:gap-20">
+      <div class="flex flex-col gap-4">
+        <h2 id="schools-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">Built for schools</h2>
+        <p class="text-xl font-semibold text-brand-700">Classroom ready. IT approved.</p>
+        <ul class="flex flex-col gap-4 pt-3">
+          {points.map((p) => (
+            <li class="flex gap-4 rounded-[20px] bg-haze p-4 pr-5">
+              <BrandIcon name={p.icon} />
+              <div class="flex flex-col gap-1">
+                <h3 class="text-xl font-bold">{p.title}</h3>
+                <p class="text-muted">{p.body}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
-      <ul class="grid w-full gap-6 sm:grid-cols-2 lg:grid-cols-4">
-        {features.map((f) => (
-          <li class="flex flex-col gap-3.5 rounded-3xl border border-brand-100 bg-white p-7">
-            <BrandIcon name={f.icon} />
-            <h3 class="text-xl font-semibold">{f.title}</h3>
-            <p class="text-muted">{f.body}</p>
+
+      <!-- The circle diagram is a picture of the list below it; assistive tech reads the list. -->
+      <div class="mx-auto h-[320px] w-[319px] sm:h-[464px] sm:w-[464px] lg:h-[580px] lg:w-[580px]">
+        <div aria-hidden="true" class="relative size-[580px] origin-top-left scale-[0.55] sm:scale-[0.8] lg:scale-100">
+          <svg class="absolute inset-0" viewBox="0 0 580 580">
+            <circle cx="290" cy="290" r="286" class="fill-brand-200" />
+            <circle cx="290" cy="290" r="232" class="fill-white" />
+            <circle cx="290" cy="290" r="226" class="fill-brand-50" />
+            <circle cx="290" cy="290" r="170" class="fill-white" />
+            <circle cx="290" cy="290" r="164" class="fill-brand-25" />
+            <circle cx="290" cy="290" r="64" class="fill-yellow-300 lavender:fill-lavender-200" />
+            <circle cx="290" cy="290" r="54" class="fill-brand-800" />
+          </svg>
+          <span class="absolute top-[266px] left-1/2 -translate-x-1/2 text-sm font-semibold text-white">Learner</span>
+          {[['Classroom-ready', 14], ['Personalized curriculum', 72], ['Engagement', 134]].map(([name, y]) => (
+            <span class="absolute left-1/2 -translate-x-1/2 rounded-full bg-white px-3 py-1 text-xs font-bold whitespace-nowrap text-brand-800" style={`top:${y}px`}>{name}</span>
+          ))}
+          {placed.map((n) => (
+            <Fragment>
+              <span class="absolute" style={`left:${n.x - 22}px;top:${n.y - 22}px`}><BrandIcon name={n.icon} class="size-11" /></span>
+              <span class="absolute -translate-x-1/2 rounded-full bg-white/90 px-2 py-0.5 text-xs font-bold whitespace-nowrap" style={`left:${n.x}px;top:${n.y + 24}px`}>{n.label}</span>
+            </Fragment>
+          ))}
+        </div>
+        <ul class="sr-only">
+          {rings.map((ring) => (
+            <li>{ring.name}: {ring.nodes.map((n) => n.label).join(', ')}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="px-4 py-16 md:px-8 lg:py-24" aria-labelledby="learn-title">
+    <div class="on-dark relative mx-auto flex max-w-[1200px] flex-col items-center gap-10 overflow-hidden rounded-[32px] bg-brand-700 px-6 pt-12 pb-32 text-white sm:px-12 lg:flex-row lg:justify-between lg:rounded-[40px] lg:px-[72px] lg:pt-20 lg:pb-[110px]">
+      <img src="/images/hero/cloud-bank.svg" width="470" height="122" alt="" aria-hidden="true" class="pointer-events-none absolute -bottom-9 -left-20 max-w-none opacity-60" />
+      <img src="/images/hero/cloud-bank.svg" width="470" height="122" alt="" aria-hidden="true" class="pointer-events-none absolute -right-20 -bottom-8 max-w-none -scale-x-100 opacity-60" />
+      <div class="relative flex max-w-[500px] flex-col items-start gap-5">
+        <h2 id="learn-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">Want to learn more?</h2>
+        <p class="text-lg text-brand-50 sm:text-xl">See how a growing group of prestigious programs are using Shepherd to exceed family expectations and lead the transition conversation.</p>
+        <div class="flex w-full flex-col gap-3 pt-2 sm:w-auto sm:flex-row">
+          <Button href={site.demo} variant="light">Book a 15-min briefing</Button>
+          <Button href={site.demo} variant="outline-light">Request a demo</Button>
+        </div>
+      </div>
+      <ul class="relative grid w-full max-w-[456px] grid-cols-2 gap-4">
+        {facts.map(([n, l]) => (
+          <li class="flex flex-col gap-1 rounded-3xl border border-white/18 bg-white/10 p-6">
+            <span class="text-display-md font-bold text-yellow-300 lg:text-display-lg lavender:text-lavender-200">{n}</span>
+            <span class="text-sm font-semibold text-brand-50">{l}</span>
           </li>
         ))}
       </ul>
     </div>
   </section>
-
-  <CtaPanel
-    id="learn-more"
-    title="Want to learn more?"
-    body="See Shepherd with your students in mind — a 15-minute briefing for special education teams."
-    primary={{ label: 'Book a 15-min briefing', href: site.demo }}
-  />
 </Base>
+
+<style>
+  .device-shot { filter: drop-shadow(0 24px 24px rgb(10 13 18 / 0.16)) drop-shadow(0 4px 4px rgb(10 13 18 / 0.04)); }
+</style>

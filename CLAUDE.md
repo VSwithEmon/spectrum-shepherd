@@ -59,3 +59,6 @@ Figma file `kf6bETSiXfVOzzNbTlCFA7`, page "Home Page Design" (`38641:74923`). Ea
 - Never invent statistics. Keep placeholders like `[X]%` and `[PHOTO …]` until the client supplies real content.
 - Every page links to Privacy policy, Terms and Accessibility in the footer.
 - Responsive down to 360px wide; check mobile before calling a section done.
+
+## Figma relabel + updates (Oct 25, 2026)
+The user relabelled frames: the designs first built as v2 for **The App** (38866:81824), **About** (38872:82583), **Blog** (short header, 38880:82869) and **Research** (38894:83179) are now the Figma **v1**, so `/the-app`, `/about`, `/blog`, `/beyond-the-transition-plan` use them (yellow accents). **The App v2** is a new centred design (38753:76753, `/the-app-v2`); **Blog v2** is the tall sky-hero header (38878:82736, `/blog-v2`); Teachers v2 hero uses the `sky` scene; Schools v2 "Measurable outcomes" is the dark green panel. New pages: `/login-v2` (Figma 38897:83489, no password field) and `/webinars/<slug>` (webinar details + register form, v1 only; every "Watch webinar" button on `/webinars` and `/webinars-v2` opens it; data in `src/data/webinars.ts`). `/login` is Figma Log in v1 (38762:77563). Old Figma v1/v2 frames for About/Research/App sit in the Figma "Bin" section.

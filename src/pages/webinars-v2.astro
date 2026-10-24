@@ -3,16 +3,9 @@
 // The four on-demand sessions listed on spectrumshepherd.com/webinars; the videos still live there.
 import Base from '../layouts/Base.astro';
 import CtaPanel from '../components/v3/CtaPanel.astro';
-import { webinars } from '../data/webinars';
+import { webinars, webinarThumbs as thumbs } from '../data/webinars';
 import { site } from '../data/site';
 
-// Live thumbnails, in the same order as the webinars. The first two are infographics (shown whole).
-const thumbs = [
-  { src: '/images/webinars/paraprofessionals.jpg', fit: 'object-contain bg-haze' },
-  { src: '/images/webinars/esy.jpg', fit: 'object-contain bg-haze' },
-  { src: '/images/webinars/speaker.jpg', fit: 'object-cover object-top' },
-  { src: '/images/webinars/speaker.jpg', fit: 'object-cover object-top' },
-];
 ---
 <Base
   palette="lavender"
