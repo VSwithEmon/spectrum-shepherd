@@ -1,0 +1,48 @@
+---
+// "Request a 15-minute briefing" (Figma Schools v1): green split panel — pitch and button on the left,
+// a tilted "Your briefing" card on the right, pine hills along the bottom. The three steps repeat the
+// pitch as a readable list; the hills and swirl are decorative. Static.
+import Button from '../Button.astro';
+import { site } from '../../data/site';
+
+const steps = ['See how leading programs use Shepherd', 'Exceed family expectations', 'Lead the transition conversation'];
+const tints = ['bg-brand-50', 'bg-brand-100', 'bg-brand-200'];
+---
+<section id="briefing" class="scroll-mt-4 px-4 py-16 md:px-8 lg:py-24" aria-labelledby="briefing-title">
+  <div class="on-dark relative mx-auto flex max-w-[1200px] flex-col items-center gap-10 overflow-hidden rounded-[32px] bg-brand-800 px-6 pt-12 pb-40 text-white sm:px-12 lg:flex-row lg:gap-14 lg:rounded-[40px] lg:px-16 lg:pt-14 lg:pb-32">
+    <svg aria-hidden="true" class="absolute inset-x-0 bottom-0 h-auto w-full" viewBox="0 0 1200 130" preserveAspectRatio="xMidYMax slice">
+      <path d="M0 60C200 10 380 20 600 60S1000 100 1200 30V130H0Z" class="fill-brand-600" fill-opacity="0.55" />
+      <path d="M0 95C240 55 480 50 700 80S1040 110 1200 80V130H0Z" class="fill-brand-700" />
+      <g class="fill-brand-800"><path d="M120 50L136 96H104Z" /><path d="M400 62L414 100H386Z" /><path d="M980 70L996 108H964Z" /><path d="M1100 54L1114 96H1086Z" /></g>
+    </svg>
+
+    <div class="relative flex flex-1 flex-col items-start gap-5">
+      <p class="flex items-center gap-2 rounded-full bg-white/14 px-3.5 py-1.5 text-sm font-semibold text-brand-50">
+        <span aria-hidden="true" class="size-2 rounded-full bg-yellow-300"></span>For school and district leaders
+      </p>
+      <h2 id="briefing-title" class="text-display-sm font-bold md:text-display-md lg:text-[44px]/[1.2]">Request a 15-minute briefing</h2>
+      <p class="max-w-[520px] text-lg text-brand-50">See how a growing group of leading programs use Shepherd to exceed family expectations and lead the transition conversation.</p>
+      <Button href={site.demo} variant="light" class="mt-1">Book a 15-min briefing</Button>
+    </div>
+
+    <div class="relative w-full max-w-[400px] rounded-[28px] bg-white p-7 text-ink shadow-2xl lg:w-[400px] lg:shrink-0 lg:-rotate-2">
+      <div class="flex items-center gap-4 pb-5">
+        <p class="flex size-[88px] shrink-0 flex-col items-center justify-center rounded-full bg-yellow-300 text-center">
+          <span class="text-display-xs font-bold md:text-[34px]/none">15</span><span class="text-xs font-semibold">minutes</span>
+        </p>
+        <div>
+          <p class="text-display-xs font-bold">Your briefing</p>
+          <p class="text-sm text-muted">A short call. No prep needed.</p>
+        </div>
+      </div>
+      <ol class="flex flex-col gap-3.5">
+        {steps.map((s, i) => (
+          <li class={`flex items-center gap-3.5 rounded-2xl px-3.5 py-3 ${tints[i]}`}>
+            <span aria-hidden="true" class="flex size-8 shrink-0 items-center justify-center rounded-full bg-brand-800 text-sm font-bold text-white">{i + 1}</span>
+            <span class="font-medium">{s}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>

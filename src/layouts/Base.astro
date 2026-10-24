@@ -2,8 +2,8 @@
 import '../styles/global.css';
 import SiteNav from '../components/SiteNav.astro';
 import SiteFooter from '../components/SiteFooter.astro';
-import { site } from '../data/site';
 import DesignToggle from '../components/DesignToggle.astro';
+import { pagesFor } from '../data/site';
 
 interface Props {
   title: string;
@@ -15,12 +15,9 @@ interface Props {
   footerHillsBg?: string;
   /** Show the design switch (homepage review only). */
   designToggle?: 'v3' | 'v4';
-  /** 'lavender' = lavender replaces yellow as the accent (enables `lavender:` utilities). */
+  /** 'lavender' = lavender replaces yellow as the accent (enables `lavender:` utilities) and the nav,
+   *  footer and logo link the v2 pages (V4 set). Without it everything links the v1 pages (V3 set). */
   palette?: 'lavender';
-  /** Oct 2026 refresh for the nav and footer (every page). */
-  refresh?: boolean;
-  /** Logo destination; refresh pages default to /v3. */
-  homeHref?: string;
 }
 const {
   title,
@@ -30,11 +27,8 @@ const {
   footerHillsBg = '',
   designToggle,
   palette,
-  refresh = false,
-  homeHref,
 } = Astro.props;
-// Lavender homepage (V4) links Teachers to /teachers-v2; V3 and everything else to /teachers.
-const teachersHref = palette === 'lavender' ? site.teachersV2 : site.teachers;
+const pages = pagesFor(palette);
 ---
 <!doctype html>
 <html lang="en">
@@ -49,11 +43,11 @@ const teachersHref = palette === 'lavender' ? site.teachersV2 : site.teachers;
   </head>
   <body data-palette={palette}>
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-white focus:px-4 focus:py-3 focus:font-semibold focus:shadow-lg">Skip to main content</a>
-    <SiteNav demoHref={demoHref} refresh={refresh} homeHref={homeHref} teachersHref={teachersHref} />
+    <SiteNav demoHref={demoHref} pages={pages} />
     <main id="main">
       <slot />
     </main>
-    <SiteFooter hills={footerHills} hillsBg={footerHillsBg} refresh={refresh} teachersHref={teachersHref} />
+    <SiteFooter hills={footerHills} hillsBg={footerHillsBg} pages={pages} />
     {/* Room for the fixed design switch so it never covers the footer's legal links on phones. */}
     {designToggle && <div aria-hidden="true" class="h-20 bg-brand-800 md:hidden"></div>}
     {designToggle && <DesignToggle active={designToggle} />}

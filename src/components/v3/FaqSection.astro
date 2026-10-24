@@ -1,29 +1,39 @@
 ---
-// Questions (Figma v1): heading on the left, native <details> accordion on the right — no script.
-// `name` groups the items so opening one closes the others in supporting browsers.
+// Questions (Figma, Oct 2026): heading, optional line and button on the left; white rounded cards on a
+// soft grey band on the right. Native <details> accordion — no script. `name` groups the items so
+// opening one closes the others in supporting browsers.
+import Button from '../Button.astro';
+
 interface Props {
   id?: string;
   title: string;
   items: { q: string; a: string[] }[];
+  /** Line under the heading. */
+  intro?: string;
+  cta?: { label: string; href: string };
 }
-const { id = 'questions', title, items } = Astro.props;
+const { id = 'questions', title, items, intro, cta } = Astro.props;
 ---
-<section id={id} class="scroll-mt-4 bg-white px-4 py-16 md:px-8 lg:py-24" aria-labelledby={`${id}-title`}>
-  <div class="mx-auto grid max-w-[1200px] gap-8 lg:grid-cols-[340px_1fr] lg:gap-[72px]">
-    <h2 id={`${id}-title`} class="text-display-sm font-bold md:text-display-md">{title}</h2>
-    <div class="border-t border-line">
+<section id={id} class="scroll-mt-4 bg-haze px-4 py-16 md:px-8 lg:py-24" aria-labelledby={`${id}-title`}>
+  <div class="mx-auto grid max-w-[1200px] gap-8 lg:grid-cols-[376px_1fr] lg:items-start lg:gap-16">
+    <div class="flex flex-col items-start gap-5">
+      <h2 id={`${id}-title`} class="text-display-sm font-bold md:text-display-md lg:text-display-lg">{title}</h2>
+      {intro && <p class="text-lg font-semibold text-muted">{intro}</p>}
+      {cta && <Button href={cta.href}>{cta.label}</Button>}
+    </div>
+    <div class="flex flex-col gap-3">
       {items.map((it, i) => (
-        <details name={id} open={i === 0} class="group border-b border-line">
-          <summary class="flex min-h-16 cursor-pointer list-none items-center justify-between gap-6 py-5 text-lg font-semibold sm:text-xl [&::-webkit-details-marker]:hidden">
+        <details name={id} open={i === 0} class="group rounded-3xl border border-transparent bg-white open:border-2 open:border-brand-200">
+          <summary class="flex min-h-16 cursor-pointer list-none items-center justify-between gap-6 px-6 py-5 text-lg font-semibold sm:px-7 [&::-webkit-details-marker]:hidden">
             {it.q}
-            <span aria-hidden="true" class="flex size-8 shrink-0 items-center justify-center rounded-full border border-brand-200 bg-brand-25 text-brand-700 transition-colors group-open:border-brand-700 group-open:bg-brand-700 group-open:text-white">
+            <span aria-hidden="true" class="flex size-8 shrink-0 items-center justify-center rounded-full bg-brand-50 text-brand-800 transition-colors group-open:bg-brand-700 group-open:text-white">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
                 <path d="M5 12h14" />
                 <path class="group-open:hidden" d="M12 5v14" />
               </svg>
             </span>
           </summary>
-          <div class="flex flex-col gap-4 pb-6 text-md text-muted sm:text-lg">
+          <div class="flex flex-col gap-3 px-6 pb-6 text-md text-muted sm:px-7">
             {it.a.map((p) => <p>{p}</p>)}
           </div>
         </details>

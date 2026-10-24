@@ -1,29 +1,24 @@
 ---
-import Hills from './Hills.astro';
-import { site } from '../data/site';
+// Site footer (Figma component "Site / Footer"): hills with tree silhouettes and a big setting sun,
+// then the dark-green footer — logo, address, Product / Company links, social links, legal row.
+// Links follow the page set (V3 → v1 pages, V4 → v2 pages).
+import HeroHills from './v3/HeroHills.astro';
+import { site, type PageSet, pagesV1 } from '../data/site';
 
 interface Props {
   /** Draw the hill edge above the footer. Off when the page's last section already ends in hills. */
   hills?: boolean;
   /** Background behind the hills; match the section above. */
   hillsBg?: string;
-  /** Oct 2026 feedback (V3/V4): trees + setting sun on the hills; "Join our community" sized like the other headings. */
-  refresh?: boolean;
-  /** Where the footer's Teachers link goes (V3 → /teachers, V4 → /teachers-v2). */
-  teachersHref?: string;
+  /** Destination set for the Product / Company links. */
+  pages?: PageSet;
 }
-const { hills = true, hillsBg = '', refresh = false, teachersHref = site.teachers } = Astro.props;
+const { hills = true, hillsBg = '', pages = pagesV1 } = Astro.props;
 
-// V1/V2 keep their placeholder links; the refresh designs (V3/V4 + inner pages) link the real pages.
-const columns = refresh
-  ? [
-      { title: 'Product', links: [{ label: 'Teachers', href: teachersHref }, { label: 'Schools', href: site.schools }, { label: 'The App', href: site.app }] },
-      { title: 'Company', links: [{ label: 'About', href: site.about }, { label: 'Resources', href: site.blog }, { label: 'Log in', href: site.login }] },
-    ]
-  : [
-      { title: 'Product', links: [{ label: 'Teachers', href: '#' }, { label: 'Schools', href: '#' }, { label: 'The App', href: '#' }] },
-      { title: 'Company', links: [{ label: 'About', href: '#' }, { label: 'Resources', href: '#' }, { label: 'Log in', href: '#' }] },
-    ];
+const columns = [
+  { title: 'Product', links: [{ label: 'Teachers', href: pages.teachers }, { label: 'Schools', href: pages.schools }, { label: 'The App', href: pages.app }] },
+  { title: 'Company', links: [{ label: 'About', href: pages.about }, { label: 'Resources', href: pages.blog }, { label: 'Log in', href: site.login }] },
+];
 // Social profile URLs still to be supplied by the client.
 const social = [
   { label: 'Instagram', icon: '/images/icons/instagram.svg', href: '#' },
@@ -31,14 +26,14 @@ const social = [
   { label: 'LinkedIn', icon: '/images/icons/linkedin.svg', href: '#' },
 ];
 ---
-{hills && <Hills front="brand-800" trail={false} trees={refresh} sunset={refresh} class={hillsBg} />}
+{hills && <HeroHills sun="setting" class={`h-[100px] sm:h-[140px] lg:h-auto ${hillsBg}`} />}
 <footer class="on-dark relative overflow-hidden bg-brand-800 px-4 pt-12 md:px-8">
   <div class="relative mx-auto max-w-[1200px]">
     <div class="flex flex-col gap-12 pb-12 lg:flex-row">
       <div class="flex flex-col gap-3 lg:flex-1">
-        <p class="text-display-xs font-bold text-white">Spectrum Shepherd</p>
+        <img src="/images/logo-white.png" width="140" height="49" alt="Spectrum Shepherd" class="h-[49px] w-auto self-start" />
         <p class="font-semibold text-brand-50">6 Liberty Square, Boston, MA 02109</p>
-        <p class="max-w-[420px] text-brand-50">Proprietary platform designed for IDEA Part B and Title IV-A compliance.</p>
+        <p class="text-brand-50">Proprietary platform designed for IDEA Part B and Title IV-A compliance.</p>
       </div>
       <div class="flex flex-wrap gap-12">
         {columns.map((c) => (
@@ -50,7 +45,7 @@ const social = [
           </nav>
         ))}
         <div class="flex flex-col gap-4">
-          <h2 class={refresh ? 'font-bold text-white' : 'text-xl font-bold text-white'}>Join our community</h2>
+          <h2 class="font-bold text-white">Join our community</h2>
           <ul class="flex gap-3">
             {social.map((s) => (
               <li>

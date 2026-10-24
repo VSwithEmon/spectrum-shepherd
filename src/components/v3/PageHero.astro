@@ -1,10 +1,15 @@
 ---
-// Hero shell for the inner pages (Figma v1): copy on the left, a page-specific visual on the right,
-// clouds and trees on the hills. The visual comes in through the `visual` slot.
+// Hero shell for the inner pages: copy on the left, a page-specific visual on the right (`visual`
+// slot), sky and hills along the bottom. Scenes follow the Figma frames:
+//  - 'sky'     cream → mist sky, clouds and birds, the homepage hills (Teachers v1, Schools v1)
+//  - 'classic' same sky with the older layered hills and trees (Teachers v2)
+//  - 'plain'   cream background, two small clouds, layered hills with trees (App, About, Research v1)
+//  - 'none'    sky and clouds only
 import Button from '../Button.astro';
+import Cloud from '../Cloud.astro';
 import Hills from '../Hills.astro';
 import BrandIcon from './BrandIcon.astro';
-import PineHills from './PineHills.astro';
+import HeroHills from './HeroHills.astro';
 import SkyDecor from './SkyDecor.astro';
 
 interface Props {
@@ -18,13 +23,18 @@ interface Props {
   checks?: string[];
   /** Soft sun circle behind the visual (large screens). */
   sun?: boolean;
-  /** 'pines' = pine-tree hills (V3 style); 'classic' = layered hills with trees (V4); 'none' = clouds only. */
-  scene?: 'pines' | 'classic' | 'none';
+  scene?: 'sky' | 'classic' | 'plain' | 'none';
 }
-const { title, accent, lede, primary, secondary, checks = [], sun = true, scene = 'pines' } = Astro.props;
+const { title, accent, lede, primary, secondary, checks = [], sun = true, scene = 'sky' } = Astro.props;
+const plain = scene === 'plain';
 ---
-<section class="relative overflow-hidden bg-linear-to-b from-cream via-haze via-10% to-mist" aria-labelledby="page-title">
-  <SkyDecor />
+<section class={`relative overflow-hidden ${plain ? 'bg-cream' : 'bg-linear-to-b from-cream via-haze via-10% to-mist'}`} aria-labelledby="page-title">
+  {plain ? (
+    <Fragment>
+      <Cloud class="top-6 left-[44%] z-0 hidden h-[60px] w-[160px] opacity-90 lg:block" />
+      <Cloud class="top-[300px] right-2 z-0 hidden h-[42px] w-[112px] opacity-90 xl:block" />
+    </Fragment>
+  ) : <SkyDecor />}
   <div class="relative z-10 mx-auto flex max-w-[1200px] flex-col items-center gap-12 px-4 pt-8 pb-16 md:px-8 lg:flex-row lg:pt-12 lg:pb-12 xl:px-0">
     <div class="flex w-full flex-col items-start gap-6 lg:flex-1">
       <h1 id="page-title" class="text-display-md font-bold sm:text-display-lg">
@@ -50,7 +60,6 @@ const { title, accent, lede, primary, secondary, checks = [], sun = true, scene 
     </div>
   </div>
 
-  {scene === 'classic'
-    ? <Hills path={false} trees grove class="-mt-6 lg:-mt-16" />
-    : scene === 'pines' ? <PineHills class="relative -mt-4 h-[90px] sm:h-[150px] lg:-mt-24 lg:h-auto" /> : null}
+  {scene === 'sky' && <HeroHills class="relative -mt-8 h-[81px] sm:-mt-12 sm:h-[140px] lg:-mt-[18px] lg:h-auto" />}
+  {(scene === 'classic' || plain) && <Hills path={false} trees grove={scene === 'classic'} class="-mt-6 lg:-mt-16" />}
 </section>

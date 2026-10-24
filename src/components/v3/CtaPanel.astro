@@ -1,6 +1,7 @@
 ---
-// Closing call-to-action (Figma v1): centred green panel, corner sun, dotted path of varied dot
-// sizes. All static.
+// Closing call-to-action: centred green panel. 'sun' = corner sun and a dotted path of varied dot sizes
+// (App, About, Research v1); 'clouds' = soft cloud banks along the bottom (Webinars v1, and every v2
+// page — Figma "Request a 15-minute briefing"). All static.
 import Button from '../Button.astro';
 
 interface Props {
@@ -9,20 +10,31 @@ interface Props {
   primary: { label: string; href: string };
   secondary?: { label: string; href: string };
   id?: string;
+  variant?: 'sun' | 'clouds';
 }
-const { title, body, primary, secondary, id } = Astro.props;
+const { title, body, primary, secondary, id, variant = 'sun' } = Astro.props;
 const bez = (t: number, a: number, b: number, c: number, d: number) => (1 - t) ** 3 * a + 3 * (1 - t) ** 2 * t * b + 3 * (1 - t) * t * t * c + t ** 3 * d;
 const dots = Array.from({ length: 22 }, (_, k) => {
   const t = k / 21;
   return { x: bez(t, 20, 200, 420, 680), y: bez(t, 280, 300, 240, 60), r: Math.max(1.5, (3 + 7 * Math.sin(Math.PI * t)) / 2) };
 });
+const clouds = variant === 'clouds';
 ---
 <section id={id} class="px-4 py-16 md:px-8 lg:py-24" aria-labelledby={`${id ?? 'cta'}-title`}>
-  <div class="on-dark relative mx-auto flex max-w-[1200px] flex-col items-center gap-5 overflow-hidden rounded-[40px] bg-brand-700 px-6 py-16 text-center text-white sm:px-16 lg:py-20">
-    <span aria-hidden="true" class="absolute -top-20 -right-20 size-52 rounded-full bg-yellow-300 lg:-top-24 lg:-right-16 lg:size-60 lavender:bg-lavender-200"></span>
-    <svg aria-hidden="true" class="absolute bottom-0 left-0 hidden h-[300px] w-[700px] md:block" viewBox="0 0 700 300" fill="none">
-      {dots.map((d) => <circle cx={d.x} cy={d.y} r={d.r} class="fill-brand-400" />)}
-    </svg>
+  <div class={`on-dark relative mx-auto flex max-w-[1200px] flex-col items-center gap-5 overflow-hidden rounded-[40px] bg-brand-700 px-6 text-center text-white sm:px-16 ${clouds ? 'pt-16 pb-28 lg:pt-20 lg:pb-32' : 'py-16 lg:py-20'}`}>
+    {clouds ? (
+      <Fragment>
+        <img src="/images/hero/cloud-bank.svg" width="470" height="122" alt="" aria-hidden="true" class="pointer-events-none absolute -bottom-9 -left-20 max-w-none opacity-60" />
+        <img src="/images/hero/cloud-bank.svg" width="470" height="122" alt="" aria-hidden="true" class="pointer-events-none absolute -right-20 -bottom-8 max-w-none -scale-x-100 opacity-60" />
+      </Fragment>
+    ) : (
+      <Fragment>
+        <span aria-hidden="true" class="absolute -top-20 -right-20 size-52 rounded-full bg-yellow-300 lg:-top-24 lg:-right-16 lg:size-60 lavender:bg-lavender-200"></span>
+        <svg aria-hidden="true" class="absolute bottom-0 left-0 hidden h-[300px] w-[700px] md:block" viewBox="0 0 700 300" fill="none">
+          {dots.map((d) => <circle cx={d.x} cy={d.y} r={d.r} class="fill-brand-400" />)}
+        </svg>
+      </Fragment>
+    )}
     <h2 id={`${id ?? 'cta'}-title`} class="relative max-w-[900px] text-display-sm font-bold md:text-display-md lg:text-display-lg">{title}</h2>
     <p class="relative max-w-[760px] text-lg text-brand-50 sm:text-xl">{body}</p>
     <div class="relative flex w-full flex-col justify-center gap-3 pt-2 sm:w-auto sm:flex-row">

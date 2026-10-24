@@ -67,9 +67,8 @@ const faqs = [
 <Base
   title="Transition curriculum for special education teachers — Spectrum Shepherd"
   description="Transition, life-skills and functional-skills curriculum you don't have to build. Personalized lessons and IEP-ready documentation for special education teachers — free for 45 days."
-  refresh
+ 
   palette="lavender"
-  homeHref="/v4"
 >
   <PageHero
     title="Transition curriculum"
@@ -239,7 +238,7 @@ const faqs = [
           <a href="#" aria-label="Play Emily Colisimo's teacher story" class="absolute top-8 left-8 flex size-[72px] items-center justify-center rounded-full bg-white text-brand-800 hover:bg-brand-25 sm:top-10 sm:left-10">
             <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z" /></svg>
           </a>
-          <p class="text-sm font-semibold text-yellow-300">Teacher story</p>
+          <p class="text-sm font-semibold text-yellow-300 lavender:text-lavender-200">Teacher story · 2 min</p>
           <p class="text-display-xs font-bold">Emily Colisimo</p>
           <p class="text-brand-50">Capstone Teacher, Cotting School, Lexington, MA</p>
         </div>
@@ -247,7 +246,7 @@ const faqs = [
     </div>
   </section>
 
-  <FaqSection title="Questions teachers ask" items={faqs} />
+  <FaqSection title="Questions teachers ask" items={faqs} cta={{ label: 'Start your 45-day free trial', href: site.trial }} />
 
   <TrialCta />
 </Base>

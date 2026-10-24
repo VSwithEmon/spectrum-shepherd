@@ -1,4 +1,4 @@
-// Site-wide destinations for the V3/V4 refresh (nav, footer, page CTAs).
+// Site-wide destinations (nav, footer, page CTAs).
 // Individual blog posts and webinar videos still live on the current site (spectrumshepherd.com)
 // until they are migrated; those URLs are in posts.ts / webinars.ts.
 //
@@ -24,3 +24,22 @@ export const site = {
   appTrial: 'https://app.shepherdskills.com/trial',
   appLogin: 'https://app.shepherdskills.com',
 };
+
+// Two page sets, one per homepage design (Oct 2026):
+//  - V3 (yellow accents) links the v1 pages;
+//  - V4 (lavender accents) links the v2 pages, which swap every yellow accent for lavender
+//    (`<Base palette="lavender">`).
+// Base picks the set from `palette`, so the nav, footer and logo stay inside the same design.
+export type PageSet = {
+  home: string; teachers: string; schools: string; app: string;
+  about: string; blog: string; webinars: string; research: string;
+};
+export const pagesV1: PageSet = {
+  home: '/v3', teachers: '/teachers', schools: '/schools', app: '/the-app',
+  about: '/about', blog: '/blog', webinars: '/webinars', research: '/beyond-the-transition-plan',
+};
+export const pagesV2: PageSet = {
+  home: '/v4', teachers: '/teachers-v2', schools: '/schools-v2', app: '/the-app-v2',
+  about: '/about-v2', blog: '/blog-v2', webinars: '/webinars-v2', research: '/beyond-the-transition-plan-v2',
+};
+export const pagesFor = (palette?: 'lavender'): PageSet => (palette === 'lavender' ? pagesV2 : pagesV1);
