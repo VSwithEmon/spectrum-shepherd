@@ -14,15 +14,12 @@ Buyers are special education teachers (free 45-day trial) and school/district le
 - `option-b-homepage.html` ("Sunrise") is the earlier direction, kept for reference only.
 - The client's inspiration references are MagicSchool and Headspace: warm, polished, short headlines, real people, simple navigation.
 
-## IN PROGRESS — inner pages build (started Oct 24, 2026) — read this first in a new session
-Goal: every v1 page matches its Figma frame and is linked from homepage V3; every v2 page is built from the v2 Figma frame and linked from homepage V4 with lavender accents (the hero sun and footer sun stay yellow on both). `<Base palette="lavender">` picks the V2 page set (`pagesV2` in `src/data/site.ts`) for the nav, footer and logo.
-- [x] Nav + footer rebuilt from the Figma components; nav shows the current section (Teachers / Schools / Resources).
-- [x] v1 fixes: Schools (full rebuild), Teachers (hero hills, Questions style), App/About/Research (plain hero scene), Blog (Load more posts), Webinars (clouds closing panel).
-- [x] Schools v2 (`/schools-v2`) and App v2 (`/the-app-v2`) written — still to screenshot-check against Figma.
-- [ ] About v2 (`/about-v2`), Blog v2 (`/blog-v2`, short header; posts have `thumb` + `group` in `src/data/posts.ts`), Webinars v2 (`/webinars-v2`, 2×2 cards; images in `public/images/webinars/`), Research v2 (`/beyond-the-transition-plan-v2`, cover `public/images/photos/whitepaper-cover.jpg`). Founder photos: `public/images/photos/founder-william.jpg`, `founder-kevin.jpg`.
-- [ ] Link V4 homepage cards/menus to the v2 pages (`AudienceRows` still points at `site.*`; use `pagesV2`), V3 to `pagesV1`.
-- [ ] Check 360 / 768 / 1440 widths, accessibility pass (one H1, labels, alt), update this file, then commit and push.
-Figma file kf6bETSiXfVOzzNbTlCFA7, page 38641:74923. v2 frames: Schools 38854:81539, App 38866:81824, About 38872:82583, Blog 38878:82736 (+short header 38880:82869), Webinars 38883:82960, Research 38894:83179.
+## Inner pages — status (Oct 25, 2026)
+Every v1 page was matched to its Figma frame and every v2 page was built from the v2 Figma frame. `<Base palette="lavender">` selects the V2 page set (`pagesV2` in `src/data/site.ts`), so the nav, footer, logo and the V4 homepage cards link `/teachers-v2`, `/schools-v2`, `/the-app-v2`, `/about-v2`, `/blog-v2`, `/webinars-v2`, `/beyond-the-transition-plan-v2`; V3 and the plain pages link the v1 set. Yellow accents are lavender on v2 pages; the hero sun and footer sun stay yellow everywhere. The nav highlights the current section (Teachers / Schools / Resources).
+- **v1 matched to Figma:** Schools (rebuilt: sky hero with steps, photo + video, benefits, briefing panel, road, outcomes, questions), Teachers (hero hills, Questions cards), App / About / Research (plain hero), Blog ("Load more posts"), Webinars (clouds closing panel).
+- **v2 pages:** Schools, App (feature circle diagram), About (polaroid founders with the real photos), Blog (short header, "For educators" / "For families" are our labels), Webinars (2×2 cards), Research (live white-paper cover).
+- **Assets:** originals pulled from the live site into `public/images/blog/`, `public/images/webinars/`, `photos/whitepaper-cover.jpg`; founder photos are 200px originals, replace when larger files arrive.
+- **Still open:** Login v2 and the Webinar detail / register page are designed in Figma but not built; the 0:57 Schools video and the four newest blog posts' article links (they open the blog) need client files; "Watch" / video areas are still images.
 
 ## Current status (Oct 24, 2026)
 Figma file `kf6bETSiXfVOzzNbTlCFA7`, page "Home Page Design" (`38641:74923`). Each page has its own section with versions side by side.

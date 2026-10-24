@@ -6,12 +6,12 @@ import Button from '../Button.astro';
 import CheckItem from '../CheckItem.astro';
 import FloatingStat from '../FloatingStat.astro';
 import { audienceSlides } from '../../data/audiences';
-import { site } from '../../data/site';
+import { pagesV2 } from '../../data/site';
 
 const hrefs: Record<string, string> = {
-  'audience-schools': site.schools,
-  'audience-teachers': site.teachersV2,
-  'audience-students': site.app,
+  'audience-schools': pagesV2.schools,
+  'audience-teachers': pagesV2.teachers,
+  'audience-students': pagesV2.app,
 };
 const tints: Record<string, string> = {
   'audience-schools': 'bg-brand-25',

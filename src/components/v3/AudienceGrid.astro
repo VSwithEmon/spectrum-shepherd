@@ -6,13 +6,13 @@ import Button from '../Button.astro';
 import CheckItem from '../CheckItem.astro';
 import FloatingStat from '../FloatingStat.astro';
 import { audienceSlides } from '../../data/audiences';
-import { site } from '../../data/site';
+import { pagesV1 } from '../../data/site';
 
 // Each card leads to its own page; teachers go straight to the free trial.
 const hrefs: Record<string, string> = {
-  'audience-schools': site.schools,
-  'audience-teachers': site.teachers,
-  'audience-students': site.app,
+  'audience-schools': pagesV1.schools,
+  'audience-teachers': pagesV1.teachers,
+  'audience-students': pagesV1.app,
 };
 ---
 <section class="px-4 py-16 md:px-8 lg:py-24" aria-labelledby="audiences-title">
