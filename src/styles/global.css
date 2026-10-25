@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Lavender alternative (Figma "Homepage Design (v2) — lavender alternative"): pages set
+/* Lavender alternative (Figma "Homepage Design (v2), lavender alternative"): pages set
    <body data-palette="lavender"> and components swap yellow accents for lavender with `lavender:` utilities. */
 @custom-variant lavender (&:where([data-palette="lavender"] *));
 

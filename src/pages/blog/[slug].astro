@@ -21,7 +21,7 @@ const { post, related } = Astro.props;
 const cover = imageUrl(post.coverImage, 2200, 1238);
 ---
 <Base
-  title={`${post.title} — Spectrum Shepherd`}
+  title={`${post.title} | Spectrum Shepherd`}
   description={post.seoDescription || post.excerpt}
   image={imageUrl(post.coverImage, 1200, 630)}
   footerHillsBg={related.length ? 'bg-white' : ''}
