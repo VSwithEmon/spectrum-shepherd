@@ -50,15 +50,17 @@ const facts = [['18', 'skill domains'], ['400+', 'lessons'], ['3', 'skill levels
 ---
 <section class={`relative overflow-hidden ${v2 ? 'sky' : 'bg-cream'}`} aria-labelledby="page-title">
   {v2 && <AppSky />}
-  <div class={`relative z-10 mx-auto flex max-w-[1200px] flex-col items-center gap-6 px-5 text-center md:px-8 xl:px-0 ${v2 ? 'pt-12 lg:pt-[128px]' : 'pt-10 lg:pt-14'}`}>
-    <h1 id="page-title" class="max-w-[860px] text-display-md font-bold text-balance sm:text-display-lg lg:text-display-xl">Meet the <span class="text-brand-600">AI skills coach</span> for neurodiverse students.</h1>
-    <p class="max-w-[860px] text-lg text-muted sm:text-xl">Habit-forming, co-designed by special educators, and built around what each student loves — so they move from prompt-dependency to self-initiation.</p>
-    <div class="flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row">
+  <div class={`relative mx-auto flex max-w-[1200px] flex-col items-center gap-6 px-5 text-center md:px-8 xl:px-0 ${v2 ? 'pt-12 lg:pt-[128px]' : 'pt-10 lg:pt-14'}`}>
+    <h1 id="page-title" class="relative z-[3] max-w-[860px] text-display-md font-bold text-balance sm:text-display-lg lg:text-display-xl">Meet the <span class="text-brand-600">AI skills coach</span> for neurodiverse students.</h1>
+    <p class="relative z-[3] max-w-[860px] text-lg text-muted sm:text-xl">Habit-forming, co-designed by special educators, and built around what each student loves — so they move from prompt-dependency to self-initiation.</p>
+    <div class="relative z-[3] flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row">
       <Button href="/book-a-demo">Request a demo</Button>
       <Button href="/teachers#trial" variant="secondary">Start your 45-day free trial</Button>
     </div>
 
-    <!-- Phone stage (Figma 1200 × 560): positions are px on desktop; phones stack chat, phone, tags. -->
+    <!-- Phone stage (Figma 1200 × 560): positions are px on desktop; phones stack chat, phone, tags.
+         Layering (no stacking context on the wrappers): sun, then hills (z-1), then phone (z-2), then
+         chat, tags and copy (z-3) — so the sun sets behind the hills and the phone stands in front. -->
     <div class="relative mt-4 flex w-full flex-col items-center gap-6 pb-16 sm:pb-24 xl:mt-5 xl:block xl:h-[560px] xl:pb-0">
       <span aria-hidden="true" class="absolute top-[60px] left-1/2 hidden size-[520px] -translate-x-1/2 rounded-full bg-yellow-200 xl:block"></span>
       <ul class="relative z-[3] flex w-full max-w-[440px] flex-col gap-3 xl:contents" aria-label="A conversation with the Shepherd coach">
@@ -69,9 +71,9 @@ const facts = [['18', 'skill domains'], ['400+', 'lessons'], ['3', 'skill levels
           </li>
         ))}
       </ul>
-      <div class="relative z-[2] flex justify-center xl:absolute xl:top-[10px] xl:left-[475px]">
+      <div class="relative flex justify-center xl:absolute xl:top-[10px] xl:left-[475px]">
         <span aria-hidden="true" class="absolute top-10 left-1/2 size-[300px] -translate-x-1/2 rounded-full bg-yellow-200 sm:size-[360px] xl:hidden"></span>
-        <img src="/images/student-app-home.webp" width="688" height="1432" alt="Shepherd student app home screen: a message from the coach, buttons to browse lessons or play games, and the student's next quest" class="device-shot relative w-[200px] sm:w-[230px] xl:w-[249px]" />
+        <img src="/images/student-app-home.webp" width="688" height="1432" alt="Shepherd student app home screen: a message from the coach, buttons to browse lessons or play games, and the student's next quest" class="device-shot relative z-[2] w-[200px] sm:w-[230px] xl:w-[249px]" />
       </div>
       <div class="relative z-[3] flex flex-col items-center gap-3 xl:contents">
         <p class="text-sm font-semibold text-muted xl:absolute xl:top-[20px] xl:left-[860px]">Lessons framed around their interests</p>

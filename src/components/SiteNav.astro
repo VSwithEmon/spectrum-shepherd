@@ -1,6 +1,6 @@
 ---
 // Floating nav bar (Figma "Site / Nav" 38876:3378 and the menu open states):
-// Teachers · Schools · Resources, then Log in, Book a demo and Sign up free.
+// Teachers · Schools · The App · Resources, then Book a demo and Sign up free.
 // Menus use the disclosure pattern: a button toggles a panel of ordinary links.
 import Logo from './Logo.astro';
 import Button from './Button.astro';
@@ -30,7 +30,7 @@ const menus: Record<string, Menu> = {
     items: [
       { title: 'Shepherd for schools', desc: 'From teacher login to first lesson in under five minutes.', href: '/schools', icon: 'progress' },
       { title: 'Measurable outcomes', desc: 'Accuracy, prompt level and self-initiation for every student.', href: '/schools#outcomes', icon: 'shield' },
-      { title: 'The App', desc: 'The AI skills coach students actually want to use.', href: '/the-app', icon: 'download' },
+      { title: 'Funding guide', desc: 'How FY2026 grant funds can cover Shepherd.', href: '#', icon: 'download' },
     ],
     card: { title: 'See Shepherd in 15 minutes', body: 'The evidence report, privacy answers and funding — in one call.', cta: 'Book a demo', href: demoHref, tone: 'green' },
   },
@@ -53,6 +53,7 @@ const cardTones = {
 const links: { label: string; href?: string; badge?: string }[] = [
   { label: 'Teachers' },
   { label: 'Schools' },
+  { label: 'The App', href: '/the-app' },
   { label: 'Resources' },
 ];
 const itemClass = 'flex min-h-11 items-center gap-1.5 rounded-full px-4 font-semibold text-ink transition-colors hover:bg-white hover:text-brand-800 hover:shadow-md';
@@ -79,7 +80,7 @@ const itemClass = 'flex min-h-11 items-center gap-1.5 rounded-full px-4 font-sem
                   <svg aria-hidden="true" class="chev size-4 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6" /></svg>
                 </button>
               ) : (
-                <a href={l.href} class={itemClass}>
+                <a href={l.href} class={`${itemClass} aria-[current=page]:bg-white aria-[current=page]:text-brand-800 aria-[current=page]:shadow-md`} aria-current={Astro.url.pathname.startsWith(l.href ?? '#') ? 'page' : undefined}>
                   {l.label}
                   {l.badge && <span class="rounded-full bg-yellow-300 px-1.5 py-0.5 text-xs font-bold text-ink">{l.badge}</span>}
                 </a>
@@ -118,10 +119,6 @@ const itemClass = 'flex min-h-11 items-center gap-1.5 rounded-full px-4 font-sem
     </nav>
 
     <div class="hidden items-center gap-2 xl:flex">
-      <a href="#" class="flex min-h-11 items-center gap-2 rounded-full px-4 font-semibold text-brand-700 hover:bg-brand-25 hover:text-brand-800">
-        <svg aria-hidden="true" class="size-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21a8 8 0 0 0-16 0M12 13a5 5 0 1 0 0-10 5 5 0 0 0 0 10z" /></svg>
-        Log in
-      </a>
       <Button href={demoHref} variant="secondary" shape="pill">Book a demo</Button>
       <Button href="#" shape="pill">
         Sign up free
@@ -168,12 +165,11 @@ const itemClass = 'flex min-h-11 items-center gap-1.5 rounded-full px-4 font-sem
                 </ul>
               </details>
             ) : (
-              <a href={l.href ?? '#'} class="flex min-h-12 items-center rounded-2xl px-4 text-lg font-semibold hover:bg-brand-25">{l.label}</a>
+              <a href={l.href ?? '#'} aria-current={Astro.url.pathname.startsWith(l.href ?? '#') ? 'page' : undefined} class="flex min-h-12 items-center rounded-2xl px-4 text-lg font-semibold hover:bg-brand-25 aria-[current=page]:text-brand-700">{l.label}</a>
             )}
           </li>
         );
       })}
-      <li><a href="#" class="flex min-h-12 items-center gap-2 rounded-2xl px-4 text-lg font-semibold text-brand-700 hover:bg-brand-25">Log in</a></li>
     </ul>
     <div class="mt-2 grid gap-2 sm:grid-cols-2">
       <Button href={demoHref} variant="secondary" shape="pill" full>Book a demo</Button>
