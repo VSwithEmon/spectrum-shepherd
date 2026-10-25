@@ -1,15 +1,21 @@
 ---
-// Review aid: switch between the two homepage directions in Figma "Homepage Design( update here)":
-// V1 = main direction (yellow accents), V2 = lavender alternative. Homepages only.
+// Review aid: switch between two Figma versions of a page. Homepages: V1 = main direction (yellow
+// accents), V2 = lavender alternative. The App: V1 = plain hero, V2 = cloudy sky hero.
 interface Props { active: 'v1' | 'v2' }
 const { active } = Astro.props;
-const options = [
-  { id: 'v1', label: 'V1', title: 'Yellow', href: '/' },
-  { id: 'v2', label: 'V2', title: 'Lavender', href: '/v2' },
-];
+const app = Astro.url.pathname.startsWith('/the-app');
+const options = app
+  ? [
+      { id: 'v1', label: 'V1', title: 'The App, version 1', href: '/the-app' },
+      { id: 'v2', label: 'V2', title: 'The App, version 2', href: '/the-app-v2' },
+    ]
+  : [
+      { id: 'v1', label: 'V1', title: 'Yellow', href: '/' },
+      { id: 'v2', label: 'V2', title: 'Lavender', href: '/v2' },
+    ];
 ---
 <nav
-  aria-label="Compare homepage designs"
+  aria-label={`Compare ${app ? "The App" : "homepage"} designs`}
   class="fixed right-3 bottom-3 z-50 flex items-center gap-1 rounded-full bg-ink p-1 text-white shadow-2xl md:top-1/2 md:right-4 md:bottom-auto md:-translate-y-1/2 md:flex-col md:rounded-3xl md:p-1.5"
 >
   <span class="px-2 text-xs font-bold tracking-wide text-brand-100 md:px-0 md:pt-1 md:pb-1">DESIGN</span>
@@ -19,7 +25,7 @@ const options = [
       aria-current={o.id === active ? 'page' : undefined}
       aria-label={`${o.label}, ${o.title}`}
       class={`flex min-h-10 min-w-12 items-center justify-center rounded-full px-3 text-sm font-semibold transition-colors md:min-h-11 md:min-w-16 ${
-        o.id === active ? (o.id === 'v2' ? 'bg-lavender-200 text-ink' : 'bg-yellow-300 text-ink') : 'text-white hover:bg-white/15'
+        o.id === active ? (o.id === 'v2' && !app ? 'bg-lavender-200 text-ink' : 'bg-yellow-300 text-ink') : 'text-white hover:bg-white/15'
       }`}
     >{o.label}</a>
   ))}

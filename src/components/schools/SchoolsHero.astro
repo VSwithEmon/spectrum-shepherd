@@ -1,0 +1,51 @@
+---
+// Schools hero (Figma "Schools", Hero 38885:22618): centred headline over the cloudy sky, then the
+// Setup / Practice / Evidence steps as three tinted cards with a faint bubble watermark, and the
+// tree-topped hills. The steps are an ordered list; arrows between them are decorative.
+import Button from '../Button.astro';
+import Hills from '../Hills.astro';
+import HeroSky from '../HeroSky.astro';
+
+const steps = [
+  { n: '01', label: 'Setup', icon: 'target', title: 'Goals, in.', body: 'Drop in IEP goals and the personal learning preferences of each student.', tint: 'bg-brand-50', chip: 'text-brand-800' },
+  { n: '02', label: 'Practice', icon: 'lesson', title: 'Skills, stacked.', body: 'Bite-sized lessons built around real-world skills framed with their interests to hook them in.', tint: 'bg-orange-100', chip: 'text-orange-800' },
+  { n: '03', label: 'Evidence', icon: 'report', title: 'Receipts, ready.', body: 'Audit-ready progress reports, generated automatically as students progress.', tint: 'bg-periwinkle-100', chip: 'text-brand-800' },
+];
+---
+<section class="sky relative overflow-hidden" aria-labelledby="page-title">
+  <HeroSky />
+  <div class="relative z-10 mx-auto flex max-w-[1200px] flex-col items-center gap-6 px-5 pt-10 text-center md:px-8 lg:pt-[72px]">
+    <p class="flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3.5 py-1.5 text-sm font-semibold text-brand-800">
+      <span aria-hidden="true" class="size-2 rounded-full bg-brand-600"></span>For schools and districts
+    </p>
+    <h1 id="page-title" class="max-w-[980px] text-display-md font-bold text-balance sm:text-display-lg lg:text-display-xl">
+      From teacher login to first lesson <span class="text-brand-600">in under five minutes.</span>
+    </h1>
+    <p class="max-w-[720px] text-lg font-medium text-muted sm:text-xl">Empower your teachers. Automate your compliance.</p>
+    <div class="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+      <Button href="#briefing">Book a 15-min briefing</Button>
+      <Button href="#outcomes" variant="secondary">See the outcomes</Button>
+    </div>
+    <ol class="mt-8 flex w-full flex-col items-stretch gap-3 text-left lg:mt-10 lg:flex-row lg:items-center lg:justify-center lg:gap-4">
+      {steps.map((c, i) => (
+        <Fragment>
+          <li class={`relative flex flex-col gap-3 overflow-hidden rounded-[28px] p-6 shadow-xl sm:p-7 lg:w-[344px] ${c.tint}`}>
+            <span aria-hidden="true" class="swirl pointer-events-none absolute -top-[145px] left-[209px] size-[322px] bg-white opacity-60"></span>
+            <span class="relative flex items-center justify-between">
+              <span class={`flex items-center gap-1.5 rounded-full bg-white px-3 py-1 text-sm font-semibold ${c.chip}`}><span aria-hidden="true">{c.n}</span>{c.label}</span>
+              <img src={`/images/icons/v2/${c.icon}.svg`} width="48" height="48" alt="" class="size-12" />
+            </span>
+            <h2 class="relative text-display-xs font-bold">{c.title}</h2>
+            <p class="relative text-muted">{c.body}</p>
+          </li>
+          {i < steps.length - 1 && (
+            <li aria-hidden="true" class="flex size-10 shrink-0 items-center justify-center self-center rounded-full border-2 border-brand-100 bg-white">
+              <svg class="size-4 rotate-90 text-brand-700 lg:rotate-0" viewBox="0 0 14 12" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M0 6h14M9 1l5 5-5 5" /></svg>
+            </li>
+          )}
+        </Fragment>
+      ))}
+    </ol>
+  </div>
+  <Hills variant="hero" class="relative -mt-2 lg:-mt-6" />
+</section>

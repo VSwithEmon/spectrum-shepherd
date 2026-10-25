@@ -1,0 +1,43 @@
+---
+// "Request a 15-minute briefing" (Figma "Schools", 38885:22715): green split panel — pitch and button on
+// the left, a "Your briefing" card on the right, pine hills along the bottom. The three steps repeat the
+// pitch as a readable list; the hills are decorative.
+import Button from '../Button.astro';
+import PineHills from '../PineHills.astro';
+
+const steps = ['See how leading programs use Shepherd', 'Exceed family expectations', 'Lead the transition conversation'];
+---
+<section id="briefing" class="scroll-mt-4 bg-cream px-4 py-16 md:px-8 lg:py-24" aria-labelledby="briefing-title">
+  <div class="on-dark relative mx-auto flex max-w-[1200px] flex-col items-center gap-10 overflow-hidden rounded-[32px] bg-brand-800 px-6 pt-12 pb-36 text-white sm:px-12 lg:flex-row lg:justify-between lg:gap-14 lg:rounded-[40px] lg:pt-16 lg:pr-16 lg:pb-[120px] lg:pl-[72px]">
+    <PineHills />
+
+    <div class="relative flex w-full flex-col items-start gap-5 lg:max-w-[560px]">
+      <p class="flex items-center gap-2 rounded-full bg-white/15 px-3.5 py-1.5 text-sm font-semibold text-brand-50">
+        <span aria-hidden="true" class="size-2 rounded-full bg-yellow-300"></span>For school and district leaders
+      </p>
+      <h2 id="briefing-title" class="text-display-sm font-bold md:text-display-md lg:max-w-[460px]">Request a 15-minute briefing</h2>
+      <p class="max-w-[520px] text-lg text-brand-50">See how a growing group of leading programs use Shepherd to exceed family expectations and lead the transition conversation.</p>
+      <Button href="/book-a-demo" variant="light" class="mt-1">Book a 15-min briefing</Button>
+    </div>
+
+    <div class="relative w-full max-w-[416px] rounded-[28px] bg-white p-7 text-ink shadow-2xl lg:w-[400px] lg:shrink-0">
+      <div class="flex items-center gap-4 pb-5">
+        <p class="flex size-[88px] shrink-0 flex-col items-center justify-center rounded-full bg-yellow-300 text-center">
+          <span class="text-display-sm/none font-bold">15</span><span class="text-xs font-bold">minutes</span>
+        </p>
+        <div>
+          <p class="text-display-xs font-bold">Your briefing</p>
+          <p class="text-sm text-muted">A short call. No prep needed.</p>
+        </div>
+      </div>
+      <ol class="flex flex-col gap-3">
+        {steps.map((s, i) => (
+          <li class="flex items-center gap-3.5 rounded-2xl bg-brand-50 px-3.5 py-3">
+            <span aria-hidden="true" class="flex size-8 shrink-0 items-center justify-center rounded-full bg-brand-800 text-sm font-bold text-white">{i + 1}</span>
+            <span class="font-medium">{s}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </div>
+</section>

@@ -1,10 +1,11 @@
 ---
 // Decorative section edge: three layers of green hills with small trees on the back ridge
 // (Figma "Hills + trail (decorative)", homepage main direction). Static, no animation.
-// 'hero' has a small yellow sun behind the right ridge; 'footer' has a large setting sun.
+// 'hero' has a small yellow sun behind the right ridge; 'footer' has a large setting sun;
+// 'trees' is the hero ridge without the sun; 'plain' is just the three hills (The App V1 hero).
 // The front hill is brand-700, so the section that follows should start in brand-700 or darker.
 interface Props {
-  variant?: 'hero' | 'footer';
+  variant?: 'hero' | 'footer' | 'trees' | 'plain';
   class?: string;
 }
 const { variant = 'hero', class: className = '' } = Astro.props;
@@ -39,11 +40,11 @@ const gid = `sunset-${Math.random().toString(36).slice(2, 8)}`;
       </defs>
       <path d="M944 138.28A96 96 0 0 1 1136 138.28Z" fill={`url(#${gid})`} />
     </>
-  ) : (
+  ) : variant === 'hero' ? (
     <circle cx="1250" cy="72" r="34" class="fill-yellow-300" />
-  )}
+  ) : null}
   <path class="fill-brand-200" d="M0 120C240 60 420 70 620 110C820 150 1000 150 1200 80C1400 10 1400 60 1440 70V180H0Z" />
   <path class="fill-brand-500" d="M0 150C200 110 380 100 560 130C740 160 900 170 1100 120C1300 70 1380 100 1440 115V180H0Z" />
   <path class="fill-brand-700" d="M0 170C300 150 500 142 760 160C1020 178 1200 176 1440 150V181H0Z" />
-  {trees.map((d) => <path class="fill-brand-200" d={d} />)}
+  {variant !== 'plain' && trees.map((d) => <path class="fill-brand-200" d={d} />)}
 </svg>

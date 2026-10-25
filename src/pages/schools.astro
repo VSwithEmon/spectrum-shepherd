@@ -1,0 +1,138 @@
+---
+// Schools page — Figma "Schools" (file 6JMhALsrhqylYR6QjNPy9V, node 38885:22616). Wording from
+// spectrumshepherd.com/forschools; ported from the collaborator's build and matched to the current frame.
+import Base from '../layouts/Base.astro';
+import SchoolsHero from '../components/schools/SchoolsHero.astro';
+import BriefingCta from '../components/schools/BriefingCta.astro';
+import FaqSection from '../components/teachers/FaqSection.astro';
+import { schoolsFaqs } from '../data/schools';
+
+const benefits = [
+  { icon: 'report', title: 'Simplify IEP Transitions', body: 'Turn daily student app usage into professional, auditable progress notes. Our system generates One-Click Reports tied directly to transition goals, capturing objective data on Prompt Levels, Accuracy, and Self-Initiation.' },
+  { icon: 'growth', title: 'Less admin. More teaching.', body: 'Reduce administrative burnout by allowing our platform to handle differentiation and immediate feedback. This allows your teachers to reclaim their instructional bandwidth and focus on their students rather than manual data entry.' },
+  { icon: 'milestone', title: 'Built for the world after school', body: 'Move students from prompt-dependency toward durable self-initiation. Our platform uses a Special Interests Engine to make life-skill tasks intrinsically rewarding, ensuring skills generalize into adult life.' },
+];
+const stops = [
+  { stage: 'Age 14', title: 'The lifelong companion', body: 'We start early to build momentum long before school support ends.', icon: 'heart', pos: 'xl:left-0' },
+  { stage: 'Transition program', title: 'Workforce integration', body: 'Embedding Shepherd today supports future hiring and training with B2B employer partners.', icon: 'briefcase', pos: 'xl:left-[370px]' },
+  { stage: 'After school', title: 'The path to employment', body: 'Employer training content flows through the same platform students already know.', icon: 'route', pos: 'xl:left-[750px]' },
+];
+const pins = ['xl:left-[128px] xl:top-[114px]', 'xl:left-[498px] xl:top-[34px]', 'xl:left-[878px] xl:top-[134px]'];
+const markers = [
+  { icon: 'target', title: 'Accuracy', body: 'Success rates on specific life-skill task steps.' },
+  { icon: 'prompt', title: 'Prompt level', body: 'The degree of support required — visual, verbal or physical.' },
+  { icon: 'steps', title: 'Self-initiation', body: 'The frequency of task starts without external prompting.' },
+];
+---
+<Base
+  title="Transition and functional skills platform for schools — Spectrum Shepherd"
+  description="Empower your teachers and automate your compliance: personalized transition lessons and audit-ready evidence for special education programs."
+  demoHref="#briefing"
+>
+  <SchoolsHero />
+
+  <section class="bg-white px-5 py-16 md:px-8 lg:py-24" aria-labelledby="values-title">
+    <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-12 lg:gap-14">
+      <h2 id="values-title" class="max-w-[820px] text-center text-display-sm font-bold text-balance md:text-display-md lg:text-display-lg">Skills that stick. Paperwork that writes itself.</h2>
+      <div class="grid w-full gap-6 md:grid-cols-2">
+        <img src="/images/photos/schools-overview.jpg" width="1100" height="614" loading="lazy" alt="A teacher and a student working through a Shepherd lesson together at a laptop" class="aspect-[588/360] w-full rounded-[32px] border-4 border-brand-600 object-cover" />
+        <!-- Schools overview video (from spectrumshepherd.com/forschools): poster + play button, swaps in the player. -->
+        <div data-story class="relative aspect-[588/360] w-full overflow-hidden rounded-[32px] bg-ink">
+          <img src="/images/photos/schools-video-poster.jpg" width="854" height="480" loading="lazy" alt="" class="absolute inset-0 size-full object-cover" />
+          <span aria-hidden="true" class="absolute inset-0 bg-ink/35"></span>
+          <button type="button" data-story-play aria-label="Play the Schools overview video with Dr. Lori Lopez-Lopez (57 seconds)" class="absolute top-1/2 left-1/2 flex size-[84px] -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white text-brand-700 shadow-xl transition-colors hover:bg-brand-25">
+            <svg aria-hidden="true" class="ml-1 size-8" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z" /></svg>
+          </button>
+          <p class="absolute bottom-4 left-4 rounded-full bg-ink/70 px-4 py-2 text-sm font-semibold text-white">Schools overview · 0:57</p>
+          <video data-story-video hidden controls preload="none" playsinline poster="/images/photos/schools-video-poster.jpg" class="absolute inset-0 size-full bg-black object-contain" aria-label="Schools overview: Dr. Lori Lopez-Lopez, Special Education Administrator, on Shepherd">
+            <source src="/videos/schools-overview.mp4" type="video/mp4" />
+          </video>
+        </div>
+      </div>
+      <ul class="grid w-full md:grid-cols-3">
+        {benefits.map((b, i) => (
+          <li class={`flex flex-col gap-3.5 border-t border-line py-8 first:border-t-0 md:border-t-0 md:py-0 ${i ? 'md:border-l md:pl-10' : ''} ${i < benefits.length - 1 ? 'md:pr-10' : ''}`}>
+            <img src={`/images/icons/v2/${b.icon}.svg`} width="48" height="48" alt="" class="size-12" />
+            <h3 class="text-xl font-semibold">{b.title}</h3>
+            <p class="text-muted">{b.body}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <BriefingCta />
+
+  <section class="bg-cream px-5 py-16 md:px-8 lg:pt-24 lg:pb-[72px]" aria-labelledby="journey-title">
+    <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-12">
+      <h2 id="journey-title" class="max-w-[840px] text-center text-display-sm font-bold text-balance md:text-display-md lg:text-display-lg">Beyond the classroom: lifelong readiness</h2>
+      <div class="relative w-full xl:h-[497px]">
+        <svg aria-hidden="true" class="pointer-events-none absolute top-0 left-0 hidden h-[260px] w-full overflow-hidden xl:block" viewBox="0 0 1200 260">
+          <g transform="translate(-20 60)" fill="none">
+            <path d="M0 140C220 140 280 20 480 20S720 160 920 140S1140 0 1240 0" class="stroke-brand-200" stroke-width="34" />
+            <path d="M0 140C220 140 280 20 480 20S720 160 920 140S1140 0 1240 0" class="stroke-white" stroke-width="3" stroke-dasharray="14 12" />
+          </g>
+        </svg>
+        {pins.map((p) => (
+          <svg aria-hidden="true" class={`absolute hidden h-14 w-11 xl:block ${p}`} viewBox="0 0 44 56">
+            <path d="M22 56C22 56 44 34 44 22A22 22 0 0 0 0 22C0 34 22 56 22 56Z" class="fill-brand-700" />
+            <circle cx="22" cy="22" r="9" class="fill-yellow-300" />
+          </svg>
+        ))}
+        <ol class="grid gap-4 md:grid-cols-3 xl:block">
+          {stops.map((s) => (
+            <li class={`flex flex-col gap-1.5 rounded-[20px] border border-line bg-white p-5 xl:absolute xl:top-[270px] xl:h-[227px] xl:w-[300px] ${s.pos}`}>
+              <img src={`/images/icons/v2/${s.icon}.svg`} width="48" height="48" alt="" class="mb-3 size-12" />
+              <p class="text-sm font-bold text-brand-700">{s.stage}</p>
+              <h3 class="text-lg font-semibold">{s.title}</h3>
+              <p class="text-sm text-muted">{s.body}</p>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section id="outcomes" class="scroll-mt-4 bg-white px-5 py-16 md:px-8 lg:py-24" aria-labelledby="outcomes-title">
+    <div class="on-dark relative mx-auto flex max-w-[1200px] flex-col gap-10 overflow-hidden rounded-3xl bg-brand-800 p-6 text-white sm:p-10 md:rounded-[32px] lg:p-16">
+      <span aria-hidden="true" class="swirl pointer-events-none absolute -top-20 -right-16 size-[320px] bg-white opacity-[0.07] lg:-top-36 lg:right-[-40px] lg:size-[520px]"></span>
+      <div class="relative flex flex-col gap-3">
+        <h2 id="outcomes-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">Measurable outcomes for every student</h2>
+        <p class="text-lg text-brand-50 sm:text-xl">We don’t just track participation; we measure the independence markers.</p>
+      </div>
+      <ul class="relative grid md:grid-cols-[345fr_382fr_346fr]">
+        {markers.map((m, i) => (
+          <li class={`flex flex-col gap-3.5 py-6 md:py-0 ${i ? 'border-t border-brand-700 md:border-t-0 md:border-l md:pl-9' : ''} ${i < markers.length - 1 ? 'md:pr-9' : ''}`}>
+            <img src={`/images/icons/v2/${m.icon}.svg`} width="48" height="48" alt="" class="size-12" />
+            <h3 class="text-display-xs font-bold">{m.title}</h3>
+            <span aria-hidden="true" class="h-1 w-12 rounded-full bg-yellow-300"></span>
+            <p class="text-lg font-medium text-brand-50">{m.body}</p>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <FaqSection
+    title="Questions schools ask"
+    intro="Transition curriculum, IEP evidence and teacher workload — answered."
+    cta={{ label: 'Book a 15-min briefing', href: '/book-a-demo' }}
+    variant="cards"
+    bg="bg-cream"
+    items={schoolsFaqs}
+  />
+</Base>
+
+<script>
+  // Schools overview video: swap the poster for the player and start it.
+  document.querySelectorAll<HTMLElement>('[data-story]').forEach((card) => {
+    const btn = card.querySelector<HTMLButtonElement>('[data-story-play]');
+    const video = card.querySelector<HTMLVideoElement>('[data-story-video]');
+    btn?.addEventListener('click', () => {
+      if (!video) return;
+      video.hidden = false;
+      video.play().catch(() => {});
+      video.focus();
+    });
+  });
+</script>

@@ -1,0 +1,174 @@
+---
+// The App page body — Figma "The App V1" (38885:22840) and "The App V2" (38886:9651). Both share the
+// centred hero (phone over the sun, coach chat on the left, interest tags on the right), the 77% band,
+// "Built for schools" with the feature circle and the "Want to learn more?" panel. V2 adds the cloudy
+// sky and tree-topped hills to the hero; V1 has plain hills. Wording from spectrumshepherd.com/theapp.
+import Button from '../Button.astro';
+import Hills from '../Hills.astro';
+import AppSky from './AppSky.astro';
+
+interface Props { version: 'v1' | 'v2' }
+const { version } = Astro.props;
+const v2 = version === 'v2';
+
+const chat = [
+  { text: 'Ready for today’s quest?', from: 'coach', pos: 'xl:left-[40px] xl:top-[40px]' },
+  { text: 'Yes! How much do I need to save?', from: 'student', pos: 'xl:left-[90px] xl:top-[170px]' },
+  { text: 'Let’s budget it together, one step at a time.', from: 'coach', pos: 'xl:left-[20px] xl:top-[300px]' },
+];
+const interests = [
+  { label: 'Music', dot: 'bg-yellow-400', tint: 'bg-yellow-100', pos: 'xl:left-[840px] xl:top-[60px]' },
+  { label: 'Basketball', dot: 'bg-orange-400', tint: 'bg-orange-100', pos: 'xl:left-[900px] xl:top-[150px]' },
+  { label: 'Games', dot: 'bg-brand-600', tint: 'bg-brand-50', pos: 'xl:left-[830px] xl:top-[240px]' },
+  { label: 'Cooking', dot: 'bg-violet-500', tint: 'bg-lavender-100', pos: 'xl:left-[920px] xl:top-[320px]' },
+];
+const points = [
+  { icon: 'people', title: 'Teacher loved', body: 'Easy setup allows teachers to guide learning journeys.' },
+  { icon: 'download', title: 'Zero-install', body: '100% web-based. No app store downloads required.' },
+  { icon: 'shield', title: 'Privacy first', body: 'Built for FERPA compliance and student data security.' },
+  { icon: 'route', title: 'Flexible access', body: 'Accessible from any device, anywhere, perfect for school, home, or transition-to-work programs.' },
+];
+// Feature circle: three rings around the learner; node positions are angles on each ring (degrees).
+const rings = [
+  { name: 'Classroom-ready', r: 258, nodes: [
+    { icon: 'shield', label: 'FERPA privacy', deg: 212 }, { icon: 'people', label: 'Teacher-guided', deg: 328 },
+    { icon: 'check', label: 'Any device', deg: 124 }, { icon: 'route', label: 'Web-based', deg: 56 },
+  ] },
+  { name: 'Personalized curriculum', r: 198, nodes: [
+    { icon: 'target', label: '18 domains', deg: 180 }, { icon: 'lesson', label: '400+ lessons', deg: 0 }, { icon: 'steps', label: '3 skill levels', deg: 90 },
+  ] },
+  { name: 'Engagement', r: 112, nodes: [
+    { icon: 'heart', label: 'Personal companion', deg: 225 }, { icon: 'spark', label: 'Adaptive AI', deg: 315 },
+    { icon: 'milestone', label: 'Passion engine', deg: 135 }, { icon: 'growth', label: 'Gamified growth', deg: 45 },
+  ] },
+];
+const placed = rings.flatMap((ring) => ring.nodes.map((n) => {
+  const a = (n.deg * Math.PI) / 180;
+  return { ...n, x: 290 + ring.r * Math.cos(a), y: 290 + ring.r * Math.sin(a) };
+}));
+const facts = [['18', 'skill domains'], ['400+', 'lessons'], ['3', 'skill levels'], ['100%', 'web-based']];
+---
+<section class={`relative overflow-hidden ${v2 ? 'sky' : 'bg-cream'}`} aria-labelledby="page-title">
+  {v2 && <AppSky />}
+  <div class={`relative z-10 mx-auto flex max-w-[1200px] flex-col items-center gap-6 px-5 text-center md:px-8 xl:px-0 ${v2 ? 'pt-12 lg:pt-[128px]' : 'pt-10 lg:pt-14'}`}>
+    <h1 id="page-title" class="max-w-[860px] text-display-md font-bold text-balance sm:text-display-lg lg:text-display-xl">Meet the <span class="text-brand-600">AI skills coach</span> for neurodiverse students.</h1>
+    <p class="max-w-[860px] text-lg text-muted sm:text-xl">Habit-forming, co-designed by special educators, and built around what each student loves — so they move from prompt-dependency to self-initiation.</p>
+    <div class="flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row">
+      <Button href="/book-a-demo">Request a demo</Button>
+      <Button href="/teachers#trial" variant="secondary">Start your 45-day free trial</Button>
+    </div>
+
+    <!-- Phone stage (Figma 1200 × 560): positions are px on desktop; phones stack chat, phone, tags. -->
+    <div class="relative mt-4 flex w-full flex-col items-center gap-6 pb-16 sm:pb-24 xl:mt-5 xl:block xl:h-[560px] xl:pb-0">
+      <span aria-hidden="true" class="absolute top-[60px] left-1/2 hidden size-[520px] -translate-x-1/2 rounded-full bg-yellow-200 xl:block"></span>
+      <ul class="relative z-[3] flex w-full max-w-[440px] flex-col gap-3 xl:contents" aria-label="A conversation with the Shepherd coach">
+        {chat.map((m) => (
+          <li class={`flex min-h-12 items-center gap-3 rounded-full px-4 py-2.5 text-left text-md font-medium shadow-lg xl:absolute xl:whitespace-nowrap ${m.pos} ${m.from === 'student' ? 'self-end bg-brand-600 text-white xl:self-auto' : 'self-start bg-white xl:self-auto'}`}>
+            {m.from === 'coach' && <span aria-hidden="true" class="swirl size-5 shrink-0 bg-brand-600"></span>}
+            <span><span class="sr-only">{m.from === 'coach' ? 'Coach: ' : 'Student: '}</span>{m.text}</span>
+          </li>
+        ))}
+      </ul>
+      <div class="relative z-[2] flex justify-center xl:absolute xl:top-[10px] xl:left-[475px]">
+        <span aria-hidden="true" class="absolute top-10 left-1/2 size-[300px] -translate-x-1/2 rounded-full bg-yellow-200 sm:size-[360px] xl:hidden"></span>
+        <img src="/images/student-app-home.webp" width="688" height="1432" alt="Shepherd student app home screen: a message from the coach, buttons to browse lessons or play games, and the student's next quest" class="device-shot relative w-[200px] sm:w-[230px] xl:w-[249px]" />
+      </div>
+      <div class="relative z-[3] flex flex-col items-center gap-3 xl:contents">
+        <p class="text-sm font-semibold text-muted xl:absolute xl:top-[20px] xl:left-[860px]">Lessons framed around their interests</p>
+        <ul class="flex flex-wrap justify-center gap-2 xl:contents" aria-label="Example interests">
+          {interests.map((t) => (
+            <li class={`flex h-9 items-center gap-2 rounded-full px-4 text-sm font-semibold shadow-md xl:absolute ${t.pos} ${t.tint}`}>
+              <span aria-hidden="true" class={`size-2.5 rounded-full ${t.dot}`}></span>{t.label}
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </div>
+  <Hills variant={v2 ? 'trees' : 'plain'} class="absolute inset-x-0 bottom-0 z-[1]" />
+</section>
+
+<section class="on-dark bg-brand-800 px-5 py-14 text-white md:px-8 lg:py-[100px]" aria-label="Student engagement">
+  <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-4 text-center lg:flex-row lg:gap-[60px] lg:text-left">
+    <p class="text-[96px]/none font-bold tracking-tight text-yellow-300 lg:text-[160px]">77%</p>
+    <div class="flex flex-col gap-3">
+      <p class="text-display-xs font-semibold md:text-display-sm">of students surveyed say Shepherd is more engaging than other school learning.</p>
+      <p class="text-lg text-brand-50">Snack-sized lessons, usually under 10 minutes, built on their interests.</p>
+    </div>
+  </div>
+</section>
+
+<section id="built-for-schools" class="scroll-mt-4 bg-white px-5 py-16 md:px-8 lg:py-24" aria-labelledby="schools-title">
+  <div class="mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[1fr_464px] lg:gap-12 xl:grid-cols-[540px_1fr] xl:gap-14">
+    <div class="flex flex-col gap-4">
+      <h2 id="schools-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">Built for schools</h2>
+      <p class="text-xl font-medium text-brand-700">Classroom ready. IT approved.</p>
+      <ul class="flex flex-col gap-4 pt-3">
+        {points.map((p) => (
+          <li class="flex gap-4 rounded-[20px] bg-haze p-4 pr-5">
+            <img src={`/images/icons/v2/${p.icon}.svg`} width="48" height="48" alt="" class="size-12 shrink-0" />
+            <div class="flex flex-col gap-1">
+              <h3 class="text-lg font-bold">{p.title}</h3>
+              <p class="text-muted">{p.body}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+
+    <!-- The circle is a picture of the list after it; assistive tech reads the list. -->
+    <div class="mx-auto h-[320px] w-[319px] sm:h-[464px] sm:w-[464px] xl:h-[580px] xl:w-[580px]">
+      <div aria-hidden="true" class="relative size-[580px] origin-top-left scale-[0.55] sm:scale-[0.8] xl:scale-100">
+        <svg class="absolute inset-0" viewBox="0 0 580 580">
+          <circle cx="290" cy="290" r="286" class="fill-brand-200" />
+          <circle cx="290" cy="290" r="232" class="fill-white" />
+          <circle cx="290" cy="290" r="226" class="fill-brand-50" />
+          <circle cx="290" cy="290" r="170" class="fill-white" />
+          <circle cx="290" cy="290" r="164" class="fill-brand-25" />
+          <circle cx="290" cy="290" r="64" class="fill-yellow-300" />
+          <circle cx="290" cy="290" r="54" class="fill-brand-800" />
+        </svg>
+        <span class="absolute top-[280px] left-1/2 -translate-x-1/2 text-sm font-semibold text-white">Learner</span>
+        {[['Classroom-ready', 6], ['Personalized curriculum', 64], ['Engagement', 126]].map(([name, y]) => (
+          <span class="absolute left-1/2 -translate-x-1/2 rounded-full bg-white px-3 py-1 text-xs font-bold whitespace-nowrap text-brand-800 shadow-sm" style={`top:${y}px`}>{name}</span>
+        ))}
+        {placed.map((n) => (
+          <Fragment>
+            <img src={`/images/icons/v2/${n.icon}.svg`} width="44" height="44" alt="" class="absolute size-11" style={`left:${n.x - 22}px;top:${n.y - 22}px`} />
+            <span class="absolute -translate-x-1/2 rounded-full bg-white/90 px-2 py-0.5 text-xs font-bold whitespace-nowrap" style={`left:${n.x}px;top:${n.y + 24}px`}>{n.label}</span>
+          </Fragment>
+        ))}
+      </div>
+      <ul class="sr-only">
+        {rings.map((ring) => <li>{ring.name}: {ring.nodes.map((n) => n.label).join(', ')}</li>)}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="bg-cream px-4 py-16 md:px-8 lg:py-24" aria-labelledby="learn-title">
+  <div class="on-dark relative mx-auto flex max-w-[1200px] flex-col items-center gap-10 overflow-hidden rounded-[32px] bg-brand-700 px-6 pt-12 pb-32 text-white sm:px-12 lg:flex-row lg:justify-between lg:rounded-[40px] lg:px-[72px] lg:pt-20 lg:pb-[110px]">
+    <img src="/images/hero/cloud-bank.svg" width="470" height="122" alt="" aria-hidden="true" class="pointer-events-none absolute -bottom-9 -left-20 max-w-none opacity-60" />
+    <img src="/images/hero/cloud-bank.svg" width="470" height="122" alt="" aria-hidden="true" class="pointer-events-none absolute -right-20 -bottom-8 max-w-none -scale-x-100 opacity-60" />
+    <div class="relative flex max-w-[500px] flex-col items-start gap-5">
+      <h2 id="learn-title" class="text-display-sm font-bold md:text-display-md">Want to learn more?</h2>
+      <p class="text-lg text-brand-50">See how a growing group of prestigious programs are using Shepherd to exceed family expectations and lead the transition conversation.</p>
+      <div class="flex w-full flex-col gap-3 pt-2 sm:w-auto sm:flex-row">
+        <Button href="/schools#briefing" variant="light">Book a 15-min briefing</Button>
+        <Button href="/book-a-demo" variant="outline-light">Request a demo</Button>
+      </div>
+    </div>
+    <ul class="relative grid w-full max-w-[456px] grid-cols-2 gap-4">
+      {facts.map(([n, l]) => (
+        <li class="flex flex-col gap-1 rounded-3xl border border-white/20 bg-white/10 p-5 sm:p-6">
+          <span class="text-display-md font-bold text-yellow-300 lg:text-display-lg">{n}</span>
+          <span class="text-sm font-semibold text-brand-50">{l}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style>
+  .device-shot { filter: drop-shadow(0 24px 24px rgb(10 13 18 / 0.16)) drop-shadow(0 4px 4px rgb(10 13 18 / 0.04)); }
+</style>

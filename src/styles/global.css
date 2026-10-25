@@ -39,6 +39,9 @@
   --color-yellow-300: #fde272;
   --color-yellow-400: #fac515;
   --color-yellow-800: #854a0e;
+  --color-periwinkle-100: #dce6f7; /* Schools hero "Evidence" card */
+  --color-violet-500: #7a5af8;      /* The App "Cooking" interest dot */
+  --color-haze: #f4f4ef;           /* The App "Built for schools" list items */
   --color-lavender-25: #f2f3fc;
   --color-lavender-100: #e3e4f8;
   --color-lavender-200: #c5c6f3;
@@ -118,3 +121,6 @@
   padding: 0.25em 0 0.25em 1.25em;
   font-size: 1.375rem; line-height: 1.5; font-weight: 600;
 }
+
+/* Hero sky (Figma hero fill): cream at the top easing into pale green at the horizon. */
+.sky { background: linear-gradient(180deg, #fefaf5 0%, #f4f4ef 10%, #dcefdd 100%); }
