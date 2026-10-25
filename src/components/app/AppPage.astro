@@ -2,12 +2,14 @@
 // The App page body — Figma "The App V1" (38885:22840) and "The App V2" (38886:9651). Both share the
 // centred hero (phone over the sun, coach chat on the left, interest tags on the right), the 77% band,
 // "Built for schools" with the feature circle and the "Want to learn more?" panel. V2 adds the cloudy
-// sky and tree-topped hills to the hero; V1 has plain hills. Wording from spectrumshepherd.com/theapp.
+// sky and tree-topped hills to the hero; V1 has plain hills. V3 (38888:10753) swaps in a two-column
+// hero (AppHeroV3); the sections below are the same. Wording from spectrumshepherd.com/theapp.
 import Button from '../Button.astro';
 import Hills from '../Hills.astro';
 import AppSky from './AppSky.astro';
+import AppHeroV3 from './AppHeroV3.astro';
 
-interface Props { version: 'v1' | 'v2' }
+interface Props { version: 'v1' | 'v2' | 'v3' }
 const { version } = Astro.props;
 const v2 = version === 'v2';
 
@@ -48,6 +50,7 @@ const placed = rings.flatMap((ring) => ring.nodes.map((n) => {
 }));
 const facts = [['18', 'skill domains'], ['400+', 'lessons'], ['3', 'skill levels'], ['100%', 'web-based']];
 ---
+{version === 'v3' ? <AppHeroV3 /> : (
 <section class={`relative overflow-hidden ${v2 ? 'sky' : 'bg-cream'}`} aria-labelledby="page-title">
   {v2 && <AppSky />}
   <div class={`relative mx-auto flex max-w-[1200px] flex-col items-center gap-6 px-5 text-center md:px-8 xl:px-0 ${v2 ? 'pt-12 lg:pt-[128px]' : 'pt-10 lg:pt-14'}`}>
@@ -88,6 +91,7 @@ const facts = [['18', 'skill domains'], ['400+', 'lessons'], ['3', 'skill levels
   </div>
   <Hills variant={v2 ? 'trees' : 'plain'} class="absolute inset-x-0 bottom-0 z-[1]" />
 </section>
+)}
 
 <section class="on-dark bg-brand-800 px-5 py-14 text-white md:px-8 lg:py-[100px]" aria-label="Student engagement">
   <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-4 text-center lg:flex-row lg:gap-[60px] lg:text-left">

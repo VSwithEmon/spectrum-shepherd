@@ -1,0 +1,62 @@
+---
+// The App V3 hero (Figma "The App V3", Hero 38888:11550): copy on the left — headline, lede, the 77%
+// engagement card and two buttons — and on the right the student app beside a photo of a student
+// over the sun, with a "Started on their own" status chip. Cloudy sky and the homepage hills with the
+// small sun. Visual positions are % of the 600 × 560 Figma frame so it scales on smaller screens.
+import Button from '../Button.astro';
+import Hills from '../Hills.astro';
+import StatusChip from '../StatusChip.astro';
+import AppSky from './AppSky.astro';
+---
+<section class="sky relative overflow-hidden" aria-labelledby="page-title">
+  <AppSky layout="v3" />
+  <div class="relative z-10 mx-auto flex max-w-[1200px] flex-col items-center gap-12 px-5 pt-8 md:px-8 lg:flex-row lg:items-start lg:justify-between lg:gap-8 lg:pt-[69px] xl:px-0">
+    <div class="flex w-full flex-col items-start gap-6 lg:max-w-[560px]">
+      <h1 id="page-title" class="text-display-md font-bold text-balance sm:text-display-lg">
+        AI skills coach <span class="text-brand-600">for neurodiverse students</span>
+      </h1>
+      <p class="text-lg text-muted">
+        <strong class="font-semibold text-ink">Shepherd is an AI-powered, habit-forming platform co-designed by special educators</strong>
+        to help neurodiverse young adults master the complexities of adult life. By giving teachers an advanced AI co-pilot,
+        Shepherd moves students from prompt-dependency to self-initiation.
+      </p>
+      <p class="flex w-full items-center gap-5 rounded-3xl border border-line bg-white p-4 shadow-xl sm:p-[19px] sm:pr-6">
+        <span class="donut relative flex size-20 shrink-0 items-center justify-center rounded-full sm:size-24" aria-hidden="true">
+          <span class="absolute inset-[9px] rounded-full bg-white sm:inset-[11px]"></span>
+          <span class="relative text-xl font-bold text-brand-800 sm:text-display-xs">77%</span>
+        </span>
+        <span class="text-md font-semibold sm:text-lg">77% of students surveyed say Shepherd is more engaging than other school learning.</span>
+      </p>
+      <div class="flex w-full flex-col gap-3 pt-2 sm:w-auto sm:flex-row">
+        <Button href="/book-a-demo">Request a demo</Button>
+        <Button href="#built-for-schools" variant="secondary">Built for schools</Button>
+      </div>
+    </div>
+
+    <!-- Visual: positions are % of the 600 × 560 Figma frame. -->
+    <div class="relative aspect-[600/560] w-full max-w-[600px] shrink-0 lg:mt-[7px] lg:w-[600px]">
+      <span aria-hidden="true" class="absolute top-[7.14%] left-[28.33%] aspect-square w-[70%] rounded-full bg-yellow-200"></span>
+      <img
+        src="/images/photos/hero-student.jpg"
+        width="600"
+        height="538"
+        alt="A teenage student wearing headphones, smiling while working through a lesson on a tablet"
+        class="absolute top-[21.43%] left-[21.67%] h-[60.71%] w-[76.67%] rounded-[28px] border-[6px] border-brand-600 object-cover object-[45%_center] shadow-2xl"
+      />
+      <img
+        src="/images/student-app-home.webp"
+        width="688"
+        height="1432"
+        alt="Shepherd student app home screen with a message from the coach and options to browse lessons or play games"
+        class="device-shot absolute top-[10.71%] left-0 w-[30.96%]"
+      />
+      <StatusChip title="Started on their own" caption="Self-initiation logged" class="top-[10.71%] left-[55%] z-10 origin-top-left max-sm:left-[36%] max-sm:scale-75" />
+    </div>
+  </div>
+  <Hills variant="hero" class="relative -mt-2 lg:-mt-[26px]" />
+</section>
+
+<style>
+  .donut { background: conic-gradient(var(--color-brand-700) 77%, var(--color-brand-50) 0); }
+  .device-shot { filter: drop-shadow(0 24px 24px rgb(10 13 18 / 0.16)) drop-shadow(0 4px 4px rgb(10 13 18 / 0.04)); }
+</style>

@@ -1,13 +1,14 @@
 ---
 // Review aid: switch between two Figma versions of a page. Homepages: V1 = main direction (yellow
-// accents), V2 = lavender alternative. The App: V1 = plain hero, V2 = cloudy sky hero.
-interface Props { active: 'v1' | 'v2' }
+// accents), V2 = lavender alternative. The App: V1 = plain hero, V2 = cloudy sky hero, V3 = two-column hero.
+interface Props { active: 'v1' | 'v2' | 'v3' }
 const { active } = Astro.props;
 const app = Astro.url.pathname.startsWith('/the-app');
 const options = app
   ? [
       { id: 'v1', label: 'V1', title: 'The App, version 1', href: '/the-app' },
       { id: 'v2', label: 'V2', title: 'The App, version 2', href: '/the-app-v2' },
+      { id: 'v3', label: 'V3', title: 'The App, version 3', href: '/the-app-v3' },
     ]
   : [
       { id: 'v1', label: 'V1', title: 'Yellow', href: '/' },
