@@ -1,21 +1,24 @@
 ---
-// Homepage, Figma "Homepage Design (v1), main direction (yellow accents)"
-// (file 6JMhALsrhqylYR6QjNPy9V, node 38876:3531), built from the client's 20 Oct 2026 feedback.
+// Homepage, Figma "Homepage Design (v2)" (file 6JMhALsrhqylYR6QjNPy9V, node 38877:5873; mobile 38877:7143)
+// with the client's approved copy (26 Oct 2026): green base, yellow accents, audiences as rows,
+// no download banner (it belongs under Resources).
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
 import LogoBand from '../components/LogoBand.astro';
 import Results from '../components/Results.astro';
-import DownloadBanner from '../components/DownloadBanner.astro';
-import Audiences from '../components/Audiences.astro';
+import AudienceRows from '../components/AudienceRows.astro';
 import Testimonial from '../components/Testimonial.astro';
 import DemoSection from '../components/DemoSection.astro';
 ---
-<Base title="Spectrum Shepherd | AI life-skills coach for students 14–22" demoHref="#demo" designToggle="v1">
+<Base
+  title="Spectrum Shepherd | Personalized life skills curriculum for transition-age students"
+  description="A personalized life skills curriculum platform that helps transition-age neurodivergent students build real-world skills and independence, saves teachers time and gives schools clear evidence of transition progress."
+  demoHref="#demo"
+>
   <Hero />
   <LogoBand />
   <Results />
-  <DownloadBanner />
-  <Audiences />
+  <AudienceRows />
   <Testimonial />
   <DemoSection />
 </Base>

@@ -1,6 +1,6 @@
 import { defineArrayMember, defineField, defineType } from 'sanity';
 
-// Blog post. Every image needs alt text (the audience includes disabled learners).
+// Blog post. Every image needs alt text (the audience includes disabled students).
 const imageWithAlt = (name: string, title: string) =>
   defineField({
     name,

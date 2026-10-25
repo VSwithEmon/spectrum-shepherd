@@ -1,9 +1,11 @@
 ---
 // Floating nav bar (Figma "Site / Nav" 38876:3378 and the menu open states):
-// Teachers · Schools · The App · Resources, then Book a demo and Sign up free.
-// Menus use the disclosure pattern: a button toggles a panel of ordinary links.
+// Teachers · Schools · The App link straight to their pages; Resources opens a menu (disclosure
+// pattern: a button toggles a panel of ordinary links). Then Book a Demo (dark, primary; opens the
+// demo pop-up) and Sign up free (secondary).
 import Logo from './Logo.astro';
 import Button from './Button.astro';
+import { site } from '../data/site';
 
 interface Props { demoHref?: string }
 const { demoHref = '/book-a-demo' } = Astro.props;
@@ -16,29 +18,12 @@ type Menu = {
   card: { title: string; body: string; cta: string; href: string; tone: 'green' | 'yellow' | 'deep' };
 };
 const menus: Record<string, Menu> = {
-  Teachers: {
-    id: 'menu-teachers',
-    items: [
-      { title: 'Ready-made life-skills lessons', desc: "Written for each student's reading level.", href: '/teachers', icon: 'lesson' },
-      { title: 'IEP-linked progress notes', desc: 'Captured automatically as students work.', href: '/teachers#evidence', icon: 'progress' },
-      { title: 'Free 45-day trial', desc: 'No credit card. No district approval needed.', href: '/teachers#trial', icon: 'spark' },
-    ],
-    card: { title: 'Try Shepherd free for 45 days', body: 'Set up your class in minutes and see the first progress notes this week.', cta: 'Start free trial', href: '#', tone: 'yellow' },
-  },
-  Schools: {
-    id: 'menu-schools',
-    items: [
-      { title: 'Shepherd for schools', desc: 'From teacher login to first lesson in under five minutes.', href: '/schools', icon: 'progress' },
-      { title: 'Measurable outcomes', desc: 'Accuracy, prompt level and self-initiation for every student.', href: '/schools#outcomes', icon: 'shield' },
-      { title: 'Funding guide', desc: 'How FY2026 grant funds can cover Shepherd.', href: '#', icon: 'download' },
-    ],
-    card: { title: 'See Shepherd in 15 minutes', body: 'The evidence report, privacy answers and funding, all in one call.', cta: 'Book a demo', href: demoHref, tone: 'green' },
-  },
   Resources: {
     id: 'menu-resources',
     items: [
+      { title: 'Free transition plan', desc: 'A ready-to-use transition plan template for your team.', href: '#', icon: 'download' },
       { title: 'Funding guide', desc: 'How FY2026 grant funds can cover Shepherd.', href: '#', icon: 'shield' },
-      { title: 'Blog', desc: 'Articles and ideas for special educators.', href: '/blog', icon: 'download' },
+      { title: 'Blog', desc: 'Articles and ideas for special educators.', href: '/blog', icon: 'lesson' },
       { title: 'Webinars', desc: 'Sessions for special education teams.', href: '#', icon: 'download' },
     ],
     card: { title: 'Built to pass district review', body: 'Privacy, security and compliance answers in one place.', cta: 'Trust Center', href: '#', tone: 'deep' },
@@ -51,8 +36,8 @@ const cardTones = {
 };
 
 const links: { label: string; href?: string; badge?: string }[] = [
-  { label: 'Teachers' },
-  { label: 'Schools' },
+  { label: 'Teachers', href: '/teachers' },
+  { label: 'Schools', href: '/schools' },
   { label: 'The App', href: '/the-app' },
   { label: 'Resources' },
 ];
@@ -119,8 +104,8 @@ const itemClass = 'flex min-h-11 items-center gap-1.5 rounded-full px-4 font-sem
     </nav>
 
     <div class="hidden items-center gap-2 xl:flex">
-      <Button href={demoHref} variant="secondary" shape="pill">Book a demo</Button>
-      <Button href="#" shape="pill">
+      <Button demo shape="pill">Book a Demo</Button>
+      <Button href={site.trial} variant="secondary" shape="pill">
         Sign up free
         <svg aria-hidden="true" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 6l6 6-6 6" /></svg>
       </Button>
@@ -172,8 +157,8 @@ const itemClass = 'flex min-h-11 items-center gap-1.5 rounded-full px-4 font-sem
       })}
     </ul>
     <div class="mt-2 grid gap-2 sm:grid-cols-2">
-      <Button href={demoHref} variant="secondary" shape="pill" full>Book a demo</Button>
-      <Button href="#" shape="pill" full>Sign up free</Button>
+      <Button demo shape="pill" full>Book a Demo</Button>
+      <Button href={site.trial} variant="secondary" shape="pill" full>Sign up free</Button>
     </div>
   </nav>
 </header>

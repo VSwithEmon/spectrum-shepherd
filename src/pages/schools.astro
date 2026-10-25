@@ -1,138 +1,178 @@
 ---
-// Schools page, Figma "Schools" (file 6JMhALsrhqylYR6QjNPy9V, node 38885:22616). Wording from
-// spectrumshepherd.com/forschools; ported from the collaborator's build and matched to the current frame.
+// Schools page for special education directors: the client's approved V2 brief (26 Oct 2026), built
+// in the Homepage and Teachers V2 visual system. Product visuals are illustrative samples and do not
+// imply that every feature shown is available or that compliance is guaranteed.
 import Base from '../layouts/Base.astro';
-import SchoolsHero from '../components/schools/SchoolsHero.astro';
-import BriefingCta from '../components/schools/BriefingCta.astro';
-import FaqSection from '../components/teachers/FaqSection.astro';
-import { schoolsFaqs } from '../data/schools';
+import PageHero from '../components/PageHero.astro';
+import StatusChip from '../components/StatusChip.astro';
+import LogoBand from '../components/LogoBand.astro';
+import StatPanel from '../components/StatPanel.astro';
+import DemoSection from '../components/DemoSection.astro';
+import AdminDashboard from '../components/schools/AdminDashboard.astro';
+import SkillProgress from '../components/schools/SkillProgress.astro';
+import CurriculumMap from '../components/schools/CurriculumMap.astro';
+import LessonLibrary from '../components/teachers/LessonLibrary.astro';
+import EvidenceReport from '../components/teachers/EvidenceReport.astro';
 
-const benefits = [
-  { icon: 'report', title: 'Simplify IEP Transitions', body: 'Turn daily student app usage into professional, auditable progress notes. Our system generates One-Click Reports tied directly to transition goals, capturing objective data on Prompt Levels, Accuracy, and Self-Initiation.' },
-  { icon: 'growth', title: 'Less admin. More teaching.', body: 'Reduce administrative burnout by allowing our platform to handle differentiation and immediate feedback. This allows your teachers to reclaim their instructional bandwidth and focus on their students rather than manual data entry.' },
-  { icon: 'milestone', title: 'Built for the world after school', body: 'Move students from prompt-dependency toward durable self-initiation. Our platform uses a Special Interests Engine to make life-skill tasks intrinsically rewarding, ensuring skills generalize into adult life.' },
+const values = [
+  { title: 'Consistent transition instruction across classrooms', body: 'Give teachers ready-to-use life skills lessons personalized to each student’s goals, abilities and interests.', graphic: 'rooms' },
+  { title: 'See progress. Make informed decisions.', body: 'Track student performance and skill development with clear reports that support IEP reviews and transition planning.', graphic: 'chart' },
+  { title: 'Give teachers time back', body: 'Reduce lesson preparation and manual documentation so teachers can focus more on students.', graphic: 'time' },
 ];
-const stops = [
-  { stage: 'Age 14', title: 'The lifelong companion', body: 'We start early to build momentum long before school support ends.', icon: 'heart', pos: 'xl:left-0' },
-  { stage: 'Transition program', title: 'Workforce integration', body: 'Embedding Shepherd today supports future hiring and training with B2B employer partners.', icon: 'briefcase', pos: 'xl:left-[370px]' },
-  { stage: 'After school', title: 'The path to employment', body: 'Employer training content flows through the same platform students already know.', icon: 'route', pos: 'xl:left-[750px]' },
+const curriculum = [
+  { icon: 'lesson', title: 'Ready-to-use curriculum', body: 'Age-appropriate life skills lessons teachers don’t have to create from scratch.' },
+  { icon: 'target', title: 'Individualized learning', body: 'Lessons personalized to each student’s goals, abilities and interests.' },
+  { icon: 'progress', title: 'Consistent progress tracking', body: 'Student performance documented automatically as lessons are completed.' },
 ];
-const pins = ['xl:left-[128px] xl:top-[114px]', 'xl:left-[498px] xl:top-[34px]', 'xl:left-[878px] xl:top-[134px]'];
-const markers = [
-  { icon: 'target', title: 'Accuracy', body: 'Success rates on specific life-skill task steps.' },
-  { icon: 'prompt', title: 'Prompt level', body: 'The degree of support required: visual, verbal or physical.' },
-  { icon: 'steps', title: 'Self-initiation', body: 'The frequency of task starts without external prompting.' },
+const teacherTime = [
+  { icon: 'lesson', title: 'Less preparation', body: 'Ready-to-use lessons tailored to student needs.' },
+  { icon: 'report', title: 'Less paperwork', body: 'Student performance and progress documented automatically.' },
+  { icon: 'people', title: 'More time for students', body: 'Teachers can focus on instruction and individual support.' },
 ];
+const iep = [
+  { icon: 'prompt', title: 'Documented performance', body: 'Track accuracy, prompting and independent responses.' },
+  { icon: 'growth', title: 'Progress over time', body: 'See how students are developing skills and where they need additional support.' },
+  { icon: 'milestone', title: 'Evidence for decisions', body: 'Use progress reports to inform IEP discussions and transition planning.' },
+];
+const stats = [
+  { icon: 'people', prefix: 'Up to', value: '10 hrs', label: 'back each week' },
+  { icon: 'spark', value: '82%', label: 'found learning more engaging' },
+  { icon: 'progress', value: '100%', label: 'of lesson performance tracked' },
+];
+const rooms = ['Room 104', 'Room 112', 'Room 207'];
+const bars = [38, 52, 61, 70, 78];
 ---
 <Base
-  title="Transition and functional skills platform for schools | Spectrum Shepherd"
-  description="Empower your teachers and automate your compliance: personalized transition lessons and audit-ready evidence for special education programs."
-  demoHref="#briefing"
+  title="Life skills curriculum and transition progress for schools | Spectrum Shepherd"
+  description="Spectrum Shepherd helps schools deliver consistent, personalized life skills instruction, reduce teacher workload and track student progress toward IEP goals."
 >
-  <SchoolsHero />
-
-  <section class="bg-white px-5 py-16 md:px-8 lg:py-24" aria-labelledby="values-title">
-    <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-12 lg:gap-14">
-      <h2 id="values-title" class="max-w-[820px] text-center text-display-sm font-bold text-balance md:text-display-md lg:text-display-lg">Skills that stick. Paperwork that writes itself.</h2>
-      <div class="grid w-full gap-6 md:grid-cols-2">
-        <img src="/images/photos/schools-overview.jpg" width="1100" height="614" loading="lazy" alt="A teacher and a student working through a Shepherd lesson together at a laptop" class="aspect-[588/360] w-full rounded-[32px] border-4 border-brand-600 object-cover" />
-        <!-- Schools overview video (from spectrumshepherd.com/forschools): poster + play button, swaps in the player. -->
-        <div data-story class="relative aspect-[588/360] w-full overflow-hidden rounded-[32px] bg-ink">
-          <img src="/images/photos/schools-video-poster.jpg" width="854" height="480" loading="lazy" alt="" class="absolute inset-0 size-full object-cover" />
-          <span aria-hidden="true" class="absolute inset-0 bg-ink/35"></span>
-          <button type="button" data-story-play aria-label="Play the Schools overview video with Dr. Lori Lopez-Lopez (57 seconds)" class="absolute top-1/2 left-1/2 flex size-[84px] -translate-x-1/2 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full bg-white text-brand-700 shadow-xl transition-colors hover:bg-brand-25">
-            <svg aria-hidden="true" class="ml-1 size-8" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z" /></svg>
-          </button>
-          <p class="absolute bottom-4 left-4 rounded-full bg-ink/70 px-4 py-2 text-sm font-semibold text-white">Schools overview · 0:57</p>
-          <video data-story-video hidden controls preload="none" playsinline poster="/images/photos/schools-video-poster.jpg" class="absolute inset-0 size-full bg-black object-contain" aria-label="Schools overview: Dr. Lori Lopez-Lopez, Special Education Administrator, on Shepherd">
-            <source src="/videos/schools-overview.mp4" type="video/mp4" />
-          </video>
-        </div>
+  <PageHero
+    lede="Spectrum Shepherd helps schools deliver consistent, personalized life skills instruction, reduce teacher workload and track student progress toward IEP goals."
+    primary={{ label: 'Book a Demo', demo: true }}
+    secondary={{ label: 'See How It Works', href: '#how-it-works' }}
+    fluid
+  >
+    <Fragment slot="title">Empower your teachers. <span class="text-brand-600">Strengthen your transition program.</span></Fragment>
+    <Fragment slot="visual">
+      <AdminDashboard class="relative lg:absolute lg:top-[18%] lg:left-0 lg:w-full" />
+      <div class="hidden lg:block">
+        <StatusChip title="Progress report ready" caption="For Thursday’s IEP review" class="top-[6%] right-[-2%] z-10" />
       </div>
-      <ul class="grid w-full md:grid-cols-3">
-        {benefits.map((b, i) => (
-          <li class={`flex flex-col gap-3.5 border-t border-line py-8 first:border-t-0 md:border-t-0 md:py-0 ${i ? 'md:border-l md:pl-10' : ''} ${i < benefits.length - 1 ? 'md:pr-10' : ''}`}>
-            <img src={`/images/icons/v2/${b.icon}.svg`} width="48" height="48" alt="" class="size-12" />
-            <h3 class="text-xl font-semibold">{b.title}</h3>
-            <p class="text-muted">{b.body}</p>
+    </Fragment>
+  </PageHero>
+
+  <!-- The value for schools -->
+  <section id="how-it-works" class="scroll-mt-4 bg-white px-5 py-16 md:px-8 lg:py-24" aria-labelledby="value-title">
+    <div class="mx-auto flex max-w-[1200px] flex-col gap-10 lg:gap-12">
+      <h2 id="value-title" class="text-center text-display-sm font-bold md:text-display-md lg:text-display-lg">The value for schools</h2>
+      <ul class="grid gap-6 md:grid-cols-3">
+        {values.map((v) => (
+          <li class="flex flex-col gap-4 rounded-[28px] border border-line bg-cream p-6 sm:p-7">
+            <div aria-hidden="true" class="flex h-[132px] flex-col justify-center gap-2 rounded-2xl bg-white p-4 shadow-md">
+              {v.graphic === 'rooms' && rooms.map((r) => (
+                <p class="flex items-center justify-between gap-2 rounded-lg bg-brand-25 px-2.5 py-1.5 text-xs font-semibold">
+                  <span>{r}</span><span class="flex items-center gap-1.5 text-brand-800"><img src="/images/icons/v2/check.svg" width="16" height="16" alt="" class="size-4" />Same lesson, own level</span>
+                </p>
+              ))}
+              {v.graphic === 'chart' && (
+                <div class="flex h-full items-end gap-2.5 px-2">
+                  {bars.map((b, i) => <span class={`flex-1 rounded-t-md ${i === bars.length - 1 ? 'bg-brand-600' : 'bg-brand-200'}`} style={`height:${b}%`}></span>)}
+                </div>
+              )}
+              {v.graphic === 'time' && ['Lesson prep', 'Progress notes', 'IEP evidence'].map((t) => (
+                <p class="flex items-center justify-between rounded-lg bg-yellow-50 px-2.5 py-1.5 text-xs font-semibold">
+                  <span>{t}</span><span class="rounded-full bg-brand-50 px-2 text-[11px] text-brand-800">Done for you</span>
+                </p>
+              ))}
+            </div>
+            <h3 class="text-xl font-bold">{v.title}</h3>
+            <p class="text-muted">{v.body}</p>
           </li>
         ))}
       </ul>
     </div>
   </section>
 
-  <BriefingCta />
+  <!-- Student progress and reporting -->
+  <section class="bg-brand-25 px-5 py-16 md:px-8 lg:py-24" aria-labelledby="progress-title">
+    <div class="mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[460px_1fr] lg:gap-[72px]">
+      <div class="flex flex-col gap-5">
+        <h2 id="progress-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">See where students are. Know what comes next.</h2>
+        <p class="text-lg text-muted">Track student performance and progress toward learning goals. See which skills students are developing, where they need more support and how they’re progressing over time.</p>
+      </div>
+      <SkillProgress />
+    </div>
+  </section>
 
-  <section class="bg-cream px-5 py-16 md:px-8 lg:pt-24 lg:pb-[72px]" aria-labelledby="journey-title">
-    <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-12">
-      <h2 id="journey-title" class="max-w-[840px] text-center text-display-sm font-bold text-balance md:text-display-md lg:text-display-lg">Beyond the classroom: lifelong readiness</h2>
-      <div class="relative w-full xl:h-[497px]">
-        <svg aria-hidden="true" class="pointer-events-none absolute top-0 left-0 hidden h-[260px] w-full overflow-hidden xl:block" viewBox="0 0 1200 260">
-          <g transform="translate(-20 60)" fill="none">
-            <path d="M0 140C220 140 280 20 480 20S720 160 920 140S1140 0 1240 0" class="stroke-brand-200" stroke-width="34" />
-            <path d="M0 140C220 140 280 20 480 20S720 160 920 140S1140 0 1240 0" class="stroke-white" stroke-width="3" stroke-dasharray="14 12" />
-          </g>
-        </svg>
-        {pins.map((p) => (
-          <svg aria-hidden="true" class={`absolute hidden h-14 w-11 xl:block ${p}`} viewBox="0 0 44 56">
-            <path d="M22 56C22 56 44 34 44 22A22 22 0 0 0 0 22C0 34 22 56 22 56Z" class="fill-brand-700" />
-            <circle cx="22" cy="22" r="9" class="fill-yellow-300" />
-          </svg>
-        ))}
-        <ol class="grid gap-4 md:grid-cols-3 xl:block">
-          {stops.map((s) => (
-            <li class={`flex flex-col gap-1.5 rounded-[20px] border border-line bg-white p-5 xl:absolute xl:top-[270px] xl:h-[227px] xl:w-[300px] ${s.pos}`}>
-              <img src={`/images/icons/v2/${s.icon}.svg`} width="48" height="48" alt="" class="mb-3 size-12" />
-              <p class="text-sm font-bold text-brand-700">{s.stage}</p>
-              <h3 class="text-lg font-semibold">{s.title}</h3>
-              <p class="text-sm text-muted">{s.body}</p>
+  <!-- Consistent instruction across classrooms -->
+  <section class="bg-cream px-5 py-16 md:px-8 lg:py-24" aria-labelledby="curriculum-title">
+    <div class="mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[1fr_520px] lg:gap-[72px]">
+      <div class="flex flex-col gap-5 lg:order-2">
+        <h2 id="curriculum-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">One curriculum. Personalized for every student.</h2>
+        <p class="text-lg text-muted">Give teachers a shared foundation of ready-to-use life skills lessons while allowing instruction to adapt to each student’s goals, abilities and interests.</p>
+        <ul class="flex flex-col gap-4 pt-2">
+          {curriculum.map((c) => (
+            <li class="flex gap-4">
+              <img src={`/images/icons/v2/${c.icon}.svg`} width="48" height="48" alt="" class="size-12 shrink-0" />
+              <span class="flex flex-col gap-1"><span class="text-lg font-bold">{c.title}</span><span class="text-muted">{c.body}</span></span>
             </li>
           ))}
-        </ol>
+        </ul>
       </div>
+      <CurriculumMap />
     </div>
   </section>
 
-  <section id="outcomes" class="scroll-mt-4 bg-white px-5 py-16 md:px-8 lg:py-24" aria-labelledby="outcomes-title">
-    <div class="on-dark relative mx-auto flex max-w-[1200px] flex-col gap-10 overflow-hidden rounded-3xl bg-brand-800 p-6 text-white sm:p-10 md:rounded-[32px] lg:p-16">
-      <span aria-hidden="true" class="swirl pointer-events-none absolute -top-20 -right-16 size-[320px] bg-white opacity-[0.07] lg:-top-36 lg:right-[-40px] lg:size-[520px]"></span>
-      <div class="relative flex flex-col gap-3">
-        <h2 id="outcomes-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">Measurable outcomes for every student</h2>
-        <p class="text-lg text-brand-50 sm:text-xl">We don’t just track participation; we measure the independence markers.</p>
+  <!-- Supporting teachers -->
+  <section class="bg-white px-5 py-16 md:px-8 lg:py-24" aria-labelledby="teachers-title">
+    <div class="mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[480px_1fr] lg:gap-[72px]">
+      <div class="flex flex-col gap-5">
+        <h2 id="teachers-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">Give teachers more time to teach.</h2>
+        <p class="text-lg text-muted">Shepherd reduces the time teachers spend preparing lessons, adapting materials and documenting progress. With personalized lessons and automatic performance tracking, teachers can spend more time working directly with students.</p>
+        <ul class="flex flex-col gap-4 pt-2">
+          {teacherTime.map((c) => (
+            <li class="flex gap-4">
+              <img src={`/images/icons/v2/${c.icon}.svg`} width="48" height="48" alt="" class="size-12 shrink-0" />
+              <span class="flex flex-col gap-1"><span class="text-lg font-bold">{c.title}</span><span class="text-muted">{c.body}</span></span>
+            </li>
+          ))}
+        </ul>
       </div>
-      <ul class="relative grid md:grid-cols-[345fr_382fr_346fr]">
-        {markers.map((m, i) => (
-          <li class={`flex flex-col gap-3.5 py-6 md:py-0 ${i ? 'border-t border-brand-700 md:border-t-0 md:border-l md:pl-9' : ''} ${i < markers.length - 1 ? 'md:pr-9' : ''}`}>
-            <img src={`/images/icons/v2/${m.icon}.svg`} width="48" height="48" alt="" class="size-12" />
-            <h3 class="text-display-xs font-bold">{m.title}</h3>
-            <span aria-hidden="true" class="h-1 w-12 rounded-full bg-yellow-300"></span>
-            <p class="text-lg font-medium text-brand-50">{m.body}</p>
-          </li>
-        ))}
-      </ul>
+      <LessonLibrary />
     </div>
   </section>
 
-  <FaqSection
-    title="Questions schools ask"
-    intro="Transition curriculum, IEP evidence and teacher workload, answered."
-    cta={{ label: 'Book a 15-min briefing', href: '/book-a-demo' }}
-    variant="cards"
-    bg="bg-cream"
-    items={schoolsFaqs}
+  <!-- IEP documentation and transition planning -->
+  <section class="bg-brand-25 px-5 py-16 md:px-8 lg:py-24" aria-labelledby="iep-title">
+    <div class="mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[480px_1fr] lg:gap-[72px]">
+      <div class="flex flex-col gap-5">
+        <h2 id="iep-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">Walk into every IEP meeting with clearer evidence.</h2>
+        <p class="text-lg text-muted">Shepherd automatically captures student performance as lessons are completed, giving teachers and administrators documented progress to support IEP reviews, transition planning and instructional decisions.</p>
+        <ul class="flex flex-col gap-4 pt-2">
+          {iep.map((c) => (
+            <li class="flex gap-4">
+              <img src={`/images/icons/v2/${c.icon}.svg`} width="48" height="48" alt="" class="size-12 shrink-0" />
+              <span class="flex flex-col gap-1"><span class="text-lg font-bold">{c.title}</span><span class="text-muted">{c.body}</span></span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <EvidenceReport />
+    </div>
+  </section>
+
+  <!-- Proof and credibility statistics -->
+  <section class="bg-white px-5 py-12 md:px-8 lg:py-24" aria-label="Results">
+    <div class="mx-auto max-w-[1200px]">
+      <StatPanel items={stats} />
+    </div>
+  </section>
+
+  <LogoBand />
+
+  <DemoSection
+    title="See what Shepherd can do for your school."
+    lede="See how personalized life skills instruction, automatic progress tracking and clear reporting can support your teachers, students and transition program."
+    trialLink={false}
   />
 </Base>
-
-<script>
-  // Schools overview video: swap the poster for the player and start it.
-  document.querySelectorAll<HTMLElement>('[data-story]').forEach((card) => {
-    const btn = card.querySelector<HTMLButtonElement>('[data-story-play]');
-    const video = card.querySelector<HTMLVideoElement>('[data-story-video]');
-    btn?.addEventListener('click', () => {
-      if (!video) return;
-      video.hidden = false;
-      video.play().catch(() => {});
-      video.focus();
-    });
-  });
-</script>

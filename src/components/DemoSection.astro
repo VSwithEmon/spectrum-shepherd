@@ -1,14 +1,22 @@
 ---
-// Inline demo form on the homepage (#demo).
-// Figma: "Book a Demo (#demo), Invitation", node 38876:4128.
+// Closing demo section on the homepage (#demo), Figma "Book a Demo (#demo), Invitation" (38876:4128),
+// with the client's approved copy (26 Oct 2026). The white card holds the three steps and the
+// Book a Demo button; the form itself opens in the demo pop-up (DemoDialog) on click.
 import Button from './Button.astro';
-import FormField from './FormField.astro';
+import { site } from '../data/site';
 
-const steps = [
-  'Tell us about your program',
-  'We reply within one school day to pick a time',
-  'Walk through the evidence report, privacy and funding',
-];
+interface Props {
+  title?: string;
+  lede?: string;
+  /** "Just one teacher?" trial link under the panel (homepage only). */
+  trialLink?: boolean;
+}
+const {
+  title = 'Be the reason <br class="hidden lg:inline" />they’re ready.',
+  lede = 'See how Shepherd works for your students, teachers and school.',
+  trialLink = true,
+} = Astro.props;
+const steps = ['Tell us about your school', "We'll find a time that works", 'See the platform and ask questions'];
 // Dotted path whose dot sizes swell and taper (echoing the Shepherd swirl), from the panel's bottom-left up toward the form.
 const dots = [
   [20, 380, 1.5], [53.5, 381.82, 1.5], [86.8, 382.48, 2], [119.87, 381.95, 2.5], [152.7, 380.22, 3], [185.28, 377.28, 3.5],
@@ -20,15 +28,15 @@ const dots = [
 ---
 <section id="demo" class="scroll-mt-4 bg-cream px-3 pt-12 pb-12 sm:px-4 md:px-8 lg:pt-24" aria-labelledby="demo-title">
   <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-6">
-    <div class="on-dark relative flex w-full flex-col gap-10 overflow-hidden rounded-[28px] bg-brand-700 p-4 pt-8 text-white sm:rounded-[40px] sm:p-10 lg:flex-row lg:items-start lg:gap-12 lg:p-12">
-      <span aria-hidden="true" class="absolute -top-20 -right-20 size-44 rounded-full bg-yellow-300 lavender:bg-lavender-200 lg:-top-[110px] lg:-right-[90px] lg:size-[260px]"></span>
+    <div class="on-dark relative flex w-full flex-col gap-10 overflow-hidden rounded-[28px] bg-brand-700 p-4 pt-8 text-white sm:rounded-[40px] sm:p-10 lg:flex-row lg:items-center lg:gap-12 lg:p-12">
+      <span aria-hidden="true" class="absolute -top-20 -right-20 size-44 rounded-full bg-yellow-300 lg:-top-[110px] lg:-right-[90px] lg:size-[260px]"></span>
       <svg aria-hidden="true" class="absolute top-[466px] left-0 hidden h-[400px] w-[780px] lg:block" viewBox="0 0 780 400">
         {dots.map(([cx, cy, r]) => <circle cx={cx} cy={cy} r={r} class="fill-brand-400" />)}
       </svg>
 
       <div class="relative flex flex-col items-start gap-6 px-3 sm:px-0 lg:flex-1">
-        <h2 id="demo-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">Be the reason <br class="hidden lg:inline" />they’re ready.</h2>
-        <p class="text-lg text-brand-50">A 15-minute walkthrough for special education and transition leaders.</p>
+        <h2 id="demo-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg" set:html={title} />
+        <p class="text-lg text-brand-50">{lede}</p>
 
         <div class="relative hidden h-[220px] w-full overflow-hidden rounded-3xl md:block">
           <img
@@ -39,43 +47,28 @@ const dots = [
             alt="Two educators reviewing student progress data together on a laptop"
             class="size-full object-cover object-[center_35%]"
           />
-          <span class="absolute bottom-4 left-4 flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-bold text-ink shadow-lg">
-            <span aria-hidden="true" class="size-2 rounded-full bg-brand-600"></span>
-            15-minute walkthrough
-          </span>
         </div>
+      </div>
 
-        <ol class="flex w-full flex-col gap-3" aria-label="How it works">
+      <div class="on-light relative flex w-full flex-col gap-6 rounded-[24px] bg-white p-6 text-ink shadow-2xl sm:rounded-[32px] sm:p-10 lg:w-[480px] lg:shrink-0">
+        <h3 class="text-display-xs font-bold">How it works</h3>
+        <ol class="flex flex-col gap-4">
           {steps.map((s, i) => (
-            <li class="flex items-center gap-3 text-lg font-semibold">
-              <span aria-hidden="true" class="flex size-9 shrink-0 items-center justify-center rounded-full bg-yellow-300 font-bold text-ink lavender:bg-lavender-200">{i + 1}</span>
+            <li class="flex items-center gap-3.5 text-lg font-semibold">
+              <span aria-hidden="true" class="flex size-9 shrink-0 items-center justify-center rounded-full bg-yellow-300 font-bold text-ink">{i + 1}</span>
               {s}
             </li>
           ))}
         </ol>
+        <Button demo full size="md">Book a Demo</Button>
       </div>
-
-      <!-- TODO: point action at the form service once the client chooses one. -->
-      <form method="post" class="on-light relative flex w-full flex-col gap-4 rounded-[24px] bg-white p-5 text-ink shadow-2xl sm:rounded-[32px] sm:p-10 lg:w-[540px] lg:shrink-0" aria-labelledby="demo-form-title">
-        <div class="flex flex-col gap-1">
-          <h3 id="demo-form-title" class="text-display-xs font-bold">Book your 15-minute demo</h3>
-          <p class="text-sm text-muted">All fields are required.</p>
-        </div>
-        <div class="grid gap-4 sm:grid-cols-2">
-          <FormField id="first-name" label="First name" autocomplete="given-name" required />
-          <FormField id="last-name" label="Last name" autocomplete="family-name" required />
-        </div>
-        <FormField id="email" label="Work email" type="email" placeholder="you@district.org" autocomplete="email" required />
-        <FormField id="organization" label="School or district" autocomplete="organization" required />
-        <FormField id="role" label="Your role" options={['Special ed director', 'Transition coordinator', 'Principal', 'Teacher', 'Other']} />
-        <Button type="submit" full>Book my demo</Button>
-        <p class="text-sm text-muted">We'll reply within one school day to pick a time. See our <a href="/privacy" class="text-brand-700 underline hover:text-brand-800">privacy policy</a>.</p>
-      </form>
     </div>
 
-    <p class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 rounded-full bg-yellow-200 px-6 py-3 text-center font-bold lavender:bg-lavender-100">
-      Just one teacher?
-      <a href="#" class="text-brand-800 underline hover:text-ink">Start a free 45-day trial →</a>
-    </p>
+    {trialLink && (
+      <p class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 rounded-full bg-yellow-200 px-6 py-3 text-center font-bold">
+        Just one teacher?
+        <a href={site.trial} class="text-brand-800 underline hover:text-ink">Start a free 45-day trial →</a>
+      </p>
+    )}
   </div>
 </section>

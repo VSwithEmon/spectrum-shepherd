@@ -1,14 +1,15 @@
 ---
-// Results (Figma "Results", homepage V1 and V2): centred heading, then the green stat panel. The values are the client's current results; which to feature is still open.
+// Results (Figma "Results"): centred heading, then the green stat panel with the client's approved
+// proof points (26 Oct 2026). "Up to 10 hours" is the approved modeled time-savings claim.
 import StatPanel from './StatPanel.astro';
 
 const results = [
-  { icon: 'people' as const, value: '91%', label: 'Parent demand confirmed' },
-  { icon: 'spark' as const, value: '77%', label: 'Of students say it’s more engaging than other school learning' },
-  { icon: 'progress' as const, value: 'IEP-ready', label: 'Progress reports teachers don’t have to write' },
+  { icon: 'people', prefix: 'Up to', value: '10 hrs', label: 'back each week' },
+  { icon: 'spark', value: '82%', label: 'found learning more engaging' },
+  { icon: 'progress', value: '100%', label: 'of lesson performance tracked' },
 ];
 ---
-<section class="bg-white px-5 py-16 md:px-8 lg:py-24" aria-labelledby="results-title">
+<section class="bg-white px-5 py-12 md:px-8 lg:py-24" aria-labelledby="results-title">
   <div class="mx-auto flex max-w-[1200px] flex-col gap-10">
     <h2 id="results-title" class="text-center text-display-sm font-bold md:text-display-md lg:text-display-lg">
       Confidence for schools.<br />

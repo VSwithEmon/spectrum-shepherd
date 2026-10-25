@@ -1,9 +1,11 @@
 ---
-// Main content of /book-a-demo: pitch + form.
+// Main content of /book-a-demo (fallback for the demo pop-up and direct links): pitch, steps and
+// either the booking calendar (site.bookingUrl) or the short request form.
 import Button from './Button.astro';
-import CheckItem from './CheckItem.astro';
 import FormField from './FormField.astro';
-import PhotoPlaceholder from './PhotoPlaceholder.astro';
+import { site } from '../data/site';
+
+const steps = ['Tell us about your school', "We'll find a time that works", 'See the platform and ask questions'];
 ---
 <section class="relative overflow-hidden bg-cream px-4 pt-10 pb-16 md:px-8 lg:pt-16 lg:pb-24" aria-labelledby="demo-title">
   <span aria-hidden="true" class="absolute -top-40 -right-40 size-[420px] rounded-full bg-yellow-200"></span>
@@ -12,19 +14,20 @@ import PhotoPlaceholder from './PhotoPlaceholder.astro';
   <div class="relative mx-auto flex max-w-[1200px] flex-col gap-12 lg:flex-row lg:items-start lg:gap-16">
     <div class="flex flex-col items-start gap-6 lg:flex-1">
       <a href="/" class="font-semibold text-brand-700 underline hover:text-brand-800">← Back to home</a>
-      <p class="rounded-full bg-brand-50 px-3 py-1 text-sm font-semibold text-brand-800">15-minute demo · For program leaders</p>
-      <h1 id="demo-title" class="text-display-md font-bold sm:text-display-lg">See Shepherd with your students in mind.</h1>
-      <p class="text-lg text-muted sm:text-xl">A 15-minute walkthrough for special education and transition leaders.</p>
-      <ul class="flex flex-col gap-3">
-        <CheckItem>See the Transition Evidence Report</CheckItem>
-        <CheckItem>Get your privacy questions answered</CheckItem>
-        <CheckItem>Talk through funding options</CheckItem>
-      </ul>
+      <h1 id="demo-title" class="text-display-md font-bold sm:text-display-lg">Be the reason they’re ready.</h1>
+      <p class="text-lg text-muted sm:text-xl">See how Shepherd works for your students, teachers and school.</p>
+      <ol class="flex flex-col gap-3">
+        {steps.map((s, i) => (
+          <li class="flex items-center gap-3 text-lg font-semibold">
+            <span aria-hidden="true" class="flex size-9 shrink-0 items-center justify-center rounded-full bg-yellow-300 font-bold">{i + 1}</span>{s}
+          </li>
+        ))}
+      </ol>
 
       <figure class="flex w-full flex-col gap-4 rounded-4xl border border-line bg-white p-6 shadow-md">
         <blockquote class="text-lg font-medium">“I see the value both as a teacher and as an administrator.”</blockquote>
         <figcaption class="flex items-center gap-3">
-          <PhotoPlaceholder label="[PHOTO]" tone="brand" size="p-0 text-[9px]" class="size-12 shrink-0 rounded-full" />
+          <img src="/images/photos/lori-lopez-lopez.jpg" width="640" height="640" loading="lazy" alt="" class="size-12 shrink-0 rounded-full object-cover" />
           <span class="flex flex-col">
             <span class="font-bold">Dr. Lori Lopez-Lopez</span>
             <span class="text-sm text-muted">Teacher and Administrator, Special Education</span>
@@ -32,29 +35,28 @@ import PhotoPlaceholder from './PhotoPlaceholder.astro';
         </figcaption>
       </figure>
 
-      <p class="text-muted">Just one teacher? <a href="#" class="font-bold text-brand-700 underline hover:text-brand-800">Start a free 45-day trial</a></p>
+      <p class="text-muted">Just one teacher? <a href={site.trial} class="font-bold text-brand-700 underline hover:text-brand-800">Start a free 45-day trial</a></p>
     </div>
 
-    <!-- TODO: point action at the form service once the client chooses one. -->
-    <form method="post" class="flex flex-col gap-4 rounded-4xl border border-line bg-white p-6 shadow-lg sm:p-10 lg:sticky lg:top-8 lg:flex-1" aria-labelledby="form-title">
-      <div class="flex flex-col gap-1">
-        <h2 id="form-title" class="text-display-xs font-bold">Book your demo</h2>
-        <p class="text-sm text-muted">All fields are required unless marked optional.</p>
-      </div>
-      <PhotoPlaceholder label="[PHOTO: real team member who runs demos]" tone="orange" size="p-4 text-sm" class="h-[120px] w-full rounded-3xl" />
-      <div class="grid gap-4 sm:grid-cols-2">
-        <FormField id="first-name" label="First name" autocomplete="given-name" required />
-        <FormField id="last-name" label="Last name" autocomplete="family-name" required />
-      </div>
-      <FormField id="email" label="Work email" type="email" placeholder="you@district.org" autocomplete="email" required />
-      <FormField id="organization" label="School or district" autocomplete="organization" required />
-      <FormField id="role" label="Your role" options={['Special ed director', 'Transition coordinator', 'Principal', 'Teacher', 'Other']} />
-      <div class="flex flex-col gap-1.5">
-        <label for="notes" class="font-bold">What would you like to see? <span class="font-normal text-muted">(optional)</span></label>
-        <textarea id="notes" name="notes" rows="3" class="w-full rounded-xl border-[1.5px] border-field bg-white px-4 py-3 text-md"></textarea>
-      </div>
-      <Button type="submit" full>Book my demo</Button>
-      <p class="text-sm text-muted">We'll reply within one school day to pick a time. See our <a href="/privacy" class="text-brand-700 underline hover:text-brand-800">privacy policy</a>.</p>
-    </form>
+    {site.bookingUrl ? (
+      <iframe src={site.bookingUrl} title="Choose a time for your demo" class="h-[720px] w-full rounded-4xl border border-line bg-white shadow-lg lg:flex-1"></iframe>
+    ) : (
+      <!-- TODO: replace with the client's booking link (site.bookingUrl) or point action at their form service. -->
+      <form method="post" class="flex flex-col gap-4 rounded-4xl border border-line bg-white p-6 shadow-lg sm:p-10 lg:sticky lg:top-28 lg:flex-1" aria-labelledby="form-title">
+        <div class="flex flex-col gap-1">
+          <h2 id="form-title" class="text-display-xs font-bold">Book a demo</h2>
+          <p class="text-sm text-muted">All fields are required unless marked optional.</p>
+        </div>
+        <FormField id="name" label="Your name" autocomplete="name" required />
+        <FormField id="email" label="Work email" type="email" placeholder="you@school.org" autocomplete="email" required />
+        <FormField id="organization" label="School or district" autocomplete="organization" required />
+        <div class="flex flex-col gap-1.5">
+          <label for="notes" class="font-bold">What would you like to see? <span class="font-normal text-muted">(optional)</span></label>
+          <textarea id="notes" name="notes" rows="3" class="w-full rounded-xl border-[1.5px] border-field bg-white px-4 py-3 text-md"></textarea>
+        </div>
+        <Button type="submit" full>Book a Demo</Button>
+        <p class="text-sm text-muted">We'll reply to find a time that works. See our <a href="/privacy" class="text-brand-700 underline hover:text-brand-800">privacy policy</a>.</p>
+      </form>
+    )}
   </div>
 </section>

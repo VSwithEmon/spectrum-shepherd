@@ -3,6 +3,7 @@ import '../styles/global.css';
 import SiteNav from '../components/SiteNav.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import DesignToggle from '../components/DesignToggle.astro';
+import DemoDialog from '../components/DemoDialog.astro';
 
 interface Props {
   title: string;
@@ -53,5 +54,6 @@ const {
     </main>
     <SiteFooter hills={footerHills} hillsBg={footerHillsBg} />
     {designToggle && <DesignToggle active={designToggle} />}
+    <DemoDialog />
   </body>
 </html>

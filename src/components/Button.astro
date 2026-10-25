@@ -1,4 +1,5 @@
 ---
+import { site } from '../data/site';
 // Button from the Figma "Button" set (Primary / Secondary), plus light variants for dark panels.
 // Colors are one step darker than the Figma gradient so label text meets 4.5:1.
 interface Props {
@@ -9,9 +10,12 @@ interface Props {
   shape?: 'default' | 'pill';
   type?: 'button' | 'submit';
   full?: boolean;
+  /** "Book a Demo": opens the demo pop-up (DemoDialog); without JavaScript it goes to /book-a-demo. */
+  demo?: boolean;
   class?: string;
 }
-const { href, variant = 'primary', size = 'md', shape = 'default', type = 'button', full = false, class: className = '' } = Astro.props;
+const { href: hrefProp, variant = 'primary', size = 'md', shape = 'default', type = 'button', full = false, demo = false, class: className = '' } = Astro.props;
+const href = demo ? site.demoPage : hrefProp;
 
 const variants = {
   primary: 'bg-linear-to-b from-brand-700 to-brand-800 text-white shadow-button hover:from-brand-800',
@@ -31,4 +35,4 @@ const classes = [
   className,
 ].filter(Boolean).join(' ');
 ---
-{href ? <a href={href} class={classes}><slot /></a> : <button type={type} class={classes}><slot /></button>}
+{href ? <a href={href} class={classes} data-demo={demo ? '' : undefined} aria-haspopup={demo ? 'dialog' : undefined}><slot /></a> : <button type={type} class={classes}><slot /></button>}

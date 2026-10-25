@@ -8,8 +8,8 @@ import HeroSky from './HeroSky.astro';
 
 interface Props {
   lede: string;
-  primary: { label: string; href: string };
-  secondary?: { label: string; href: string };
+  primary: { label: string; href?: string; demo?: boolean };
+  secondary?: { label: string; href?: string; demo?: boolean };
   /** Big soft sun behind the visual (yellow; lavender on the lavender palette). */
   sun?: boolean;
   /** Visual stacks in normal flow below lg (no fixed square), for visuals that reflow on phones. */
@@ -26,8 +26,8 @@ const { lede, primary, secondary, sun = true, fluid = false } = Astro.props;
       </h1>
       <p class="text-lg font-medium text-muted sm:text-xl">{lede}</p>
       <div class="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap">
-        <Button href={primary.href}>{primary.label}</Button>
-        {secondary && <Button href={secondary.href} variant="secondary">{secondary.label}</Button>}
+        <Button href={primary.href} demo={primary.demo}>{primary.label}</Button>
+        {secondary && <Button href={secondary.href} demo={secondary.demo} variant="secondary">{secondary.label}</Button>}
       </div>
       <slot name="extra" />
     </div>

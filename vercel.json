@@ -1,3 +1,15 @@
 {
-  "rewrites": [{ "source": "/studio/:path*", "destination": "/studio" }]
+  "rewrites": [
+    {
+      "source": "/studio/:path*",
+      "destination": "/studio"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/v2",
+      "destination": "/",
+      "permanent": true
+    }
+  ]
 }

@@ -1,6 +1,7 @@
 ---
 // "Built with educators. Tested with students. Shaped in classrooms." + school logos
-// (Figma "Logo Band, Route through real classrooms", node 38876:3867).
+// (Figma "Logo Band, Route through real classrooms", node 38876:3867). The highlighted words sit on
+// yellow "building blocks" (two studs on top) at alternating tilts, as if stacked together.
 // The logo row drifts slowly right → left, the only animation on the site, per the client.
 // It pauses on hover/focus and stops (wrapping into a static grid) for reduced motion.
 type School = { name: string; logo: string; size: string; bg?: string };
@@ -30,7 +31,11 @@ const beats = [
       {beats.map((b) => (
         <span class="flex items-center gap-2 sm:gap-3">
           {b.lead}
-          <span class={`inline-block rounded-full bg-yellow-300 px-3 py-0.5 text-ink sm:px-4 lavender:bg-lavender-200 ${b.tilt}`}>{b.word}</span>
+          <span class={`brick relative inline-block rounded-xl bg-yellow-300 px-3 py-0.5 text-ink sm:px-4 ${b.tilt}`}>
+            <span aria-hidden="true" class="absolute -top-[7px] left-[22%] h-2 w-[18%] rounded-t-md bg-yellow-300"></span>
+            <span aria-hidden="true" class="absolute -top-[7px] right-[22%] h-2 w-[18%] rounded-t-md bg-yellow-300"></span>
+            {b.word}
+          </span>
         </span>
       ))}
     </h2>

@@ -1,5 +1,6 @@
 ---
 import Hills from './Hills.astro';
+import { site } from '../data/site';
 
 // Footer (Figma "Site / Footer"): tree-topped hills with a setting sun, company logo, link columns, social and legal links.
 interface Props {
@@ -14,12 +15,13 @@ const columns = [
   { title: 'Product', links: [{ label: 'Teachers', href: '/teachers' }, { label: 'Schools', href: '/schools' }, { label: 'The App', href: '/the-app' }] },
   { title: 'Company', links: [{ label: 'About', href: '#' }, { label: 'Blog', href: '/blog' }, { label: 'Log in', href: '#' }] },
 ];
-// Social profile URLs still to be supplied by the client.
+// Social accounts come from src/data/site.ts; an icon only shows once its URL is set.
 const social = [
-  { label: 'Instagram', icon: '/images/icons/instagram.svg', href: '#' },
-  { label: 'Facebook', icon: '/images/icons/facebook.svg', href: '#' },
-  { label: 'LinkedIn', icon: '/images/icons/linkedin.svg', href: '#' },
+  { label: 'Instagram', icon: '/images/icons/instagram.svg', href: site.social.instagram },
+  { label: 'Facebook', icon: '/images/icons/facebook.svg', href: site.social.facebook },
+  { label: 'LinkedIn', icon: '/images/icons/linkedin.svg', href: site.social.linkedin },
 ];
+const accounts = social.filter((s) => s.href);
 ---
 {hills && <Hills variant="footer" class={hillsBg} />}
 <footer class="on-dark relative overflow-hidden bg-brand-800 px-4 pt-12 md:px-8">
@@ -39,18 +41,20 @@ const social = [
           </ul>
         </nav>
       ))}
+      {accounts.length > 0 && (
       <div class="flex flex-col gap-4 max-lg:order-4">
         <h2 class="font-bold text-white">Join our community</h2>
         <ul class="flex flex-wrap gap-3">
-          {social.map((s) => (
+          {accounts.map((s) => (
             <li>
-              <a href={s.href} aria-label={`Spectrum Shepherd on ${s.label}`} class="flex size-11 items-center justify-center rounded-full bg-white hover:bg-brand-50">
+              <a href={s.href} target="_blank" rel="noopener noreferrer" aria-label={`Spectrum Shepherd on ${s.label} (opens in a new tab)`} class="flex size-11 items-center justify-center rounded-full bg-white hover:bg-brand-50">
                 <img src={s.icon} width="24" height="24" alt="" />
               </a>
             </li>
           ))}
         </ul>
       </div>
+      )}
     </div>
 
     <div class="flex flex-col items-center gap-2 border-t border-brand-600 pt-5 pb-8 text-center text-sm text-brand-50 sm:flex-row sm:justify-between sm:text-left">
