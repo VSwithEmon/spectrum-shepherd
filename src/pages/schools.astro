@@ -3,7 +3,7 @@
 // Oct 26", node 38958:67668), linked from homepage V1. A new page for special education directors,
 // built from the homepage and Teachers V3 visual system. Approved copy from the client's document.
 // Product visuals are sample data (the client asked us not to imply every feature shown is live);
-// the hero dashboard stands in for the administrator dashboard in Jess's brochure until we have it.
+// the hero is the administrator "Transition program overview" (Figma node 38972:67669).
 import Base from '../layouts/Base.astro';
 import PageHero from '../components/v3/PageHero.astro';
 import LogoMarquee from '../components/v3/LogoMarquee.astro';
@@ -13,6 +13,7 @@ import StatPanel from '../components/v3/StatPanel.astro';
 import LessonLibrary from '../components/v3/LessonLibrary.astro';
 import DemoInvite from '../components/v3/DemoInvite.astro';
 import StatusChip from '../components/StatusChip.astro';
+import ProgramDashboard from '../components/v3/ProgramDashboard.astro';
 import { site } from '../data/site';
 
 const values = [
@@ -87,17 +88,9 @@ const accentBar = 'h-1.5 w-14 rounded-full bg-yellow-300';
     scene="sky"
   >
     <Fragment slot="visual">
-      <img
-        src="/images/teacher-dashboard-v3.webp"
-        width="2080"
-        height="1320"
-        alt="Shepherd dashboard (sample data) for Lantern Hill School: Classroom Pulse stats, a roster of five students with their latest lessons, and an action queue"
-        class="device-shot w-full lg:absolute lg:top-[24%] lg:left-0 lg:w-[92%]"
-        fetchpriority="high"
-      />
+      <ProgramDashboard class="relative lg:absolute lg:top-[25%] lg:left-0 lg:w-full" />
       <div class="hidden lg:block">
-        <StatusChip title="Report ready" caption="Transition progress, all classrooms" class="top-[12%] left-[-4%] z-10" />
-        <StatusChip title="Needs attention" caption="1 student flagged this week" class="top-[84%] left-[42%] z-10" />
+        <StatusChip title="Progress report ready" caption="For Thursday’s IEP review" class="top-[15.7%] right-[-4%] z-10" />
       </div>
     </Fragment>
   </PageHero>
@@ -282,6 +275,3 @@ const accentBar = 'h-1.5 w-14 rounded-full bg-yellow-300';
   />
 </Base>
 
-<style>
-  .device-shot { filter: drop-shadow(0 24px 24px rgb(10 13 18 / 0.16)) drop-shadow(0 4px 4px rgb(10 13 18 / 0.04)); }
-</style>
