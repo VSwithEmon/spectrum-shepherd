@@ -1,4 +1,5 @@
-// Copy for the "Who it's for" cards. Shared by the V3 card grid (v3/AudienceGrid.astro) and the V4 rows (v3/AudienceRows.astro).
+// Copy for the "Who it's for" cards. Shared by the V1 card grid (v3/AudienceGrid.astro) and the V2 rows (v3/AudienceRows.astro).
+// `audienceSlidesV3` is the client's approved copy (Oct 26, 2026) for homepage V3; `label` is the photo's graphic label.
 export const audienceSlides = [
   {
     id: 'audience-schools', tab: 'For schools', tone: 'brand' as const,
@@ -29,5 +30,32 @@ export const audienceSlides = [
     photo: '[PHOTO — real student, 16–20, practicing a real task]',
     image: { src: '/images/photos/audience-students.jpg', alt: 'A young student reading a book with a teacher in front of library shelves' },
     stat: { value: '< 10 min', caption: 'per lesson' },
+  },
+];
+
+export const audienceSlidesV3 = [
+  {
+    id: 'audience-schools',
+    headline: ['See student progress.', 'Make informed decisions.'],
+    benefits: ['Student transition progress and performance reports', 'Individual and classroom-level insights', 'Evidence to support IEP reviews and transition planning', 'Consistent reporting across classrooms'],
+    cta: 'Explore for schools →',
+    label: 'Student progress, clearly documented',
+    image: audienceSlides[0].image,
+  },
+  {
+    id: 'audience-teachers',
+    headline: ['Individualized learning.', 'Without the extra work.'],
+    benefits: ['Personalized learning plans for each student', 'Ready-to-use lessons tailored to student interests and abilities', 'Automatic progress tracking and documentation'],
+    cta: 'Start your free trial →',
+    label: 'Personalized lessons, ready to teach',
+    image: audienceSlides[1].image,
+  },
+  {
+    id: 'audience-students',
+    headline: ["Life skills learning they'll actually enjoy."],
+    benefits: ['Modern, intuitive interface designed for students', 'Short, engaging lessons built around their interests', 'Lessons that build practical, real-world skills', "Personalized to each student's abilities and learning level"],
+    cta: 'See the student app →',
+    label: 'Personalized learning, made engaging',
+    image: audienceSlides[2].image,
   },
 ];

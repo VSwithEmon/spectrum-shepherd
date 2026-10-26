@@ -14,7 +14,9 @@ interface Props {
   footerHills?: boolean;
   footerHillsBg?: string;
   /** Show the design switch (homepage review only). */
-  designToggle?: 'v1' | 'v2';
+  designToggle?: 'v1' | 'v2' | 'v3';
+  /** Nav after the Oct 26, 2026 client feedback (homepage V3). */
+  navV3?: boolean;
   /** 'lavender' = lavender replaces yellow as the accent (enables `lavender:` utilities) and the nav,
    *  footer and logo link the v2 pages (V2 set). Without it everything links the v1 pages (V1 set). */
   palette?: 'lavender';
@@ -30,6 +32,7 @@ const {
   designToggle,
   palette,
   bare = false,
+  navV3 = false,
 } = Astro.props;
 const pages = pagesFor(palette);
 ---
@@ -46,7 +49,7 @@ const pages = pagesFor(palette);
   </head>
   <body data-palette={palette}>
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-white focus:px-4 focus:py-3 focus:font-semibold focus:shadow-lg">Skip to main content</a>
-    {!bare && <SiteNav demoHref={demoHref} pages={pages} />}
+    {!bare && <SiteNav demoHref={demoHref} pages={pages} v3={navV3} />}
     <main id="main">
       <slot />
     </main>

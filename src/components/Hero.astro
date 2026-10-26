@@ -2,11 +2,16 @@
 // Homepage hero (Figma "Homepage Design (v1)" / "(v2)" hero, 1440×784, Oct 2026): copy left,
 // product composition right, cream → mist sky with clouds and birds, layered hills with tree
 // silhouettes along the bottom. The V4 lavender look comes from the `lavender:` utilities.
+// `v3` = client feedback (Oct 26, 2026): approved copy, Book a Demo first (dark), no audience blurbs,
+// and the Lantern Hill School dashboard the client chose as the teacher-dashboard reference.
 import Button from './Button.astro';
 import StatusChip from './StatusChip.astro';
 import HeroHills from './v3/HeroHills.astro';
 import SkyDecor from './v3/SkyDecor.astro';
 import { site } from '../data/site';
+
+interface Props { v3?: boolean }
+const { v3 = false } = Astro.props;
 ---
 <section class="relative overflow-hidden bg-linear-to-b from-cream via-haze via-10% to-mist" aria-labelledby="hero-title">
   <SkyDecor mobile />
@@ -14,8 +19,18 @@ import { site } from '../data/site';
     <div class="flex w-full flex-col items-start gap-6 lg:flex-1">
       <h1 id="hero-title" class="text-[34px]/[42px] font-bold min-[380px]:text-[38px]/[46px] sm:text-display-lg">
         Real-world skills.<br />
-        <span class="text-brand-600">Real independence.</span>
+        <span class="text-brand-600">{v3 ? 'Taught their way.' : 'Real independence.'}</span>
       </h1>
+      {v3 ? (
+        <Fragment>
+          <p class="text-[17px]/[27px] font-medium text-muted sm:text-xl">Spectrum Shepherd is a personalized life skills curriculum platform that enables transition-age neurodivergent students to build real-world skills and independence, saves teachers time, and gives schools clear evidence of transition progress.</p>
+          <div class="flex w-full flex-col gap-3 sm:flex-row sm:flex-wrap">
+            <Button href={site.demo} variant="dark" data-demo-open>Book a Demo</Button>
+            <Button href={site.trial} variant="secondary">Start Free Trial</Button>
+          </div>
+        </Fragment>
+      ) : (
+        <Fragment>
       <p class="text-[17px]/[27px] font-medium text-muted sm:text-xl">Short, personalized lessons students actually want to do and IEP-ready progress reports their teachers don't have to write.</p>
       <div class="flex w-full flex-col gap-3">
         <div class="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
@@ -34,6 +49,8 @@ import { site } from '../data/site';
           <span class="text-sm text-muted">Short lessons that build skills for everyday life.</span>
         </li>
       </ul>
+        </Fragment>
+      )}
     </div>
 
     <!-- Product composition: positions are % of the 600×600 Figma frame -->
@@ -48,10 +65,12 @@ import { site } from '../data/site';
       />
       <!-- Product shots: cropped to the device frame with transparent corners; drop-shadow follows the shape. -->
       <img
-        src="/images/teacher-dashboard.webp"
+        src={v3 ? '/images/teacher-dashboard-v3.webp' : '/images/teacher-dashboard.webp'}
         width="2080"
         height="1320"
-        alt="Shepherd teacher dashboard for William School, showing Classroom Pulse stats and the classroom roster"
+        alt={v3
+          ? 'Shepherd teacher dashboard (sample data) for Lantern Hill School: Classroom Pulse stats, a roster of five students with their latest lessons, and an action queue with two student messages'
+          : 'Shepherd teacher dashboard for William School, showing Classroom Pulse stats and the classroom roster'}
         class="device-shot absolute top-[33.33%] left-0 w-[86.67%]"
         fetchpriority="high"
       />

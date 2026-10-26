@@ -2,9 +2,9 @@
 // Spectrum Shepherd logo (client-supplied artwork: "SPECTRUM shepherd" + dotted ring), public/images/logo.png.
 // The file is 166×60 on a white background, so it sits on the white nav bar; swap in an SVG or a
 // larger transparent PNG when the client supplies one.
-interface Props { class?: string; href?: string }
-const { class: className = '', href = '/' } = Astro.props;
+interface Props { class?: string; href?: string; /** Client feedback (Oct 26, 2026): a larger, more recognizable logo. */ large?: boolean }
+const { class: className = '', href = '/', large = false } = Astro.props;
 ---
 <a href={href} aria-label="Spectrum Shepherd home" class={`flex shrink-0 items-center ${className}`}>
-  <img src="/images/logo.png" width="166" height="60" alt="" class="h-10 w-auto" />
+  <img src="/images/logo.png" width="166" height="60" alt="" class={`w-auto ${large ? 'h-10 sm:h-12' : 'h-10'}`} />
 </a>

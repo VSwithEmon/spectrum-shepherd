@@ -1,23 +1,27 @@
 ---
 // Button from the Figma "Button" set (Primary / Secondary), plus light variants for dark panels.
 // Colors are one step darker than the Figma gradient so label text meets 4.5:1.
+// `dark` = solid brand-800, the client's "Book a Demo" primary (Oct 26, 2026 feedback, homepage V3).
+// Extra attributes (e.g. data-demo-open) pass through to the link or button.
 interface Props {
   href?: string;
-  variant?: 'primary' | 'secondary' | 'light' | 'outline-light';
+  variant?: 'primary' | 'secondary' | 'light' | 'outline-light' | 'dark';
   size?: 'md' | 'lg';
   /** md buttons are rounded-lg by default; 'pill' makes them fully round. */
   shape?: 'default' | 'pill';
   type?: 'button' | 'submit';
   full?: boolean;
   class?: string;
+  [attr: string]: unknown;
 }
-const { href, variant = 'primary', size = 'md', shape = 'default', type = 'button', full = false, class: className = '' } = Astro.props;
+const { href, variant = 'primary', size = 'md', shape = 'default', type = 'button', full = false, class: className = '', ...rest } = Astro.props;
 
 const variants = {
   primary: 'bg-linear-to-b from-brand-700 to-brand-800 text-white shadow-button hover:from-brand-800',
   secondary: 'border border-brand-50 bg-brand-25 text-brand-700 hover:bg-brand-50 hover:text-brand-800',
   light: 'bg-white text-brand-800 hover:bg-brand-25',
   'outline-light': 'border-2 border-white text-white hover:bg-white/10',
+  dark: 'bg-brand-800 text-white shadow-button hover:bg-brand-900',
 };
 const sizes = {
   md: `min-h-12 px-5 py-3 text-md ${shape === 'pill' ? 'rounded-full' : 'rounded-lg'}`,
@@ -31,4 +35,4 @@ const classes = [
   className,
 ].filter(Boolean).join(' ');
 ---
-{href ? <a href={href} class={classes}><slot /></a> : <button type={type} class={classes}><slot /></button>}
+{href ? <a href={href} class={classes} {...rest}><slot /></a> : <button type={type} class={classes} {...rest}><slot /></button>}

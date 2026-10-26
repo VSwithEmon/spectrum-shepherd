@@ -3,6 +3,10 @@
 // matching cards. No eyebrow, no spinning ring; website icon family instead of the app's
 // book/tools. One blockquote (display:contents) so the parts can sit in the grid.
 import BrandIcon from './BrandIcon.astro';
+
+/** Client-approved wording (Oct 26, 2026): "monitor transition progress". */
+interface Props { v3?: boolean }
+const { v3 = false } = Astro.props;
 ---
 <section class="relative overflow-hidden bg-brand-50 px-4 py-16 md:px-8 lg:py-24" aria-labelledby="testimonial-title">
   <h2 id="testimonial-title" class="sr-only">What educators say</h2>
@@ -30,7 +34,7 @@ import BrandIcon from './BrandIcon.astro';
         </p>
         <p class="flex flex-col gap-5 rounded-[32px] bg-white p-6 text-lg font-medium shadow-lg sm:p-8 sm:text-xl">
           <BrandIcon name="progress" />
-          <span><strong class="font-bold">As an administrator,</strong> it lets us monitor progress that's typically far too subjective. Our team can now set the trajectory and manage to it.</span>
+          <span><strong class="font-bold">As an administrator,</strong> it lets us monitor {v3 && 'transition '}progress that's typically far too subjective. Our team can now set the trajectory and manage to it.</span>
         </p>
       </div>
     </blockquote>

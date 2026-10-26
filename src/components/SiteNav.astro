@@ -2,6 +2,8 @@
 // Floating nav bar (Figma components "Site / Nav" + "Nav Item", open states "Nav — Schools / Teachers /
 // Resources menu"). Menus use the disclosure pattern: a button toggles a panel of ordinary links.
 // Links follow the page set (V1 → v1 pages, V2 → v2 pages).
+// `v3` = client feedback (Oct 26, 2026; Figma "Site / Nav v2"): larger logo, Teachers and Schools open their
+// pages directly (Resources keeps its menu), Book a demo is the dark filled primary, Sign up free secondary.
 import Logo from './Logo.astro';
 import Button from './Button.astro';
 import BrandIcon, { type IconName } from './v3/BrandIcon.astro';
@@ -11,8 +13,9 @@ interface Props {
   demoHref?: string;
   /** Destination set: logo, menus, App and About links. */
   pages?: PageSet;
+  v3?: boolean;
 }
-const { demoHref = site.demo, pages = pagesV1 } = Astro.props;
+const { demoHref = site.demo, pages = pagesV1, v3 = false } = Astro.props;
 const trialHref = site.signup;
 const loginHref = site.login;
 
@@ -79,12 +82,17 @@ const activeClass = 'bg-white text-brand-800 shadow-md';
 ---
 <header class="site-nav sticky top-0 z-50 px-4 pt-4 pb-2 md:px-8" data-nav>
   <div class="bar relative mx-auto flex max-w-[1200px] items-center justify-between gap-3 rounded-full border border-line bg-white/95 py-2 pr-2 pl-4 shadow-lg backdrop-blur-md transition-shadow sm:gap-4 sm:pl-6">
-    <Logo href={pages.home} />
+    <Logo href={pages.home} large={v3} />
 
     <nav aria-label="Main" class="hidden xl:block">
       <ul class="flex items-center gap-0.5 rounded-full border border-brand-50 bg-brand-25 p-1">
         {links.map((l) => {
           const menu = menus[l.label];
+          if (v3 && l.label !== 'Resources') return (
+            <li>
+              <a href={l.href} aria-current={current === l.label ? 'page' : undefined} class={`${itemClass} pr-4 ${current === l.label ? activeClass : ''}`}>{l.label}</a>
+            </li>
+          );
           return (
             <li data-menu-item>
               <button
@@ -134,8 +142,8 @@ const activeClass = 'bg-white text-brand-800 shadow-md';
         <svg aria-hidden="true" class="size-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21a8 8 0 0 0-16 0M12 13a5 5 0 1 0 0-10 5 5 0 0 0 0 10z" /></svg>
         Log in
       </a>
-      <Button href={demoHref} variant="secondary" shape="pill">Book a demo</Button>
-      <Button href={trialHref} shape="pill">
+      <Button href={demoHref} variant={v3 ? 'dark' : 'secondary'} shape="pill">Book a demo</Button>
+      <Button href={trialHref} variant={v3 ? 'secondary' : 'primary'} shape="pill">
         Sign up free
         <svg aria-hidden="true" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 6l6 6-6 6" /></svg>
       </Button>
@@ -143,7 +151,9 @@ const activeClass = 'bg-white text-brand-800 shadow-md';
 
     <!-- Phones from 390px (Figma mobile nav) and tablets: Sign up free beside the menu button. Under 390px
          it moves into the menu (no room beside the logo). -->
-    <div class="ml-auto hidden min-[390px]:block xl:hidden"><Button href={trialHref} shape="pill">Sign up free</Button></div>
+    <div class="ml-auto hidden min-[390px]:block xl:hidden">
+      {v3 ? <Button href={demoHref} variant="dark" shape="pill" class="whitespace-nowrap max-sm:px-4">Book a demo</Button> : <Button href={trialHref} shape="pill">Sign up free</Button>}
+    </div>
     <button
       type="button"
       class="menu-toggle inline-flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-full bg-brand-25 px-4 font-semibold text-brand-800 max-sm:px-0 xl:hidden"
@@ -166,8 +176,17 @@ const activeClass = 'bg-white text-brand-800 shadow-md';
       <li><a href={loginHref} class="flex min-h-12 items-center rounded-2xl px-4 text-lg font-semibold text-brand-700 hover:bg-brand-25">Log in</a></li>
     </ul>
     <div class="mt-3 flex flex-col gap-3">
-      <Button href={trialHref} shape="pill" full>Sign up free</Button>
-      <Button href={demoHref} variant="secondary" shape="pill" full>Book a demo</Button>
+      {v3 ? (
+        <Fragment>
+          <Button href={demoHref} variant="dark" shape="pill" full>Book a demo</Button>
+          <Button href={trialHref} variant="secondary" shape="pill" full>Sign up free</Button>
+        </Fragment>
+      ) : (
+        <Fragment>
+          <Button href={trialHref} shape="pill" full>Sign up free</Button>
+          <Button href={demoHref} variant="secondary" shape="pill" full>Book a demo</Button>
+        </Fragment>
+      )}
     </div>
   </nav>
 </header>

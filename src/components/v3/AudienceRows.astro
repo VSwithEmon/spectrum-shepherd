@@ -2,20 +2,26 @@
 // "One platform for everyone in a student's corner" — V4 layout (Figma "Homepage Design (v2) —
 // lavender alternative"): three full-width rows, photo alternating left/right, each audience on
 // its own soft tint. All visible at once — no tabs, carousel, rotation or labels (Oct 2026 feedback).
+// `v3` = client feedback (Oct 26, 2026): approved copy, yellow-dot graphic label on each photo,
+// soft-yellow Teachers tint, links to the v1 pages.
 import Button from '../Button.astro';
 import CheckItem from '../CheckItem.astro';
 import FloatingStat from '../FloatingStat.astro';
-import { audienceSlides } from '../../data/audiences';
-import { pagesV2 } from '../../data/site';
+import { audienceSlides, audienceSlidesV3 } from '../../data/audiences';
+import { pagesV1, pagesV2, site } from '../../data/site';
+
+interface Props { v3?: boolean }
+const { v3 = false } = Astro.props;
+const pages = v3 ? pagesV1 : pagesV2;
 
 const hrefs: Record<string, string> = {
-  'audience-schools': pagesV2.schools,
-  'audience-teachers': pagesV2.teachers,
-  'audience-students': pagesV2.app,
+  'audience-schools': pages.schools,
+  'audience-teachers': v3 ? site.trial : pages.teachers,
+  'audience-students': pages.app,
 };
 const tints: Record<string, string> = {
   'audience-schools': 'bg-brand-25',
-  'audience-teachers': 'bg-lavender-50',
+  'audience-teachers': v3 ? 'bg-yellow-50' : 'bg-lavender-50',
   'audience-students': 'bg-orange-50',
 };
 ---
@@ -23,11 +29,13 @@ const tints: Record<string, string> = {
   <div class="mx-auto flex max-w-[1200px] flex-col gap-10">
     <h2 id="audiences-title" class="text-center text-display-sm font-bold md:text-display-md lg:text-display-lg">One platform for everyone in a student's corner.</h2>
     <ul class="flex flex-col gap-8">
-      {audienceSlides.map((s, i) => (
+      {(v3 ? audienceSlidesV3 : audienceSlides).map((s, i) => (
         <li class={`flex flex-col items-center gap-8 rounded-[32px] p-4 sm:p-6 lg:gap-14 lg:rounded-[40px] ${tints[s.id]} ${i % 2 ? 'lg:flex-row-reverse' : 'lg:flex-row'}`}>
           <div class="relative h-[240px] w-full shrink-0 overflow-hidden rounded-[28px] sm:h-[320px] lg:h-[380px] lg:w-[580px]">
             <img src={s.image.src} alt={s.image.alt} width="1100" height="825" loading="lazy" class="size-full object-cover" />
-            <FloatingStat value={s.stat.value} caption={s.stat.caption} class="bottom-5 left-5" />
+            {'label' in s
+              ? <p class="absolute right-5 bottom-5 left-5 flex w-fit items-center gap-2.5 rounded-2xl bg-white px-4 py-2.5 text-md font-bold shadow-lg sm:rounded-full sm:text-lg"><span aria-hidden="true" class="size-3 shrink-0 rounded-full bg-yellow-400"></span>{s.label}</p>
+              : <FloatingStat value={s.stat.value} caption={s.stat.caption} class="bottom-5 left-5" />}
           </div>
           <div class={`flex w-full flex-col items-start gap-5 px-2 pb-4 sm:px-4 lg:pb-0 ${i % 2 ? 'lg:pl-8' : 'lg:pr-8'}`}>
             <h3 class="text-display-xs font-bold sm:text-display-sm">
@@ -36,7 +44,7 @@ const tints: Record<string, string> = {
             <ul class="flex flex-col gap-3 text-lg">
               {s.benefits.map((b) => <CheckItem v2>{b}</CheckItem>)}
             </ul>
-            <Button href={hrefs[s.id] ?? s.cta.href}>{s.cta.label}</Button>
+            <Button href={hrefs[s.id]}>{typeof s.cta === 'string' ? s.cta : s.cta.label}</Button>
           </div>
         </li>
       ))}
