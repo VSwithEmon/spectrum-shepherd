@@ -68,6 +68,6 @@ const plain = scene === 'plain';
     </div>
   </div>
 
-  {scene === 'sky' && <HeroHills class="relative -mt-8 h-[81px] sm:-mt-12 sm:h-[140px] lg:-mt-[18px] lg:h-[180px]" />}
+  {scene === 'sky' && <HeroHills class="relative z-[1] -mt-8 h-[81px] sm:-mt-12 sm:h-[140px] lg:-mt-[18px] lg:h-[180px]" />}
   {(scene === 'classic' || plain) && <Hills path={false} trees grove={scene === 'classic'} class="-mt-6 lg:-mt-16" />}
 </section>
