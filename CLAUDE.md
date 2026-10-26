@@ -6,10 +6,10 @@ Buyers are special education teachers (free 45-day trial) and school/district le
 ## Site structure — current (Oct 26, 2026; overrides older notes below)
 - `/` → `/v1`. **`/v1` and `/v2` are the same updated homepage** (client feedback; Figma "Homepage Design (v3) — client feedback Oct 26", `38935:67668`; mobile `38950:67668`). They differ only in the page set they link (`pagesV1` / `pagesV2` in `src/data/site.ts`):
   - **V1 set:** updated `/teachers` and `/schools`; every other page is the v1 version (`/the-app`, `/about`, `/blog`, `/webinars`, `/beyond-the-transition-plan`).
-  - **V2 set:** updated `/teachers` and `/schools`; every other page is the v2 version (`/the-app-v2`, `/about-v2`, `/blog-v2`, `/webinars-v2`, `/beyond-the-transition-plan-v2`; lavender accents); v1 where no v2 exists (login, sign-up, demo, legal).
-- `/v2` uses `<Base pageSet="v2">` (V2 links, no lavender palette); the lavender `-v2` pages use `palette="lavender"`, which also selects the V2 set. `/teachers` and `/schools` are shared by both versions and link the V1 set.
+  - **V2 set:** updated `/teachers` and `/schools`; every other page is the v2 version (`/the-app-v2`, `/about-v2`, `/blog-v2`, `/webinars-v2`, `/beyond-the-transition-plan-v2`); v1 where no v2 exists (login, sign-up, demo, legal).
+- `/v2` and every `-v2` page use `<Base pageSet="v2">` (V2 links). **All pages use the yellow accent** — the lavender palette was dropped from the v2 pages (Oct 26, 2026); `palette="lavender"` / `lavender:` utilities still exist in code but no page sets it. `/teachers` and `/schools` are shared by both versions and link the V1 set.
 - **`/teachers` and `/schools` are the updated pages** (Figma `38956:67668`, `38958:67668`). The old `/teachers-v2` and `/schools-v2` pages still exist but are no longer linked. `/v3`, `/teachers-v3`, `/schools-v3`, the lavender homepage and the previous yellow homepage were removed (git history has them).
-- `<Base navUpdated>` = the client-feedback nav (Figma "Site / Nav v2"). Used by `/v1`, `/v2`, `/teachers`, `/schools`; every other page keeps the earlier nav.
+- Every page uses the client-feedback nav (Figma "Site / Nav v2"; `Base` `navUpdated` defaults to true): larger logo, Teachers/Schools as direct links, Resources menu, dark Book a demo, secondary Sign up free.
 - Component props named `v3` (`Hero v3`, `AudienceRows v3`, `Testimonial v3`, `TrialCta v3`, `SiteNav v3`) mean "client-feedback version".
 
 ## Source designs

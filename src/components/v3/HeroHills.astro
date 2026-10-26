@@ -1,6 +1,6 @@
 ---
 // Hills (Figma "Hills + trail", 1440×180): three layered hills, pale tree silhouettes along the back
-// crest and a sun. The hero uses the small sun peeking over the right hill; the footer (Figma "Site /
+// crest (behind the middle hill) and a sun. The hero uses the small sun peeking over the right hill; the footer (Figma "Site /
 // Footer") uses a big setting sun behind the hills instead. Both suns stay yellow on every page, lavender or not.
 // Geometry is the Figma vector data. The front hill (brand-700) runs into the section below.
 // On phones the art is cropped to its right 390px at 0.45 scale (Figma mobile hero). Decorative.
@@ -47,9 +47,10 @@ const trees: [number, number, number, number, number, number, number, number][] 
     </Fragment>
   )}
   <path transform="translate(0 43.357)" class="fill-brand-200" d="M0 76.642C240 16.642 420 26.642 620 66.642C820 106.642 1000 106.642 1200 36.642C1400 -33.358 1400 16.642 1440 26.642V136.642H0Z" />
-  <path transform="translate(0 92.295)" class="fill-brand-500" d="M0 57.706C200 17.706 380 7.706 560 37.706C740 67.706 900 77.706 1100 27.706C1300 -22.294 1380 7.706 1440 22.706V87.706H0Z" />
-  <path transform="translate(0 149.973)" class="fill-brand-700" d="M0 20.027C300 0.027 500 -7.973 760 10.027C1020 28.027 1200 26.027 1440 0.027V30.027H0Z" />
+  {/* Trees on the back hill, drawn before the middle hill so their bases stay hidden behind it. */}
   {trees.map(([w, h, a, b, c, d, tx, ty]) => (
     <path transform={`matrix(${a} ${b} ${c} ${d} ${tx} ${ty})`} class="fill-brand-200" d={`M${w / 2} 0L${w} ${h}H0Z`} />
   ))}
+  <path transform="translate(0 92.295)" class="fill-brand-500" d="M0 57.706C200 17.706 380 7.706 560 37.706C740 67.706 900 77.706 1100 27.706C1300 -22.294 1380 7.706 1440 22.706V87.706H0Z" />
+  <path transform="translate(0 149.973)" class="fill-brand-700" d="M0 20.027C300 0.027 500 -7.973 760 10.027C1020 28.027 1200 26.027 1440 0.027V30.027H0Z" />
 </svg>

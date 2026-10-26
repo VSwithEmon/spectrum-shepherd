@@ -15,7 +15,7 @@ interface Props {
   footerHillsBg?: string;
   /** Show the design switch (homepage review only). */
   designToggle?: 'v1' | 'v2';
-  /** The nav from the Oct 26, 2026 client feedback (homepage V1, Teachers, Schools). Other pages keep the earlier nav. */
+  /** The nav from the Oct 26, 2026 client feedback (Figma "Site / Nav v2"); the default on every page. false = the earlier nav. */
   navUpdated?: boolean;
   /** Link the V2 page set without the lavender palette (homepage V2). */
   pageSet?: 'v2';
@@ -34,7 +34,7 @@ const {
   designToggle,
   palette,
   bare = false,
-  navUpdated = false,
+  navUpdated = true,
   pageSet,
 } = Astro.props;
 const pages = pageSet === 'v2' ? pagesV2 : pagesFor(palette);

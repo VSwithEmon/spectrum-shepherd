@@ -1,7 +1,7 @@
 ---
 // Beyond the Transition Plan v1 — Figma "Beyond the Transition Plan (research) — v1" (Oct 2026; node 38894:83179),
-// linked from the lavender homepage (V2). Wording and study figures from
-// spectrumshepherd.com/beyond-the-transition-plan. Yellow accents are lavender here.
+// linked from homepage V1. Wording and study figures from
+// spectrumshepherd.com/beyond-the-transition-plan. Yellow accents.
 import Base from '../layouts/Base.astro';
 import HeroHills from '../components/v3/HeroHills.astro';
 import SkyDecor from '../components/v3/SkyDecor.astro';
@@ -45,8 +45,8 @@ const ladder = [
         </a>
       </div>
       <div class="relative flex h-[480px] w-full max-w-[420px] shrink-0 items-start justify-center lg:w-[420px]">
-        <span aria-hidden="true" class="absolute top-10 left-[80px] size-[360px] rounded-full bg-yellow-300/90 lavender:bg-lavender-200/90"></span>
-        <span aria-hidden="true" class="absolute top-[50px] left-[90px] h-[404px] w-[300px] -rotate-[8deg] rounded-lg bg-brand-50 shadow-xl"></span>
+        <span aria-hidden="true" class="absolute top-10 left-[80px] hidden size-[360px] rounded-full sm:block bg-yellow-300/90 lavender:bg-lavender-200/90"></span>
+        <span aria-hidden="true" class="absolute top-[50px] left-[90px] hidden h-[404px] w-[300px] -rotate-[8deg] rounded-lg bg-brand-50 shadow-xl sm:block"></span>
         <img src="/images/photos/whitepaper-cover.jpg" width="720" height="960" alt="Cover of the Spectrum Shepherd research white paper “Beyond the Transition Plan”, August 2026" class="relative mt-10 ml-[40px] h-[404px] w-[300px] rotate-3 self-start rounded-lg object-cover shadow-2xl" />
         <span class="absolute bottom-6 left-0 rounded-full bg-white px-3.5 py-2 text-sm font-semibold text-brand-800 shadow-lg">August 2026 · PDF</span>
       </div>
@@ -94,9 +94,9 @@ const ladder = [
       <h2 id="research-title" class="text-center text-display-sm font-bold md:text-display-md lg:text-display-lg">What the research shows</h2>
       <ul class="grid w-full gap-6 lg:grid-cols-2">
         {studies.map((s) => (
-          <li class="flex flex-col gap-4 rounded-[32px] border border-line bg-white p-9 shadow-lg">
+          <li class="flex min-w-0 flex-col gap-4 rounded-[32px] border border-line bg-white p-6 shadow-lg sm:p-9">
             <p class="self-start rounded-full bg-brand-50 px-3 py-1 text-sm font-semibold text-brand-800">{s.source}</p>
-            <p class="flex items-center gap-5">
+            <p class="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:gap-5">
               <span class="text-[56px]/none font-bold whitespace-nowrap text-brand-700 lg:text-[64px]">{s.value}</span>
               <span class="text-lg font-semibold">{s.label}</span>
             </p>

@@ -27,7 +27,7 @@ export const site = {
 
 // Two page sets, one per homepage version (Oct 26, 2026):
 //  - V1 links the v1 pages;
-//  - V2 links the v2 pages (lavender accents, `<Base palette="lavender">`) where one exists, otherwise v1.
+//  - V2 links the v2 pages (`<Base pageSet="v2">`) where one exists, otherwise v1. Both use yellow accents.
 // Both sets share the updated homepage design and the updated Teachers and Schools pages.
 // Base picks the set from `pageSet` or `palette`, so the nav, footer and logo stay inside one version.
 export type PageSet = {

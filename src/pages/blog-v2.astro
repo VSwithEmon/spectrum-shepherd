@@ -1,6 +1,6 @@
 ---
 // Blog ("Perspectives") v2 — Figma "Blog (Perspectives) — v2" (Oct 2026; node 38878:82736, big hero),
-// linked from the lavender homepage (V2). Posts as listed on spectrumshepherd.com/blog; the articles still
+// linked from homepage V2. Posts as listed on spectrumshepherd.com/blog; the articles still
 // live there. The search box filters the list in the browser (small vanilla script).
 import Base from '../layouts/Base.astro';
 import HeroHills from '../components/v3/HeroHills.astro';
@@ -14,7 +14,7 @@ const families = rest.filter((p) => p.group === 'families');
 const text = (p: (typeof posts)[number]) => `${p.title} ${p.excerpt}`.toLowerCase();
 ---
 <Base
-  palette="lavender"
+  pageSet="v2"
   title="Perspectives — special education transition resources — Spectrum Shepherd"
   description="Practical advice, heartfelt stories, and expert viewpoints on navigating the journey to independence for autistic young adults."
 >
