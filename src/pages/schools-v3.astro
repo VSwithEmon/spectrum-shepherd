@@ -24,7 +24,7 @@ const miniLessons = ['Budgeting for a concert ticket', 'Washing hands', 'Identif
 const miniBars = [
   { name: 'Daily living', value: 83, tone: 'bg-brand-700' },
   { name: 'Communication', value: 65, tone: 'bg-brand-700' },
-  { name: 'Personal safety', value: 22, tone: 'bg-orange-700' },
+  { name: 'Personal safety', value: 22, tone: 'bg-red-600' },
 ];
 // "Progress by Skill Area" (client: dashboard from Jess's brochure, progress against targets). Sample data.
 const status = {
@@ -111,17 +111,17 @@ const accentBar = 'h-1.5 w-14 rounded-full bg-yellow-300';
           <li class="flex flex-col overflow-hidden rounded-[28px] border border-line bg-white shadow-md">
             <div aria-hidden="true" class={`flex h-[230px] flex-col justify-center gap-2.5 p-7 ${v.tint}`}>
               {i === 0 && miniLessons.map((l) => (
-                <p class="flex items-center gap-2.5 rounded-xl border border-line bg-white px-3 py-2.5">
-                  <span class="size-5 shrink-0 rounded-full bg-brand-100"></span>
-                  <span class="flex flex-col gap-1">
-                    <span class="text-sm font-semibold">{l}</span>
-                    <span class="w-fit rounded-md bg-brand-50 px-1.5 text-[11px] font-semibold text-brand-800">Linked to IEP goal</span>
+                <p class="flex items-center gap-2.5 rounded-xl border border-line bg-white px-3 py-2">
+                  <span class="size-[22px] shrink-0 rounded-full bg-brand-100"></span>
+                  <span class="flex flex-col gap-0.5">
+                    <span class="text-[13px]/[18px] font-semibold">{l}</span>
+                    <span class="w-fit rounded-md bg-brand-50 px-1.5 py-px text-[10px] font-semibold text-brand-800">Linked to IEP goal</span>
                   </span>
                 </p>
               ))}
               {i === 1 && (
                 <div class="flex flex-col gap-3 rounded-2xl border border-line bg-white p-4">
-                  <p class="text-sm font-bold">Progress by skill area</p>
+                  <p class="text-[13px] font-bold">Progress by skill area</p>
                   {miniBars.map((b) => (
                     <div class="flex flex-col gap-1.5">
                       <p class="flex justify-between text-xs"><span class="font-medium text-muted">{b.name}</span><span class="font-bold">{b.value}%</span></p>
@@ -139,7 +139,7 @@ const accentBar = 'h-1.5 w-14 rounded-full bg-yellow-300';
             </div>
             <div class="flex flex-col gap-2.5 p-7 pb-8">
               <span aria-hidden="true" class="h-1 w-10 rounded-full bg-yellow-300"></span>
-              <h3 class="text-display-xs font-bold">{v.title}</h3>
+              <h3 class="text-[22px]/[30px] font-bold">{v.title}</h3>
               <p class="text-md text-muted">{v.body}</p>
             </div>
           </li>
