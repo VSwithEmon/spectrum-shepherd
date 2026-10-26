@@ -3,16 +3,16 @@
 // lavender alternative"): three full-width rows, photo alternating left/right, each audience on
 // its own soft tint. All visible at once — no tabs, carousel, rotation or labels (Oct 2026 feedback).
 // `v3` = client feedback (Oct 26, 2026): approved copy, yellow-dot graphic label on each photo,
-// soft-yellow Teachers tint, links to the V3 pages.
+// soft-yellow Teachers tint, links to the main pages.
 import Button from '../Button.astro';
 import CheckItem from '../CheckItem.astro';
 import FloatingStat from '../FloatingStat.astro';
 import { audienceSlides, audienceSlidesV3 } from '../../data/audiences';
-import { pagesV2, pagesV3, site } from '../../data/site';
+import { pagesV1, pagesV2, site } from '../../data/site';
 
 interface Props { v3?: boolean }
 const { v3 = false } = Astro.props;
-const pages = v3 ? pagesV3 : pagesV2;
+const pages = v3 ? pagesV1 : pagesV2;
 
 const hrefs: Record<string, string> = {
   'audience-schools': pages.schools,

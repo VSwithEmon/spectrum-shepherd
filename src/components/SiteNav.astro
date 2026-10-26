@@ -7,7 +7,7 @@
 import Logo from './Logo.astro';
 import Button from './Button.astro';
 import BrandIcon, { type IconName } from './v3/BrandIcon.astro';
-import { site, type PageSet, pagesV1, pagesV2, pagesV3 } from '../data/site';
+import { site, type PageSet, pagesV1, pagesV2 } from '../data/site';
 
 interface Props {
   demoHref?: string;
@@ -69,7 +69,7 @@ const links = [
 // Which nav section the visitor is in (both page sets), so the bar can show "you are here".
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const sectionOf: Record<string, string> = {};
-for (const set of [pagesV1, pagesV2, pagesV3]) {
+for (const set of [pagesV1, pagesV2]) {
   sectionOf[set.teachers] = 'Teachers';
   sectionOf[set.schools] = 'Schools';
   for (const r of [set.blog, set.webinars, set.research]) sectionOf[r] = 'Resources';

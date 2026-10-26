@@ -3,7 +3,7 @@ import '../styles/global.css';
 import SiteNav from '../components/SiteNav.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import DesignToggle from '../components/DesignToggle.astro';
-import { pagesFor, pagesV3 } from '../data/site';
+import { pagesFor } from '../data/site';
 
 interface Props {
   title: string;
@@ -14,9 +14,9 @@ interface Props {
   footerHills?: boolean;
   footerHillsBg?: string;
   /** Show the design switch (homepage review only). */
-  designToggle?: 'v1' | 'v2' | 'v3';
-  /** Homepage V3 set (client feedback, Oct 26, 2026): the updated nav, and links to /v3, /teachers-v3, /schools-v3. */
-  navV3?: boolean;
+  designToggle?: 'v1' | 'v2';
+  /** The nav from the Oct 26, 2026 client feedback (homepage V1, Teachers, Schools). Other pages keep the earlier nav. */
+  navUpdated?: boolean;
   /** 'lavender' = lavender replaces yellow as the accent (enables `lavender:` utilities) and the nav,
    *  footer and logo link the v2 pages (V2 set). Without it everything links the v1 pages (V1 set). */
   palette?: 'lavender';
@@ -32,9 +32,9 @@ const {
   designToggle,
   palette,
   bare = false,
-  navV3 = false,
+  navUpdated = false,
 } = Astro.props;
-const pages = navV3 ? pagesV3 : pagesFor(palette);
+const pages = pagesFor(palette);
 ---
 <!doctype html>
 <html lang="en">
@@ -49,7 +49,7 @@ const pages = navV3 ? pagesV3 : pagesFor(palette);
   </head>
   <body data-palette={palette}>
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-white focus:px-4 focus:py-3 focus:font-semibold focus:shadow-lg">Skip to main content</a>
-    {!bare && <SiteNav demoHref={demoHref} pages={pages} v3={navV3} />}
+    {!bare && <SiteNav demoHref={demoHref} pages={pages} v3={navUpdated} />}
     <main id="main">
       <slot />
     </main>

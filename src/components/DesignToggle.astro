@@ -1,13 +1,12 @@
 ---
 // Review aid: switch between the two homepage designs from Figma's "Homepage Design( update here)"
-// section — V1 = Figma V1 (main direction, yellow accents), V2 = Figma V2 (lavender alternative),
-// V3 = Figma "Homepage Design (v3) — client feedback Oct 26".
-interface Props { active: 'v1' | 'v2' | 'v3' }
+// section — V1 = the current homepage (Figma "Homepage Design (v3) — client feedback Oct 26"),
+// V2 = the previous homepage (Figma "Homepage Design (v1) — main direction").
+interface Props { active: 'v1' | 'v2' }
 const { active } = Astro.props;
 const options = [
   { id: 'v1', label: 'V1', href: '/v1' },
   { id: 'v2', label: 'V2', href: '/v2' },
-  { id: 'v3', label: 'V3', href: '/v3' },
 ];
 ---
 <nav
