@@ -28,8 +28,10 @@ interface Props {
   primaryVariant?: 'primary' | 'dark';
   /** Extra attributes for the primary button (e.g. data-demo-open). */
   primaryAttrs?: Record<string, string>;
+  /** Large-screen size of the visual area (default a 600×600 square). */
+  visualClass?: string;
 }
-const { title, accent, lede, primary, secondary, checks = [], sun = true, scene = 'sky', primaryVariant = 'primary', primaryAttrs = {} } = Astro.props;
+const { title, accent, lede, primary, secondary, checks = [], sun = true, scene = 'sky', primaryVariant = 'primary', primaryAttrs = {}, visualClass = 'lg:aspect-square' } = Astro.props;
 const plain = scene === 'plain';
 ---
 <section class={`relative overflow-hidden ${plain ? 'bg-cream' : 'bg-linear-to-b from-cream via-haze via-10% to-mist'}`} aria-labelledby="page-title">
@@ -58,7 +60,7 @@ const plain = scene === 'plain';
       )}
     </div>
 
-    <div class="relative w-full shrink-0 lg:aspect-square lg:w-[600px]">
+    <div class={`relative w-full shrink-0 lg:w-[600px] ${visualClass}`}>
       {sun && <div aria-hidden="true" class="absolute top-[5%] left-[20%] hidden aspect-square w-[76.67%] rounded-full bg-yellow-200 lg:block lavender:bg-lavender-200"></div>}
       <slot name="visual" />
     </div>
