@@ -11,7 +11,11 @@ const milestones = [
   { when: 'This week', title: 'See your first progress notes', body: 'Captured as students work, tied to IEP goals.' },
   { when: 'Day 45', title: 'Decide with real evidence', body: 'Still free. Still no credit card.' },
 ];
-const checks = ['No credit card', 'No district approval', 'Set up in about 10 minutes'];
+
+/** Client-approved wording (Oct 26, 2026): replaces "no setup needed". */
+interface Props { v3?: boolean }
+const { v3 = false } = Astro.props;
+const checks = ['No credit card', 'No district approval', v3 ? 'Set up in minutes' : 'Set up in about 10 minutes'];
 ---
 <section id="trial" class="px-4 py-16 md:px-8 lg:py-24" aria-labelledby="trial-title">
   <div class="on-dark relative mx-auto flex max-w-[1200px] flex-col items-center gap-10 overflow-hidden rounded-[32px] bg-brand-800 px-6 pt-12 pb-40 text-white sm:px-12 lg:flex-row lg:gap-14 lg:rounded-[40px] lg:px-[72px] lg:pt-16 lg:pb-32">
@@ -27,7 +31,7 @@ const checks = ['No credit card', 'No district approval', 'Set up in about 10 mi
         Try it with one student.<br />
         <span class="text-yellow-300 lavender:text-lavender-200">Or your whole classroom.</span>
       </h2>
-      <p class="text-lg text-brand-50 sm:text-xl">Forty-five days, free, no setup needed.</p>
+      <p class="text-lg text-brand-50 sm:text-xl">{v3 ? 'Try Shepherd free for 45 days. Set up your class in minutes. No credit card or district approval needed.' : 'Forty-five days, free, no setup needed.'}</p>
       <div class="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
         <Button href={site.trial} variant="light">Start your 45-day free trial</Button>
         <Button href={site.demo} variant="outline-light">Book a demo</Button>

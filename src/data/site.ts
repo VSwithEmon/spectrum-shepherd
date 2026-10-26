@@ -42,4 +42,6 @@ export const pagesV2: PageSet = {
   home: '/v2', teachers: '/teachers-v2', schools: '/schools-v2', app: '/the-app-v2',
   about: '/about-v2', blog: '/blog-v2', webinars: '/webinars-v2', research: '/beyond-the-transition-plan-v2',
 };
+// Homepage V3 (client feedback, Oct 26, 2026): the updated Teachers and Schools pages; the other pages are v1.
+export const pagesV3: PageSet = { ...pagesV1, home: '/v3', teachers: '/teachers-v3', schools: '/schools-v3' };
 export const pagesFor = (palette?: 'lavender'): PageSet => (palette === 'lavender' ? pagesV2 : pagesV1);

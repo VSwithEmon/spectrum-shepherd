@@ -3,7 +3,7 @@ import '../styles/global.css';
 import SiteNav from '../components/SiteNav.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import DesignToggle from '../components/DesignToggle.astro';
-import { pagesFor } from '../data/site';
+import { pagesFor, pagesV3 } from '../data/site';
 
 interface Props {
   title: string;
@@ -15,7 +15,7 @@ interface Props {
   footerHillsBg?: string;
   /** Show the design switch (homepage review only). */
   designToggle?: 'v1' | 'v2' | 'v3';
-  /** Nav after the Oct 26, 2026 client feedback (homepage V3). */
+  /** Homepage V3 set (client feedback, Oct 26, 2026): the updated nav, and links to /v3, /teachers-v3, /schools-v3. */
   navV3?: boolean;
   /** 'lavender' = lavender replaces yellow as the accent (enables `lavender:` utilities) and the nav,
    *  footer and logo link the v2 pages (V2 set). Without it everything links the v1 pages (V1 set). */
@@ -34,7 +34,7 @@ const {
   bare = false,
   navV3 = false,
 } = Astro.props;
-const pages = pagesFor(palette);
+const pages = navV3 ? pagesV3 : pagesFor(palette);
 ---
 <!doctype html>
 <html lang="en">

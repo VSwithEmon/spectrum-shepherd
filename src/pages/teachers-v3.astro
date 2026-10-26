@@ -1,0 +1,198 @@
+---
+// Teachers page V3 — client feedback, Oct 26, 2026 (Figma "Teachers — Desktop 1440 (v3) — client feedback
+// Oct 26", node 38956:67668), linked from homepage V3. The Teachers v2 layout and visuals with the
+// approved copy: school logo strip back under the tagline, revised before/after rows, the shorter IEP
+// evidence copy, the approved stats (the 88% pilot claim and the beta paragraph removed), new step and
+// question copy, and the approved trial panel wording. Yellow accents.
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/v3/PageHero.astro';
+import LogoMarquee from '../components/v3/LogoMarquee.astro';
+import BrandIcon from '../components/v3/BrandIcon.astro';
+import EvidenceReport from '../components/v3/EvidenceReport.astro';
+import StatPanel from '../components/v3/StatPanel.astro';
+import FaqSection from '../components/v3/FaqSection.astro';
+import TrialCta from '../components/v3/TrialCta.astro';
+import LessonLibrary from '../components/v3/LessonLibrary.astro';
+import StatusChip from '../components/StatusChip.astro';
+import { site } from '../data/site';
+
+const before = [
+  'Hunt for age-appropriate materials',
+  'Rewrite lessons for different reading levels',
+  'Create additional versions for students needing support',
+  'Reconstruct progress before IEP meetings',
+  'Do it again next week!',
+];
+const after = [
+  'Ready-to-use, age-appropriate life skills lessons',
+  'Lessons personalized to each student’s abilities',
+  'Individualized learning plans for every student',
+  'Progress documented automatically as students work',
+  'Next week’s lessons are ready',
+];
+// Card 1 is kept only if the original survey supports it (client note); confirm before launch.
+const stats = [
+  { icon: 'progress' as const, value: '100%', label: "of teachers say it's easier to set up and run" },
+  { icon: 'spark' as const, value: '82%', label: 'found learning more engaging' },
+  { icon: 'people' as const, value: 'Up to 10', label: 'hours back each week' },
+];
+const steps = [
+  { n: '1', label: 'Setup', icon: 'check' as const, title: 'Ten minutes, once.', body: 'Add your students, set their learning goals and you’re ready to go.' },
+  { n: '2', label: 'Daily learning', icon: 'lesson' as const, title: 'It personalizes for you.', body: 'Students get personalized lessons based on their goals, abilities and interests.' },
+  { n: '3', label: 'Progress evidence', icon: 'progress' as const, title: 'Ready before the meeting.', body: 'Student performance is tracked automatically, with progress reports ready when you need them.' },
+];
+const faqs = [
+  { q: 'What kinds of life and functional skills does Shepherd teach?', a: ['Shepherd offers lessons covering practical life skills, including communication, emotional regulation, personal safety, self-advocacy and daily living. Lessons are personalized to each student’s abilities, interests and learning goals.'] },
+  { q: 'How does Shepherd fit into existing special education instruction?', a: ['Shepherd works alongside your existing curriculum and classroom instruction. Teachers can create individualized learning plans, assign ready-to-use lessons and support students as they practice skills at their own level.'] },
+  { q: 'How is progress toward independence measured?', a: ['Shepherd automatically tracks student performance as lessons are completed, including accuracy, prompting and independent responses. Teachers can review progress over time and use the documented results to support IEP reviews and transition planning.'] },
+];
+---
+<Base
+  title="Transition curriculum for special education teachers — Spectrum Shepherd"
+  description="Individualized learning plans, personalized life skills lessons and automatic progress documentation for special education teachers — free for 45 days."
+  navV3
+>
+  <PageHero
+    title="Transition curriculum"
+    accent="you don’t have to build."
+    lede="Individualized learning plans, personalized life skills lessons and automatic progress documentation."
+    primary={{ label: 'Start your 45-day free trial', href: site.trial }}
+    secondary={{ label: 'See how it works', href: '#how-it-works' }}
+    scene="sky"
+    checks={['No credit card', 'No district approval needed']}
+  >
+    <Fragment slot="visual">
+      <!-- Phones/tablets: photo above the library card. lg: the composed 600×600 layout. -->
+      <img
+        src="/images/photos/demo-host.jpg"
+        width="1100"
+        height="733"
+        alt="Two educators reviewing a student's progress on a laptop"
+        class="mb-4 h-[200px] w-full rounded-[28px] object-cover object-[center_35%] sm:h-[260px] lg:absolute lg:top-[1.7%] lg:right-0 lg:mb-0 lg:h-[36.7%] lg:w-1/2 lg:border-[6px] lg:border-white"
+      />
+      <LessonLibrary class="lg:absolute lg:top-[19.7%] lg:left-0 lg:w-[90%]" />
+      <div class="hidden lg:block">
+        <StatusChip title="Next week is ready" caption="Lessons queued for every student" class="top-[9.7%] left-[-5%] z-10" />
+        <StatusChip title="Rewritten for each student" caption="Matched to their reading level" class="top-[89%] left-[50%] z-10" />
+      </div>
+    </Fragment>
+  </PageHero>
+
+  <LogoMarquee />
+
+  <!-- Before / after -->
+  <section class="bg-white px-4 py-16 md:px-8 lg:py-24" aria-labelledby="scaries-title">
+    <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-12">
+      <div class="flex max-w-[820px] flex-col gap-4 text-center">
+        <h2 id="scaries-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">Sunday night scaries, before and after</h2>
+        <p class="text-lg text-muted sm:text-xl">The lessons are already written. The personalization happens on its own. The paperwork writes itself as students work.</p>
+      </div>
+      <div class="grid w-full gap-6 md:grid-cols-2">
+        <section aria-labelledby="before-title" class="flex flex-col gap-5 rounded-3xl border border-line bg-white p-6 sm:px-9 sm:py-8">
+          <h3 id="before-title" class="text-xl font-semibold text-muted">Building it yourself</h3>
+          <ul class="flex flex-col gap-4">
+            {before.map((t) => (
+              <li class="flex items-start gap-3.5 text-lg text-muted">
+                <svg aria-hidden="true" class="mt-0.5 size-6 shrink-0" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="11.2" class="fill-white stroke-line-strong" stroke-width="0.8" /><path d="M8 12h8" class="stroke-field" stroke-width="1.6" stroke-linecap="round" /></svg>
+                {t}
+              </li>
+            ))}
+          </ul>
+        </section>
+        <section aria-labelledby="after-title" class="flex flex-col gap-5 rounded-3xl border-2 border-brand-200 bg-brand-25 p-6 sm:px-9 sm:py-8">
+          <h3 id="after-title" class="text-xl font-semibold text-brand-800">Next week is already there.</h3>
+          <ul class="flex flex-col gap-4">
+            {after.map((t) => (
+              <li class="flex items-start gap-3.5 text-lg font-medium">
+                <BrandIcon name="check" class="mt-0.5 size-6" />
+                {t}
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+    </div>
+  </section>
+
+  <!-- IEP evidence -->
+  <section id="evidence" class="scroll-mt-4 bg-brand-25 px-4 py-16 md:px-8 lg:py-24" aria-labelledby="evidence-title">
+    <div class="mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[480px_1fr] lg:gap-[72px]">
+      <div class="flex flex-col gap-5">
+        <h2 id="evidence-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">The IEP evidence, already written.</h2>
+        <p class="text-lg text-muted">Shepherd automatically captures lesson performance and skill progress as students work, giving teachers clear evidence to support IEP reviews and transition planning.</p>
+        <p class="text-lg font-semibold text-brand-700">You review it. You don’t write it.</p>
+      </div>
+      <EvidenceReport />
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="bg-white px-4 py-16 md:px-8 lg:py-24" aria-label="Teacher results">
+    <div class="mx-auto max-w-[1200px]">
+      <StatPanel items={stats} compactMobile />
+    </div>
+  </section>
+
+  <!-- How it works -->
+  <section id="how-it-works" class="scroll-mt-4 bg-cream px-4 py-16 md:px-8 lg:py-24" aria-labelledby="how-title">
+    <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-12">
+      <h2 id="how-title" class="text-center text-display-sm font-bold md:text-display-md lg:text-display-lg">Set it up once. It keeps going.</h2>
+      <ol class="grid w-full gap-6 md:grid-cols-3">
+        {steps.map((s) => (
+          <li class="flex flex-col gap-4 rounded-3xl border border-line bg-white p-8">
+            <div class="flex items-center justify-between">
+              <span class="flex items-center gap-2.5 font-semibold text-brand-700">
+                <span aria-hidden="true" class="flex size-9 items-center justify-center rounded-full bg-yellow-300 font-bold text-ink">{s.n}</span>
+                {s.label}
+              </span>
+              <BrandIcon name={s.icon} />
+            </div>
+            <h3 class="text-display-xs font-semibold">{s.title}</h3>
+            <p class="text-muted">{s.body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Teacher story -->
+  <section class="bg-brand-50 px-4 py-16 md:px-8 lg:py-24" aria-labelledby="story-title">
+    <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-12">
+      <h2 id="story-title" class="text-center text-display-sm font-bold md:text-display-md lg:text-display-lg">What it changed in the classroom.</h2>
+      <div class="grid w-full gap-6 lg:grid-cols-2">
+        <figure class="flex flex-col justify-between gap-8 rounded-[32px] bg-white p-8 sm:p-12">
+          <span aria-hidden="true" class="text-[96px] leading-[64px] font-bold text-brand-300">“</span>
+          <blockquote class="text-display-xs font-semibold sm:text-display-sm">It was beautiful to see him use the learning to advocate for himself and get what he needed.</blockquote>
+          <figcaption class="flex items-center gap-3.5 border-t border-line pt-6">
+            <span aria-hidden="true" class="flex size-12 items-center justify-center rounded-full bg-brand-50 text-lg font-bold text-brand-800">E</span>
+            <span class="flex flex-col">
+              <span class="font-semibold">Emily Colisimo</span>
+              <span class="text-sm text-muted">Cotting School, MA</span>
+            </span>
+          </figcaption>
+        </figure>
+        <div class="on-dark relative flex min-h-[320px] flex-col justify-end gap-2 overflow-hidden rounded-[32px] bg-brand-700 p-8 text-white sm:p-10">
+          <span aria-hidden="true" class="swirl pointer-events-none absolute -top-16 -right-10 size-[300px] bg-white opacity-10"></span>
+          <!-- [VIDEO — Emily Colisimo teacher story] placeholder until the client supplies the video link -->
+          <a href="#" aria-label="Play Emily Colisimo's teacher story" class="absolute top-8 left-8 flex size-[72px] items-center justify-center rounded-full bg-white text-brand-800 hover:bg-brand-25 sm:top-10 sm:left-10">
+            <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z" /></svg>
+          </a>
+          <p class="text-sm font-semibold text-yellow-300">Teacher story · 2 min</p>
+          <p class="text-display-xs font-bold">Emily Colisimo</p>
+          <p class="text-brand-50">Capstone Teacher, Cotting School, Lexington, MA</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <FaqSection title="Questions teachers ask" items={faqs} cta={{ label: 'Start your 45-day free trial', href: site.trial }} />
+
+  <TrialCta v3 />
+</Base>
+
+<style>
+  .swirl {
+    mask: url('/images/logo-mark.png') center / contain no-repeat;
+    -webkit-mask: url('/images/logo-mark.png') center / contain no-repeat;
+  }
+</style>

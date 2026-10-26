@@ -24,8 +24,12 @@ interface Props {
   /** Soft sun circle behind the visual (large screens). */
   sun?: boolean;
   scene?: 'sky' | 'classic' | 'plain' | 'none';
+  /** 'dark' = Book a Demo as the solid primary (client feedback, Oct 26, 2026). */
+  primaryVariant?: 'primary' | 'dark';
+  /** Extra attributes for the primary button (e.g. data-demo-open). */
+  primaryAttrs?: Record<string, string>;
 }
-const { title, accent, lede, primary, secondary, checks = [], sun = true, scene = 'sky' } = Astro.props;
+const { title, accent, lede, primary, secondary, checks = [], sun = true, scene = 'sky', primaryVariant = 'primary', primaryAttrs = {} } = Astro.props;
 const plain = scene === 'plain';
 ---
 <section class={`relative overflow-hidden ${plain ? 'bg-cream' : 'bg-linear-to-b from-cream via-haze via-10% to-mist'}`} aria-labelledby="page-title">
@@ -42,7 +46,7 @@ const plain = scene === 'plain';
       </h1>
       <p class="text-lg font-medium text-muted sm:text-xl">{lede}</p>
       <div class="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap">
-        <Button href={primary.href}>{primary.label}</Button>
+        <Button href={primary.href} variant={primaryVariant} {...primaryAttrs}>{primary.label}</Button>
         {secondary && <Button href={secondary.href} variant="secondary">{secondary.label}</Button>}
       </div>
       {checks.length > 0 && (
