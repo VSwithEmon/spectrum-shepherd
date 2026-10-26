@@ -17,16 +17,14 @@ import ProgramDashboard from '../components/v3/ProgramDashboard.astro';
 import { site } from '../data/site';
 
 const values = [
-  { title: 'Consistent transition instruction across classrooms', body: 'Give teachers ready-to-use life skills lessons personalized to each student’s goals, abilities and interests.', tint: 'bg-brand-25' },
-  { title: 'See progress. Make informed decisions.', body: 'Track student performance and skill development with clear reports that support IEP reviews and transition planning.', tint: 'bg-yellow-50' },
-  { title: 'Give teachers time back', body: 'Reduce lesson preparation and manual documentation so teachers can focus more on students.', tint: 'bg-brand-25' },
+  { title: 'Consistent transition instruction across classrooms', body: 'Give teachers ready-to-use life skills lessons personalized to each student’s goals, abilities and interests.' },
+  { title: 'See progress. Make informed decisions.', body: 'Track student performance and skill development with clear reports that support IEP reviews and transition planning.' },
+  { title: 'Give teachers time back', body: 'Reduce lesson preparation and manual documentation so teachers can focus more on students.' },
 ];
-const miniLessons = ['Budgeting for a concert ticket', 'Washing hands', 'Identifying and naming emotions'];
-const miniBars = [
-  { name: 'Daily living', value: 83, tone: 'bg-brand-700' },
-  { name: 'Communication', value: 65, tone: 'bg-brand-700' },
-  { name: 'Personal safety', value: 22, tone: 'bg-red-600' },
-];
+// Product snippets on the value cards (decorative; the card text carries the meaning).
+const rooms = ['Room 104', 'Room 112', 'Room 207'];
+const barHeights = ['h-[40%]', 'h-[55%]', 'h-[65%]', 'h-[75%]', 'h-[85%]'];
+const doneFor = ['Lesson prep', 'Progress notes', 'IEP evidence'];
 // "Progress by Skill Area" (client: dashboard from Jess's brochure, progress against targets). Sample data.
 const status = {
   on: { label: 'On track', chip: 'bg-brand-50 text-brand-800', bar: 'bg-brand-700' },
@@ -102,38 +100,28 @@ const accentBar = 'h-1.5 w-14 rounded-full bg-yellow-300';
       <h2 id="value-title" class={`text-center ${h2}`}>The value for schools</h2>
       <ul class="grid gap-6 lg:grid-cols-3">
         {values.map((v, i) => (
-          <li class="flex flex-col overflow-hidden rounded-[28px] border border-line bg-white shadow-md">
-            <div aria-hidden="true" class={`flex h-[230px] flex-col justify-center gap-2.5 p-7 ${v.tint}`}>
-              {i === 0 && miniLessons.map((l) => (
-                <p class="flex items-center gap-2.5 rounded-xl border border-line bg-white px-3 py-2">
-                  <span class="size-[22px] shrink-0 rounded-full bg-brand-100"></span>
-                  <span class="flex flex-col gap-0.5">
-                    <span class="text-[13px]/[18px] font-semibold">{l}</span>
-                    <span class="w-fit rounded-md bg-brand-50 px-1.5 py-px text-[10px] font-semibold text-brand-800">Linked to IEP goal</span>
-                  </span>
+          <li class="flex flex-col gap-6 rounded-[28px] border border-line bg-white p-7 shadow-md">
+            <div aria-hidden="true" class="flex h-[132px] flex-col justify-center gap-2 rounded-2xl bg-white p-4 shadow-md">
+              {i === 0 && rooms.map((r) => (
+                <p class="flex items-center justify-between gap-3 rounded-lg bg-brand-25 px-2.5 py-1.5 text-[13px] font-semibold">
+                  <span>{r}</span>
+                  <span class="flex items-center gap-1.5 font-medium"><BrandIcon name="check" class="size-4" />Same lesson, own level</span>
                 </p>
               ))}
               {i === 1 && (
-                <div class="flex flex-col gap-3 rounded-2xl border border-line bg-white p-4">
-                  <p class="text-[13px] font-bold">Progress by skill area</p>
-                  {miniBars.map((b) => (
-                    <div class="flex flex-col gap-1.5">
-                      <p class="flex justify-between text-xs"><span class="font-medium text-muted">{b.name}</span><span class="font-bold">{b.value}%</span></p>
-                      <span class="h-2 rounded-full bg-line"><span class={`block h-2 rounded-full ${b.tone}`} style={`width:${b.value}%`}></span></span>
-                    </div>
-                  ))}
+                <div class="flex h-full items-end gap-3 px-2.5 pt-2">
+                  {barHeights.map((h, k) => <span class={`flex-1 rounded-t-md ${h} ${k === barHeights.length - 1 ? 'bg-brand-600' : 'bg-brand-200'}`}></span>)}
                 </div>
               )}
-              {i === 2 && (
-                <div class="flex flex-col items-center gap-3.5">
-                  <StatusChip title="Next week is ready" caption="Lessons queued for every student" inline />
-                  <StatusChip title="Progress note saved" caption="Linked to IEP goal" inline />
-                </div>
-              )}
+              {i === 2 && doneFor.map((t) => (
+                <p class="flex items-center justify-between gap-3 rounded-lg bg-yellow-50 px-2.5 py-1.5 text-[13px] font-semibold">
+                  <span>{t}</span>
+                  <span class="rounded-full bg-brand-50 px-2 py-0.5 text-xs font-semibold text-brand-800">Done for you</span>
+                </p>
+              ))}
             </div>
-            <div class="flex flex-col gap-2.5 p-7 pb-8">
-              <span aria-hidden="true" class="h-1 w-10 rounded-full bg-yellow-300"></span>
-              <h3 class="text-[22px]/[30px] font-bold">{v.title}</h3>
+            <div class="flex flex-col gap-3">
+              <h3 class="text-xl/[30px] font-bold">{v.title}</h3>
               <p class="text-md text-muted">{v.body}</p>
             </div>
           </li>
