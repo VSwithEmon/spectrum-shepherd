@@ -47,7 +47,7 @@ const trees: [number, number, number, number, number, number, number, number][] 
     </Fragment>
   )}
   <path transform="translate(0 43.357)" class="fill-brand-200" d="M0 76.642C240 16.642 420 26.642 620 66.642C820 106.642 1000 106.642 1200 36.642C1400 -33.358 1400 16.642 1440 26.642V136.642H0Z" />
-  {/* Trees on the back hill, drawn before the middle hill so their bases stay hidden behind it. */}
+  {/* Trees behind the middle hill, so a tree base never shows as a pale wedge on the darker hill. */}
   {trees.map(([w, h, a, b, c, d, tx, ty]) => (
     <path transform={`matrix(${a} ${b} ${c} ${d} ${tx} ${ty})`} class="fill-brand-200" d={`M${w / 2} 0L${w} ${h}H0Z`} />
   ))}
