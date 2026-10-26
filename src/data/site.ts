@@ -25,11 +25,11 @@ export const site = {
   appLogin: 'https://app.shepherdskills.com',
 };
 
-// Two page sets, one per homepage design (Oct 2026):
-//  - V1 (yellow accents) links the v1 pages;
-//  - V2 (lavender accents) links the v2 pages, which swap every yellow accent for lavender
-//    (`<Base palette="lavender">`).
-// Base picks the set from `palette`, so the nav, footer and logo stay inside the same design.
+// Two page sets, one per homepage version (Oct 26, 2026):
+//  - V1 links the v1 pages;
+//  - V2 links the v2 pages (lavender accents, `<Base palette="lavender">`) where one exists, otherwise v1.
+// Both sets share the updated homepage design and the updated Teachers and Schools pages.
+// Base picks the set from `pageSet` or `palette`, so the nav, footer and logo stay inside one version.
 export type PageSet = {
   home: string; teachers: string; schools: string; app: string;
   about: string; blog: string; webinars: string; research: string;
@@ -39,7 +39,7 @@ export const pagesV1: PageSet = {
   about: '/about', blog: '/blog', webinars: '/webinars', research: '/beyond-the-transition-plan',
 };
 export const pagesV2: PageSet = {
-  home: '/v2', teachers: '/teachers-v2', schools: '/schools-v2', app: '/the-app-v2',
+  home: '/v2', teachers: '/teachers', schools: '/schools', app: '/the-app-v2',
   about: '/about-v2', blog: '/blog-v2', webinars: '/webinars-v2', research: '/beyond-the-transition-plan-v2',
 };
 export const pagesFor = (palette?: 'lavender'): PageSet => (palette === 'lavender' ? pagesV2 : pagesV1);
