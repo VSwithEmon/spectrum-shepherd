@@ -40,9 +40,9 @@ const skillAreas: { name: string; value: number; target: number; status: keyof t
   { name: 'Social, Digital & Exec Skills', value: 55, target: 70, status: 'watch' },
 ];
 const plans = [
-  { initials: 'BC', name: 'Ben', plan: 'Self-advocacy · Level 2', interests: 'Interests: basketball' },
-  { initials: 'JP', name: 'Jordan', plan: 'Emotions · Level 1', interests: 'Interests: music' },
-  { initials: 'TM', name: 'Tessa', plan: 'Money skills · Level 3', interests: 'Interests: cooking' },
+  { initial: 'M', name: 'Maya', goal: 'Budgeting', interest: 'Music', dot: 'bg-yellow-400', level: 'Level 2', tone: 'bg-yellow-100' },
+  { initial: 'D', name: 'Devon', goal: 'Self-advocacy', interest: 'Basketball', dot: 'bg-orange-400', level: 'Level 1', tone: 'bg-orange-100' },
+  { initial: 'S', name: 'Sam', goal: 'Personal safety', interest: 'Cooking', dot: 'bg-lavender-700', level: 'Level 3', tone: 'bg-periwinkle-100' },
 ];
 const proof = [
   { icon: 'people' as const, value: 'Up to 10', label: 'hours back each week' },
@@ -173,7 +173,7 @@ const accentBar = 'h-1.5 w-14 rounded-full bg-yellow-300';
 
   <!-- 4. Consistent instruction across classrooms -->
   <section class="bg-white px-4 py-16 md:px-8 lg:py-[104px]" aria-labelledby="curriculum-title">
-    <div class="mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[540px_1fr] lg:gap-[72px]">
+    <div class="mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[600px_1fr] lg:gap-16">
       <div class="flex flex-col gap-5 lg:order-2">
         <span aria-hidden="true" class={accentBar}></span>
         <h2 id="curriculum-title" class={h2}>One curriculum. Personalized for every student.</h2>
@@ -184,26 +184,27 @@ const accentBar = 'h-1.5 w-14 rounded-full bg-yellow-300';
           ))}
         </ul>
       </div>
-      <!-- One curriculum feeding three individual plans. The plans are text; lines and sun are decorative. -->
-      <figure class="relative flex flex-col items-center gap-6 lg:order-1 lg:h-[470px] lg:block" aria-label="One shared curriculum, three individual learning plans (sample)">
-        <span aria-hidden="true" class="absolute top-[120px] left-1/2 hidden size-[220px] -translate-x-1/2 rounded-full bg-yellow-300/60 lg:block"></span>
-        <svg aria-hidden="true" class="absolute inset-x-0 top-0 hidden h-[300px] w-full lg:block" viewBox="0 0 540 300" fill="none">
-          <path d="M270 92C270 160 80 180 80 250M270 92V300M270 92C270 160 460 180 460 250" class="stroke-brand-600" stroke-width="2" stroke-dasharray="2 6" stroke-linecap="round" />
+      <!-- One curriculum feeding three individual plans. The plans are text; the dotted lines are decorative. -->
+      <figure class="relative flex flex-col items-center gap-6 lg:order-1 lg:h-[400px] lg:block" aria-label="One shared curriculum, three individual learning plans (sample)">
+        <svg aria-hidden="true" class="absolute inset-x-0 top-0 hidden h-[300px] w-full lg:block" viewBox="0 0 600 300" fill="none">
+          <path d="M300 92C300 170 98 170 98 250M300 92V250M300 92C300 170 502 170 502 250" class="stroke-brand-600" stroke-width="2" stroke-dasharray="2 6" stroke-linecap="round" />
         </svg>
         <p class="relative flex items-center gap-3 rounded-[18px] bg-brand-800 py-4 pr-6 pl-4 text-white shadow-xl lg:absolute lg:top-5 lg:left-1/2 lg:-translate-x-1/2">
           <BrandIcon name="lesson" class="size-9" />
-          <span class="flex flex-col"><span class="font-bold">Life skills curriculum</span><span class="text-xs font-medium text-brand-100">Shared across every classroom</span></span>
+          <span class="flex flex-col whitespace-nowrap"><span class="font-bold">Life skills curriculum</span><span class="text-xs font-medium text-brand-100">Shared across every classroom</span></span>
         </p>
-        <ul class="relative grid w-full gap-3 sm:grid-cols-3 lg:block">
-          {plans.map((p, i) => (
-            <li class={`flex flex-col gap-1.5 rounded-2xl border border-line bg-white p-3.5 shadow-md lg:absolute lg:w-[160px] ${['lg:top-[250px] lg:left-0', 'lg:top-[300px] lg:left-[190px]', 'lg:top-[250px] lg:left-[380px]'][i]}`}>
-              <span class="flex items-center gap-2">
-                <span aria-hidden="true" class="flex size-7 items-center justify-center rounded-full bg-brand-50 text-[10px] font-bold text-brand-700">{p.initials}</span>
-                <span class="font-bold">{p.name}</span>
-              </span>
-              <span class="text-[11px] font-bold text-brand-700">Learning plan</span>
-              <span class="text-sm font-semibold">{p.plan}</span>
-              <span class="text-xs text-muted">{p.interests}</span>
+        <ul class="relative grid w-full gap-3 sm:grid-cols-3 lg:absolute lg:top-[250px] lg:left-0 lg:gap-3">
+          {plans.map((p) => (
+            <li class={`flex flex-col gap-3 rounded-2xl p-4 shadow-md ${p.tone}`}>
+              <p class="flex items-center gap-2.5">
+                <span aria-hidden="true" class="flex size-8 shrink-0 items-center justify-center rounded-full bg-white text-sm font-bold">{p.initial}</span>
+                <span class="font-bold whitespace-nowrap">{p.name}’s plan</span>
+              </p>
+              <dl class="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1.5 text-[13px]">
+                <dt class="text-muted">Goal</dt><dd class="font-semibold whitespace-nowrap">{p.goal}</dd>
+                <dt class="text-muted">Interest</dt><dd class="flex items-center gap-1.5 font-semibold"><span aria-hidden="true" class={`size-2 rounded-full ${p.dot}`}></span>{p.interest}</dd>
+                <dt class="text-muted">Level</dt><dd class="font-semibold">{p.level}</dd>
+              </dl>
             </li>
           ))}
         </ul>
