@@ -1,7 +1,8 @@
 ---
 // Homepage hero (Figma "Homepage Design (v2)", Hero) with the client's approved copy (26 Oct 2026):
 // no AI lead; Book a Demo primary, Start Free Trial secondary; nothing else under the buttons.
-// Visual: student photo, teacher dashboard and student app over the sun, with two status chips.
+// Visual: student photo, teacher dashboard (sample data, client's preferred reference of 26 Oct; rendered
+// from scratchpad HTML at 2080x1320, so not every feature shown is implied to exist) and student app over the sun, with two status chips.
 import PageHero from './PageHero.astro';
 import StatusChip from './StatusChip.astro';
 import { site } from '../data/site';
@@ -26,7 +27,7 @@ import { site } from '../data/site';
       src="/images/teacher-dashboard.webp"
       width="2080"
       height="1320"
-      alt="Shepherd teacher dashboard for William School, showing Classroom Pulse stats and the classroom roster"
+      alt="Sample Shepherd teacher dashboard: classroom activity, each student's latest lesson and progress, one student needing attention, and student messages waiting in the action queue"
       class="device-shot absolute top-[33.33%] left-0 w-[86.67%]"
       fetchpriority="high"
     />
