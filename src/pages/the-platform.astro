@@ -86,15 +86,25 @@ const h2 = 'text-display-sm font-bold md:text-display-md lg:text-[44px]/[54px]';
     visualClass="lg:aspect-square"
   >
     <Fragment slot="visual">
-      <img
-        src="/images/teacher-dashboard-v3.webp"
-        width="2080"
-        height="1320"
-        fetchpriority="high"
-        alt="Shepherd teacher dashboard (sample data) for Lantern Hill School: Classroom Pulse stats, a roster of five students with their latest lessons, and an action queue with two student messages"
-        class="relative mt-4 w-full lg:absolute lg:top-[16%] lg:left-[-5%] lg:mt-0 lg:w-[110%] lg:max-w-none"
+      <!-- The client-supplied Lantern Hill teacher dashboard (full screen, five students) in a laptop frame. -->
+      <figure
+        class="relative mt-4 w-full lg:absolute lg:top-[20%] lg:left-[-8%] lg:mt-0 lg:w-[116%] lg:max-w-none"
         style="filter: drop-shadow(0 24px 24px rgb(10 13 18 / 0.16)) drop-shadow(0 4px 4px rgb(10 13 18 / 0.04))"
-      />
+      >
+        <div class="mx-auto w-[91.5%] rounded-[22px] bg-[#1c231d] p-[2.2%]">
+          <img
+            src="/images/teacher-dashboard-platform.webp"
+            width="1844"
+            height="1024"
+            fetchpriority="high"
+            alt="Shepherd teacher dashboard (sample data) for Lantern Hill School: Classroom Pulse stats, a roster of five students with their latest lessons, and an action queue with two student messages"
+            class="block w-full rounded-lg"
+          />
+        </div>
+        <div aria-hidden="true" class="relative h-3 rounded-t-[4px] rounded-b-[14px] bg-linear-to-b from-[#dcdedc] to-[#adb2ad] sm:h-[18px]">
+          <span class="absolute top-0 left-1/2 h-1.5 w-[17%] -translate-x-1/2 rounded-b-lg bg-[#98a09a]"></span>
+        </div>
+      </figure>
       <div class="hidden lg:block">
         <StatusChip title="Lesson complete" caption="Budgeting for a concert ticket" class="top-[6%] right-[-6%] z-10" />
       </div>
