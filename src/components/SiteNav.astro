@@ -1,13 +1,12 @@
 ---
 // Floating nav bar (Figma components "Site / Nav" + "Nav Item", open states "Nav — Schools / Teachers /
 // Resources menu"). Menus use the disclosure pattern: a button toggles a panel of ordinary links.
-// Links follow the page set (V1 → v1 pages, V2 → v2 pages).
 // `v3` = client feedback (Oct 26, 2026; Figma "Site / Nav v2"): larger logo, Teachers and Schools open their
 // pages directly (Resources keeps its menu), Book a demo is the dark filled primary, Sign up free secondary.
 import Logo from './Logo.astro';
 import Button from './Button.astro';
 import BrandIcon, { type IconName } from './v3/BrandIcon.astro';
-import { site, type PageSet, pagesV1, pagesV2 } from '../data/site';
+import { site, type PageSet, pagesV1 } from '../data/site';
 
 interface Props {
   demoHref?: string;
@@ -70,7 +69,7 @@ const links = [
 // Which nav section the visitor is in (both page sets), so the bar can show "you are here".
 const path = Astro.url.pathname.replace(/\/$/, '') || '/';
 const sectionOf: Record<string, string> = {};
-for (const set of [pagesV1, pagesV2]) {
+for (const set of [pagesV1]) {
   sectionOf[set.teachers] = 'Teachers';
   sectionOf[set.schools] = 'Schools';
   for (const r of [set.blog, set.webinars, set.research]) sectionOf[r] = 'Resources';

@@ -8,11 +8,11 @@ import Button from '../Button.astro';
 import CheckItem from '../CheckItem.astro';
 import FloatingStat from '../FloatingStat.astro';
 import { audienceSlides, audienceSlidesV3 } from '../../data/audiences';
-import { pagesV1, pagesV2, site, type PageSet } from '../../data/site';
+import { pagesV1, site, type PageSet } from '../../data/site';
 
-interface Props { v3?: boolean; /** Page set the buttons link to (defaults: v3 → V1, otherwise V2). */ pages?: PageSet }
+interface Props { v3?: boolean; /** Page set the buttons link to. */ pages?: PageSet }
 const { v3 = false } = Astro.props;
-const pages = Astro.props.pages ?? (v3 ? pagesV1 : pagesV2);
+const pages = Astro.props.pages ?? pagesV1;
 
 const hrefs: Record<string, string> = {
   'audience-schools': pages.schools,

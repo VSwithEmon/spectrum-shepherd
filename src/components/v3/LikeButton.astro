@@ -1,0 +1,31 @@
+---
+// Heart "like" toggle (Figma "Blog / Post card" footer and the post page stats bar). The site is static,
+// so a like is remembered in this browser only (localStorage) and no total is shown.
+// TODO: send likes to the blog/comment service once the client picks one, then show the count.
+interface Props { slug: string; title: string; label?: boolean; class?: string }
+const { slug, title, label = false, class: className = '' } = Astro.props;
+---
+<button
+  type="button"
+  data-like={slug}
+  aria-pressed="false"
+  class={`group flex shrink-0 items-center justify-center gap-2 rounded-full text-red-600 transition-colors hover:bg-red-600/10 ${label ? 'min-h-11 border border-red-600/30 bg-white px-4 font-semibold' : 'size-10'} ${className}`}
+>
+  <svg aria-hidden="true" class="size-[22px] group-aria-pressed:fill-current" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M12 20.5s-7.5-4.6-9.3-9.2C1.4 8 3.4 4.5 7 4.5c2.1 0 3.6 1.2 5 3 1.4-1.8 2.9-3 5-3 3.6 0 5.6 3.5 4.3 6.8-1.8 4.6-9.3 9.2-9.3 9.2z" /></svg>
+  {label ? <span>Like<span class="sr-only"> “{title}”</span></span> : <span class="sr-only">Like “{title}”</span>}
+</button>
+
+<script>
+  const key = (slug: string) => `shepherd:liked:${slug}`;
+  const read = (slug: string) => { try { return localStorage.getItem(key(slug)) === '1'; } catch { return false; } };
+  const sync = () => document.querySelectorAll<HTMLElement>('[data-like]').forEach((b) => b.setAttribute('aria-pressed', String(read(b.dataset.like!))));
+  sync();
+  document.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLElement>('[data-like]');
+    if (!btn) return;
+    const slug = btn.dataset.like!;
+    const on = !read(slug);
+    try { localStorage.setItem(key(slug), on ? '1' : '0'); } catch { /* storage blocked: still toggle for this view */ }
+    document.querySelectorAll<HTMLElement>(`[data-like="${CSS.escape(slug)}"]`).forEach((b) => b.setAttribute('aria-pressed', String(on)));
+  });
+</script>
