@@ -1,17 +1,42 @@
-// Site-wide destinations and accounts. Change them here, not in components.
+// Site-wide destinations (nav, footer, page CTAs).
+// Individual blog posts and webinar videos still live on the current site (spectrumshepherd.com)
+// until they are migrated; those URLs are in posts.ts / webinars.ts.
+//
+// Account pages: /sign-up is the account form (every free-trial button goes there) and /login
+// hands off to the Shepherd app. The marketing site never stores passwords: `appTrial` and
+// `appLogin` are the app's own sign-up and log-in endpoints, which the forms submit to / link to.
 export const site = {
-  /**
-   * Direct calendar booking (Calendly, HubSpot meetings…). When set, every "Book a Demo" button
-   * opens this calendar in a pop-up; when empty, the pop-up shows the short demo request form.
-   */
-  bookingUrl: '',
-  /** Where "Start your 45-day free trial" / "Sign up free" go until the app's sign-up link is confirmed. */
-  trial: '/teachers#trial',
-  demoPage: '/book-a-demo',
-  /** Social accounts shown in the footer (as linked from spectrumshepherd.com). Empty hides the icon. */
-  social: {
-    instagram: 'https://www.instagram.com/spectrumshepherd/',
-    facebook: 'https://www.facebook.com/spectrumshepherd',
-    linkedin: 'https://www.linkedin.com/company/spectrum-shepherd/',
-  },
+  home: '/',
+  trial: '/sign-up',
+  signup: '/sign-up',
+  login: '/login',
+  demo: '/book-a-demo',
+  teachers: '/teachers',
+  schools: '/schools',
+  app: '/the-platform', // "The Platform" (renamed from The App, Oct 27, 2026)
+  about: '/about',
+  blog: '/blog',
+  webinars: '/webinars',
+  research: '/beyond-the-transition-plan',
+  whitePaper: 'https://www.spectrumshepherd.com/_files/ugd/d236a4_825c2d446a3c427a8e36697fa7ba0182.pdf',
+  // The Shepherd app (separate system). Used as the sign-up form's action and the log-in destination.
+  appTrial: 'https://app.shepherdskills.com/trial',
+  appLogin: 'https://app.shepherdskills.com',
 };
+
+// Two page sets, one per homepage version (Oct 26, 2026):
+//  - V1 links the v1 pages;
+//  - V2 links the v2 pages (`<Base pageSet="v2">`) where one exists, otherwise v1. Both use yellow accents.
+// Both sets share the updated homepage design and the updated Teachers and Schools pages.
+// Base picks the set from `pageSet` or `palette`, so the nav, footer and logo stay inside one version.
+export type PageSet = {
+  home: string; teachers: string; schools: string; app: string;
+  about: string; blog: string; webinars: string; research: string;
+};
+export const pagesV1: PageSet = {
+  home: '/', teachers: '/teachers', schools: '/schools', app: '/the-platform',
+  about: '/about', blog: '/blog', webinars: '/webinars', research: '/beyond-the-transition-plan',
+};
+// The v2 alternates were retired when the design was finalized (Oct 27, 2026); both sets now link the final pages.
+export const pagesV2: PageSet = pagesV1;
+export const pagesFor = (palette?: 'lavender'): PageSet => (palette === 'lavender' ? pagesV2 : pagesV1);

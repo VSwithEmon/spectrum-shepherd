@@ -1,0 +1,52 @@
+---
+// Log in — Figma "Log in" card (node 38897:83489), shared by both homepage versions: homepage sky with a centred
+// card that copies the live app sign-in. No password field: Google / Microsoft and invitation codes are handled
+// by the Shepherd app itself, so these controls hand off to it.
+import Base from '../layouts/Base.astro';
+import SkyDecor from '../components/v3/SkyDecor.astro';
+import { site } from '../data/site';
+
+const providers = [
+  { name: 'Google', mark: '<svg viewBox="0 0 24 24" class="size-6"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>', note: 'Use your Google account to sign in or create an account.' },
+  { name: 'Microsoft', mark: '<svg viewBox="0 0 24 24" class="size-6"><path fill="#F25022" d="M1 1h10.5v10.5H1z"/><path fill="#7FBA00" d="M12.5 1H23v10.5H12.5z"/><path fill="#00A4EF" d="M1 12.5h10.5V23H1z"/><path fill="#FFB900" d="M12.5 12.5H23V23H12.5z"/></svg>', note: 'Use your Microsoft account to sign in or create an account.' },
+];
+---
+<Base
+  bare
+  title="Log in | Spectrum Shepherd"
+  description="Log in to Spectrum Shepherd with Google, Microsoft or an invitation code."
+>
+  <section class="relative overflow-hidden bg-linear-to-b from-cream via-haze via-10% to-mist flex min-h-screen items-center justify-center px-4 py-10" aria-labelledby="login-title">
+    <SkyDecor />
+    <div class="relative z-10 mx-auto flex max-w-[520px] flex-col items-center gap-6 rounded-[32px] bg-white px-5 py-10 text-center shadow-2xl sm:px-10">
+      <a href={site.home} aria-label="Spectrum Shepherd home"><img src="/images/logo-mark.png" width="56" height="56" alt="" class="size-14" /></a>
+      <div class="flex flex-col gap-3">
+        <h1 id="login-title" class="text-display-sm font-bold sm:text-display-md">Welcome to Shepherd</h1>
+        <p class="text-lg text-muted">Your Personalized AI Companion</p>
+      </div>
+      <p class="font-semibold text-brand-700">Sign in to get started.</p>
+      <ul class="flex w-full flex-col gap-3.5 text-left">
+        {providers.map((p) => (
+          <li>
+            <a href={site.appLogin} class="flex items-center gap-4 rounded-2xl border border-line bg-white p-4 hover:border-brand-300 hover:bg-brand-25">
+              <span aria-hidden="true" class="flex size-[52px] shrink-0 items-center justify-center rounded-xl bg-haze"><Fragment set:html={p.mark} /></span>
+              <span class="flex flex-1 flex-col">
+                <span class="text-lg font-semibold">Sign in with {p.name}</span>
+                <span class="text-sm text-muted">{p.note}</span>
+              </span>
+              <svg aria-hidden="true" class="size-5 shrink-0 text-brand-700" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 4l6 6-6 6" /></svg>
+            </a>
+          </li>
+        ))}
+      </ul>
+      <p class="flex w-full items-center gap-4 text-xs font-bold tracking-wide text-muted"><span aria-hidden="true" class="h-px flex-1 bg-line"></span>OR<span aria-hidden="true" class="h-px flex-1 bg-line"></span></p>
+      <form action={site.appLogin} method="get" class="flex w-full flex-col gap-3 rounded-2xl border border-brand-100 bg-brand-25 p-5 text-left" aria-labelledby="code-title">
+        <h2 id="code-title" class="text-lg font-semibold">Have an invitation code?</h2>
+        <label for="invite-code" class="sr-only">Invitation code</label>
+        <input id="invite-code" name="code" type="text" autocomplete="off" placeholder="ENTER CODE" class="min-h-12 w-full rounded-lg border border-line-strong bg-white px-4 text-center tracking-widest placeholder:text-muted" />
+        <button type="submit" class="min-h-12 rounded-lg bg-brand-700 px-5 py-3 font-semibold text-white hover:bg-brand-800">Connect account</button>
+      </form>
+      <p class="font-semibold text-brand-700">New to Shepherd? <a href={site.trial} class="underline hover:text-brand-800">Start your free trial</a></p>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,44 @@
+---
+// Two-panel layout for /sign-up and /login (Figma v1): green story panel on the left, form card on
+// the right. Phones: the story collapses to a short banner above the form.
+import BrandIcon, { type IconName } from './BrandIcon.astro';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  lede: string;
+  points: { icon: IconName; text: string }[];
+}
+const { eyebrow, title, lede, points } = Astro.props;
+---
+<section class="bg-cream px-4 pt-4 pb-16 md:px-8 lg:pb-24" aria-labelledby="auth-title">
+  <div class="mx-auto grid max-w-[1200px] overflow-hidden rounded-[32px] border border-line shadow-2xl lg:grid-cols-[560px_1fr] lg:rounded-[40px]">
+    <div class="on-dark relative flex flex-col gap-5 overflow-hidden bg-brand-800 px-6 pt-10 pb-28 text-white sm:px-12 lg:pt-14 lg:pb-28">
+      <span aria-hidden="true" class="swirl pointer-events-none absolute -top-24 -right-20 size-[320px] bg-white opacity-[0.08]"></span>
+      <span aria-hidden="true" class="absolute right-[-40px] bottom-[-56px] hidden size-[150px] rounded-full sm:block bg-yellow-300 lavender:bg-lavender-200"></span>
+      <svg aria-hidden="true" class="absolute inset-x-0 bottom-0 h-[72px] w-full" viewBox="0 0 560 170" preserveAspectRatio="xMidYMax slice">
+        <path d="M0 90C110 40 210 50 310 90S480 130 560 80V170H0Z" class="fill-brand-200" />
+        <path d="M0 130C130 100 250 98 360 120S500 140 560 125V170H0Z" class="fill-brand-500" />
+        <path d="M0 155C170 142 330 138 560 150V170H0Z" class="fill-brand-700" />
+      </svg>
+      <p class="relative font-semibold text-yellow-300 lavender:text-lavender-200">{eyebrow}</p>
+      <h1 id="auth-title" class="relative text-display-sm font-bold sm:text-display-md">{title}</h1>
+      <p class="relative text-lg text-brand-50">{lede}</p>
+      <ul class="relative hidden flex-col gap-3.5 pt-2 sm:flex">
+        {points.map((p) => (
+          <li class="flex items-center gap-3 font-medium"><BrandIcon name={p.icon} class="size-8" />{p.text}</li>
+        ))}
+      </ul>
+    </div>
+    <div class="flex flex-col justify-center gap-5 bg-white px-6 py-10 sm:px-12 lg:px-[72px] lg:py-14">
+      <slot />
+    </div>
+  </div>
+</section>
+
+<style>
+  .swirl {
+    mask: url('/images/logo-mark.png') center / contain no-repeat;
+    -webkit-mask: url('/images/logo-mark.png') center / contain no-repeat;
+  }
+</style>

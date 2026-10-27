@@ -1,40 +1,43 @@
 # Spectrum Shepherd website
 
-Marketing site for Spectrum Shepherd, an AI life-skills coach for neurodiverse students aged 14–22.
-Buyers are special education teachers (free 45-day trial) and school/district leaders (15-min briefing).
+Marketing site for Spectrum Shepherd, a personalized life skills curriculum platform for transition-age neurodivergent students.
+Buyers are special education teachers (free 45-day trial, `/sign-up`) and school/district leaders (Book a Demo).
 
-## Source designs
-- The homepage (`src/pages/index.astro`) is the former V2 (lavender alternative, Figma node `38877:5873`, mobile `38877:7143`) with the client's approved copy of 26 Oct 2026: yellow accent, lavender only as support, audiences as alternating rows (`AudienceRows`, data in `src/data/audiences.ts`). `/v2` redirects to `/` (vercel.json). V1 (`38876:3531`) and older rounds live in git history. `ComplianceBridge`, `HowItWorks`, `Faq`, `ClosingCta` and `Trust` are kept for reuse.
-- Client direction to keep: green core palette, yellow as the main accent, peach secondary, orange only as a small touch. Clouds, tree-topped hills and setting sun; dotted paths with varied dot sizes (static); large Shepherd swirl as a faint watermark. No animation except the slow right-to-left school logo strip (`LogoBand`), which pauses on hover and stops for reduced motion. Don't lead with AI. Use "students", never "learners". No pricing. Keep stats compact (no supporting sentences).
-- Book a Demo is the dark filled primary everywhere; Sign up free / Start Free Trial is secondary. `Button demo` opens the `DemoDialog` pop-up (`data-demo`, native `<dialog>` in `Base`); without JS it falls back to `/book-a-demo`. `src/data/site.ts` holds `bookingUrl` (client's Calendly/HubSpot link, still empty: the form has no backend until then), the trial link and the real social accounts used by the footer.
-- Nav: direct links Teachers, Schools, The App, plus a Resources menu (free transition plan, funding guide, blog, webinars).
-- Icons: the illustrated "Icon v2" family in `public/images/icons/v2/` (pale disc, green hatched sticker, white glyph with dark outline). Don't reuse the student app's book/tools illustrations.
-- Logo: Spectrum Shepherd company logo (`public/images/brand/`), PNGs from Figma until the client supplies SVGs. The client wants the official stacked logo, larger.
-- Photography: the client wants licensed, authentic (not AI) photos of teens and young adults (16–22). Current audience photos are Figma placeholders.
-- Product visuals are illustrative samples (marked SAMPLE) and must not imply every feature exists or guarantee compliance.
-- `/teachers` is Figma "Teachers, Desktop 1440 (v1)" (node `38877:7930`); its sections live in `src/components/teachers/`. Hero, logo band and stat panel are shared (`PageHero`, `LogoBand` with logos, `StatPanel`).
-- `/schools` is the client's V2 brief for special education directors (26 Oct 2026), in the homepage/Teachers visual system: hero with `AdminDashboard`, value cards, `SkillProgress`, `CurriculumMap`, `LessonLibrary`, `EvidenceReport`, `StatPanel`, `LogoBand`, `DemoSection`. Components in `src/components/schools/`. The old Schools overview video (`public/videos/schools-overview.mp4`) is currently unused.
-- `/the-app` and `/the-app-v2` are Figma "The App V1" (`38885:22840`) and "The App V2" (`38886:9651`): one body in `src/components/app/AppPage.astro`; V2 adds the cloudy sky (`AppSky`) and tree-topped hills. Both keep the green/yellow palette. `/the-app-v3` (Figma "The App V3", `38888:10753`) swaps in a two-column hero (`AppHeroV3`, clouds via `AppSky layout="v3"`); the rest is the same body. A V1/V2/V3 switch (`DesignToggle`, App pages only) sits on all three.
-- Inner pages were ported from the collaborator repo (`raselhossain036-star/spectrum-shepherd-site`, remote `collaborator`) and matched to the current Figma frames (section `38877:7929`). Fixed-position desktop compositions (App phone stage, Schools road) switch on at `xl` so 1024px doesn't overflow.
-- Live site: Vercel project `spectrum-shepherd-5qfw` (https://spectrum-shepherd-5qfw.vercel.app), deployed from `VSwithEmon/spectrum-shepherd` main on every push.
-- `/book-a-demo` is the standalone demo-request page.
-- Blog: Sanity CMS. Editors write at `/studio` (Sanity Studio embedded via `@sanity/astro`, config in `sanity.config.ts`, schema in `src/sanity/schemaTypes/`). Pages `/blog` and `/blog/[slug]` are built statically from published posts (`src/lib/blog.ts`); publishing in the Studio calls a Vercel deploy hook to rebuild. Sanity project `jhozhuio` (org "Spectrum Shepherd"), dataset `production` (public read); env vars `PUBLIC_SANITY_PROJECT_ID` / `PUBLIC_SANITY_DATASET` override. With no posts the blog shows an empty state. Every image requires alt text in the schema.
-- `option-b-homepage.html` ("Sunrise") is the earlier direction, kept for reference only.
-- The client's inspiration references are MagicSchool and Headspace: warm, polished, short headlines, real people, simple navigation.
+## Final design (Oct 27, 2026)
+Figma file `6JMhALsrhqylYR6QjNPy9V`. The site matches these frames 1:1; older rounds (V1/V2/V3 homepages, `-v2` pages, The App pages) live in git history.
+- **Homepage** `/` (`src/pages/index.astro`): section "Homepage Design( update here)" `38892:12051`; desktop `38892:12052`, mobile 390 `38892:12696`.
+- **Inner pages**, section "Inner page" `38892:13467`:
+  - `/teachers` (`38892:13468`), `/schools` (`38892:13975`), `/the-platform` (`38892:16025`), `/about` (`38892:14893`).
+  - `/blog` (`38892:15284`, tabs "For educators" / "For families"), `/webinars` (`38892:15485`), `/webinars/<slug>` (`38892:15592`), `/beyond-the-transition-plan` (`38892:15904`).
+  - `/book-a-demo` (`38892:15647`), `/login` (Log in v1 `38892:15819`, standalone card), `/sign-up` (`38892:15758`).
+- Retired URLs redirect in `vercel.json`: `/v1`, `/v2` → `/`; `/the-app*` → `/the-platform`; `/<page>-v2` → `/<page>`.
+- Where the client's approved copy (Oct 26 feedback) differs from a Figma frame, the copy wins (e.g. the Teachers before/after rows). No em dashes in visible text.
+- Figma text renders slightly narrower than browsers, so a few lines wrap one word differently; don't chase those with fixed widths.
+
+## Code layout
+- Pages in `src/pages/`; shared sections in `src/components/v3/` (PageHero, HeroHills, SkyDecor, LogoMarquee, Results, StatPanel, AudienceRows, Testimonial, DemoInvite, NightDay, EvidenceReport, LessonLibrary, FaqSection, TrialCta, CtaPanel, AuthShell); nav `SiteNav`, footer `SiteFooter`, layout `src/layouts/Base.astro`.
+- Destinations live in `src/data/site.ts` (`pagesV2` is an alias of `pagesV1`). Trial buttons → `/sign-up`; log in → `/login` (hands off to the Shepherd app; never collect passwords on this site).
+- Homepage and Schools "Book a Demo" open the demo form in a native `<dialog>` (`DemoInvite`; `[data-demo-open]`); without JS it links to `/book-a-demo`. Nav "Book a demo" links to `/book-a-demo`. Forms still need their `action` wired (client's booking/form service).
+- Product visuals (dashboards, reports) are illustrative samples marked SAMPLE; they must not imply every feature exists or guarantee compliance.
+- Only motion: the school logo strip (`LogoMarquee`), paused on hover and for reduced motion.
+- `public/images/photos/demo-tablet.jpg` is exported from Figma at 1x (430×320); replace with the original photo when available.
+- Blog: Sanity CMS. Editors write at `/studio` (config `sanity.config.ts`, schema `src/sanity/schemaTypes/`). `/blog` lists published Sanity posts first (their "Blog tab" field picks the tab) and then the posts still on spectrumshepherd.com (`src/data/posts.ts`); each Sanity post gets `/blog/<slug>`. Project `jhozhuio`, dataset `production`. A Vercel deploy hook must be added in Sanity for publish-to-rebuild.
+- Live site: Vercel project `spectrum-shepherd-5qfw` (https://spectrum-shepherd-5qfw.vercel.app), deployed from `VSwithEmon/spectrum-shepherd` main on every push. Rasel's repo (`raselhossain036-star/spectrum-shepherd-site`, remote `collaborator`) was merged in on Oct 27, 2026; push to VSwithEmon explicitly.
 
 ## Stack
-- Astro + Tailwind CSS v4, static output. One reusable component per homepage section in `src/components/`.
-- No client-side framework on public pages (the mobile menu, blog filter and video card are small vanilla scripts). React is installed only for the embedded Sanity Studio at `/studio`.
+- Astro + Tailwind CSS v4, static output. One reusable component per section.
+- No client-side framework on public pages (mobile menu, demo dialog, blog tabs/search are small vanilla scripts). React is only for the embedded Sanity Studio.
 
 ## Design tokens
 - Tokens live in `@theme` in `src/styles/global.css`, mirroring the Figma variables. Use those utilities, not raw hex values.
-- Brand green scale (`brand-25`…`brand-950`), ink #1A2718, muted #536255, border #E9EAEB, cream page background #FEFAF5; yellow and orange accents.
+- Brand green scale (`brand-25`…`brand-950`), ink #1A2718, muted #536255, border #E9EAEB, cream page background #FEFAF5; yellow and orange accents; status colours `success-25`, `error-25/700`, `warning-25/700`, `track`.
 - Font: Montserrat (400–700). Type scale `text-xs`…`text-xl` and `text-display-xs`…`text-display-2xl`, following the Figma text styles.
-- Primary buttons use brand-700 → brand-800, one step darker than the Figma gradient, so white text passes 4.5:1.
+- Primary buttons use brand-700 → brand-800, one step darker than the Figma gradient, so white text passes 4.5:1. Book a Demo is the dark (brand-800) primary everywhere.
 
 ## Rules
-- Accessibility first: real buttons and links, labelled form fields, alt text on every image, 4.5:1 text contrast, visible focus states. Audience includes disabled learners.
+- Accessibility first: real buttons and links, labelled form fields, alt text on every image, 4.5:1 text contrast, visible focus states. Audience includes disabled students.
 - Exactly one H1 per page; headings in order.
-- Never invent statistics. Keep placeholders like `[X]%` and `[PHOTO …]` until the client supplies real content.
+- Never invent statistics. Keep placeholders until the client supplies real content. The 100% teacher stat stays only if the original survey supports it.
+- Use "students", never "learners". No pricing.
 - Every page links to Privacy policy, Terms and Accessibility in the footer.
 - Responsive down to 360px wide; check mobile before calling a section done.

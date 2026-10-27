@@ -1,0 +1,9 @@
+---
+// Website icon family (Figma "Icon v2 (illustrated)", Oct 2026): check-in-a-circle sticker style —
+// pale disc, green hatched sticker with a dark outline, white glyph. Exported from Figma as SVG
+// (public/images/icons/illustrated/v2/). Decorative.
+export type IconName = 'check' | 'lesson' | 'progress' | 'people' | 'download' | 'shield' | 'spark' | 'report' | 'growth' | 'milestone' | 'route' | 'heart' | 'briefcase' | 'target' | 'prompt' | 'steps';
+interface Props { name: IconName; class?: string }
+const { name, class: className = 'size-12' } = Astro.props;
+---
+<img src={`/images/icons/illustrated/v2/${name}.svg`} width="48" height="48" alt="" class={`shrink-0 ${className}`} />

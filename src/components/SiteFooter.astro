@@ -1,65 +1,69 @@
 ---
-import Hills from './Hills.astro';
-import { site } from '../data/site';
+// Site footer (Figma component "Site / Footer"): hills with tree silhouettes and a big setting sun,
+// then the dark-green footer — logo, address, Product / Company links, social links, legal row.
+// Links follow the page set (V1 → v1 pages, V2 → v2 pages).
+import HeroHills from './v3/HeroHills.astro';
+import { site, type PageSet, pagesV1 } from '../data/site';
 
-// Footer (Figma "Site / Footer"): tree-topped hills with a setting sun, company logo, link columns, social and legal links.
 interface Props {
   /** Draw the hill edge above the footer. Off when the page's last section already ends in hills. */
   hills?: boolean;
   /** Background behind the hills; match the section above. */
   hillsBg?: string;
+  /** Destination set for the Product / Company links. */
+  pages?: PageSet;
 }
-const { hills = true, hillsBg = '' } = Astro.props;
+const { hills = true, hillsBg = '', pages = pagesV1 } = Astro.props;
 
 const columns = [
-  { title: 'Product', links: [{ label: 'Teachers', href: '/teachers' }, { label: 'Schools', href: '/schools' }, { label: 'The App', href: '/the-app' }] },
-  { title: 'Company', links: [{ label: 'About', href: '#' }, { label: 'Blog', href: '/blog' }, { label: 'Log in', href: '#' }] },
+  { title: 'Product', links: [{ label: 'Teachers', href: pages.teachers }, { label: 'Schools', href: pages.schools }, { label: 'The Platform', href: pages.app }] },
+  { title: 'Company', links: [{ label: 'About', href: pages.about }, { label: 'Resources', href: pages.blog }, { label: 'Log in', href: site.login }] },
 ];
-// Social accounts come from src/data/site.ts; an icon only shows once its URL is set.
+// Official social profiles (supplied by the client, Oct 27, 2026).
 const social = [
-  { label: 'Instagram', icon: '/images/icons/instagram.svg', href: site.social.instagram },
-  { label: 'Facebook', icon: '/images/icons/facebook.svg', href: site.social.facebook },
-  { label: 'LinkedIn', icon: '/images/icons/linkedin.svg', href: site.social.linkedin },
+  { label: 'Instagram', icon: '/images/icons/instagram.svg', href: 'https://www.instagram.com/spectrumshepherd/' },
+  { label: 'Facebook', icon: '/images/icons/facebook.svg', href: 'https://www.facebook.com/spectrumshepherd' },
+  { label: 'LinkedIn', icon: '/images/icons/linkedin.svg', href: 'https://www.linkedin.com/company/spectrum-shepherd/' },
 ];
-const accounts = social.filter((s) => s.href);
 ---
-{hills && <Hills variant="footer" class={hillsBg} />}
-<footer class="on-dark relative overflow-hidden bg-brand-800 px-4 pt-12 md:px-8">
+{hills && <HeroHills sun="setting" class={`h-[100px] sm:h-[140px] lg:h-auto ${hillsBg}`} />}
+<footer class="on-dark relative overflow-hidden bg-brand-800 px-5 pt-8 md:px-8 lg:pt-12">
   <div class="relative mx-auto max-w-[1200px]">
-    <!-- Phones: two columns (brand + Product, Company + community), as in the Figma mobile frame. -->
-    <div class="grid grid-cols-2 gap-x-5 gap-y-10 pb-10 lg:grid-cols-[1fr_160px_160px_auto] lg:gap-12 lg:pb-12">
-      <div class="flex flex-col gap-3">
-        <img src="/images/brand/spectrum-shepherd-white.png" width="174" height="49" alt="Spectrum Shepherd" class="h-10 w-auto self-start sm:h-[49px]" />
+    <!-- Phones (Figma 390 footer): brand beside Product, Company beside the social links. -->
+    <div class="flex flex-wrap gap-x-6 gap-y-7 pb-12 sm:gap-x-8 lg:flex-nowrap lg:gap-12">
+      <div class="flex min-w-[150px] flex-1 flex-col gap-3">
+        <img src="/images/logo-white.png" width="140" height="49" alt="Spectrum Shepherd" class="hidden h-[49px] w-auto self-start lg:block" />
+        <p class="text-display-xs font-bold text-white lg:hidden">Spectrum Shepherd</p>
         <p class="font-semibold text-brand-50">6 Liberty Square, Boston, MA 02109</p>
-        <p class="max-w-[420px] text-brand-50">Proprietary platform designed for IDEA Part B and Title IV-A compliance.</p>
+        <p class="text-brand-50">Proprietary platform designed for IDEA Part B and Title IV-A compliance.</p>
       </div>
-      {columns.map((c, i) => (
-        <nav aria-labelledby={`footer-${c.title}`} class={i === 1 ? 'max-lg:order-3' : ''}>
-          <h2 id={`footer-${c.title}`} class="mb-2 font-bold text-white">{c.title}</h2>
-          <ul class="flex flex-col gap-2">
-            {c.links.map((l) => <li><a href={l.href} class="text-brand-50 hover:text-white hover:underline">{l.label}</a></li>)}
+      <div class="contents lg:flex lg:gap-12">
+        {columns.map((c, i) => (
+          <nav aria-labelledby={`footer-${c.title}`} class={`w-[150px] lg:order-none lg:w-[160px] ${i ? 'order-3' : 'order-2'}`}>
+            <h2 id={`footer-${c.title}`} class="mb-2 font-bold text-white">{c.title}</h2>
+            <ul class="flex flex-col gap-2">
+              {c.links.map((l) => <li><a href={l.href} class="text-brand-50 hover:text-white hover:underline">{l.label}</a></li>)}
+            </ul>
+          </nav>
+        ))}
+        <div class="order-4 flex flex-1 flex-col gap-4 lg:order-none lg:flex-none">
+          <h2 class="font-bold whitespace-nowrap text-white">Join our community</h2>
+          <ul class="flex gap-3">
+            {social.map((s) => (
+              <li>
+                <a href={s.href} target="_blank" rel="noopener noreferrer" aria-label={`Spectrum Shepherd on ${s.label} (opens in a new tab)`} class="flex size-11 items-center justify-center rounded-full bg-white hover:bg-brand-50">
+                  <img src={s.icon} width="24" height="24" alt="" />
+                </a>
+              </li>
+            ))}
           </ul>
-        </nav>
-      ))}
-      {accounts.length > 0 && (
-      <div class="flex flex-col gap-4 max-lg:order-4">
-        <h2 class="font-bold text-white">Join our community</h2>
-        <ul class="flex flex-wrap gap-3">
-          {accounts.map((s) => (
-            <li>
-              <a href={s.href} target="_blank" rel="noopener noreferrer" aria-label={`Spectrum Shepherd on ${s.label} (opens in a new tab)`} class="flex size-11 items-center justify-center rounded-full bg-white hover:bg-brand-50">
-                <img src={s.icon} width="24" height="24" alt="" />
-              </a>
-            </li>
-          ))}
-        </ul>
+        </div>
       </div>
-      )}
     </div>
 
-    <div class="flex flex-col items-center gap-2 border-t border-brand-600 pt-5 pb-8 text-center text-sm text-brand-50 sm:flex-row sm:justify-between sm:text-left">
+    <div class="flex flex-col items-center gap-0.5 border-t border-brand-600 pt-5 pb-7 text-sm text-brand-50 sm:flex-row sm:justify-between sm:gap-3 sm:pb-8">
       <p>© 2026 Spectrum Shepherd</p>
-      <ul class="flex flex-wrap justify-center gap-5">
+      <ul class="flex flex-wrap gap-5">
         <li><a href="/privacy" class="underline hover:text-white">Privacy policy</a></li>
         <li><a href="/terms" class="underline hover:text-white">Terms</a></li>
         <li><a href="/accessibility" class="underline hover:text-white">Accessibility</a></li>

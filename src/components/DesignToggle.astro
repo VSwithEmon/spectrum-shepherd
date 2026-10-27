@@ -1,25 +1,24 @@
 ---
-// Review aid: switch between the Figma versions of The App page: V1 = plain hero, V2 = cloudy sky
-// hero, V3 = two-column hero.
-interface Props { active: 'v1' | 'v2' | 'v3' }
+// Review aid: switch between the two homepage designs from Figma's "Homepage Design( update here)"
+// section — V1 = the current homepage (Figma "Homepage Design (v3) — client feedback Oct 26"),
+// V2 = the previous homepage (Figma "Homepage Design (v1) — main direction").
+interface Props { active: 'v1' | 'v2' }
 const { active } = Astro.props;
 const options = [
-  { id: 'v1', label: 'V1', title: 'The App, version 1', href: '/the-app' },
-  { id: 'v2', label: 'V2', title: 'The App, version 2', href: '/the-app-v2' },
-  { id: 'v3', label: 'V3', title: 'The App, version 3', href: '/the-app-v3' },
+  { id: 'v1', label: 'V1', href: '/v1' },
+  { id: 'v2', label: 'V2', href: '/v2' },
 ];
 ---
 <nav
-  aria-label="Compare The App designs"
-  class="fixed right-3 bottom-3 z-50 flex items-center gap-1 rounded-full bg-ink p-1 text-white shadow-2xl md:top-1/2 md:right-4 md:bottom-auto md:-translate-y-1/2 md:flex-col md:rounded-3xl md:p-1.5"
+  aria-label="Compare homepage designs"
+  class="fixed right-3 bottom-4 z-50 flex items-center gap-1 rounded-full bg-ink p-1.5 text-white shadow-2xl md:top-1/2 md:right-4 md:bottom-auto md:-translate-y-1/2 md:flex-col md:rounded-3xl"
 >
   <span class="px-2 text-xs font-bold tracking-wide text-brand-100 md:px-0 md:pt-1 md:pb-1">DESIGN</span>
   {options.map((o) => (
     <a
       href={o.href}
       aria-current={o.id === active ? 'page' : undefined}
-      aria-label={`${o.label}, ${o.title}`}
-      class={`flex min-h-10 min-w-12 items-center justify-center rounded-full px-3 text-sm font-semibold transition-colors md:min-h-11 md:min-w-16 ${
+      class={`flex min-h-11 min-w-16 items-center justify-center rounded-full px-4 text-sm font-semibold transition-colors ${
         o.id === active ? 'bg-yellow-300 text-ink' : 'text-white hover:bg-white/15'
       }`}
     >{o.label}</a>

@@ -1,24 +1,34 @@
 ---
-// Homepage, Figma "Homepage Design (v2)" (file 6JMhALsrhqylYR6QjNPy9V, node 38877:5873; mobile 38877:7143)
-// with the client's approved copy (26 Oct 2026): green base, yellow accents, audiences as rows,
-// no download banner (it belongs under Resources).
+// Homepage V1 — the main homepage, from the client feedback of Oct 26, 2026: Figma "Homepage Design (v3) —
+// client feedback Oct 26 (yellow accents)" (node 38935:67668) and "Homepage (v3) — Mobile 390 — client feedback
+// Oct 26" (node 38950:67668), from "Spectrum Shepherd Website 2.0 — Proposed Copy". `/` redirects here. Yellow is the accent,
+// Book a Demo is the dark primary everywhere, the transition-plan download moved to Resources,
+// and the demo form opens on click. Links go to the main pages (Teachers and Schools are the updated ones).
 import Base from '../layouts/Base.astro';
 import Hero from '../components/Hero.astro';
-import LogoBand from '../components/LogoBand.astro';
-import Results from '../components/Results.astro';
-import AudienceRows from '../components/AudienceRows.astro';
-import Testimonial from '../components/Testimonial.astro';
-import DemoSection from '../components/DemoSection.astro';
+import LogoMarquee from '../components/v3/LogoMarquee.astro';
+import Results from '../components/v3/Results.astro';
+import AudienceRows from '../components/v3/AudienceRows.astro';
+import Testimonial from '../components/v3/Testimonial.astro';
+import DemoInvite from '../components/v3/DemoInvite.astro';
+
+// Approved proof points; no supporting sentences (client feedback).
+const proof = [
+  { icon: 'people' as const, value: 'Up to 10', label: 'hours back each week' },
+  { icon: 'spark' as const, value: '82%', label: 'found learning more engaging' },
+  { icon: 'progress' as const, value: '100%', label: 'of lesson performance tracked' },
+];
 ---
 <Base
   title="Spectrum Shepherd | Personalized life skills curriculum for transition-age students"
-  description="A personalized life skills curriculum platform that helps transition-age neurodivergent students build real-world skills and independence, saves teachers time and gives schools clear evidence of transition progress."
+  description="Spectrum Shepherd is a personalized life skills curriculum platform that helps transition-age neurodivergent students build real-world skills and independence, saves teachers time, and gives schools clear evidence of transition progress."
   demoHref="#demo"
+  navUpdated
 >
-  <Hero />
-  <LogoBand />
-  <Results />
-  <AudienceRows />
-  <Testimonial />
-  <DemoSection />
+  <Hero v3 />
+  <LogoMarquee />
+  <Results items={proof} compactMobile />
+  <AudienceRows v3 />
+  <Testimonial v3 />
+  <DemoInvite />
 </Base>

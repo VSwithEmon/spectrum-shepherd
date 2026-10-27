@@ -5,7 +5,6 @@ import Base from '../../layouts/Base.astro';
 import PostCard from '../../components/blog/PostCard.astro';
 import PtImage from '../../components/blog/PtImage.astro';
 import PtLink from '../../components/blog/PtLink.astro';
-import DownloadBanner from '../../components/DownloadBanner.astro';
 import { getPostsWithBody, imageUrl, categoryTitle, readTime, formatDate, type Post } from '../../lib/blog';
 
 export async function getStaticPaths() {
@@ -66,5 +65,4 @@ const cover = imageUrl(post.coverImage, 2200, 1238);
     </section>
   )}
 
-  <DownloadBanner bg={related.length ? 'bg-white' : 'bg-cream'} />
 </Base>

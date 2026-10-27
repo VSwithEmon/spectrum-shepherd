@@ -7,8 +7,58 @@
   ],
   "redirects": [
     {
+      "source": "/v1",
+      "destination": "/",
+      "permanent": true
+    },
+    {
       "source": "/v2",
       "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/the-app",
+      "destination": "/the-platform",
+      "permanent": true
+    },
+    {
+      "source": "/the-app-v2",
+      "destination": "/the-platform",
+      "permanent": true
+    },
+    {
+      "source": "/the-app-v3",
+      "destination": "/the-platform",
+      "permanent": true
+    },
+    {
+      "source": "/teachers-v2",
+      "destination": "/teachers",
+      "permanent": true
+    },
+    {
+      "source": "/schools-v2",
+      "destination": "/schools",
+      "permanent": true
+    },
+    {
+      "source": "/about-v2",
+      "destination": "/about",
+      "permanent": true
+    },
+    {
+      "source": "/blog-v2",
+      "destination": "/blog",
+      "permanent": true
+    },
+    {
+      "source": "/webinars-v2",
+      "destination": "/webinars",
+      "permanent": true
+    },
+    {
+      "source": "/beyond-the-transition-plan-v2",
+      "destination": "/beyond-the-transition-plan",
       "permanent": true
     }
   ]

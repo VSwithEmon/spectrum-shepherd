@@ -1,0 +1,294 @@
+---
+// The Platform — client feedback, Oct 27, 2026 (Figma "The Platform — v3 (client feedback Oct 27)",
+// node 38986:81221). Replaces "The App" (/the-app now redirects here). Approved copy from the client's
+// "The Platform" section: one platform, curriculum → student learning → teacher insight → evidence →
+// school-level reporting. Visuals are illustrations, not screenshots (product screens go stale); the hero
+// uses the supplied Lantern Hill teacher dashboard. Report numbers are sample data and labelled as such;
+// the client asked us not to present estimated savings as a universal result.
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/v3/PageHero.astro';
+import BrandIcon, { type IconName } from '../components/v3/BrandIcon.astro';
+import EvidenceReport from '../components/v3/EvidenceReport.astro';
+import StatusChip from '../components/StatusChip.astro';
+import Button from '../components/Button.astro';
+import { site } from '../data/site';
+
+const pillars: { name: string; icon: IconName; tone: string; tall?: boolean }[] = [
+  { name: 'Daily Living & Self-Care', icon: 'heart', tone: 'bg-brand-50' },
+  { name: 'Home Management', icon: 'steps', tone: 'bg-yellow-100', tall: true },
+  { name: 'Safety & Independence', icon: 'shield', tone: 'bg-orange-50' },
+  { name: 'Civic & Community', icon: 'people', tone: 'bg-brand-50', tall: true },
+  { name: 'Social, Digital & Executive Skills', icon: 'spark', tone: 'bg-periwinkle-100' },
+  { name: 'Vocational Readiness', icon: 'briefcase', tone: 'bg-yellow-100', tall: true },
+];
+const plans = [
+  { initial: 'M', name: 'Maya', goal: 'Budgeting', interest: 'Music', dot: 'bg-yellow-400', level: 'Level 2', tone: 'bg-yellow-100' },
+  { initial: 'D', name: 'Devon', goal: 'Self-advocacy', interest: 'Basketball', dot: 'bg-orange-400', level: 'Level 1', tone: 'bg-orange-100' },
+  { initial: 'S', name: 'Sam', goal: 'Personal safety', interest: 'Cooking', dot: 'bg-lavender-700', level: 'Level 3', tone: 'bg-periwinkle-100' },
+];
+const points = {
+  dashboard: [
+    ['Individualized plans, created automatically', 'Set student goals and let Shepherd build a personalized learning plan.'],
+    ['Classroom at a glance', 'See student activity, lesson progress and who may need additional support.'],
+    ['Clear next steps', 'Follow individual performance and see where to focus instruction next.'],
+  ],
+  student: [
+    ['Built around their interests', 'Lessons connect to what matters to each student.'],
+    ['At their own level', 'Instruction adapts to individual abilities and learning goals.'],
+    ['Engaging by design', 'Short, interactive lessons make practicing life skills more approachable.'],
+  ],
+  evidence: [
+    ['Automatically documented', 'Student performance is recorded as lessons are completed.'],
+    ['Progress over time', 'See skill development, including accuracy, prompting and independent responses.'],
+    ['Ready for review', 'Clear reports help teachers prepare for IEP meetings and make informed instructional decisions.'],
+  ],
+  impact: [
+    ['School-wide visibility', 'See student participation, lessons completed and progress across skill areas.'],
+    ['Curriculum insights', 'Understand which life skills are being taught and where opportunities exist to expand instruction.'],
+    ['Teacher time savings', 'See estimates of time returned through reduced preparation, tracking and documentation.'],
+  ],
+};
+// School Impact Report — sample (design inspiration only; no school-specific data).
+const impactStats = [
+  { value: '48', label: 'Students participating', tone: 'bg-brand-50' },
+  { value: '1,260', label: 'Lessons completed', tone: 'bg-yellow-100' },
+  { value: '~310 hrs', label: 'Est. teacher time returned*', tone: 'bg-periwinkle-100' },
+];
+const status = {
+  on: { label: 'On track', chip: 'bg-brand-50 text-brand-800', bar: 'bg-brand-700' },
+  ahead: { label: 'Ahead', chip: 'bg-brand-50 text-brand-800', bar: 'bg-brand-700' },
+  watch: { label: 'Watch', chip: 'bg-yellow-100 text-yellow-800', bar: 'bg-yellow-400' },
+  support: { label: 'Needs support', chip: 'bg-orange-50 text-orange-700', bar: 'bg-orange-700' },
+};
+const skillAreas: { name: string; value: number; target: number; status: keyof typeof status }[] = [
+  { name: 'Daily Living & Self-Care', value: 78, target: 80, status: 'on' },
+  { name: 'Home Management', value: 64, target: 70, status: 'on' },
+  { name: 'Safety & Independence', value: 41, target: 65, status: 'support' },
+  { name: 'Civic & Community', value: 72, target: 60, status: 'ahead' },
+  { name: 'Social, Digital & Exec Skills', value: 55, target: 70, status: 'watch' },
+];
+const h2 = 'text-display-sm font-bold md:text-display-md lg:text-[44px]/[54px]';
+---
+<Base
+  title="The Platform: life skills curriculum, personalized instruction and progress tracking | Spectrum Shepherd"
+  description="Shepherd brings a life skills curriculum, personalized instruction, classroom tools and automatic progress tracking together in one platform."
+  demoHref={site.demo}
+>
+  <!-- 1. Hero -->
+  <PageHero
+    title="One platform. Personalized learning."
+    accent="Clear progress."
+    lede="Shepherd brings a life skills curriculum, personalized instruction, classroom tools and automatic progress tracking together in one platform. Students build real-world skills, teachers spend less time preparing and documenting lessons, and schools gain clearer evidence of progress."
+    primary={{ label: 'Book a Demo', href: site.demo }}
+    primaryVariant="dark"
+    secondary={{ label: 'Start Your Free Trial', href: site.trial }}
+    scene="sky"
+    visualClass="lg:aspect-square"
+  >
+    <Fragment slot="visual">
+      <!-- The client-supplied Lantern Hill teacher dashboard (full screen, five students) in a laptop frame. -->
+      <figure
+        class="relative mt-4 w-full lg:absolute lg:top-[20%] lg:left-[-8%] lg:mt-0 lg:w-[116%] lg:max-w-none"
+        style="filter: drop-shadow(0 24px 24px rgb(10 13 18 / 0.16)) drop-shadow(0 4px 4px rgb(10 13 18 / 0.04))"
+      >
+        <div class="mx-auto w-[91.5%] rounded-[22px] bg-[#1c231d] p-[2.2%]">
+          <img
+            src="/images/teacher-dashboard-platform.webp"
+            width="1844"
+            height="1024"
+            fetchpriority="high"
+            alt="Shepherd teacher dashboard (sample data) for Lantern Hill School: Classroom Pulse stats, a roster of five students with their latest lessons, and an action queue with two student messages"
+            class="block w-full rounded-lg"
+          />
+        </div>
+        <div aria-hidden="true" class="relative h-3 rounded-t-[4px] rounded-b-[14px] bg-linear-to-b from-[#dcdedc] to-[#adb2ad] sm:h-[18px]">
+          <span class="absolute top-0 left-1/2 h-1.5 w-[17%] -translate-x-1/2 rounded-b-lg bg-[#98a09a]"></span>
+        </div>
+      </figure>
+      <div class="hidden lg:block">
+        <StatusChip title="Lesson complete" caption="Budgeting for a concert ticket" class="top-[6%] right-[-6%] z-10" />
+      </div>
+    </Fragment>
+  </PageHero>
+
+  <!-- 2. Life Skills Curriculum -->
+  <section class="bg-white px-4 py-16 md:px-8 lg:py-[104px]" aria-labelledby="curriculum-title">
+    <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-12">
+      <div class="flex max-w-[820px] flex-col items-center gap-5 text-center">
+        <h2 id="curriculum-title" class={h2}>Real-world skills. Ready to teach.</h2>
+        <p class="text-lg/[29px] text-muted">Shepherd provides a ready-to-use life skills curriculum with modern, engaging lessons covering everyday skills, independence and transition goals. Lessons are personalized to each student’s abilities, interests and learning goals, so teachers can spend less time creating materials and more time teaching.</p>
+      </div>
+      <!-- The six Life Skills Pillars (no lesson or skill-suite counts, per the client). -->
+      <figure class="w-full" aria-label="The six Life Skills Pillars">
+        <ul class="grid grid-cols-2 items-end gap-3 sm:grid-cols-3 lg:grid-cols-6 lg:gap-4">
+          {pillars.map((p) => (
+            <li class={`flex flex-col items-center gap-4 rounded-t-[92px] px-4 pt-7 pb-6 text-center ${p.tone} ${p.tall ? 'lg:min-h-[330px]' : 'lg:min-h-[300px]'}`}>
+              <span class="flex size-[84px] items-center justify-center rounded-full bg-white shadow-md"><BrandIcon name={p.icon} class="size-12" /></span>
+              <span class="text-lg/6 font-bold">{p.name}</span>
+            </li>
+          ))}
+        </ul>
+        <figcaption class="rounded-b-[20px] bg-brand-700 px-5 py-4 text-center font-semibold text-white">Six Life Skills Pillars · personalized to every student</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 3. Teacher Dashboard -->
+  <section class="bg-brand-25 px-4 py-16 md:px-8 lg:py-[104px]" aria-labelledby="dashboard-title">
+    <div class="mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[600px_1fr] lg:gap-16">
+      <div class="flex flex-col gap-5 lg:order-2">
+        <h2 id="dashboard-title" class={h2}>Your classroom. All in one place.</h2>
+        <p class="text-lg/[29px] text-muted">Shepherd helps teachers create individualized learning plans based on each student’s goals, abilities and interests. From there, teachers can manage lessons, follow student activity and track progress, all from one place.</p>
+        <ul class="flex flex-col gap-4 pt-2">
+          {points.dashboard.map(([t, b]) => (
+            <li class="flex gap-3.5"><BrandIcon name="check" class="mt-0.5 size-7" /><span class="flex flex-col"><span class="text-lg font-bold">{t}</span><span class="text-muted">{b}</span></span></li>
+          ))}
+        </ul>
+      </div>
+      <!-- Simplified illustration: student goals → individual plans → classroom progress. Plans are text; the dotted lines are decorative. -->
+      <figure class="relative flex flex-col items-center gap-5 lg:order-1" aria-label="Student goals become individual plans, which roll up into classroom progress (sample)">
+        <p class="flex items-center gap-3 rounded-[18px] bg-brand-800 py-4 pr-6 pl-4 text-white shadow-xl">
+          <BrandIcon name="target" class="size-9" />
+          <span class="flex flex-col whitespace-nowrap"><span class="font-bold">Student goals</span><span class="text-xs font-medium text-brand-100">Set by the teacher for each student</span></span>
+        </p>
+        <span aria-hidden="true" class="h-8 w-0.5 border-l-2 border-dotted border-brand-600 lg:hidden"></span>
+        <svg aria-hidden="true" class="-my-5 hidden h-[150px] w-full lg:block" viewBox="0 0 600 150" fill="none" preserveAspectRatio="none">
+          <path d="M300 0C300 76 100 76 100 150M300 0V150M300 0C300 76 500 76 500 150" class="stroke-brand-600" stroke-width="2" stroke-dasharray="2 6" stroke-linecap="round" vector-effect="non-scaling-stroke" />
+        </svg>
+        <ul class="grid w-full gap-3 sm:grid-cols-3">
+          {plans.map((p) => (
+            <li class={`flex flex-col gap-3 rounded-2xl p-4 shadow-md ${p.tone}`}>
+              <p class="flex items-center gap-2.5">
+                <span aria-hidden="true" class="flex size-8 shrink-0 items-center justify-center rounded-full bg-white text-sm font-bold">{p.initial}</span>
+                <span class="font-bold whitespace-nowrap">{p.name}’s plan</span>
+              </p>
+              <dl class="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1.5 text-[13px]">
+                <dt class="text-muted">Goal</dt><dd class="font-semibold whitespace-nowrap">{p.goal}</dd>
+                <dt class="text-muted">Interest</dt><dd class="flex items-center gap-1.5 font-semibold"><span aria-hidden="true" class={`size-2 rounded-full ${p.dot}`}></span>{p.interest}</dd>
+                <dt class="text-muted">Level</dt><dd class="font-semibold">{p.level}</dd>
+              </dl>
+            </li>
+          ))}
+        </ul>
+        <span aria-hidden="true" class="h-8 w-0.5 border-l-2 border-dotted border-brand-600 lg:hidden"></span>
+        <svg aria-hidden="true" class="-my-5 hidden h-[150px] w-full lg:block" viewBox="0 0 600 150" fill="none" preserveAspectRatio="none">
+          <path d="M100 0C100 74 300 74 300 150M300 0V150M500 0C500 74 300 74 300 150" class="stroke-brand-600" stroke-width="2" stroke-dasharray="2 6" stroke-linecap="round" vector-effect="non-scaling-stroke" />
+        </svg>
+        <p class="flex items-center gap-3 rounded-[18px] bg-brand-800 py-4 pr-6 pl-4 text-white shadow-xl">
+          <BrandIcon name="progress" class="size-9" />
+          <span class="flex flex-col whitespace-nowrap"><span class="font-bold">Classroom progress</span><span class="text-xs font-medium text-brand-100">Who’s on track, who needs support</span></span>
+        </p>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 4. Student Experience -->
+  <section class="bg-white px-4 py-16 md:px-8 lg:py-[104px]" aria-labelledby="student-title">
+    <div class="mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[1fr_540px] lg:gap-[72px]">
+      <div class="flex flex-col gap-5">
+        <h2 id="student-title" class={h2}>Learning that feels personal. Because it is.</h2>
+        <p class="text-lg/[29px] text-muted">Shepherd turns life skills instruction into short, modern, interactive lessons tailored to each student’s abilities, interests and learning goals. Students practice real-world skills at their own level, building confidence and independence along the way.</p>
+        <ul class="flex flex-col gap-4 pt-2">
+          {points.student.map(([t, b]) => (
+            <li class="flex gap-3.5"><BrandIcon name="check" class="mt-0.5 size-7" /><span class="flex flex-col"><span class="text-lg font-bold">{t}</span><span class="text-muted">{b}</span></span></li>
+          ))}
+        </ul>
+      </div>
+      <!-- TODO: replace with an authentic, licensed photo of a transition-age student on a laptop or iPad (client feedback; no app screenshot). -->
+      <img
+        src="/images/photos/hero-student.jpg"
+        width="600"
+        height="538"
+        loading="lazy"
+        alt="A teenage student wearing headphones, smiling while working through a lesson on a tablet"
+        class="aspect-[540/480] w-full rounded-[28px] border-8 border-white object-cover object-[40%_center] shadow-2xl"
+      />
+    </div>
+  </section>
+
+  <!-- 5. Transition Evidence Report -->
+  <section class="bg-brand-25 px-4 py-16 md:px-8 lg:py-[104px]" aria-labelledby="evidence-title">
+    <div class="mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[600px_1fr] lg:gap-[72px]">
+      <div class="flex flex-col gap-5 lg:order-2">
+        <h2 id="evidence-title" class={h2}>Less paperwork. A clearer picture of progress.</h2>
+        <p class="text-lg/[29px] text-muted">Shepherd automatically captures student performance as lessons are completed, turning everyday learning into clear, organized evidence of progress. Teachers can see how students are developing skills over time and use that information to support IEP reviews, transition planning and instructional decisions.</p>
+        <ul class="flex flex-col gap-4 pt-2">
+          {points.evidence.map(([t, b]) => (
+            <li class="flex gap-3.5"><BrandIcon name="check" class="mt-0.5 size-7" /><span class="flex flex-col"><span class="text-lg font-bold">{t}</span><span class="text-muted">{b}</span></span></li>
+          ))}
+        </ul>
+      </div>
+      <div class="lg:order-1"><EvidenceReport /></div>
+    </div>
+  </section>
+
+  <!-- 6. School Impact Report -->
+  <section class="bg-white px-4 py-16 md:px-8 lg:py-[104px]" aria-labelledby="impact-title">
+    <div class="mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[1fr_560px] lg:gap-[72px]">
+      <div class="flex flex-col gap-5">
+        <h2 id="impact-title" class={h2}>See the impact across your school.</h2>
+        <p class="text-lg/[29px] text-muted">Shepherd brings student activity, skill development and curriculum coverage together in a school-level impact report. Administrators can see where students are making progress, identify opportunities for additional support and understand how Shepherd is giving teachers time back.</p>
+        <ul class="flex flex-col gap-4 pt-2">
+          {points.impact.map(([t, b]) => (
+            <li class="flex gap-3.5"><BrandIcon name="check" class="mt-0.5 size-7" /><span class="flex flex-col"><span class="text-lg font-bold">{t}</span><span class="text-muted">{b}</span></span></li>
+          ))}
+        </ul>
+      </div>
+      <figure class="flex flex-col gap-4 rounded-3xl border border-line bg-white p-5 shadow-2xl sm:p-6">
+        <div class="flex items-start justify-between gap-3">
+          <p class="flex flex-col">
+            <span class="text-lg font-bold">School Impact Report</span>
+            <span class="text-xs font-medium text-muted">Sample school · all classrooms · this term</span>
+          </p>
+          <span class="rounded-md bg-yellow-300 px-2 py-0.5 text-xs font-bold">SAMPLE</span>
+        </div>
+        <dl class="grid grid-cols-3 gap-3">
+          {impactStats.map((s) => (
+            <div class={`flex flex-col gap-0.5 rounded-xl px-3.5 py-3 ${s.tone}`}>
+              <dd class="order-1 text-lg font-bold sm:text-[22px]">{s.value}</dd>
+              <dt class="order-2 text-xs font-medium text-muted">{s.label}</dt>
+            </div>
+          ))}
+        </dl>
+        <p class="text-sm font-bold">Progress across skill areas</p>
+        <ul class="flex flex-col gap-3.5">
+          {skillAreas.map((s) => (
+            <li class="grid grid-cols-[1fr_40px_112px] items-center gap-x-3 gap-y-1.5 sm:grid-cols-[196px_1fr_40px_112px] sm:gap-x-3.5">
+              <p class="col-span-3 sm:col-span-1">
+                <span class="block text-sm font-semibold sm:whitespace-nowrap">{s.name}</span>
+                <span class="block text-xs text-muted">Target {s.target}%</span>
+              </p>
+              <span aria-hidden="true" class="relative h-2.5 rounded-full bg-line">
+                <span class={`absolute inset-y-0 left-0 rounded-full ${status[s.status].bar}`} style={`width:${s.value}%`}></span>
+                <span class="absolute -top-1 h-[18px] w-0.5 bg-ink" style={`left:${s.target}%`}></span>
+              </span>
+              <span class="text-right text-sm font-bold">{s.value}%</span>
+              <span class={`rounded-full px-2 py-0.5 text-center text-[11px] font-bold whitespace-nowrap uppercase ${status[s.status].chip}`}>{status[s.status].label}</span>
+            </li>
+          ))}
+        </ul>
+        <figcaption class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
+          <span class="flex items-center gap-1.5"><span aria-hidden="true" class="h-2 w-5 rounded-full bg-brand-700"></span>Current progress</span>
+          <span class="flex items-center gap-1.5"><span aria-hidden="true" class="h-3.5 w-0.5 bg-ink"></span>Target</span>
+          <span>Sample data for illustration. *Estimates vary by school.</span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- 7. Final CTA -->
+  <section id="demo" class="scroll-mt-4 px-4 py-16 md:px-8 lg:py-[104px]" aria-labelledby="demo-title">
+    <!-- Figma "Final CTA (#demo)" 38892:16397: 564px panel, green → cream gradient, corner circle and sun. -->
+    <div class="relative mx-auto flex max-w-[1200px] flex-col items-center justify-center gap-4 overflow-hidden rounded-[32px] border border-brand-100 bg-linear-to-r from-brand-25 to-yellow-25 px-6 py-14 text-center sm:px-16 lg:h-[564px] lg:rounded-[40px] lg:py-20 lg:pr-14 lg:pl-[72px]">
+      <span aria-hidden="true" class="absolute -top-[65px] -left-[65px] size-[200px] rounded-full bg-brand-100/70"></span>
+      <span aria-hidden="true" class="absolute top-[323px] left-[927px] hidden size-[320px] rounded-full bg-yellow-200/80 lg:block"></span>
+      <span aria-hidden="true" class="absolute -right-16 -bottom-24 size-[220px] rounded-full bg-yellow-200/80 lg:hidden"></span>
+      <h2 id="demo-title" class="relative max-w-[640px] text-[36px]/[44px] font-bold sm:text-display-lg lg:text-[56px]/[64px]">See how it all <span class="text-brand-600">comes together.</span></h2>
+      <p class="relative max-w-[760px] text-lg text-muted sm:text-xl">See how Shepherd connects life skills curriculum, personalized instruction, classroom tools and progress reporting to support your students, teachers and school.</p>
+      <div class="relative flex w-full flex-col justify-center gap-3 pt-4 sm:w-auto sm:flex-row">
+        <Button href={site.demo} variant="dark" class="px-7 sm:text-lg">Book a Demo</Button>
+        <Button href={site.trial} variant="secondary" class="px-7 sm:text-lg">Start Your Free Trial</Button>
+      </div>
+    </div>
+  </section>
+</Base>

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
-/* Lavender alternative (Figma "Homepage Design (v2), lavender alternative"): pages set
-   <body data-palette="lavender"> and components swap yellow accents for lavender with `lavender:` utilities. */
+/* Lavender alternative (Figma "Homepage Design (v2) — lavender alternative", Oct 2026 feedback):
+   <body data-palette="lavender"> swaps the yellow accents for the lavender scale. */
 @custom-variant lavender (&:where([data-palette="lavender"] *));
 
 /* Design tokens from the Figma file (Spectrum Shepherd design system, Homepage v4). */
@@ -31,31 +31,41 @@
   --color-line: #e9eaeb;       /* border-secondary */
   --color-line-strong: #d5d7da; /* border-disabled, inactive carousel dots */
   --color-cream: #fefaf5;      /* Orange/25, page background */
-  --color-sky: #e2f0e2;        /* hero sky at the horizon */
+  --color-haze: #f4f4ef;       /* hero sky just below the nav (Figma Landing Page reference) */
+  --color-mist: #dcefdd;       /* hero sky at the horizon: cream → haze → mist gradient */
 
+  --color-periwinkle-100: #dce6f7; /* Schools hero "Evidence" card */
+  --color-yellow-25: #fef9e1;
   --color-yellow-50: #fefbe8;
   --color-yellow-100: #fef7c3;
   --color-yellow-200: #feee95;
   --color-yellow-300: #fde272;
   --color-yellow-400: #fac515;
   --color-yellow-800: #854a0e;
-  --color-periwinkle-100: #ebf2fe; /* Schools hero "Evidence" card */
-  --color-periwinkle-800: #3e4784; /* Schools hero "Evidence" label */
-  --color-violet-500: #7a5af8;      /* The App "Cooking" interest dot */
-  --color-haze: #f4f4ef;           /* The App "Built for schools" list items */
-  --color-lavender-25: #f2f3fc;
-  --color-lavender-100: #e3e4f8;
-  --color-lavender-200: #c5c6f3;
-  --color-lavender-300: #aaaded;
   --color-orange-50: #fef6ee;
   --color-orange-100: #fdead7;
   --color-orange-200: #f9dbaf;
   --color-orange-400: #f38744;
   --color-orange-700: #b93815;
+  --color-success-25: #ecfdf3; /* Figma status chips (Progress by Skill Area, Impact report) */
+  --color-error-25: #fef3f2;
+  --color-error-700: #b42318;
+  --color-warning-25: #fffaeb;
+  --color-warning-700: #b54708;
+  --color-track: #eef0ee;
+  --color-red-600: #d92d20;     /* Figma Error/600: low-progress bar on the Schools V3 value card */
   --color-orange-800: #932f19;
   --color-orange-alert: #c4320a;
   --color-warning-25: #fffcf5;
   --color-sky-50: #f0f9ff;
+  /* Figma "Deep Purple" utility scale — the lavender alternative's accent. */
+  --color-lavender-50: #f2f3fc;
+  --color-lavender-100: #e3e4f8;
+  --color-lavender-200: #c5c6f3;
+  --color-lavender-300: #aaaded;
+  --color-lavender-700: #5b5ea2;
+  --color-lavender-800: #46497d;
+  --color-blush-200: #ecd0eb;   /* Deep Violet 200, lavender sunset */
   --color-sky-800: #065986;
 
   /* Type scale: Text xs–xl, Display xs–2xl */
@@ -96,32 +106,3 @@
   /* Light surfaces nested inside dark ones (e.g. a white form on a green panel). */
   .on-light :focus-visible { outline-color: var(--color-brand-800); }
 }
-
-/* Large Shepherd swirl, used as a faint watermark (set the colour with bg-*). */
-.swirl {
-  mask: url('/images/brand/swirl.png') center / contain no-repeat;
-  -webkit-mask: url('/images/brand/swirl.png') center / contain no-repeat;
-}
-
-/* Blog article body (Portable Text from Sanity). */
-.prose-blog { color: var(--color-ink); font-size: 1.125rem; line-height: 1.8; }
-.prose-blog > * + * { margin-top: 1.25em; }
-.prose-blog h2 { margin-top: 2em; font-size: 1.875rem; line-height: 1.25; font-weight: 700; }
-.prose-blog h3 { margin-top: 1.75em; font-size: 1.375rem; line-height: 1.35; font-weight: 700; }
-.prose-blog h2 + *, .prose-blog h3 + * { margin-top: 0.6em; }
-.prose-blog a { color: var(--color-brand-700); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
-.prose-blog a:hover { color: var(--color-brand-800); }
-.prose-blog strong { font-weight: 700; }
-.prose-blog ul, .prose-blog ol { padding-left: 1.5em; }
-.prose-blog ul { list-style: disc; }
-.prose-blog ol { list-style: decimal; }
-.prose-blog li + li { margin-top: 0.5em; }
-.prose-blog li::marker { color: var(--color-brand-600); }
-.prose-blog blockquote {
-  border-left: 4px solid var(--color-yellow-400);
-  padding: 0.25em 0 0.25em 1.25em;
-  font-size: 1.375rem; line-height: 1.5; font-weight: 600;
-}
-
-/* Hero sky (Figma hero fill): cream at the top easing into pale green at the horizon. */
-.sky { background: linear-gradient(180deg, #fefaf5 0%, #f4f4ef 10%, #dcefdd 100%); }

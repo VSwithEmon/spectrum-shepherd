@@ -1,30 +1,55 @@
 ---
-// Floating nav bar (Figma "Site / Nav" 38876:3378 and the menu open states):
-// Teachers · Schools · The App link straight to their pages; Resources opens a menu (disclosure
-// pattern: a button toggles a panel of ordinary links). Then Book a Demo (dark, primary; opens the
-// demo pop-up) and Sign up free (secondary).
+// Floating nav bar (Figma components "Site / Nav" + "Nav Item", open states "Nav — Schools / Teachers /
+// Resources menu"). Menus use the disclosure pattern: a button toggles a panel of ordinary links.
+// Links follow the page set (V1 → v1 pages, V2 → v2 pages).
+// `v3` = client feedback (Oct 26, 2026; Figma "Site / Nav v2"): larger logo, Teachers and Schools open their
+// pages directly (Resources keeps its menu), Book a demo is the dark filled primary, Sign up free secondary.
 import Logo from './Logo.astro';
 import Button from './Button.astro';
-import { site } from '../data/site';
+import BrandIcon, { type IconName } from './v3/BrandIcon.astro';
+import { site, type PageSet, pagesV1, pagesV2 } from '../data/site';
 
-interface Props { demoHref?: string }
-const { demoHref = '/book-a-demo' } = Astro.props;
+interface Props {
+  demoHref?: string;
+  /** Destination set: logo, menus, Platform and About links. */
+  pages?: PageSet;
+  v3?: boolean;
+}
+const { demoHref = site.demo, pages = pagesV1, v3 = false } = Astro.props;
+const trialHref = site.signup;
+const loginHref = site.login;
 
-// Menu icons come from the illustrated icon family (public/images/icons/v2/).
-type Icon = 'lesson' | 'progress' | 'spark' | 'shield' | 'download' | 'people' | 'check';
 type Menu = {
   id: string;
-  items: { title: string; desc: string; href: string; icon: Icon }[];
+  items: { title: string; desc: string; href: string; icon: IconName }[];
   card: { title: string; body: string; cta: string; href: string; tone: 'green' | 'yellow' | 'deep' };
 };
 const menus: Record<string, Menu> = {
+  Teachers: {
+    id: 'menu-teachers',
+    items: [
+      { title: 'Ready-made life-skills lessons', desc: "Written for each student's reading level.", href: pages.teachers, icon: 'lesson' },
+      { title: 'IEP-linked progress notes', desc: 'Captured automatically as students work.', href: `${pages.teachers}#evidence`, icon: 'progress' },
+      { title: 'Free 45-day trial', desc: 'No credit card. No district approval needed.', href: site.trial, icon: 'spark' },
+    ],
+    card: { title: 'Try Shepherd free for 45 days', body: 'Set up your class in minutes and see the first progress notes this week.', cta: 'Start free trial', href: site.trial, tone: 'yellow' },
+  },
+  Schools: {
+    id: 'menu-schools',
+    items: [
+      { title: 'Transition Evidence Reports', desc: 'IEP-ready progress, captured as students work.', href: `${pages.schools}#outcomes`, icon: 'progress' },
+      { title: 'Indicator 13 support', desc: 'Transition evidence for compliance reviews.', href: pages.schools, icon: 'shield' },
+      { title: 'Funding guide', desc: 'How FY2026 grant funds can cover Shepherd.', href: '#', icon: 'download' },
+    ],
+    card: { title: 'See Shepherd in 15 minutes', body: 'The evidence report, privacy answers and funding in one call.', cta: 'Book a demo', href: demoHref, tone: 'green' },
+  },
+  // Resources mirrors the current site's Blog / Webinars / research.
   Resources: {
     id: 'menu-resources',
     items: [
-      { title: 'Free transition plan', desc: 'A ready-to-use transition plan template for your team.', href: '#', icon: 'download' },
-      { title: 'Funding guide', desc: 'How FY2026 grant funds can cover Shepherd.', href: '#', icon: 'shield' },
-      { title: 'Blog', desc: 'Articles and ideas for special educators.', href: '/blog', icon: 'lesson' },
-      { title: 'Webinars', desc: 'Sessions for special education teams.', href: '#', icon: 'download' },
+      { title: 'Blog', desc: 'Articles and ideas for special educators.', href: pages.blog, icon: 'lesson' },
+      { title: 'Webinars', desc: 'Sessions for special education teams.', href: pages.webinars, icon: 'people' },
+      { title: 'Beyond the Transition Plan', desc: 'What the research says about life after school.', href: pages.research, icon: 'progress' },
     ],
     card: { title: 'Built to pass district review', body: 'Privacy, security and compliance answers in one place.', cta: 'Trust Center', href: '#', tone: 'deep' },
   },
@@ -35,68 +60,78 @@ const cardTones = {
   yellow: { box: 'bg-yellow-200 text-ink lavender:bg-lavender-100', body: 'text-ink', btn: 'primary' as const },
 };
 
-const links: { label: string; href?: string; badge?: string }[] = [
-  { label: 'Teachers', href: '/teachers' },
-  { label: 'Schools', href: '/schools' },
-  { label: 'The App', href: '/the-app' },
-  { label: 'Resources' },
+// About lives in the footer and the mobile menu; The Platform (client feedback Oct 27, 2026) is a direct nav link.
+const links = [
+  { label: 'Teachers', href: pages.teachers },
+  { label: 'Schools', href: pages.schools },
+  { label: 'The Platform', href: pages.app },
+  { label: 'Resources', href: pages.blog },
 ];
-const itemClass = 'flex min-h-11 items-center gap-1.5 rounded-full px-4 font-semibold text-ink transition-colors hover:bg-white hover:text-brand-800 hover:shadow-md';
+// Which nav section the visitor is in (both page sets), so the bar can show "you are here".
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+const sectionOf: Record<string, string> = {};
+for (const set of [pagesV1, pagesV2]) {
+  sectionOf[set.teachers] = 'Teachers';
+  sectionOf[set.schools] = 'Schools';
+  for (const r of [set.blog, set.webinars, set.research]) sectionOf[r] = 'Resources';
+  sectionOf[set.app] = 'The Platform';
+  sectionOf[set.about] = 'About';
+}
+const current = sectionOf[path];
+const itemClass = 'flex min-h-11 items-center gap-1.5 rounded-full pr-3 pl-4 font-semibold text-ink transition-colors hover:bg-white hover:text-brand-800 hover:shadow-md';
+const activeClass = 'bg-white text-brand-800 shadow-md';
 ---
 <header class="site-nav sticky top-0 z-50 px-4 pt-4 pb-2 md:px-8" data-nav>
-  <div class="bar relative mx-auto flex max-w-[1200px] items-center justify-between gap-3 rounded-full border border-line bg-white/95 py-2 pr-2 pl-4 shadow-lg backdrop-blur-md transition-shadow sm:gap-4 sm:pl-6">
-    <Logo />
+  <div class="bar relative mx-auto flex max-w-[1200px] items-center justify-between gap-3 rounded-full border border-line bg-white/95 py-2 pr-2 pl-4 shadow-lg backdrop-blur-md transition-shadow sm:gap-4 sm:pr-3 sm:pl-6">
+    <Logo href={pages.home} large={v3} />
 
     <nav aria-label="Main" class="hidden xl:block">
       <ul class="flex items-center gap-0.5 rounded-full border border-brand-50 bg-brand-25 p-1">
         {links.map((l) => {
           const menu = menus[l.label];
+          if ((v3 || l.label === 'The Platform') && l.label !== 'Resources') return (
+            <li>
+              <a href={l.href} aria-current={current === l.label ? 'page' : undefined} class={`${itemClass} pr-4 ${current === l.label ? activeClass : ''}`}>{l.label}</a>
+            </li>
+          );
           return (
             <li data-menu-item>
-              {menu ? (
-                <button
-                  type="button"
-                  class={`${itemClass} aria-expanded:bg-brand-700 aria-expanded:text-white aria-expanded:shadow-none`}
-                  aria-expanded="false"
-                  aria-controls={menu.id}
-                  data-menu-trigger
-                >
-                  {l.label}
-                  <svg aria-hidden="true" class="chev size-4 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6" /></svg>
-                </button>
-              ) : (
-                <a href={l.href} class={`${itemClass} aria-[current=page]:bg-white aria-[current=page]:text-brand-800 aria-[current=page]:shadow-md`} aria-current={Astro.url.pathname.startsWith(l.href ?? '#') ? 'page' : undefined}>
-                  {l.label}
-                  {l.badge && <span class="rounded-full bg-yellow-300 px-1.5 py-0.5 text-xs font-bold text-ink">{l.badge}</span>}
-                </a>
-              )}
+              <button
+                type="button"
+                class={`${itemClass} ${current === l.label ? activeClass : ''} aria-expanded:bg-brand-700 aria-expanded:text-white aria-expanded:shadow-none`}
+                data-current={current === l.label ? 'true' : undefined}
+                aria-expanded="false"
+                aria-controls={menu.id}
+                data-menu-trigger
+              >
+                {l.label}{current === l.label && <span class="sr-only"> (current section)</span>}
+                <svg aria-hidden="true" class="chev size-4 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6" /></svg>
+              </button>
 
-              {menu && (
-                <div id={menu.id} hidden class="panel absolute top-full left-1/2 z-40 mt-3 w-[min(768px,calc(100vw-32px))] -translate-x-1/2">
-                  <div class="flex gap-4 rounded-4xl border border-line bg-white p-4 shadow-2xl">
-                    <ul class="flex flex-1 flex-col gap-1">
-                      {menu.items.map((it) => (
-                        <li>
-                          <a href={it.href} class="group flex items-center gap-4 rounded-2xl px-4 py-3 transition-colors hover:bg-brand-25 focus-visible:bg-brand-25">
-                            <img src={`/images/icons/v2/${it.icon}.svg`} width="48" height="48" alt="" class="size-12 shrink-0" />
-                            <span class="flex flex-1 flex-col">
-                              <span class="font-bold">{it.title}</span>
-                              <span class="text-sm text-muted">{it.desc}</span>
-                            </span>
-                            <svg aria-hidden="true" class="size-5 shrink-0 text-brand-700 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6" /></svg>
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                    <div class={`relative flex w-[280px] shrink-0 flex-col items-start gap-3 overflow-hidden rounded-3xl p-6 ${cardTones[menu.card.tone].box}`}>
-                      <span aria-hidden="true" class="absolute -top-14 -right-14 size-36 rounded-full bg-yellow-300 lavender:bg-lavender-200"></span>
-                      <p class="relative text-display-xs font-bold">{menu.card.title}</p>
-                      <p class={`relative text-sm ${cardTones[menu.card.tone].body}`}>{menu.card.body}</p>
-                      <Button href={menu.card.href} variant={cardTones[menu.card.tone].btn} shape="pill" full class="relative mt-auto">{menu.card.cta} →</Button>
-                    </div>
+              <div id={menu.id} hidden class="panel absolute top-full left-1/2 z-40 mt-3 w-[min(768px,calc(100vw-32px))] -translate-x-1/2">
+                <div class="flex gap-4 rounded-4xl border border-line bg-white p-4 shadow-2xl">
+                  <ul class="flex flex-1 flex-col gap-1">
+                    {menu.items.map((it) => (
+                      <li>
+                        <a href={it.href} class="group flex items-center gap-4 rounded-2xl px-4 py-3 transition-colors hover:bg-brand-25 focus-visible:bg-brand-25">
+                          <BrandIcon name={it.icon} class="size-12" />
+                          <span class="flex flex-1 flex-col">
+                            <span class="font-bold">{it.title}</span>
+                            <span class="text-sm text-muted">{it.desc}</span>
+                          </span>
+                          <svg aria-hidden="true" class="size-5 shrink-0 text-brand-700 opacity-0 transition-opacity group-hover:opacity-100 group-focus-visible:opacity-100" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6" /></svg>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                  <div class={`relative flex w-[280px] shrink-0 flex-col items-start gap-3 overflow-hidden rounded-3xl p-6 ${cardTones[menu.card.tone].box}`}>
+                    <span aria-hidden="true" class="absolute -top-14 -right-14 size-36 rounded-full bg-yellow-300 lavender:bg-lavender-200"></span>
+                    <p class="relative text-display-xs font-bold">{menu.card.title}</p>
+                    <p class={`relative text-sm ${cardTones[menu.card.tone].body}`}>{menu.card.body}</p>
+                    <Button href={menu.card.href} variant={cardTones[menu.card.tone].btn} shape="pill" full class="relative mt-auto">{menu.card.cta} →</Button>
                   </div>
                 </div>
-              )}
+              </div>
             </li>
           );
         })}
@@ -104,61 +139,54 @@ const itemClass = 'flex min-h-11 items-center gap-1.5 rounded-full px-4 font-sem
     </nav>
 
     <div class="hidden items-center gap-2 xl:flex">
-      <Button demo shape="pill">Book a Demo</Button>
-      <Button href={site.trial} variant="secondary" shape="pill">
+      <a href={loginHref} class="flex min-h-11 items-center gap-2 rounded-full px-4 font-semibold text-brand-700 hover:bg-brand-25 hover:text-brand-800">
+        <svg aria-hidden="true" class="size-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 21a8 8 0 0 0-16 0M12 13a5 5 0 1 0 0-10 5 5 0 0 0 0 10z" /></svg>
+        Log in
+      </a>
+      <Button href={demoHref} variant={v3 ? 'dark' : 'secondary'} shape="pill">Book a demo</Button>
+      <Button href={trialHref} variant={v3 ? 'secondary' : 'primary'} shape="pill">
         Sign up free
         <svg aria-hidden="true" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M9 6l6 6-6 6" /></svg>
       </Button>
     </div>
 
+    <!-- Phones from 390px (Figma mobile nav) and tablets: Sign up free beside the menu button. Under 390px
+         it moves into the menu (no room beside the logo). -->
+    <div class="ml-auto hidden min-[390px]:block xl:hidden">
+      {v3 ? <Button href={demoHref} variant="dark" shape="pill" class="whitespace-nowrap max-sm:px-4">Book a demo</Button> : <Button href={trialHref} shape="pill">Sign up free</Button>}
+    </div>
     <button
       type="button"
-      class="menu-toggle inline-flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-full bg-brand-25 px-4 font-semibold text-brand-800 max-[379px]:px-0 xl:hidden"
+      class="menu-toggle inline-flex min-h-11 min-w-11 items-center justify-center gap-2 rounded-full bg-brand-25 px-4 font-semibold text-brand-800 max-sm:px-0 xl:hidden"
       aria-expanded="false"
       aria-controls="mobile-menu"
     >
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" /></svg>
-      <!-- Icon-only on very small phones (under 380px); the label stays for screen readers. -->
-      <span class="max-[379px]:sr-only">Menu</span>
+      <!-- Icon-only on phones (Figma); the label stays for screen readers. -->
+      <span class="max-sm:sr-only">Menu</span>
     </button>
   </div>
 
-  <nav id="mobile-menu" aria-label="Main" hidden class="mx-auto mt-3 max-h-[calc(100dvh-120px)] max-w-[1200px] overflow-y-auto rounded-4xl border border-line bg-white p-3 shadow-2xl xl:hidden">
+  <nav id="mobile-menu" aria-label="Main" hidden class="mx-auto mt-3 max-w-[1200px] rounded-4xl border border-line bg-white p-4 shadow-2xl xl:hidden">
     <ul class="flex flex-col">
-      {links.map((l) => {
-        const menu = menus[l.label];
-        return (
-          <li class="border-b border-line last:border-b-0">
-            {menu ? (
-              <details class="group">
-                <summary class="flex min-h-12 cursor-pointer list-none items-center justify-between rounded-2xl px-4 text-lg font-semibold hover:bg-brand-25 [&::-webkit-details-marker]:hidden">
-                  {l.label}
-                  <svg aria-hidden="true" class="size-5 transition-transform group-open:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 9l6 6 6-6" /></svg>
-                </summary>
-                <ul class="flex flex-col gap-1 pb-3">
-                  {menu.items.map((it) => (
-                    <li>
-                      <a href={it.href} class="flex items-center gap-3 rounded-2xl px-3 py-2 hover:bg-brand-25">
-                        <img src={`/images/icons/v2/${it.icon}.svg`} width="40" height="40" alt="" class="size-10 shrink-0" />
-                        <span class="flex flex-col">
-                          <span class="font-bold">{it.title}</span>
-                          <span class="text-sm text-muted">{it.desc}</span>
-                        </span>
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </details>
-            ) : (
-              <a href={l.href ?? '#'} aria-current={Astro.url.pathname.startsWith(l.href ?? '#') ? 'page' : undefined} class="flex min-h-12 items-center rounded-2xl px-4 text-lg font-semibold hover:bg-brand-25 aria-[current=page]:text-brand-700">{l.label}</a>
-            )}
-          </li>
-        );
-      })}
+      {links.map((l) => (
+        <li><a href={l.href} aria-current={current === l.label ? 'page' : undefined} class={`flex min-h-12 items-center gap-2 rounded-2xl px-4 text-lg font-semibold hover:bg-brand-25 ${current === l.label ? 'bg-brand-50 text-brand-800' : ''}`}>{l.label}</a></li>
+      ))}
+      <li><a href={pages.about} aria-current={current === 'About' ? 'page' : undefined} class={`flex min-h-12 items-center rounded-2xl px-4 text-lg font-semibold hover:bg-brand-25 ${current === 'About' ? 'bg-brand-50 text-brand-800' : ''}`}>About</a></li>
+      <li><a href={loginHref} class="flex min-h-12 items-center rounded-2xl px-4 text-lg font-semibold text-brand-700 hover:bg-brand-25">Log in</a></li>
     </ul>
-    <div class="mt-2 grid gap-2 sm:grid-cols-2">
-      <Button demo shape="pill" full>Book a Demo</Button>
-      <Button href={site.trial} variant="secondary" shape="pill" full>Sign up free</Button>
+    <div class="mt-3 flex flex-col gap-3">
+      {v3 ? (
+        <Fragment>
+          <Button href={demoHref} variant="dark" shape="pill" full>Book a demo</Button>
+          <Button href={trialHref} variant="secondary" shape="pill" full>Sign up free</Button>
+        </Fragment>
+      ) : (
+        <Fragment>
+          <Button href={trialHref} shape="pill" full>Sign up free</Button>
+          <Button href={demoHref} variant="secondary" shape="pill" full>Book a demo</Button>
+        </Fragment>
+      )}
     </div>
   </nav>
 </header>

@@ -1,0 +1,43 @@
+---
+// "One platform for everyone in a student's corner" (Oct 2026 feedback): all three audiences
+// visible at once — no tabs, carousel, rotation or labels above the headlines. Three columns on
+// desktop, stacked on phones so each is reached by normal scrolling.
+import Button from '../Button.astro';
+import CheckItem from '../CheckItem.astro';
+import FloatingStat from '../FloatingStat.astro';
+import { audienceSlides } from '../../data/audiences';
+import { pagesV1 } from '../../data/site';
+
+// Each card leads to its own page; teachers go straight to the free trial.
+const hrefs: Record<string, string> = {
+  'audience-schools': pagesV1.schools,
+  'audience-teachers': pagesV1.teachers,
+  'audience-students': pagesV1.app,
+};
+---
+<section class="px-4 py-16 md:px-8 lg:py-24" aria-labelledby="audiences-title">
+  <div class="mx-auto flex max-w-[1200px] flex-col gap-10">
+    <h2 id="audiences-title" class="text-center text-display-sm font-bold md:text-display-md lg:text-display-lg">One platform for everyone in a student's corner.</h2>
+    <ul class="grid gap-6 lg:grid-cols-3">
+      {audienceSlides.map((s) => (
+        <li class="flex flex-col overflow-hidden rounded-3xl border border-line bg-white">
+          <div class="relative h-[220px] sm:h-[260px] lg:h-[240px]">
+            <img src={s.image.src} alt={s.image.alt} width="1100" height="825" loading="lazy" class="size-full object-cover" />
+            <FloatingStat value={s.stat.value} caption={s.stat.caption} class="bottom-4 left-4" />
+          </div>
+          <div class="flex flex-1 flex-col gap-5 p-6 sm:p-7">
+            <h3 class="text-display-xs font-semibold">
+              {s.headline.map((line, i) => <Fragment>{line}{i < s.headline.length - 1 && <br />}</Fragment>)}
+            </h3>
+            <ul class="flex flex-col gap-3">
+              {s.benefits.map((b) => <CheckItem>{b}</CheckItem>)}
+            </ul>
+          </div>
+          <div class="px-6 pb-6 sm:px-7 sm:pb-7">
+            <Button href={hrefs[s.id] ?? s.cta.href} variant="secondary">{s.cta.label}</Button>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

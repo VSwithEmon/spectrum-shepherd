@@ -1,0 +1,77 @@
+---
+// Administrator "Transition program overview" (Figma: Schools page hero, "Product / Program dashboard (admin,
+// sample)", node 38972:67669). Sample data, labelled as such. The tabs and bars are decoration; the figures,
+// rooms and students are readable text. The client asked us not to imply every feature shown is live.
+interface Props { class?: string }
+const { class: className = '' } = Astro.props;
+
+const stats = [
+  { value: '18 / 24', label: 'Students on track', tone: 'bg-brand-50 text-brand-800' },
+  { value: '126', label: 'Lessons this week', tone: 'bg-yellow-100 text-yellow-800' },
+  { value: '9 of 12', label: 'Goals progressing', tone: 'bg-periwinkle-100 text-lavender-700' },
+];
+const rooms = [
+  { name: 'Room 104 · Transition', value: 78 },
+  { name: 'Room 112 · Life skills', value: 64 },
+  { name: 'Room 207 · Post-secondary', value: 52 },
+];
+const attention = [
+  { initials: 'JM', name: 'Jordan M.', note: 'Personal safety below target' },
+  { initials: 'AR', name: 'Ava R.', note: 'No lessons in 5 days' },
+];
+---
+<figure class={`overflow-hidden rounded-[20px] border-2 border-brand-600 bg-white shadow-2xl ${className}`} aria-label="Sample Shepherd program dashboard">
+  <div aria-hidden="true" class="flex items-center justify-between gap-3 bg-brand-600 py-2.5 pr-3.5 pl-[18px] text-white">
+    <span class="text-[15px] font-bold">shepherd</span>
+    <span class="flex gap-1 text-xs font-semibold sm:text-[13px]">
+      <span class="rounded-full bg-white px-3 py-1 text-brand-800">Program</span>
+      <span class="px-3 py-1">Classrooms</span>
+      <span class="hidden px-3 py-1 min-[400px]:inline">Reports</span>
+    </span>
+  </div>
+
+  <div class="flex flex-col gap-4 px-4 pt-[18px] pb-5 sm:px-5">
+    <div class="flex items-start justify-between gap-3">
+      <p class="flex flex-col">
+        <span class="text-lg font-semibold">Transition program overview</span>
+        <span class="text-xs text-muted">All classrooms · This term</span>
+      </p>
+      <span class="shrink-0 rounded bg-yellow-100 px-2 py-0.5 text-[11px] font-bold text-yellow-800">SAMPLE</span>
+    </div>
+
+    <ul class="grid grid-cols-3 gap-2 sm:gap-2.5">
+      {stats.map((s) => (
+        <li class={`flex flex-col gap-1.5 rounded-xl p-2.5 sm:p-3 ${s.tone}`}>
+          <span class="text-lg/[26px] font-bold sm:text-xl/[26px]">{s.value}</span>
+          <span class="text-[11px]/4 font-semibold sm:text-xs/[18px]">{s.label}</span>
+        </li>
+      ))}
+    </ul>
+
+    <div class="grid gap-3 sm:grid-cols-[1fr_190px]">
+      <section class="flex flex-col gap-2.5 rounded-xl border border-line p-3" aria-label="Progress by classroom">
+        <p class="text-xs font-bold text-muted">Progress by classroom</p>
+        {rooms.map((r) => (
+          <div class="flex flex-col gap-1">
+            <p class="flex justify-between text-xs font-semibold"><span>{r.name}</span><span>{r.value}%</span></p>
+            <span aria-hidden="true" class="h-2 rounded-full bg-line"><span class="block h-2 rounded-full bg-brand-600" style={`width:${r.value}%`}></span></span>
+          </div>
+        ))}
+      </section>
+      <section class="flex flex-col gap-2.5 rounded-xl border border-line p-3" aria-label="Needs attention">
+        <p class="text-xs font-bold text-muted">Needs attention</p>
+        <ul class="flex flex-col gap-2.5">
+          {attention.map((a) => (
+            <li class="flex items-start gap-2.5">
+              <span aria-hidden="true" class="flex size-[30px] shrink-0 items-center justify-center rounded-full bg-orange-50 text-[11px] font-bold text-orange-700">{a.initials}</span>
+              <span class="flex flex-col">
+                <span class="text-xs font-semibold">{a.name}</span>
+                <span class="text-[11px]/4 text-muted">{a.note}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </div>
+  </div>
+</figure>

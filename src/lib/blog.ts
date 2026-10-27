@@ -21,6 +21,7 @@ export interface PostCard {
   category: string;
   publishedAt: string;
   featured?: boolean;
+  audience?: "educators" | "families";
   authorName: string;
   authorRole?: string;
   coverImage: { alt: string; asset: any; hotspot?: any; crop?: any };
@@ -31,7 +32,7 @@ export interface Post extends PostCard {
   seoDescription?: string;
 }
 
-const cardFields = `_id, title, "slug": slug.current, excerpt, category, publishedAt, featured, authorName, authorRole, coverImage,
+const cardFields = `_id, title, "slug": slug.current, excerpt, category, audience, publishedAt, featured, authorName, authorRole, coverImage,
   "words": length(string::split(pt::text(body), " "))`;
 
 // Published posts only: drafts stay in the Studio until the editor presses Publish.
@@ -56,3 +57,9 @@ export const getPostsWithBody = () => query<Post>(`*[${live}] | order(publishedA
 export const categoryTitle = (v: string) => categories.find((c) => c.value === v)?.title ?? v;
 export const readTime = (words = 0) => `${Math.max(1, Math.round(words / 220))} min read`;
 export const formatDate = (iso: string) => new Date(iso).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+
+/** Short date for the blog list ("Aug 19"; with the year when it isn't this year). */
+export const shortDate = (iso: string) => {
+  const d = new Date(iso);
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', ...(d.getFullYear() !== new Date().getFullYear() ? { year: 'numeric' } : {}) });
+};

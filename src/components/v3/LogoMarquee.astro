@@ -1,0 +1,69 @@
+---
+// School logo strip (Oct 2026 feedback): V1 "Built with educators…" headline, logos moving
+// slowly right → left — the only motion on the page. The list is read once by assistive tech
+// (the looping copy is aria-hidden); it pauses on hover/focus and stops for reduced motion.
+import { schools, type School } from '../../data/schools';
+
+interface Props {
+  /** false = tagline only (Teachers page: the live page has no school-logo row). */
+  logos?: boolean;
+}
+const { logos = true } = Astro.props;
+
+const beats = [
+  { lead: 'Built with', word: 'educators.', tilt: 'rotate-2' },
+  { lead: 'Tested with', word: 'students.', tilt: '-rotate-2' },
+  { lead: 'Shaped in', word: 'classrooms.', tilt: 'rotate-2' },
+];
+const pin = (s: School, i: number) =>
+  `flex size-[45px] items-center justify-center overflow-hidden rounded-full border-[3px] shadow-lg ${s.bg ?? 'bg-white'} ${
+    i % 2 ? 'border-orange-400' : 'border-yellow-300'
+  }`;
+---
+<section class={`overflow-hidden bg-brand-700 pt-4 text-white ${logos ? 'pb-16' : 'pb-14 lg:pb-16'}`} aria-labelledby="schools-title">
+  <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-10 px-4 md:px-8">
+    <h2 id="schools-title" class="flex flex-wrap items-center justify-center gap-3 text-center text-xl font-bold sm:text-display-xs md:text-display-sm lg:text-display-md">
+      {beats.map((b) => (
+        <span class="flex items-center gap-2 sm:gap-3">
+          {b.lead}
+          <span class={`inline-block rounded-full bg-yellow-300 px-3 py-0.5 text-ink sm:px-4 lavender:bg-lavender-200 ${b.tilt}`}>{b.word}</span>
+        </span>
+      ))}
+    </h2>
+  </div>
+
+  {logos && (
+  <div class="marquee relative mt-10" data-marquee>
+    <div class="track flex w-max">
+      {[0, 1].map((copy) => (
+        <ul class="flex shrink-0 items-start gap-12 pr-12 sm:gap-[72px] sm:pr-[72px]" aria-label={copy ? undefined : 'Schools that helped shape Shepherd'} aria-hidden={copy ? 'true' : undefined}>
+          {schools.map((s, i) => (
+            <li class="flex flex-col items-center gap-2 text-center">
+              <span aria-hidden="true" class={pin(s, i)}>
+                {s.logo
+                  ? <img src={s.logo} width="256" height="256" loading="lazy" alt="" class="object-contain" style={`width:${s.logoSize}px;height:${s.logoSize}px`} />
+                  : <span class="text-sm font-bold text-brand-800">{s.mono}</span>}
+              </span>
+              <span class="text-sm font-bold whitespace-nowrap text-brand-50 sm:text-md">{s.name}</span>
+            </li>
+          ))}
+        </ul>
+      ))}
+    </div>
+    <span aria-hidden="true" class="pointer-events-none absolute inset-y-0 left-0 w-12 bg-linear-to-r from-brand-700 to-transparent sm:w-[200px]"></span>
+    <span aria-hidden="true" class="pointer-events-none absolute inset-y-0 right-0 w-12 bg-linear-to-l from-brand-700 to-transparent sm:w-[200px]"></span>
+  </div>
+  )}
+</section>
+
+<style>
+  /* One full set per ~45s: slow enough to read each school's name. */
+  .track { animation: marquee 45s linear infinite; }
+  .marquee:hover .track, .marquee:focus-within .track { animation-play-state: paused; }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+  @media (prefers-reduced-motion: reduce) {
+    .track { animation: none; width: 100%; justify-content: center; }
+    .track > ul:first-child { width: 100%; flex-shrink: 1; flex-wrap: wrap; justify-content: center; padding-inline: 16px; column-gap: 24px; row-gap: 24px; }
+    .track > ul[aria-hidden] { display: none; }
+  }
+</style>

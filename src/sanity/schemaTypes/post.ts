@@ -103,6 +103,15 @@ export const post = defineType({
       options: { list: categories, layout: 'radio' },
       validation: (r) => r.required(),
     }),
+    defineField({
+      name: 'audience',
+      title: 'Blog tab',
+      type: 'string',
+      group: 'meta',
+      description: 'Which tab of the blog page lists this post.',
+      options: { list: [{ title: 'For educators', value: 'educators' }, { title: 'For families', value: 'families' }], layout: 'radio' },
+      initialValue: 'educators',
+    }),
     defineField({ name: 'authorName', title: 'Author', type: 'string', group: 'meta', validation: (r) => r.required() }),
     defineField({ name: 'authorRole', title: 'Author role', type: 'string', group: 'meta', description: 'e.g. Special education teacher' }),
     defineField({

@@ -3,33 +3,41 @@ import '../styles/global.css';
 import SiteNav from '../components/SiteNav.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import DesignToggle from '../components/DesignToggle.astro';
-import DemoDialog from '../components/DemoDialog.astro';
+import { pagesFor, pagesV2 } from '../data/site';
 
 interface Props {
   title: string;
-  /** Social preview image (absolute URL), e.g. a blog post's cover. */
-  image?: string;
   description?: string;
   /** Where the nav's "Book a demo" goes. */
   demoHref?: string;
   /** Hill edge above the footer, and the background behind it (match the last section). */
   footerHills?: boolean;
   footerHillsBg?: string;
-  /** Alternative palette: 'lavender' swaps the yellow accents for lavender (Figma Homepage V2). */
+  /** Show the design switch (homepage review only). */
+  designToggle?: 'v1' | 'v2';
+  /** The nav from the Oct 26, 2026 client feedback (Figma "Site / Nav v2"); the default on every page. false = the earlier nav. */
+  navUpdated?: boolean;
+  /** Link the V2 page set without the lavender palette (homepage V2). */
+  pageSet?: 'v2';
+  /** 'lavender' = lavender replaces yellow as the accent (enables `lavender:` utilities) and the nav,
+   *  footer and logo link the v2 pages (V2 set). Without it everything links the v1 pages (V1 set). */
   palette?: 'lavender';
-  /** Floating V1/V2 switch for comparing the two homepage directions. */
-  designToggle?: 'v1' | 'v2' | 'v3';
+  /** Standalone page: no nav or footer (the log-in card). */
+  bare?: boolean;
 }
 const {
   title,
-  image,
   description = 'Spectrum Shepherd is an AI life-skills coach for neurodiverse students aged 14–22, with IEP-ready progress reports for their teachers.',
   demoHref,
   footerHills = true,
   footerHillsBg = '',
-  palette,
   designToggle,
+  palette,
+  bare = false,
+  navUpdated = true,
+  pageSet,
 } = Astro.props;
+const pages = pageSet === 'v2' ? pagesV2 : pagesFor(palette);
 ---
 <!doctype html>
 <html lang="en">
@@ -38,22 +46,19 @@ const {
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
-    {image && <meta property="og:image" content={image} />}
-    {image && <meta name="twitter:card" content="summary_large_image" />}
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
   </head>
   <body data-palette={palette}>
     <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded-lg focus:bg-white focus:px-4 focus:py-3 focus:font-semibold focus:shadow-lg">Skip to main content</a>
-    <SiteNav demoHref={demoHref} />
+    {!bare && <SiteNav demoHref={demoHref} pages={pages} v3={navUpdated} />}
     <main id="main">
       <slot />
     </main>
-    <SiteFooter hills={footerHills} hillsBg={footerHillsBg} />
+    {!bare && <SiteFooter hills={footerHills} hillsBg={footerHillsBg} pages={pages} />}
+    {/* Room for the fixed design switch so it never covers the footer's legal links on phones. */}
+    {designToggle && <div aria-hidden="true" class="h-20 bg-brand-800 md:hidden"></div>}
     {designToggle && <DesignToggle active={designToggle} />}
-    <DemoDialog />
   </body>
 </html>

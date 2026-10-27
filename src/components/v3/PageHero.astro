@@ -1,0 +1,73 @@
+---
+// Hero shell for the inner pages: copy on the left, a page-specific visual on the right (`visual`
+// slot), sky and hills along the bottom. Scenes follow the Figma frames:
+//  - 'sky'     cream → mist sky, clouds and birds, the homepage hills (Teachers v1, Schools v1)
+//  - 'classic' same sky with the older layered hills and trees (Teachers v2)
+//  - 'plain'   cream background, two small clouds, layered hills with trees (App, About, Research v1)
+//  - 'none'    sky and clouds only
+import Button from '../Button.astro';
+import Cloud from '../Cloud.astro';
+import Hills from '../Hills.astro';
+import BrandIcon from './BrandIcon.astro';
+import HeroHills from './HeroHills.astro';
+import SkyDecor from './SkyDecor.astro';
+
+interface Props {
+  /** Text before the green part of the H1. */
+  title: string;
+  /** Green part of the H1. */
+  accent: string;
+  lede: string;
+  primary: { label: string; href: string };
+  secondary?: { label: string; href: string };
+  checks?: string[];
+  /** Soft sun circle behind the visual (large screens). */
+  sun?: boolean;
+  scene?: 'sky' | 'classic' | 'plain' | 'none';
+  /** 'dark' = Book a Demo as the solid primary (client feedback, Oct 26, 2026). */
+  primaryVariant?: 'primary' | 'dark';
+  /** Extra attributes for the primary button (e.g. data-demo-open). */
+  primaryAttrs?: Record<string, string>;
+  /** Large-screen size of the visual area (default a 600×600 square). */
+  visualClass?: string;
+}
+const { title, accent, lede, primary, secondary, checks = [], sun = true, scene = 'sky', primaryVariant = 'primary', primaryAttrs = {}, visualClass = 'lg:aspect-square' } = Astro.props;
+const plain = scene === 'plain';
+---
+<section class={`relative overflow-hidden ${plain ? 'bg-cream' : 'bg-linear-to-b from-cream via-haze via-10% to-mist'}`} aria-labelledby="page-title">
+  {plain ? (
+    <Fragment>
+      <Cloud class="top-6 left-[44%] z-0 hidden h-[60px] w-[160px] opacity-90 lg:block" />
+      <Cloud class="top-[300px] right-2 z-0 hidden h-[42px] w-[112px] opacity-90 xl:block" />
+    </Fragment>
+  ) : <SkyDecor />}
+  <!-- Sky scene from 1280px: content area 622px + hills 180px − 18px overlap = the Figma 784px hero, the same height
+       as the homepage hero. Other scenes size to their content. -->
+  <div class={`relative z-10 mx-auto flex max-w-[1200px] flex-col items-center gap-12 px-4 pt-8 pb-16 md:px-8 lg:flex-row xl:px-0 ${scene === 'sky' ? 'lg:pt-12 lg:pb-12 xl:h-[622px] xl:pt-[18px] xl:pb-0' : 'lg:pt-12 lg:pb-12'}`}>
+    <div class="flex w-full flex-col items-start gap-6 lg:flex-1">
+      <h1 id="page-title" class="text-display-md font-bold sm:text-display-lg">
+        {title} <span class="text-brand-600">{accent}</span>
+      </h1>
+      <p class="text-lg font-medium text-muted sm:text-xl">{lede}</p>
+      <div class="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:flex-wrap">
+        <Button href={primary.href} variant={primaryVariant} {...primaryAttrs}>{primary.label}</Button>
+        {secondary && <Button href={secondary.href} variant="secondary">{secondary.label}</Button>}
+      </div>
+      {checks.length > 0 && (
+        <ul class="flex flex-wrap gap-x-6 gap-y-2 font-medium text-muted">
+          {checks.map((c) => (
+            <li class="flex items-center gap-2"><BrandIcon name="check" class="size-6" />{c}</li>
+          ))}
+        </ul>
+      )}
+    </div>
+
+    <div class={`relative w-full shrink-0 lg:w-[600px] ${visualClass}`}>
+      {sun && <div aria-hidden="true" class="absolute top-[5%] left-[20%] hidden aspect-square w-[76.67%] rounded-full bg-yellow-200 lg:block lavender:bg-lavender-200"></div>}
+      <slot name="visual" />
+    </div>
+  </div>
+
+  {scene === 'sky' && <HeroHills class="relative z-[1] -mt-8 h-[81px] sm:-mt-12 sm:h-[140px] lg:-mt-[18px] lg:h-[max(180px,12.5vw)]" />}
+  {(scene === 'classic' || plain) && <Hills path={false} trees grove={scene === 'classic'} class="-mt-6 lg:-mt-16" />}
+</section>

@@ -1,0 +1,56 @@
+---
+// "One platform for everyone in a student's corner" — V4 layout (Figma "Homepage Design (v2) —
+// lavender alternative"): three full-width rows, photo alternating left/right, each audience on
+// its own soft tint. All visible at once — no tabs, carousel, rotation or labels (Oct 2026 feedback).
+// `v3` = client feedback (Oct 26, 2026): approved copy, yellow-dot graphic label on each photo,
+// soft-yellow Teachers tint, links to the main pages.
+import Button from '../Button.astro';
+import CheckItem from '../CheckItem.astro';
+import FloatingStat from '../FloatingStat.astro';
+import { audienceSlides, audienceSlidesV3 } from '../../data/audiences';
+import { pagesV1, pagesV2, site, type PageSet } from '../../data/site';
+
+interface Props { v3?: boolean; /** Page set the buttons link to (defaults: v3 → V1, otherwise V2). */ pages?: PageSet }
+const { v3 = false } = Astro.props;
+const pages = Astro.props.pages ?? (v3 ? pagesV1 : pagesV2);
+
+const hrefs: Record<string, string> = {
+  'audience-schools': pages.schools,
+  'audience-teachers': v3 ? site.trial : pages.teachers,
+  'audience-students': pages.app,
+};
+const tints: Record<string, string> = {
+  'audience-schools': 'bg-brand-25',
+  'audience-teachers': v3 ? 'bg-yellow-50' : 'bg-lavender-50',
+  'audience-students': 'bg-orange-50',
+};
+---
+<section class="px-5 py-14 md:px-8 lg:py-24" aria-labelledby="audiences-title">
+  <!-- Phones follow Figma "Audiences (stacked)" (390 frame): full-bleed 220px photo, 24px semibold heading,
+       16px benefits and a light secondary button; from lg the rows alternate photo left/right. -->
+  <div class="mx-auto flex max-w-[1200px] flex-col gap-5 lg:gap-10">
+    <h2 id="audiences-title" class="text-center text-display-sm font-bold tracking-[-0.6px] md:text-display-md md:tracking-normal lg:text-display-lg xl:whitespace-nowrap">One platform for everyone in a student's corner.</h2>
+    <ul class="flex flex-col gap-5 lg:gap-8">
+      {(v3 ? audienceSlidesV3 : audienceSlides).map((s, i) => (
+        <li class={`flex flex-col items-center overflow-hidden rounded-3xl border border-line lg:gap-14 lg:rounded-[40px] lg:border-0 lg:p-6 ${tints[s.id]} ${i % 2 ? 'lg:flex-row-reverse' : 'lg:flex-row'}`}>
+          <div class="relative h-[220px] w-full shrink-0 overflow-hidden sm:h-[320px] lg:h-[380px] lg:w-[580px] lg:rounded-[28px]">
+            <img src={s.image.src} alt={s.image.alt} width="1100" height="825" loading="lazy" class="size-full object-cover" />
+            {'label' in s
+              ? <p class="absolute bottom-3.5 left-4 flex max-w-[calc(100%-32px)] items-center gap-2 rounded-2xl bg-white py-2.5 pr-4 pl-3.5 text-[15px]/[22px] font-bold shadow-lg sm:right-5 sm:bottom-5 sm:left-5 sm:w-fit sm:gap-2.5 sm:rounded-full sm:text-lg"><span aria-hidden="true" class="size-2.5 shrink-0 rounded-full bg-yellow-400 sm:size-3"></span>{s.label}</p>
+              : <FloatingStat value={s.stat.value} caption={s.stat.caption} class="bottom-5 left-5" />}
+          </div>
+          <div class={`flex w-full flex-col items-start gap-5 px-7 pt-7 pb-7 lg:px-0 lg:pt-0 lg:pb-0 ${i % 2 ? 'lg:pl-8' : 'lg:pr-8'}`}>
+            <h3 class="text-display-xs font-semibold sm:text-display-sm lg:font-bold">
+              {s.headline.map((line, k) => <Fragment>{line}{k < s.headline.length - 1 && <br class="hidden sm:inline" />}{k < s.headline.length - 1 && ' '}</Fragment>)}
+            </h3>
+            <ul class="flex flex-col gap-3 text-md lg:text-lg">
+              {s.benefits.map((b) => <CheckItem v2>{b}</CheckItem>)}
+            </ul>
+            <Button href={hrefs[s.id]} variant="secondary" class="mt-2 lg:hidden">{typeof s.cta === 'string' ? s.cta : s.cta.label}</Button>
+            <Button href={hrefs[s.id]} class="max-lg:hidden">{typeof s.cta === 'string' ? s.cta : s.cta.label}</Button>
+          </div>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>

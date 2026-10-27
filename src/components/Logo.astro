@@ -1,9 +1,10 @@
 ---
-// Spectrum Shepherd company logo (wordmark + swirl), per the client's choice over the Shepherd product logo.
-// The PNG is the asset from Figma; swap for an SVG when the client supplies one.
-interface Props { class?: string }
-const { class: className = '' } = Astro.props;
+// Spectrum Shepherd logo (client-supplied artwork: "SPECTRUM shepherd" + dotted ring), public/images/logo.png.
+// The file is 166×60 on a white background, so it sits on the white nav bar; swap in an SVG or a
+// larger transparent PNG when the client supplies one.
+interface Props { class?: string; href?: string; /** Client feedback (Oct 26, 2026): a larger, more recognizable logo. */ large?: boolean }
+const { class: className = '', href = '/', large = false } = Astro.props;
 ---
-<a href="/" class={`flex shrink-0 items-center ${className}`}>
-  <img src="/images/brand/spectrum-shepherd.png" width="166" height="60" alt="Spectrum Shepherd home" class="h-11 w-auto sm:h-[52px]" />
+<a href={href} aria-label="Spectrum Shepherd home" class={`flex shrink-0 items-center ${className}`}>
+  <img src="/images/logo.png" width="166" height="60" alt="" class={`w-auto ${large ? 'h-10 sm:h-14' : 'h-10'}`} />
 </a>
