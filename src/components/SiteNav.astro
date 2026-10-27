@@ -11,7 +11,7 @@ import { site, type PageSet, pagesV1, pagesV2 } from '../data/site';
 
 interface Props {
   demoHref?: string;
-  /** Destination set: logo, menus, App and About links. */
+  /** Destination set: logo, menus, Platform and About links. */
   pages?: PageSet;
   v3?: boolean;
 }
@@ -60,10 +60,11 @@ const cardTones = {
   yellow: { box: 'bg-yellow-200 text-ink lavender:bg-lavender-100', body: 'text-ink', btn: 'primary' as const },
 };
 
-// The App and About live in the footer and the mobile menu.
+// About lives in the footer and the mobile menu; The Platform (client feedback Oct 27, 2026) is a direct nav link.
 const links = [
   { label: 'Teachers', href: pages.teachers },
   { label: 'Schools', href: pages.schools },
+  { label: 'The Platform', href: pages.app },
   { label: 'Resources', href: pages.blog },
 ];
 // Which nav section the visitor is in (both page sets), so the bar can show "you are here".
@@ -73,7 +74,7 @@ for (const set of [pagesV1, pagesV2]) {
   sectionOf[set.teachers] = 'Teachers';
   sectionOf[set.schools] = 'Schools';
   for (const r of [set.blog, set.webinars, set.research]) sectionOf[r] = 'Resources';
-  sectionOf[set.app] = 'The App';
+  sectionOf[set.app] = 'The Platform';
   sectionOf[set.about] = 'About';
 }
 const current = sectionOf[path];
@@ -88,7 +89,7 @@ const activeClass = 'bg-white text-brand-800 shadow-md';
       <ul class="flex items-center gap-0.5 rounded-full border border-brand-50 bg-brand-25 p-1">
         {links.map((l) => {
           const menu = menus[l.label];
-          if (v3 && l.label !== 'Resources') return (
+          if ((v3 || l.label === 'The Platform') && l.label !== 'Resources') return (
             <li>
               <a href={l.href} aria-current={current === l.label ? 'page' : undefined} class={`${itemClass} pr-4 ${current === l.label ? activeClass : ''}`}>{l.label}</a>
             </li>
@@ -171,7 +172,6 @@ const activeClass = 'bg-white text-brand-800 shadow-md';
       {links.map((l) => (
         <li><a href={l.href} aria-current={current === l.label ? 'page' : undefined} class={`flex min-h-12 items-center gap-2 rounded-2xl px-4 text-lg font-semibold hover:bg-brand-25 ${current === l.label ? 'bg-brand-50 text-brand-800' : ''}`}>{l.label}</a></li>
       ))}
-      <li><a href={pages.app} aria-current={current === 'The App' ? 'page' : undefined} class={`flex min-h-12 items-center rounded-2xl px-4 text-lg font-semibold hover:bg-brand-25 ${current === 'The App' ? 'bg-brand-50 text-brand-800' : ''}`}>The App</a></li>
       <li><a href={pages.about} aria-current={current === 'About' ? 'page' : undefined} class={`flex min-h-12 items-center rounded-2xl px-4 text-lg font-semibold hover:bg-brand-25 ${current === 'About' ? 'bg-brand-50 text-brand-800' : ''}`}>About</a></li>
       <li><a href={loginHref} class="flex min-h-12 items-center rounded-2xl px-4 text-lg font-semibold text-brand-700 hover:bg-brand-25">Log in</a></li>
     </ul>

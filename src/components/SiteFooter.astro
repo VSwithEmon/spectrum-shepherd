@@ -16,14 +16,14 @@ interface Props {
 const { hills = true, hillsBg = '', pages = pagesV1 } = Astro.props;
 
 const columns = [
-  { title: 'Product', links: [{ label: 'Teachers', href: pages.teachers }, { label: 'Schools', href: pages.schools }, { label: 'The App', href: pages.app }] },
+  { title: 'Product', links: [{ label: 'Teachers', href: pages.teachers }, { label: 'Schools', href: pages.schools }, { label: 'The Platform', href: pages.app }] },
   { title: 'Company', links: [{ label: 'About', href: pages.about }, { label: 'Resources', href: pages.blog }, { label: 'Log in', href: site.login }] },
 ];
-// Social profile URLs still to be supplied by the client.
+// Official social profiles (supplied by the client, Oct 27, 2026).
 const social = [
-  { label: 'Instagram', icon: '/images/icons/instagram.svg', href: '#' },
-  { label: 'Facebook', icon: '/images/icons/facebook.svg', href: '#' },
-  { label: 'LinkedIn', icon: '/images/icons/linkedin.svg', href: '#' },
+  { label: 'Instagram', icon: '/images/icons/instagram.svg', href: 'https://www.instagram.com/spectrumshepherd/' },
+  { label: 'Facebook', icon: '/images/icons/facebook.svg', href: 'https://www.facebook.com/spectrumshepherd' },
+  { label: 'LinkedIn', icon: '/images/icons/linkedin.svg', href: 'https://www.linkedin.com/company/spectrum-shepherd/' },
 ];
 ---
 {hills && <HeroHills sun="setting" class={`h-[100px] sm:h-[140px] lg:h-auto ${hillsBg}`} />}
@@ -49,7 +49,7 @@ const social = [
           <ul class="flex gap-3">
             {social.map((s) => (
               <li>
-                <a href={s.href} aria-label={`Spectrum Shepherd on ${s.label}`} class="flex size-11 items-center justify-center rounded-full bg-white hover:bg-brand-50">
+                <a href={s.href} target="_blank" rel="noopener noreferrer" aria-label={`Spectrum Shepherd on ${s.label} (opens in a new tab)`} class="flex size-11 items-center justify-center rounded-full bg-white hover:bg-brand-50">
                   <img src={s.icon} width="24" height="24" alt="" />
                 </a>
               </li>

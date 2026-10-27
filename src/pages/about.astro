@@ -1,77 +1,113 @@
 ---
-// About page v1 — Figma "About — v1" (Oct 2026; node 38872:82583), linked from homepage V2.
-// Wording from spectrumshepherd.com/about. Yellow accents (the lavender palette was dropped Oct 26, 2026).
+// About page — client feedback, Oct 27, 2026 (Figma "About — v3 (client feedback Oct 27)", node 38989:187835).
+// Approved copy from the client's "About Spectrum Shepherd" section; the V2 layout and visuals are kept.
+// Removed: the AI Skills Coach wording and the "100% trial conversion" claim.
 import Base from '../layouts/Base.astro';
-import CtaPanel from '../components/v3/CtaPanel.astro';
+import Button from '../components/Button.astro';
+import BrandIcon, { type IconName } from '../components/v3/BrandIcon.astro';
 import HeroHills from '../components/v3/HeroHills.astro';
 import SkyDecor from '../components/v3/SkyDecor.astro';
 import { site } from '../data/site';
 
 const founders = [
-  { name: 'William', photo: '/images/photos/founder-william.jpg', alt: 'Portrait of William, co-founder of Spectrum Shepherd', tilt: 'lg:rotate-3 lg:mt-0' },
-  { name: 'Kevin', photo: '/images/photos/founder-kevin.jpg', alt: 'Portrait of Kevin, co-founder of Spectrum Shepherd', tilt: 'lg:-rotate-3 lg:mt-10' },
+  { name: 'William Fayerweather', photo: '/images/photos/founder-william.jpg', alt: 'Portrait of William Fayerweather, co-founder of Spectrum Shepherd', tilt: 'lg:rotate-3 lg:mt-0' },
+  { name: 'Kevin Darlington', photo: '/images/photos/founder-kevin.jpg', alt: 'Portrait of Kevin Darlington, co-founder of Spectrum Shepherd', tilt: 'lg:-rotate-3 lg:mt-10' },
+];
+const collaborators: { title: string; body: string; icon: IconName }[] = [
+  { title: 'Educators bring classroom experience', body: 'Teachers help us understand the realities of instruction, from preparing individualized lessons to documenting student progress.', icon: 'lesson' },
+  { title: 'Students show us what works', body: 'Student experiences and feedback help us understand what makes lessons engaging, accessible and relevant to their lives.', icon: 'spark' },
+  { title: 'Partner schools help shape what’s next', body: 'Our partner schools provide ongoing input on product development, instructional needs and the tools that would make the greatest difference in their classrooms.', icon: 'people' },
+];
+const expertise: { title: string; body: string; icon: IconName }[] = [
+  { title: 'Special Education and School Support', body: 'Our expertise spans classroom teaching, school administration, special education policy and university research in autism and life skills instruction. We also work directly with schools, supporting teachers through training, regular check-ins and ongoing assistance.', icon: 'heart' },
+  { title: 'Curriculum and Instructional Design', body: 'Our curriculum team combines research and classroom experience to create engaging life skills lessons. Clear language, predictable structure and personalized instruction help make learning accessible and relevant to each student.', icon: 'lesson' },
+  { title: 'Technology, Data and Security', body: 'Our team brings experience developing software, AI technologies and data systems, including work in industries where privacy, security and reliability are essential.', icon: 'shield' },
+  { title: 'Company Leadership', body: 'Our founders bring decades of experience building and growing technology businesses, including two startups acquired by Fortune 500 companies and more than ten years working together.', icon: 'growth' },
+];
+const story = [
+  'As William Fayerweather’s autistic son approached his transition years, William and his wife began thinking more deeply about how to prepare him for greater independence. They saw the dedication of his teachers, but also the need for better tools to teach everyday life skills.',
+  'William brought the idea to Kevin Darlington, a longtime colleague with whom he’d spent more than a decade building technology businesses. Together, they began exploring how technology could help.',
+  'Before developing Shepherd, they spent six months talking with special education teachers, school leaders, autistic students and families. Those conversations helped turn a personal concern into something much bigger.',
+  'Today, Shepherd continues to grow through the contributions of educators, students, researchers and partner schools.',
 ];
 ---
 <Base
-  title="Our story — Spectrum Shepherd"
-  description="Spectrum Shepherd started at a kitchen table, with one family asking a question that doesn’t have a good answer: what happens after school support ends?"
+  title="About Spectrum Shepherd — built with educators, shaped by students"
+  description="Spectrum Shepherd is building a better way to teach life skills to neurodivergent students, guided by the educators, students and schools who know what works in real classrooms."
 >
   <section class="relative overflow-hidden bg-linear-to-b from-cream via-haze via-10% to-mist" aria-labelledby="page-title">
     <SkyDecor />
     <HeroHills class="absolute inset-x-0 bottom-0 h-[81px] sm:h-[140px] lg:h-auto" />
     <div class="relative z-10 mx-auto flex max-w-[1200px] flex-col items-center gap-6 px-4 pt-12 pb-28 text-center sm:pb-32 md:px-8 lg:pt-20 lg:pb-[190px]">
       <p class="flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3.5 py-1.5 text-sm font-semibold text-brand-800">
-        <span aria-hidden="true" class="size-2 rounded-full bg-brand-600"></span>Our story
+        <span aria-hidden="true" class="size-2 rounded-full bg-brand-600"></span>About Spectrum Shepherd
       </p>
-      <h1 id="page-title" class="max-w-[900px] text-display-md font-bold sm:text-display-lg lg:text-display-xl">A vision rooted in <span class="text-brand-600">personal experience</span></h1>
-      <p class="max-w-[720px] text-lg font-medium text-muted sm:text-xl">Spectrum Shepherd started at a kitchen table, with one family asking a question that doesn’t have a good answer.</p>
-      <p class="mt-4 flex max-w-[640px] flex-col items-center gap-2 rounded-[32px] bg-white px-8 pt-8 pb-10 shadow-2xl sm:px-12 lg:-rotate-[1.5deg]">
-        <span aria-hidden="true" class="h-12 text-[88px]/[88px] font-bold text-brand-600">“</span>
-        <span class="text-display-xs font-bold sm:text-display-md">What happens after school support ends?</span>
-      </p>
+      <h1 id="page-title" class="max-w-[900px] text-display-md font-bold sm:text-display-lg lg:text-display-xl">Built with educators. <span class="text-brand-600">Shaped by students.</span></h1>
+      <p class="max-w-[720px] text-lg font-medium text-muted sm:text-xl">Spectrum Shepherd is building a better way to teach life skills to neurodivergent students, guided by the educators, students and schools who know what works in real classrooms.</p>
+      <p class="mt-4 max-w-[640px] rounded-[32px] bg-white px-8 py-8 text-display-xs font-bold shadow-2xl sm:px-12 lg:-rotate-[1.5deg]">We bring together special education expertise, research, instructional design and technology to help students build skills for greater independence.</p>
     </div>
   </section>
 
-  <section class="bg-cream px-4 py-16 md:px-8 lg:py-28" aria-labelledby="cliff-title">
+  <section class="bg-cream px-4 py-16 md:px-8 lg:py-28" aria-labelledby="people-title">
     <div class="mx-auto grid max-w-[1200px] gap-10 lg:grid-cols-[540px_1fr] lg:gap-20">
       <div class="flex flex-col gap-6">
-        <span aria-hidden="true" class="h-1.5 w-16 rounded-full bg-yellow-300 lavender:bg-lavender-200"></span>
-        <h2 id="cliff-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">The “Transition Cliff” isn’t an abstraction to us. <span class="text-brand-700">It’s the reason Spectrum Shepherd exists.</span></h2>
+        <span aria-hidden="true" class="h-1.5 w-16 rounded-full bg-yellow-300"></span>
+        <h2 id="people-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">The people closest to the classroom <span class="text-brand-700">help shape what Shepherd becomes.</span></h2>
       </div>
       <div class="flex flex-col gap-5 lg:pt-8">
-        <p class="text-xl text-ink">For William, this was personal. As he watched his son, Charlie, approach graduation, the quiet unease of the “Transition Cliff” became a call to action.</p>
-        <p class="text-lg text-muted">What began as one family’s search has become an AI Skills Coach now trusted by a fast-growing number of leading schools and teachers.</p>
+        <p class="text-xl text-ink">From the beginning, we’ve worked alongside special education teachers, school leaders, students and families to understand what works, what’s missing and what needs to change.</p>
+        <p class="text-lg text-muted">Today, that collaboration continues through our Founding Partner Circle and Transition Leadership Pilot schools. Their experiences, feedback and ideas help guide the development of our curriculum, platform and future priorities.</p>
       </div>
     </div>
   </section>
 
-  <section class="bg-cream px-4 pb-16 md:px-8 lg:pb-28" aria-labelledby="multiplier-title">
-    <div class="on-dark relative mx-auto flex max-w-[1200px] flex-col items-start gap-8 overflow-hidden rounded-[32px] bg-brand-800 p-8 text-white sm:p-12 lg:flex-row lg:items-center lg:gap-16 lg:rounded-[40px] lg:px-[72px] lg:py-16">
-      <span aria-hidden="true" class="swirl pointer-events-none absolute -top-40 right-0 size-[520px] bg-white opacity-[0.07]"></span>
-      <p class="relative flex flex-col">
-        <span class="text-[72px]/none font-bold text-yellow-300 lg:text-[96px] lavender:text-lavender-200">100%</span>
-        <span class="text-sm font-semibold text-brand-50">trial conversion in 2026</span>
-      </p>
-      <div class="relative flex flex-1 flex-col gap-4">
-        <h2 id="multiplier-title" class="text-display-xs font-bold md:text-display-sm">In 2026, our trials achieved a 100% conversion rate among participating schools.</h2>
-        <p class="text-lg text-brand-50">By listening to Special Ed Directors and Teachers, we evolved our AI Skills Coach into a robust “Staff Multiplier” that automates compliance while keeping student passions at the center.</p>
+  <section class="bg-cream px-4 pb-16 md:px-8 lg:pb-28" aria-label="How educators, students and partner schools shape Shepherd">
+    <ul class="mx-auto grid max-w-[1200px] gap-6 lg:grid-cols-3">
+      {collaborators.map((c) => (
+        <li class="flex flex-col gap-3.5 rounded-3xl border border-line bg-white p-8 shadow-md">
+          <BrandIcon name={c.icon} class="size-12" />
+          <h3 class="text-xl/[30px] font-bold">{c.title}</h3>
+          <p class="text-md text-muted">{c.body}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="bg-brand-25 px-4 py-16 md:px-8 lg:py-28" aria-labelledby="expertise-title">
+    <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-12">
+      <div class="flex max-w-[780px] flex-col items-center gap-5 text-center">
+        <h2 id="expertise-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">The expertise behind Shepherd</h2>
+        <p class="text-lg text-muted sm:text-xl">Building better life skills instruction takes more than technology. Our team brings together experience across special education, research, curriculum development, software engineering and company leadership.</p>
       </div>
+      <ul class="grid w-full gap-6 md:grid-cols-2">
+        {expertise.map((e) => (
+          <li class="flex flex-col gap-3.5 rounded-3xl border border-line bg-white p-8 shadow-md">
+            <BrandIcon name={e.icon} class="size-12" />
+            <h3 class="text-xl/[30px] font-bold">{e.title}</h3>
+            <p class="text-md text-muted">{e.body}</p>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 
   <section id="founders" class="scroll-mt-4 overflow-hidden bg-haze px-4 py-16 md:px-8 lg:py-28" aria-labelledby="founders-title">
     <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-14">
-      <h2 id="founders-title" class="text-center text-display-sm font-bold md:text-display-md lg:text-display-lg">Our founders</h2>
+      <h2 id="founders-title" class="text-center text-display-sm font-bold md:text-display-md lg:text-display-lg">How it started</h2>
       <div class="relative flex w-full flex-col items-center gap-10 lg:flex-row lg:justify-center lg:gap-0">
-        <span aria-hidden="true" class="absolute top-1/2 left-1/2 hidden size-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-yellow-300/55 lg:block lavender:bg-lavender-200/55"></span>
+        <span aria-hidden="true" class="absolute top-1/2 left-1/2 hidden size-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-yellow-300/55 lg:block"></span>
         <span aria-hidden="true" class="absolute top-1/2 left-1/2 hidden size-[640px] -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-dotted border-brand-300 lg:block"></span>
         {founders.map((f, i) => (
           <figure class={`relative w-full max-w-[390px] rounded-[28px] bg-white p-[18px] pb-6 shadow-2xl ${f.tilt} ${i ? 'lg:-ml-6' : ''}`}>
-            <span aria-hidden="true" class="absolute -top-3.5 left-1/2 hidden h-[30px] w-[110px] -translate-x-1/2 rounded bg-yellow-300/90 lg:block lavender:bg-lavender-200/90"></span>
+            <span aria-hidden="true" class="absolute -top-3.5 left-1/2 hidden h-[30px] w-[110px] -translate-x-1/2 rounded bg-yellow-300/90 lg:block"></span>
             <img src={f.photo} width="400" height="400" loading="lazy" alt={f.alt} class="aspect-[354/400] w-full rounded-[20px] object-cover" />
-            <figcaption class="pt-4 text-center text-display-xs font-bold">{f.name}</figcaption>
+            <figcaption class="pt-4 text-center text-xl font-bold sm:text-display-xs">{f.name}</figcaption>
           </figure>
         ))}
+      </div>
+      <div class="flex max-w-[760px] flex-col gap-4">
+        <p class="text-xl font-bold">Spectrum Shepherd began with a personal experience.</p>
+        {story.map((p) => <p class="text-lg text-muted">{p}</p>)}
       </div>
     </div>
   </section>
@@ -79,29 +115,25 @@ const founders = [
   <section class="px-4 py-16 md:px-8 lg:py-28" aria-labelledby="mission-title">
     <div class="mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[1fr_520px] lg:gap-14">
       <div class="flex flex-col gap-5">
-        <span aria-hidden="true" class="h-1.5 w-16 rounded-full bg-yellow-300 lavender:bg-lavender-200"></span>
-        <h2 id="mission-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">Our collective mission</h2>
-        <p class="text-lg text-muted">Spectrum Shepherd is a collective of technologists, special educators, autism advocates, and parents driven by a singular goal: to unlock the potential within the autism community. By teaching the skills and automating the evidence-based tracking required for progress, we allow families and educators to stop worrying about the paperwork and start focusing on the person.</p>
+        <span aria-hidden="true" class="h-1.5 w-16 rounded-full bg-yellow-300"></span>
+        <h2 id="mission-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">What we’re working toward</h2>
+        <p class="text-lg text-muted">We believe every student deserves meaningful opportunities to develop the skills and confidence to navigate everyday life.</p>
+        <p class="text-lg text-muted">That means giving teachers practical tools for personalized instruction, helping schools understand student progress, and keeping students’ interests, abilities and goals at the center.</p>
       </div>
-      <blockquote class="flex flex-col gap-3 rounded-[32px] bg-yellow-300 px-11 py-12 shadow-xl lg:rotate-[1.5deg] lavender:bg-lavender-200">
+      <blockquote class="flex flex-col gap-3 rounded-[32px] bg-yellow-300 px-11 py-12 shadow-xl lg:rotate-[1.5deg]">
         <span aria-hidden="true" class="h-10 text-[88px]/[88px] font-bold text-brand-800">“</span>
-        <p class="text-display-xs font-bold md:text-display-sm">Finally, greater independence doesn’t feel out of reach… it feels closer every day.</p>
+        <p class="text-display-xs font-bold md:text-display-sm">We’re building Shepherd with the people who understand those needs best.</p>
       </blockquote>
     </div>
   </section>
 
-  <CtaPanel
-    id="briefing"
-    variant="clouds"
-    title="Request a 15-minute briefing"
-    body="See how a growing group of prestigious programs are using Shepherd to exceed family expectations and lead the transition conversation."
-    primary={{ label: 'Book a 15-min briefing', href: site.demo }}
-  />
+  <section id="briefing" class="px-4 pb-16 md:px-8 lg:pb-24" aria-labelledby="briefing-title">
+    <div class="on-dark relative mx-auto flex max-w-[1200px] flex-col items-center gap-5 overflow-hidden rounded-[40px] bg-brand-700 px-6 pt-16 pb-28 text-center text-white sm:px-16 lg:pt-20 lg:pb-32">
+      <img src="/images/hero/cloud-bank.svg" width="470" height="122" alt="" aria-hidden="true" class="pointer-events-none absolute -bottom-9 -left-20 max-w-none opacity-60" />
+      <img src="/images/hero/cloud-bank.svg" width="470" height="122" alt="" aria-hidden="true" class="pointer-events-none absolute -right-20 -bottom-8 max-w-none -scale-x-100 opacity-60" />
+      <h2 id="briefing-title" class="relative max-w-[900px] text-display-sm font-bold md:text-display-md lg:text-display-lg">Help students prepare for what’s next.</h2>
+      <p class="relative max-w-[760px] text-lg text-brand-50 sm:text-xl">See how Shepherd can support your students, teachers and transition program.</p>
+      <div class="relative pt-2"><Button href={site.demo} variant="light">Book a Demo</Button></div>
+    </div>
+  </section>
 </Base>
-
-<style>
-  .swirl {
-    mask: url('/images/logo-mark.png') center / contain no-repeat;
-    -webkit-mask: url('/images/logo-mark.png') center / contain no-repeat;
-  }
-</style>

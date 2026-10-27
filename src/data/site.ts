@@ -14,7 +14,7 @@ export const site = {
   teachers: '/teachers',
   teachersV2: '/teachers-v2', // Teachers page for the lavender homepage (V2)
   schools: '/schools',
-  app: '/the-app',
+  app: '/the-platform', // "The Platform" (renamed from The App, Oct 27, 2026)
   about: '/about',
   blog: '/blog',
   webinars: '/webinars',
@@ -35,11 +35,11 @@ export type PageSet = {
   about: string; blog: string; webinars: string; research: string;
 };
 export const pagesV1: PageSet = {
-  home: '/v1', teachers: '/teachers', schools: '/schools', app: '/the-app',
+  home: '/v1', teachers: '/teachers', schools: '/schools', app: '/the-platform',
   about: '/about', blog: '/blog', webinars: '/webinars', research: '/beyond-the-transition-plan',
 };
 export const pagesV2: PageSet = {
-  home: '/v2', teachers: '/teachers', schools: '/schools', app: '/the-app-v2',
+  home: '/v2', teachers: '/teachers', schools: '/schools', app: '/the-platform',
   about: '/about-v2', blog: '/blog-v2', webinars: '/webinars-v2', research: '/beyond-the-transition-plan-v2',
 };
 export const pagesFor = (palette?: 'lavender'): PageSet => (palette === 'lavender' ? pagesV2 : pagesV1);
