@@ -1,5 +1,5 @@
 ---
-// Results (Oct 2026 feedback; Figma "Results"): headline, one green panel with three equal results
+// Results (Oct 2026 feedback; Figma "Results", compacted Oct 28): headline, one green panel with three equal results
 // (priority still open with the client), yellow only as a small accent. A varied-size dotted path
 // curls in from each side of the headline (the right one mirrors the left). All static.
 import StatPanel from './StatPanel.astro';
@@ -10,10 +10,8 @@ interface Props {
   capitalized?: boolean;
   /** Replace the three results (homepage V3: the client's approved proof points, Oct 26, 2026). */
   items?: { icon: IconName; value: string; label: string }[];
-  /** Compact panel on phones (homepage V3). */
-  compactMobile?: boolean;
 }
-const { capitalized = false, items, compactMobile = false } = Astro.props;
+const { capitalized = false, items } = Astro.props;
 const caption = (s: string) => (capitalized ? s.charAt(0).toUpperCase() + s.slice(1) : s);
 
 const results: { icon: IconName; value: string; label: string }[] = items ?? [
@@ -28,18 +26,18 @@ const dots: [number, number, number][] = [
 ];
 const arcs = ['left-[calc(50%-570px)]', 'left-[calc(50%+340px)] -scale-x-100'];
 ---
-<section class="relative overflow-hidden bg-white px-4 pt-16 pb-10 md:px-8 lg:pt-24 lg:pb-24" aria-labelledby="results-title">
+<section class="relative overflow-hidden bg-white px-4 pt-12 pb-8 md:px-8 lg:py-[72px]" aria-labelledby="results-title">
   {arcs.map((pos) => (
-    <svg aria-hidden="true" class={`absolute top-[130px] hidden h-[150px] w-[260px] lg:block ${pos}`} viewBox="0 0 260 150">
+    <svg aria-hidden="true" class={`absolute top-[60px] hidden h-[150px] w-[260px] lg:block ${pos}`} viewBox="0 0 260 150">
       {dots.map(([x, y, s]) => <circle cx={x + s / 2} cy={y + s / 2} r={s / 2} class="fill-brand-300" />)}
     </svg>
   ))}
 
-  <div class="relative mx-auto flex max-w-[1200px] flex-col gap-10">
-    <h2 id="results-title" class="text-center text-display-sm font-bold md:text-display-md lg:text-display-lg">
+  <div class="relative mx-auto flex max-w-[1200px] flex-col gap-6 lg:gap-7">
+    <h2 id="results-title" class="text-center text-[26px]/[34px] font-bold md:text-display-md lg:text-[40px]/[50px]">
       Confidence for schools.<br />
       <span class="text-brand-700">Engagement for students.</span>
     </h2>
-    <StatPanel items={results} compactMobile={compactMobile} />
+    <StatPanel items={results} />
   </div>
 </section>

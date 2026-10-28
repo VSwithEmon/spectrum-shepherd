@@ -14,6 +14,7 @@ import LessonLibrary from '../components/v3/LessonLibrary.astro';
 import DemoInvite from '../components/v3/DemoInvite.astro';
 import StatusChip from '../components/StatusChip.astro';
 import ProgramDashboard from '../components/v3/ProgramDashboard.astro';
+import AppLogo from '../components/v3/AppLogo.astro';
 import { site } from '../data/site';
 
 const values = [
@@ -22,7 +23,7 @@ const values = [
   { title: 'Give teachers time back', body: 'Reduce lesson preparation and manual documentation so teachers can focus more on students.' },
 ];
 // Product snippets on the value cards (decorative; the card text carries the meaning).
-const rooms = ['Room 104', 'Room 112', 'Room 207'];
+const rooms = ['Room 104', 'Room 112', 'Room 207']; // "Same lesson, level 1/2/3" (client feedback Oct 28, 2026)
 const barHeights = ['h-[40%]', 'h-[55%]', 'h-[65%]', 'h-[75%]', 'h-[85%]'];
 const doneFor = ['Lesson prep', 'Progress notes', 'IEP evidence'];
 // "Progress by Skill Area" (client: dashboard from Jess's brochure, progress against targets). Sample data.
@@ -101,10 +102,10 @@ const h2 = 'text-display-sm font-bold md:text-display-md lg:text-[44px]/[54px]';
         {values.map((v, i) => (
           <li class="flex flex-col gap-6 rounded-[28px] border border-line bg-white p-7 shadow-md">
             <div aria-hidden="true" class="flex h-[132px] flex-col justify-center gap-2 rounded-2xl bg-white p-4 shadow-md">
-              {i === 0 && rooms.map((r) => (
+              {i === 0 && rooms.map((r, k) => (
                 <p class="flex items-center justify-between gap-3 rounded-lg bg-brand-25 px-2.5 py-1.5 text-[13px] font-semibold">
                   <span>{r}</span>
-                  <span class="flex items-center gap-1.5 font-medium"><BrandIcon name="check" class="size-4" />Same lesson, own level</span>
+                  <span class="flex items-center gap-1.5 font-medium"><BrandIcon name="check" class="size-4" />Same lesson, level {k + 1}</span>
                 </p>
               ))}
               {i === 1 && (
@@ -137,12 +138,12 @@ const h2 = 'text-display-sm font-bold md:text-display-md lg:text-[44px]/[54px]';
         <p class="text-lg text-muted">Track student performance and progress toward learning goals. See which skills students are developing, where they need more support and how they’re progressing over time.</p>
       </div>
       <figure class="flex flex-col gap-4 rounded-3xl border border-line bg-white p-5 shadow-2xl sm:p-6">
-        <div class="flex items-start justify-between gap-3">
+        <div class="flex items-center gap-4">
+          <AppLogo tone="light" class="shrink-0 text-base" />
           <p class="flex flex-col">
             <span class="text-lg font-bold">Progress by Skill Area</span>
             <span class="text-xs font-medium text-muted">Lantern Hill School · all classrooms · this term</span>
           </p>
-          <span class="rounded-md bg-yellow-300 px-2 py-0.5 text-xs font-bold">SAMPLE</span>
         </div>
         <ul class="flex flex-col gap-3.5">
           {skillAreas.map((s) => (
@@ -187,7 +188,7 @@ const h2 = 'text-display-sm font-bold md:text-display-md lg:text-[44px]/[54px]';
           <path d="M300 92C300 170 98 170 98 250M300 92V250M300 92C300 170 502 170 502 250" class="stroke-brand-600" stroke-width="2" stroke-dasharray="2 6" stroke-linecap="round" />
         </svg>
         <p class="relative flex items-center gap-3 rounded-[18px] bg-brand-800 py-4 pr-6 pl-4 text-white shadow-xl lg:absolute lg:top-5 lg:left-1/2 lg:-translate-x-1/2">
-          <BrandIcon name="lesson" class="size-9" />
+          <BrandIcon name="lesson" class="size-9 text-yellow-300" />
           <span class="flex flex-col whitespace-nowrap"><span class="font-bold">Life skills curriculum</span><span class="text-xs font-medium text-brand-100">Shared across every classroom</span></span>
         </p>
         <ul class="relative grid w-full gap-3 sm:grid-cols-3 lg:absolute lg:top-[250px] lg:left-0 lg:gap-3">
@@ -244,7 +245,7 @@ const h2 = 'text-display-sm font-bold md:text-display-md lg:text-[44px]/[54px]';
   <!-- 7. Proof and credibility statistics -->
   <section class="bg-white px-4 pt-16 pb-16 md:px-8 lg:pb-[104px]" aria-label="Proof and credibility statistics">
     <div class="mx-auto max-w-[1200px]">
-      <StatPanel items={proof} compactMobile />
+      <StatPanel items={proof} />
     </div>
   </section>
 

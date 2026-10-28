@@ -13,13 +13,14 @@ import StatusChip from '../components/StatusChip.astro';
 import Button from '../components/Button.astro';
 import { site } from '../data/site';
 
-const pillars: { name: string; icon: IconName; tone: string; tall?: boolean }[] = [
-  { name: 'Daily Living & Self-Care', icon: 'heart', tone: 'bg-brand-50' },
-  { name: 'Home Management', icon: 'steps', tone: 'bg-yellow-100', tall: true },
-  { name: 'Safety & Independence', icon: 'shield', tone: 'bg-orange-50' },
-  { name: 'Civic & Community', icon: 'people', tone: 'bg-brand-50', tall: true },
-  { name: 'Social, Digital & Executive Skills', icon: 'spark', tone: 'bg-periwinkle-100' },
-  { name: 'Vocational Readiness', icon: 'briefcase', tone: 'bg-yellow-100', tall: true },
+// `tone` = the column shaft, `cap` = its capital and base (one step darker).
+const pillars: { name: string; icon: IconName; tone: string; cap: string }[] = [
+  { name: 'Daily Living & Self-Care', icon: 'heart', tone: 'bg-brand-50', cap: 'bg-brand-100' },
+  { name: 'Home Management', icon: 'steps', tone: 'bg-yellow-100', cap: 'bg-yellow-200' },
+  { name: 'Safety & Independence', icon: 'shield', tone: 'bg-orange-50', cap: 'bg-orange-100' },
+  { name: 'Civic & Community', icon: 'people', tone: 'bg-brand-50', cap: 'bg-brand-100' },
+  { name: 'Social, Digital & Executive Skills', icon: 'spark', tone: 'bg-periwinkle-100', cap: 'bg-lavender-200' },
+  { name: 'Vocational Readiness', icon: 'briefcase', tone: 'bg-yellow-100', cap: 'bg-yellow-200' },
 ];
 const plans = [
   { initial: 'M', name: 'Maya', goal: 'Budgeting', interest: 'Music', dot: 'bg-yellow-400', level: 'Level 2', tone: 'bg-yellow-100' },
@@ -118,17 +119,24 @@ const h2 = 'text-display-sm font-bold md:text-display-md lg:text-[44px]/[54px]';
         <h2 id="curriculum-title" class={h2}>Real-world skills. Ready to teach.</h2>
         <p class="text-lg text-muted">Shepherd provides a ready-to-use life skills curriculum with modern, engaging lessons covering everyday skills, independence and transition goals. Lessons are personalized to each student’s abilities, interests and learning goals, so teachers can spend less time creating materials and more time teaching.</p>
       </div>
-      <!-- The six Life Skills Pillars (no lesson or skill-suite counts, per the client). -->
-      <figure class="w-full" aria-label="The six Life Skills Pillars">
-        <ul class="grid grid-cols-2 items-end gap-3 sm:grid-cols-3 lg:grid-cols-6 lg:gap-4">
+      <!-- The six Life Skills Pillars as classic columns (capital, shaft, base) holding up the curriculum beam,
+           on one shared plinth (client feedback Oct 28, 2026: replaces the arch shapes). No lesson or skill-suite counts. -->
+      <figure class="flex w-full flex-col">
+        <figcaption class="rounded-t-[20px] bg-brand-700 px-5 py-4 text-center font-semibold text-white sm:text-lg">A comprehensive life skills curriculum personalized to every student</figcaption>
+        <span aria-hidden="true" class="h-2 bg-yellow-300"></span>
+        <ul class="grid grid-cols-2 gap-x-3 gap-y-5 px-2 pt-0 pb-5 sm:grid-cols-3 lg:grid-cols-6 lg:gap-4 lg:px-4 lg:pb-0" aria-label="The six Life Skills Pillars">
           {pillars.map((p) => (
-            <li class={`flex flex-col items-center gap-4 rounded-t-[92px] px-4 pt-7 pb-6 text-center ${p.tone} ${p.tall ? 'lg:min-h-[330px]' : 'lg:min-h-[300px]'}`}>
-              <span class="flex size-[84px] items-center justify-center rounded-full bg-white shadow-md"><BrandIcon name={p.icon} class="size-12" /></span>
-              <span class="text-lg/6 font-bold">{p.name}</span>
+            <li class="flex flex-col items-center">
+              <span aria-hidden="true" class={`h-3.5 w-full rounded-b ${p.cap}`}></span>
+              <span class={`flex w-[84%] flex-1 flex-col items-center gap-4 px-3 pt-7 pb-6 text-center lg:min-h-[272px] ${p.tone}`}>
+                <span class="flex size-[72px] items-center justify-center rounded-full bg-white shadow-md"><BrandIcon name={p.icon} class="size-11" /></span>
+                <span class="text-[15px]/[21px] font-bold">{p.name}</span>
+              </span>
+              <span aria-hidden="true" class={`h-3.5 w-full rounded-t ${p.cap}`}></span>
             </li>
           ))}
         </ul>
-        <figcaption class="rounded-b-[20px] bg-brand-700 px-5 py-4 text-center font-semibold text-white">Six Life Skills Pillars · personalized to every student</figcaption>
+        <span aria-hidden="true" class="h-5 rounded-b-[20px] bg-brand-800"></span>
       </figure>
     </div>
   </section>
@@ -148,7 +156,7 @@ const h2 = 'text-display-sm font-bold md:text-display-md lg:text-[44px]/[54px]';
       <!-- Simplified illustration: student goals → individual plans → classroom progress. Plans are text; the dotted lines are decorative. -->
       <figure class="relative flex flex-col items-center gap-5 lg:order-1" aria-label="Student goals become individual plans, which roll up into classroom progress (sample)">
         <p class="flex items-center gap-3 rounded-[18px] bg-brand-800 py-4 pr-6 pl-4 text-white shadow-xl">
-          <BrandIcon name="target" class="size-9" />
+          <BrandIcon name="target" class="size-9 text-yellow-300" />
           <span class="flex flex-col whitespace-nowrap"><span class="font-bold">Student goals</span><span class="text-xs font-medium text-brand-100">Set by the teacher for each student</span></span>
         </p>
         <span aria-hidden="true" class="h-8 w-0.5 border-l-2 border-dotted border-brand-600 lg:hidden"></span>
@@ -175,7 +183,7 @@ const h2 = 'text-display-sm font-bold md:text-display-md lg:text-[44px]/[54px]';
           <path d="M100 0C100 74 300 74 300 150M300 0V150M500 0C500 74 300 74 300 150" class="stroke-brand-600" stroke-width="2" stroke-dasharray="2 6" stroke-linecap="round" vector-effect="non-scaling-stroke" />
         </svg>
         <p class="flex items-center gap-3 rounded-[18px] bg-brand-800 py-4 pr-6 pl-4 text-white shadow-xl">
-          <BrandIcon name="progress" class="size-9" />
+          <BrandIcon name="progress" class="size-9 text-yellow-300" />
           <span class="flex flex-col whitespace-nowrap"><span class="font-bold">Classroom progress</span><span class="text-xs font-medium text-brand-100">Who’s on track, who needs support</span></span>
         </p>
       </figure>
