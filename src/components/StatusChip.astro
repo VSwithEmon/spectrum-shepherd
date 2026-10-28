@@ -11,9 +11,7 @@ interface Props {
 const { title, caption, class: className = '', inline = false } = Astro.props;
 ---
 <div class={`${inline ? 'relative' : 'absolute'} flex items-center gap-3 rounded-3xl bg-white px-4 py-3 shadow-lg ${className}`}>
-  <span class="flex size-10 shrink-0 items-center justify-center rounded-full bg-brand-50">
-    <BrandIcon name="check" class="size-6" />
-  </span>
+  <BrandIcon name="check" class="size-10" />
   <span class="flex flex-col whitespace-nowrap">
     <span class="font-bold">{title}</span>
     <span class="text-sm text-muted">{caption}</span>

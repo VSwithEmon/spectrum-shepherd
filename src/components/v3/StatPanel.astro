@@ -1,6 +1,6 @@
 ---
 // Green panel with equal result columns (Results on the homepage, Teachers and Schools pages).
-// Compact, icons integrated (client feedback, Oct 28, 2026): a small yellow line icon sits right beside
+// Compact, icons integrated (client feedback, Oct 28, 2026): a small check-in-a-circle icon sits right beside
 // each number, in the same line, instead of a separate sticker badge; no accent bar, short on phones.
 // The Shepherd swirl is a faint watermark.
 import BrandIcon, { type IconName } from './BrandIcon.astro';
@@ -14,7 +14,7 @@ const { items } = Astro.props;
     {items.map((r, i) => (
       <li class={`flex flex-col gap-0.5 py-4 md:py-0 ${i ? 'border-t border-brand-700 md:border-t-0 md:border-l md:pl-8' : ''} ${i < items.length - 1 ? 'md:pr-8' : ''}`}>
         <span class="flex items-center gap-2.5 text-[30px]/9 font-bold lg:text-[40px]/[46px]">
-          <BrandIcon name={r.icon} class="size-7 text-yellow-300 lg:size-9" />{r.value}
+          <BrandIcon name={r.icon} class="size-7 lg:size-9" />{r.value}
         </span>
         <span class="text-sm font-medium text-brand-50 md:text-base">{r.label}</span>
       </li>

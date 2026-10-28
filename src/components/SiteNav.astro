@@ -28,7 +28,7 @@ const menus: Record<string, Menu> = {
     id: 'menu-teachers',
     items: [
       { title: 'Ready-made life-skills lessons', desc: "Written for each student's reading level.", href: pages.teachers, icon: 'lesson' },
-      { title: 'IEP-linked progress notes', desc: 'Captured automatically as students work.', href: `${pages.teachers}#evidence`, icon: 'progress' },
+      { title: 'IEP-linked progress notes', desc: 'Captured automatically as students work.', href: `${pages.teachers}#evidence`, icon: 'report' },
       { title: 'Free 45-day trial', desc: 'No credit card. No district approval needed.', href: site.trial, icon: 'spark' },
     ],
     card: { title: 'Try Shepherd free for 45 days', body: 'Set up your class in minutes and see the first progress notes this week.', cta: 'Start free trial', href: site.trial, tone: 'yellow' },
@@ -36,9 +36,9 @@ const menus: Record<string, Menu> = {
   Schools: {
     id: 'menu-schools',
     items: [
-      { title: 'Transition Evidence Reports', desc: 'IEP-ready progress, captured as students work.', href: `${pages.schools}#outcomes`, icon: 'progress' },
+      { title: 'Transition Evidence Reports', desc: 'IEP-ready progress, captured as students work.', href: `${pages.schools}#outcomes`, icon: 'report' },
       { title: 'Indicator 13 support', desc: 'Transition evidence for compliance reviews.', href: pages.schools, icon: 'shield' },
-      { title: 'Funding guide', desc: 'How FY2026 grant funds can cover Shepherd.', href: '#', icon: 'download' },
+      { title: 'Funding guide', desc: 'How FY2026 grant funds can cover Shepherd.', href: '#', icon: 'briefcase' },
     ],
     card: { title: 'See Shepherd in 15 minutes', body: 'The evidence report, privacy answers and funding — in one call.', cta: 'Book a demo', href: demoHref, tone: 'green' },
   },
