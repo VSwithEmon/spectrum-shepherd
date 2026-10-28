@@ -17,12 +17,15 @@ interface Props {
   lede?: string;
   /** "Just one teacher?" trial link under the button. */
   trial?: boolean;
+  /** Photo on the sun; defaults to the two-teachers photo. */
+  image?: string;
 }
 const {
   heading = 'Be the reason',
   accent = 'they’re ready.',
   lede = 'See how Shepherd works for your students, teachers and school.',
   trial = true,
+  image = '/images/photos/demo-teachers.jpg',
 } = Astro.props;
 const steps = ['Tell us about your school', 'We’ll find a time that works', 'See the platform and ask questions'];
 ---
@@ -41,7 +44,7 @@ const steps = ['Tell us about your school', 'We’ll find a time that works', 'S
         <circle cx="235" cy="235" r="232" class="stroke-brand-600/50" stroke-width="3" stroke-dasharray="1 12" stroke-linecap="round" />
       </svg>
       <img
-        src="/images/photos/demo-host.jpg"
+        src={image}
         width="1100"
         height="733"
         loading="lazy"
