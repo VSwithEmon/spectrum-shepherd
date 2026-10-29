@@ -11,6 +11,7 @@ Figma file `6JMhALsrhqylYR6QjNPy9V`. The site matches these frames 1:1; older ro
   - `/blog` (`38916:12052`, tabs "For educators" / "For families"), `/blog/<slug>` (`38916:12104`, post with comments), `/webinars` (`38916:12231`), `/webinars/<slug>` (`38916:12338`), `/beyond-the-transition-plan` (`38916:12646`).
   - `/book-a-demo` (`38916:12392`), `/login` (`38916:12562`, standalone card), `/sign-up` (`38916:12502`).
 - Retired URLs redirect in `vercel.json`: `/v1`, `/v2` → `/`; `/the-app*` → `/the-platform`; `/<page>-v2` → `/<page>`.
+- Client-approved copy wins over Figma wording: the Teachers before/after rows use the five approved pairs. The "15-minute walkthrough" photo label on /book-a-demo was removed (client feedback).
 - No em dashes in our own visible copy (article text copied from the client's live posts stays as written). "Students", never "learners", in our copy.
 - Figma text renders slightly narrower than browsers, so a few lines wrap one word differently; don't chase those with fixed widths.
 
