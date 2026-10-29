@@ -63,3 +63,18 @@ export const shortDate = (iso: string) => {
   const d = new Date(iso);
   return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', ...(d.getFullYear() !== new Date().getFullYear() ? { year: 'numeric' } : {}) });
 };
+
+// ---- Blog list = Sanity posts first, then the articles copied from spectrumshepherd.com ----
+import { posts as livePosts, type Post as LivePost } from '../data/posts';
+export type BlogPost = LivePost & { cms?: { body: any[]; coverAlt: string; author: string; authorRole?: string; publishedAt: string } };
+export async function getAllPosts(): Promise<BlogPost[]> {
+  const cms = await getPostsWithBody();
+  const fromCms: BlogPost[] = cms.map((p) => ({
+    slug: p.slug, title: p.title, date: shortDate(p.publishedAt), read: readTime(p.words).replace(' read', ''), excerpt: p.excerpt,
+    icon: 'lesson', tone: 'brand', url: `https://spectrum-shepherd-5qfw.vercel.app/blog/${p.slug}`, thumb: imageUrl(p.coverImage, 800, 600),
+    group: p.audience ?? 'educators',
+    cms: { body: p.body, coverAlt: p.coverImage?.alt ?? '', author: p.authorName, authorRole: p.authorRole, publishedAt: p.publishedAt },
+  }));
+  const taken = new Set(fromCms.map((p) => p.slug));
+  return [...fromCms, ...livePosts.filter((p) => !taken.has(p.slug))];
+}

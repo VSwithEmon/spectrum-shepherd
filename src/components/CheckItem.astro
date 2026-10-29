@@ -1,12 +1,10 @@
 ---
-// "LP / Check Item" — use inside a <ul>. `v2` = the newer sticker check with a pale disc (Figma
-// "Icon v2 (illustrated) / check", used by the lavender V4 audience rows).
+// "LP / Check Item" — use inside a <ul>. Line check icon from the website icon family (Oct 28, 2026).
+import BrandIcon from './v3/BrandIcon.astro';
 interface Props { class?: string; v2?: boolean }
-const { class: className = '', v2 = false } = Astro.props;
+const { class: className = '' } = Astro.props;
 ---
 <li class={`flex items-start gap-3 font-medium ${className}`}>
-  {v2
-    ? <img src="/images/icons/illustrated/v2/check.svg" width="26" height="26" alt="" class="-mt-px -ml-px shrink-0" />
-    : <img src="/images/icons/illustrated/check.svg" width="24" height="24" alt="" class="shrink-0" />}
+  <BrandIcon name="check" class="mt-0.5 size-6" />
   <span><slot /></span>
 </li>

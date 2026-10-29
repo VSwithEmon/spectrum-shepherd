@@ -3,15 +3,15 @@
 Marketing site for Spectrum Shepherd, a personalized life skills curriculum platform for transition-age neurodivergent students.
 Buyers are special education teachers (free 45-day trial, `/sign-up`) and school/district leaders (Book a Demo).
 
-## Final design (Oct 27, 2026)
-Figma file `6JMhALsrhqylYR6QjNPy9V`. The site matches these frames 1:1; older rounds (V1/V2/V3 homepages, `-v2` pages, The App pages) live in git history.
-- **Homepage** `/` (`src/pages/index.astro`): section "Homepage Design( update here)" `38892:12051`; desktop `38892:12052`, mobile 390 `38892:12696`.
-- **Inner pages**, section "Inner page" `38892:13467`:
-  - `/teachers` (`38892:13468`), `/schools` (`38892:13975`), `/the-platform` (`38892:16025`), `/about` (`38892:14893`).
-  - `/blog` (`38892:15284`, tabs "For educators" / "For families"), `/webinars` (`38892:15485`), `/webinars/<slug>` (`38892:15592`), `/beyond-the-transition-plan` (`38892:15904`).
-  - `/book-a-demo` (`38892:15647`), `/login` (Log in v1 `38892:15819`, standalone card), `/sign-up` (`38892:15758`).
+## Final design (updated Oct 29, 2026)
+Figma file `6JMhALsrhqylYR6QjNPy9V`. The site matches these frames 1:1; older rounds live in git history.
+- **Homepage** `/` (`src/pages/index.astro`): section "Landing page design" `38916:8452`; desktop `38916:8453`, mobile 390 `38916:9098`.
+- **Inner pages**, section "Inner Pages" `38916:10489`:
+  - `/teachers` (`38916:10490`), `/schools` (`38916:11011`), `/the-platform` (`38916:12766`), `/about` (`38916:11943`).
+  - `/blog` (`38916:12052`, tabs "For educators" / "For families"), `/blog/<slug>` (`38916:12104`, post with comments), `/webinars` (`38916:12231`), `/webinars/<slug>` (`38916:12338`), `/beyond-the-transition-plan` (`38916:12646`).
+  - `/book-a-demo` (`38916:12392`), `/login` (`38916:12562`, standalone card), `/sign-up` (`38916:12502`).
 - Retired URLs redirect in `vercel.json`: `/v1`, `/v2` → `/`; `/the-app*` → `/the-platform`; `/<page>-v2` → `/<page>`.
-- Where the client's approved copy (Oct 26 feedback) differs from a Figma frame, the copy wins (e.g. the Teachers before/after rows). No em dashes in visible text.
+- No em dashes in our own visible copy (article text copied from the client's live posts stays as written). "Students", never "learners", in our copy.
 - Figma text renders slightly narrower than browsers, so a few lines wrap one word differently; don't chase those with fixed widths.
 
 ## Code layout
@@ -20,9 +20,10 @@ Figma file `6JMhALsrhqylYR6QjNPy9V`. The site matches these frames 1:1; older ro
 - Homepage and Schools "Book a Demo" open the demo form in a native `<dialog>` (`DemoInvite`; `[data-demo-open]`); without JS it links to `/book-a-demo`. Nav "Book a demo" links to `/book-a-demo`. Forms still need their `action` wired (client's booking/form service).
 - Product visuals (dashboards, reports) are illustrative samples marked SAMPLE; they must not imply every feature exists or guarantee compliance.
 - Only motion: the school logo strip (`LogoMarquee`), paused on hover and for reduced motion.
-- `public/images/photos/demo-tablet.jpg` is exported from Figma at 1x (430×320); replace with the original photo when available.
-- Blog: Sanity CMS. Editors write at `/studio` (config `sanity.config.ts`, schema `src/sanity/schemaTypes/`). `/blog` lists published Sanity posts first (their "Blog tab" field picks the tab) and then the posts still on spectrumshepherd.com (`src/data/posts.ts`); each Sanity post gets `/blog/<slug>`. Project `jhozhuio`, dataset `production`. A Vercel deploy hook must be added in Sanity for publish-to-rebuild.
-- Live site: Vercel project `spectrum-shepherd-5qfw` (https://spectrum-shepherd-5qfw.vercel.app), deployed from `VSwithEmon/spectrum-shepherd` main on every push. Rasel's repo (`raselhossain036-star/spectrum-shepherd-site`, remote `collaborator`) was merged in on Oct 27, 2026; push to VSwithEmon explicitly.
+- Teacher story video: `public/videos/emily-colisimo-teacher-story.mp4` (from spectrumshepherd.com/teachers); the play button on the Teachers story card swaps in the player.
+- The logo-band highlight words are drawn as building blocks (studs + base edge) in `LogoMarquee`.
+- Blog: Sanity CMS. Editors write at `/studio` (config `sanity.config.ts`, schema `src/sanity/schemaTypes/`). `getAllPosts()` in `src/lib/blog.ts` lists published Sanity posts first (their "Blog tab" field picks the tab), then the articles copied from spectrumshepherd.com (`src/data/posts.ts` + full text in `src/data/post-content.json`). Every post gets `/blog/<slug>` (Sanity posts render their Portable Text body). Comments: the form needs the client's comment service; no comments are shown until then (we don't show sample comments). Project `jhozhuio`, dataset `production`. A Vercel deploy hook must be added in Sanity for publish-to-rebuild.
+- Live site: Vercel project `spectrum-shepherd-5qfw` (https://spectrum-shepherd-5qfw.vercel.app), deployed from `VSwithEmon/spectrum-shepherd` main on every push. Rasel's repo (`raselhossain036-star/spectrum-shepherd-site`, remote `collaborator`) is merged in (Oct 27 and Oct 29, 2026); push to VSwithEmon explicitly.
 
 ## Stack
 - Astro + Tailwind CSS v4, static output. One reusable component per section.

@@ -1,7 +1,9 @@
 ---
-// Administrator "Transition program overview" (Figma: Schools page hero, "Product / Program dashboard (admin,
-// sample)", node 38972:67669). Sample data, labelled as such. The tabs and bars are decoration; the figures,
-// rooms and students are readable text. The client asked us not to imply every feature shown is live.
+// Administrator "School Transition Impact Report" (Figma: Schools page hero, "Product / Program dashboard (admin,
+// sample)", node 38972:67669). Client feedback Oct 28, 2026: logo with the swirl, new title, no SAMPLE tag,
+// and "Building on What's Working" (three findings, each with a next step; wording and figures from the
+// client's own report) replaces "Progress by classroom" and "Needs attention". Tabs are decoration.
+import AppLogo from './AppLogo.astro';
 interface Props { class?: string }
 const { class: className = '' } = Astro.props;
 
@@ -10,19 +12,18 @@ const stats = [
   { value: '126', label: 'Lessons this week', tone: 'bg-yellow-100 text-yellow-800' },
   { value: '9 of 12', label: 'Goals progressing', tone: 'bg-periwinkle-100 text-lavender-700' },
 ];
-const rooms = [
-  { name: 'Room 104 · Transition', value: 78 },
-  { name: 'Room 112 · Life skills', value: 64 },
-  { name: 'Room 207 · Post-secondary', value: 52 },
-];
-const attention = [
-  { initials: 'JM', name: 'Jordan M.', note: 'Personal safety below target' },
-  { initials: 'AR', name: 'Ava R.', note: 'No lessons in 5 days' },
+const findings = [
+  { kind: 'Strength', tone: 'bg-brand-50', finding: 'Lesson completion is broad and sustained.', detail: '14 of 15 students have finished lessons, with a median of 10 lessons each.',
+    step: 'Build on', action: 'Keep every learning plan in use.', actionDetail: 'Continue lessons from the learning plans already in place for 15 of 15 students.' },
+  { kind: 'Progress', tone: 'bg-periwinkle-100', finding: 'Later attempts show real learning.', detail: 'Across 9 students, later scores were higher on 18 of 35 lessons finished again.',
+    step: 'Expand', action: 'Revisit lessons in the Needs Help band.', actionDetail: 'Set aside Shepherd lesson time for the 52 lessons that finished in that band.' },
+  { kind: 'Focus area', tone: 'bg-orange-50', finding: 'Budgeting & Saving is our clearest opening.', detail: 'It is in plans for 11 students, but no lessons have been finished yet.',
+    step: 'Engage', action: 'Start Budgeting & Saving lessons.', actionDetail: 'Set aside Shepherd time for this Skill Suite, one of 4 in our plans with no finished lessons yet.' },
 ];
 ---
-<figure class={`overflow-hidden rounded-[20px] border-2 border-brand-600 bg-white shadow-2xl ${className}`} aria-label="Sample Shepherd program dashboard">
+<figure class={`overflow-hidden rounded-[20px] border-2 border-brand-600 bg-white shadow-2xl ${className}`} aria-label="Shepherd School Transition Impact Report (sample data)">
   <div aria-hidden="true" class="flex items-center justify-between gap-3 bg-brand-600 py-2.5 pr-3.5 pl-[18px] text-white">
-    <span class="text-[15px] font-bold">shepherd</span>
+    <AppLogo class="text-[15px]" />
     <span class="flex gap-1 text-xs font-semibold sm:text-[13px]">
       <span class="rounded-full bg-white px-3 py-1 text-brand-800">Program</span>
       <span class="px-3 py-1">Classrooms</span>
@@ -33,10 +34,9 @@ const attention = [
   <div class="flex flex-col gap-4 px-4 pt-[18px] pb-5 sm:px-5">
     <div class="flex items-start justify-between gap-3">
       <p class="flex flex-col">
-        <span class="text-lg font-semibold">Transition program overview</span>
+        <span class="text-lg font-semibold">School Transition Impact Report</span>
         <span class="text-xs text-muted">All classrooms · This term</span>
       </p>
-      <span class="shrink-0 rounded bg-yellow-100 px-2 py-0.5 text-[11px] font-bold text-yellow-800">SAMPLE</span>
     </div>
 
     <ul class="grid grid-cols-3 gap-2 sm:gap-2.5">
@@ -48,30 +48,26 @@ const attention = [
       ))}
     </ul>
 
-    <div class="grid gap-3 sm:grid-cols-[1fr_190px]">
-      <section class="flex flex-col gap-2.5 rounded-xl border border-line p-3" aria-label="Progress by classroom">
-        <p class="text-xs font-bold text-muted">Progress by classroom</p>
-        {rooms.map((r) => (
-          <div class="flex flex-col gap-1">
-            <p class="flex justify-between text-xs font-semibold"><span>{r.name}</span><span>{r.value}%</span></p>
-            <span aria-hidden="true" class="h-2 rounded-full bg-line"><span class="block h-2 rounded-full bg-brand-600" style={`width:${r.value}%`}></span></span>
-          </div>
+    <section class="flex flex-col gap-2.5" aria-labelledby="bww-title">
+      <div class="flex items-center gap-2">
+        <span aria-hidden="true" class="flex size-5 shrink-0 items-center justify-center rounded-full bg-brand-800 text-[11px] font-bold text-white">2</span>
+        <p class="flex flex-col">
+          <span id="bww-title" class="text-sm font-bold">Building on What’s Working</span>
+          <span class="text-[11px] text-muted">What our students’ activity shows, and a step each finding could lead to</span>
+        </p>
+      </div>
+      <ul class="grid gap-2 sm:grid-cols-3">
+        {findings.map((f) => (
+          <li class={`flex flex-col gap-1 rounded-xl p-2.5 ${f.tone}`}>
+            <span class="text-[10px] font-bold tracking-wide text-brand-700 uppercase">{f.kind}</span>
+            <span class="text-xs/4 font-bold">{f.finding}</span>
+            <span class="text-[11px]/[15px] text-muted">{f.detail}</span>
+            <span class="mt-1 border-t border-white pt-1.5 text-[10px] font-bold tracking-wide text-brand-700 uppercase">{f.step}</span>
+            <span class="text-xs/4 font-bold">{f.action}</span>
+            <span class="text-[11px]/[15px] text-muted">{f.actionDetail}</span>
+          </li>
         ))}
-      </section>
-      <section class="flex flex-col gap-2.5 rounded-xl border border-line p-3" aria-label="Needs attention">
-        <p class="text-xs font-bold text-muted">Needs attention</p>
-        <ul class="flex flex-col gap-2.5">
-          {attention.map((a) => (
-            <li class="flex items-start gap-2.5">
-              <span aria-hidden="true" class="flex size-[30px] shrink-0 items-center justify-center rounded-full bg-orange-50 text-[11px] font-bold text-orange-700">{a.initials}</span>
-              <span class="flex flex-col">
-                <span class="text-xs font-semibold">{a.name}</span>
-                <span class="text-[11px]/4 text-muted">{a.note}</span>
-              </span>
-            </li>
-          ))}
-        </ul>
-      </section>
-    </div>
+      </ul>
+    </section>
   </div>
 </figure>

@@ -14,6 +14,7 @@ import LessonLibrary from '../components/v3/LessonLibrary.astro';
 import DemoInvite from '../components/v3/DemoInvite.astro';
 import StatusChip from '../components/StatusChip.astro';
 import ProgramDashboard from '../components/v3/ProgramDashboard.astro';
+import AppLogo from '../components/v3/AppLogo.astro';
 import { site } from '../data/site';
 
 const values = [
@@ -22,7 +23,7 @@ const values = [
   { title: 'Give teachers time back', body: 'Reduce lesson preparation and manual documentation so teachers can focus more on students.' },
 ];
 // Product snippets on the value cards (decorative; the card text carries the meaning).
-const rooms = ['Room 104', 'Room 112', 'Room 207'];
+const rooms = ['Room 104', 'Room 112', 'Room 207']; // "Same lesson, level 1/2/3" (client feedback Oct 28, 2026)
 const barHeights = ['h-[40%]', 'h-[55%]', 'h-[65%]', 'h-[75%]', 'h-[85%]'];
 const doneFor = ['Lesson prep', 'Progress notes', 'IEP evidence'];
 // "Progress by Skill Area" (client: dashboard from Jess's brochure, progress against targets). Sample data.
@@ -101,10 +102,10 @@ const h2 = 'text-display-sm font-bold md:text-display-md lg:text-[44px]/[54px]';
         {values.map((v, i) => (
           <li class="flex flex-col gap-6 rounded-[28px] border border-line bg-white p-7 shadow-md">
             <div aria-hidden="true" class="flex h-[132px] flex-col justify-center gap-2 rounded-2xl bg-white p-4 shadow-md">
-              {i === 0 && rooms.map((r) => (
+              {i === 0 && rooms.map((r, k) => (
                 <p class="flex items-center justify-between gap-3 rounded-lg bg-brand-25 px-2.5 py-1.5 text-[13px] font-semibold">
                   <span>{r}</span>
-                  <span class="flex items-center gap-1.5 font-medium"><BrandIcon name="check" class="size-4" />Same lesson, own level</span>
+                  <span class="flex items-center gap-1.5 font-medium"><BrandIcon name="check" class="size-4" />Same lesson, level {k + 1}</span>
                 </p>
               ))}
               {i === 1 && (
@@ -139,12 +140,12 @@ const h2 = 'text-display-sm font-bold md:text-display-md lg:text-[44px]/[54px]';
       <!-- Figma "Visual" is a 470px-tall slot with the card at its top. -->
       <div class="lg:h-[470px]">
       <figure class="flex flex-col gap-4 rounded-3xl border border-line bg-white p-5 shadow-[0_20px_48px_rgb(10_13_18/0.12)] sm:p-6">
-        <div class="flex items-center justify-between gap-3">
-          <p class="flex flex-col gap-0.5">
-            <span class="text-lg/[26px] font-bold">Progress by Skill Area</span>
+        <div class="flex items-center gap-4">
+          <AppLogo tone="light" class="shrink-0 text-base" />
+          <p class="flex flex-col">
+            <span class="text-lg font-bold">Progress by Skill Area</span>
             <span class="text-xs font-medium text-muted">Lantern Hill School · all classrooms · this term</span>
           </p>
-          <span class="rounded-md bg-yellow-300 px-2 py-[3px] text-[10px] font-bold">SAMPLE</span>
         </div>
         <ul class="flex flex-col gap-4">
           {skillAreas.map((s) => (
@@ -168,6 +169,7 @@ const h2 = 'text-display-sm font-bold md:text-display-md lg:text-[44px]/[54px]';
           <span>Sample data for illustration.</span>
         </figcaption>
       </figure>
+      </div>
       </div>
     </div>
   </section>
@@ -245,9 +247,9 @@ const h2 = 'text-display-sm font-bold md:text-display-md lg:text-[44px]/[54px]';
   </section>
 
   <!-- 7. Proof and credibility statistics -->
-  <section class="bg-white px-4 pt-16 pb-16 md:px-8 lg:pt-6 lg:pb-[104px]" aria-label="Proof and credibility statistics">
+  <section class="bg-white px-4 pt-12 pb-12 md:px-8 lg:pt-6 lg:pb-14" aria-label="Proof and credibility statistics">
     <div class="mx-auto max-w-[1200px]">
-      <StatPanel items={proof} compactMobile />
+      <StatPanel items={proof} />
     </div>
   </section>
 
@@ -260,6 +262,7 @@ const h2 = 'text-display-sm font-bold md:text-display-md lg:text-[44px]/[54px]';
     accent="your school."
     lede="See how personalized life skills instruction, automatic progress tracking and clear reporting can support your teachers, students and transition program."
     trial={false}
+    image="/images/photos/schools-demo.jpg"
     chip={{ title: 'Report ready', caption: 'Transition progress, all classrooms' }}
   />
 </Base>

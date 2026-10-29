@@ -1,0 +1,40 @@
+---
+// Blog post card (Figma component "Blog / Post card", Oct 27, 2026): image, date · read time and a share
+// button, a title and excerpt clamped to three lines, then a divider with views / comments and a like
+// heart. The whole card links to the post page; the share and like buttons sit above that link.
+import ShareButton from './ShareButton.astro';
+import LikeButton from './LikeButton.astro';
+import { postHref, type Post } from '../../data/posts';
+
+interface Props { post: Post; headingLevel?: 'h2' | 'h3'; class?: string }
+const { post, headingLevel: H = 'h3', class: className = '' } = Astro.props;
+const href = postHref(post);
+const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? '' : 's'}`;
+// Every card shows both counts; where we don't have the live number yet it is 0.
+const views = post.views ?? 0;
+const comments = post.comments ?? 0;
+---
+<article data-post data-text={`${post.title} ${post.excerpt}`.toLowerCase()} class={`group relative flex flex-col overflow-hidden rounded-[28px] border border-line bg-white transition-shadow focus-within:shadow-lg hover:shadow-lg ${className}`}>
+  <img src={post.thumb} width="800" height="600" loading="lazy" alt="" class="aspect-[384/286] w-full object-cover" />
+  <div class="flex flex-1 flex-col gap-3 px-6 pt-5 pb-4">
+    <div class="flex items-center justify-between gap-3">
+      <p class="text-sm font-medium text-muted">{post.date} · {post.read} read</p>
+      <ShareButton href={href} title={post.title} class="relative z-10 -mr-2" />
+    </div>
+    <H class="line-clamp-3 text-xl font-semibold"><a href={href} class="after:absolute after:inset-0 group-hover:text-brand-800">{post.title}</a></H>
+    <p class="line-clamp-3 text-muted">{post.excerpt}</p>
+    <div class="mt-auto flex items-center justify-between gap-3 border-t border-line pt-3">
+      <ul class="flex items-center gap-4 text-sm font-medium text-muted" aria-label="Post stats">
+        <li class="flex items-center gap-1.5">
+          <svg aria-hidden="true" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" /><circle cx="12" cy="12" r="3" /></svg>
+          <span aria-hidden="true">{views}</span><span class="sr-only">{plural(views, 'view')}</span>
+        </li>
+        <li class="flex items-center gap-1.5">
+          <svg aria-hidden="true" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4V5z" /></svg>
+          <span aria-hidden="true">{comments}</span><span class="sr-only">{plural(comments, 'comment')}</span>
+        </li>
+      </ul>
+      <LikeButton slug={post.slug} title={post.title} class="relative z-10 -mr-2" />
+    </div>
+  </div>
+</article>

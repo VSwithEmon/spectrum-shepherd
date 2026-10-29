@@ -1,4 +1,4 @@
-// Questions schools ask (spectrumshepherd.com/forschools). Used by /schools and /schools-v2.
+// Questions schools ask (spectrumshepherd.com/forschools). Used by /schools.
 export const schoolsFaqs: { q: string; a: string[] }[] = [
   { q: 'How can schools strengthen transition and functional skills curriculum?', a: [
     'Spectrum Shepherd helps schools deliver more consistent, personalized transition curriculum, life-skills curriculum and functional-skills instruction for students ages 14–22.',

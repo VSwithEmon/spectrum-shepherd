@@ -1,5 +1,5 @@
 ---
-// Testimonial (Oct 2026 feedback): one clear reading order — photo → quote → name, then two
+// Testimonial (Oct 2026 feedback; compacted Oct 28; each card's icon is a small line icon inside the opening words): one clear reading order — photo → quote → name, then two
 // matching cards. No eyebrow, no spinning ring; website icon family instead of the app's
 // book/tools. One blockquote (display:contents) so the parts can sit in the grid.
 import BrandIcon from './BrandIcon.astro';
@@ -8,12 +8,12 @@ import BrandIcon from './BrandIcon.astro';
 interface Props { v3?: boolean }
 const { v3 = false } = Astro.props;
 ---
-<section class="relative overflow-hidden bg-brand-50 px-4 py-16 md:px-8 lg:py-24" aria-labelledby="testimonial-title">
+<section class="relative overflow-hidden bg-brand-50 px-4 py-12 md:px-8 lg:py-[72px]" aria-labelledby="testimonial-title">
   <h2 id="testimonial-title" class="sr-only">What educators say</h2>
-  <span aria-hidden="true" class="pointer-events-none absolute -top-8 right-14 hidden text-[320px] leading-none font-bold text-brand-200 xl:block">”</span>
+  <span aria-hidden="true" class="pointer-events-none absolute -top-4 right-24 hidden text-[200px] leading-none font-bold text-brand-200 xl:block">”</span>
 
-  <figure class="relative mx-auto grid max-w-[1200px] items-center gap-x-14 gap-y-6 lg:grid-cols-[216px_1fr] lg:px-20">
-    <span class="order-1 mx-auto block size-32 rounded-full bg-white p-3 sm:size-[216px] sm:p-[18px] lg:row-span-2">
+  <figure class="relative mx-auto grid max-w-[1200px] items-center gap-x-10 gap-y-4 lg:grid-cols-[152px_1fr] lg:px-20">
+    <span class="order-1 mx-auto block size-24 rounded-full bg-white p-2 sm:size-[152px] sm:p-3 lg:row-span-2">
       <img
         src="/images/photos/lori-lopez-lopez.jpg"
         width="640"
@@ -24,17 +24,15 @@ const { v3 = false } = Astro.props;
       />
     </span>
     <blockquote class="contents">
-      <p class="order-2 text-center text-display-xs font-bold sm:text-display-sm md:text-display-md lg:col-start-2 lg:row-start-1 lg:self-end lg:text-left lg:text-display-lg">
+      <p class="order-2 text-center text-[22px]/[30px] font-bold sm:text-display-sm lg:col-start-2 lg:row-start-1 lg:self-end lg:text-left lg:text-[36px]/[44px]">
         “I see the value both as a teacher and as an administrator.”
       </p>
-      <div class="order-4 mt-4 grid gap-6 md:grid-cols-2 lg:col-span-2 lg:mt-10 lg:-mx-20">
-        <p class="flex flex-col gap-5 rounded-3xl bg-white p-5 text-md font-medium shadow-lg sm:rounded-[32px] sm:p-8 sm:text-xl">
-          <BrandIcon name="lesson" />
-          <span><strong class="font-bold">As a teacher,</strong> it gives us a highly effective tool for explicit functional and social skills instruction.</span>
+      <div class="order-4 mt-2 grid gap-4 md:grid-cols-2 lg:col-span-2 lg:mt-6 lg:-mx-20">
+        <p class="rounded-3xl bg-white p-5 text-[15px]/[23px] font-medium shadow-lg sm:px-7 sm:py-6 sm:text-lg">
+          <span><strong class="font-bold text-brand-800"><BrandIcon name="lesson" class="mr-1.5 inline size-5 -translate-y-[0.1em] sm:size-6" />As a teacher,</strong> it gives us a highly effective tool for explicit functional and social skills instruction.</span>
         </p>
-        <p class="flex flex-col gap-5 rounded-3xl bg-white p-5 text-md font-medium shadow-lg sm:rounded-[32px] sm:p-8 sm:text-xl">
-          <BrandIcon name="progress" />
-          <span><strong class="font-bold">As an administrator,</strong> it lets us monitor {v3 && 'transition '}progress that's typically far too subjective. Our team can now set the trajectory and manage to it.</span>
+        <p class="rounded-3xl bg-white p-5 text-[15px]/[23px] font-medium shadow-lg sm:px-7 sm:py-6 sm:text-lg">
+          <span><strong class="font-bold text-brand-800"><BrandIcon name="progress" class="mr-1.5 inline size-5 -translate-y-[0.1em] sm:size-6" />As an administrator,</strong> it lets us monitor {v3 && 'transition '}progress that's typically far too subjective. Our team can now set the trajectory and manage to it.</span>
         </p>
       </div>
     </blockquote>

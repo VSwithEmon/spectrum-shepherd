@@ -8,7 +8,7 @@ export const audienceSlides = [
     benefits: ['Transition Evidence Reports', 'Indicator 13 support', 'IDEA Part B & Title IV-A ready', 'Consistent across classrooms'],
     cta: { label: 'Explore for schools →', href: '#' },
     photo: '[PHOTO: real special education leader with students]',
-    image: { src: '/images/photos/audience-schools.jpg', alt: 'A teacher working with a group of young students seated around a classroom table' },
+    image: { src: '/images/photos/audience-schools.jpg', alt: 'A teacher and four students gathered around a library table, working together with pencils and books' },
     stat: { value: 'Indicator 13', caption: 'evidence, built automatically' },
   },
   {
@@ -18,7 +18,7 @@ export const audienceSlides = [
     benefits: ['Ready-made life-skills lessons', 'IEP-linked progress notes', 'Students work independently', 'Free 45-day trial'],
     cta: { label: 'Start your free trial →', href: '#' },
     photo: '[PHOTO: real teacher working with a small group]',
-    image: { src: '/images/photos/audience-teachers.jpg', alt: 'Two educators and a student reading a book together at a classroom table' },
+    image: { src: '/images/photos/audience-teachers.jpg', alt: 'A teenage student working at a desk on a laptop, with a classmate by the window behind her' },
     stat: { value: '10 min', caption: 'to a personalized class' },
   },
   {
@@ -28,7 +28,7 @@ export const audienceSlides = [
     benefits: ['Lessons under 10 minutes', 'Built on their interests', 'Any device, anywhere', 'Reading-level support'],
     cta: { label: 'See the student app →', href: '#' },
     photo: '[PHOTO: real student, 16–20, practicing a real task]',
-    image: { src: '/images/photos/audience-students.jpg', alt: 'A young student reading a book with a teacher in front of library shelves' },
+    image: { src: '/images/photos/audience-students.jpg', alt: 'A teacher leaning over a table to help students working on their lessons together' },
     stat: { value: '< 10 min', caption: 'per lesson' },
   },
 ];

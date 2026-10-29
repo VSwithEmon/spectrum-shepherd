@@ -1,68 +1,184 @@
 ---
-// Blog article, one static page per published Sanity post.
-import { PortableText } from 'astro-portabletext';
+// Blog post page — Figma "Blog post — details with comments" (Oct 27, 2026; node 39010:82375): back link,
+// group chip, date and share links, title, featured image, the full article, a stats bar with a like
+// button, comments (form + list) and three recent posts.
+// Article text: src/data/post-content.json, copied from the live spectrumshepherd.com posts (Oct 27, 2026)
+// as blocks (paragraphs, headings, lists, quotes, tables, images; inline bold/italic/links only). Inline images
+// are in public/images/blog/posts/. Links between posts point at the pages here.
+// TODO: point the comment form `action` at the comment service the client chooses, and load approved
+// comments from it. No comments are shown until then (we don't fake any).
 import Base from '../../layouts/Base.astro';
-import PostCard from '../../components/blog/PostCard.astro';
+import Button from '../../components/Button.astro';
+import FormField from '../../components/FormField.astro';
+import content from '../../data/post-content.json';
+import PostCard from '../../components/v3/PostCard.astro';
+import ShareButton from '../../components/v3/ShareButton.astro';
+import LikeButton from '../../components/v3/LikeButton.astro';
+import { site } from '../../data/site';
+import { PortableText } from 'astro-portabletext';
 import PtImage from '../../components/blog/PtImage.astro';
 import PtLink from '../../components/blog/PtLink.astro';
-import { getPostsWithBody, imageUrl, categoryTitle, readTime, formatDate, type Post } from '../../lib/blog';
+import { getAllPosts, type BlogPost as Post } from '../../lib/blog';
+import { postHref } from '../../data/posts';
 
+// Sanity posts (written at /studio) come first and render their Portable Text body; the rest are the copied articles.
 export async function getStaticPaths() {
-  const posts = await getPostsWithBody();
-  return posts.map((post) => ({
-    params: { slug: post.slug },
-    props: { post, related: posts.filter((p) => p._id !== post._id && p.category === post.category).concat(posts.filter((p) => p._id !== post._id && p.category !== post.category)).slice(0, 3) },
-  }));
+  const posts = await getAllPosts();
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post, posts } }));
 }
-
-interface Props { post: Post; related: Post[] }
-const { post, related } = Astro.props;
-const cover = imageUrl(post.coverImage, 2200, 1238);
+const { post, posts } = Astro.props as { post: Post; posts: Post[] };
+type Block =
+  | { type: 'p' | 'quote'; html: string }
+  | { type: 'h'; level: number; html: string }
+  | { type: 'ul' | 'ol'; items: string[] }
+  | { type: 'table'; rows: string[][] }
+  | { type: 'img'; src: string; width: number; height: number; alt: string; caption: string };
+const blocks = ((content as Record<string, Block[]>)[post.slug] ?? [{ type: 'p', html: post.excerpt }]) as Block[];
+const groupLabel = post.group === 'educators' ? 'For educators' : 'For families';
+const recent = [...posts.filter((p) => p !== post && p.group === post.group), ...posts.filter((p) => p !== post && p.group !== post.group)].slice(0, 3);
+const comments = post.comments ?? 0;
+const views = post.views ?? 0;
+// Share links point at the live article until JavaScript swaps in this page's address.
+const enc = encodeURIComponent;
+const shares = [
+  { name: 'Facebook', network: 'facebook', href: `https://www.facebook.com/sharer/sharer.php?u=${enc(post.url)}`, icon: '<path fill="currentColor" stroke="none" d="M14 8h3V4h-3c-2.8 0-4.5 1.8-4.5 4.6V11H7v4h2.5v9h4v-9h3l.5-4h-3.5V8.8c0-.5.3-.8.5-.8z"/>' },
+  { name: 'X', network: 'x', href: `https://twitter.com/intent/tweet?url=${enc(post.url)}&text=${enc(post.title)}`, icon: '<path fill="currentColor" stroke="none" d="M17.8 3h3.1l-6.8 7.8 8 10.2h-6.3l-4.9-6.3L5.3 21H2.2l7.3-8.3L1.8 3h6.4l4.4 5.8L17.8 3zm-1.1 16.2h1.7L7.4 4.7H5.6l11.1 14.5z"/>' },
+  { name: 'LinkedIn', network: 'linkedin', href: `https://www.linkedin.com/sharing/share-offsite/?url=${enc(post.url)}`, icon: '<path fill="currentColor" stroke="none" d="M4.5 3.5a2 2 0 110 4 2 2 0 010-4zM3 9h3v12H3V9zm6 0h2.9v1.7c.4-.8 1.4-1.9 3.4-1.9 3.6 0 4.2 2.4 4.2 5.4V21h-3v-6c0-1.4 0-3.3-2-3.3s-2.4 1.6-2.4 3.2V21H9V9z"/>' },
+];
 ---
-<Base
-  title={`${post.title} | Spectrum Shepherd`}
-  description={post.seoDescription || post.excerpt}
-  image={imageUrl(post.coverImage, 1200, 630)}
-  footerHillsBg={related.length ? 'bg-white' : ''}
->
-  <article>
-    <header class="bg-cream px-5 pt-8 md:px-8 lg:pt-14">
-      <div class="mx-auto flex max-w-[800px] flex-col items-start gap-5">
-        <a href="/blog" class="inline-flex min-h-11 items-center gap-2 font-semibold text-brand-700 hover:underline">
-          <span aria-hidden="true">←</span> All articles
-        </a>
-        <p class="rounded-full bg-yellow-100 px-3 py-1 text-xs font-bold text-yellow-800">{categoryTitle(post.category)}</p>
-        <h1 class="text-display-sm font-bold text-balance md:text-display-md lg:text-display-lg">{post.title}</h1>
-        <p class="text-lg text-muted sm:text-xl">{post.excerpt}</p>
-        <div class="flex items-center gap-3 border-t border-line pt-5 text-sm">
-          <span aria-hidden="true" class="flex size-11 items-center justify-center rounded-full bg-brand-50 font-bold text-brand-800">{post.authorName?.charAt(0)}</span>
-          <p class="flex flex-col">
-            <span class="font-semibold">{post.authorName}{post.authorRole && <span class="font-normal text-muted">, {post.authorRole}</span>}</span>
-            <span class="text-muted"><time datetime={post.publishedAt}>{formatDate(post.publishedAt)}</time> · {readTime(post.words)}</span>
-          </p>
-        </div>
-      </div>
-      <div class="mx-auto mt-10 max-w-[1100px]">
-        <img src={cover} width="2200" height="1238" alt={post.coverImage?.alt ?? ''} fetchpriority="high" class="aspect-video h-auto w-full rounded-[28px] object-cover lg:rounded-[40px]" />
-      </div>
-    </header>
+<Base title={`${post.title} | Perspectives | Spectrum Shepherd`} description={post.excerpt}>
+  <article class="bg-cream px-4 pt-8 pb-14 md:px-8 lg:pt-14" aria-labelledby="post-title">
+    <div class="mx-auto flex max-w-[760px] flex-col gap-7">
+      <a href={`${site.blog}${post.group === 'families' ? '#families' : ''}`} class="flex items-center gap-1.5 self-start font-semibold text-brand-700 hover:text-brand-800">
+        <svg aria-hidden="true" class="size-[18px]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 6l-6 6 6 6" /></svg>
+        All posts
+      </a>
 
-    <div class="bg-cream px-5 pt-12 pb-16 md:px-8 lg:pt-16 lg:pb-24">
-      <div class="prose-blog mx-auto max-w-[720px]">
-        <PortableText value={post.body} components={{ type: { image: PtImage }, mark: { link: PtLink } }} />
+      <header class="flex flex-col gap-5">
+        <div class="flex flex-wrap items-center justify-between gap-3">
+          <p class="flex items-center gap-2.5 text-sm font-medium text-muted">
+            <span class="rounded-full bg-brand-25 px-2.5 py-1 font-semibold text-brand-800">{groupLabel}</span>
+            {post.date} · {post.read} read
+          </p>
+          <ul class="-mr-2 flex items-center gap-1" aria-label="Share this post">
+            {shares.map((s) => (
+              <li>
+                <a href={s.href} data-network={s.network} target="_blank" rel="noopener noreferrer" class="flex size-10 items-center justify-center rounded-full text-ink hover:bg-brand-25 hover:text-brand-800">
+                  <svg aria-hidden="true" class="size-5" viewBox="0 0 24 24" set:html={s.icon} />
+                  <span class="sr-only">Share on {s.name} (opens in a new tab)</span>
+                </a>
+              </li>
+            ))}
+            <li><ShareButton href={postHref(post)} title={post.title} /></li>
+          </ul>
+        </div>
+        <h1 id="post-title" class="text-display-md font-bold sm:text-display-lg">{post.title}</h1>
+      </header>
+
+      <img src={post.thumb} width="800" height="600" alt={post.cms?.coverAlt ?? ""} class="aspect-[384/286] w-full rounded-3xl object-cover" />
+
+      <div class="article flex flex-col gap-5 text-lg/8 text-ink">
+        {post.cms && <div class="prose-blog"><PortableText value={post.cms.body} components={{ type: { image: PtImage }, mark: { link: PtLink } }} /></div>}
+        {!post.cms && blocks.map((b) => {
+          if (b.type === 'h') return b.level <= 2
+            ? <h2 class="pt-4 text-display-xs font-bold md:text-display-sm" set:html={b.html} />
+            : <h3 class="pt-2 text-xl font-bold md:text-display-xs" set:html={b.html} />;
+          if (b.type === 'ul') return <ul class="flex list-disc flex-col gap-2 pl-6 marker:text-brand-600">{b.items.map((i) => <li set:html={i} />)}</ul>;
+          if (b.type === 'ol') return <ol class="flex list-decimal flex-col gap-2 pl-6 marker:font-bold marker:text-brand-700">{b.items.map((i) => <li set:html={i} />)}</ol>;
+          if (b.type === 'table') return (
+            <div class="overflow-x-auto rounded-2xl border border-line bg-white">
+              <table class="w-full min-w-[560px] text-left text-base/6">
+                <thead class="bg-brand-25"><tr>{b.rows[0].map((c) => <th scope="col" class="px-4 py-3 align-top font-bold" set:html={c} />)}</tr></thead>
+                <tbody>{b.rows.slice(1).map((r) => (
+                  <tr class="border-t border-line">{r.map((c, i) => i === 0
+                    ? <th scope="row" class="px-4 py-3 align-top font-bold" set:html={c} />
+                    : <td class="px-4 py-3 align-top" set:html={c} />)}</tr>
+                ))}</tbody>
+              </table>
+            </div>
+          );
+          if (b.type === 'quote') return <blockquote class="border-l-4 border-yellow-300 pl-6 text-xl/9 font-semibold" set:html={b.html} />;
+          if (b.type === 'img') return (
+            <figure class="flex flex-col gap-2.5 py-2">
+              <img src={b.src} width={b.width} height={b.height} loading="lazy" alt={b.alt} class="w-full rounded-2xl" />
+              {b.caption && <figcaption class="text-center text-sm text-muted">{b.caption}</figcaption>}
+            </figure>
+          );
+          return <p set:html={b.html} />;
+        })}
+      </div>
+
+      <div class="flex items-center justify-between gap-4 border-y border-line py-4">
+        <ul class="flex items-center gap-5 font-medium text-muted" aria-label="Post stats">
+          <li class="flex items-center gap-1.5">
+            <svg aria-hidden="true" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z" /><circle cx="12" cy="12" r="3" /></svg>
+            {views} {views === 1 ? 'view' : 'views'}
+          </li>
+          <li class="flex items-center gap-1.5">
+            <svg aria-hidden="true" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4V5z" /></svg>
+            <a href="#comments" class="hover:text-brand-800">{comments} {comments === 1 ? 'comment' : 'comments'}</a>
+          </li>
+        </ul>
+        <LikeButton slug={post.slug} title={post.title} label />
       </div>
     </div>
   </article>
 
-  {related.length > 0 && (
-    <section class="bg-white px-5 py-16 md:px-8 lg:py-24" aria-labelledby="more-title">
-      <div class="mx-auto flex max-w-[1200px] flex-col gap-8">
-        <h2 id="more-title" class="text-display-xs font-bold sm:text-display-sm">More from the blog</h2>
-        <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {related.map((p) => <li><PostCard post={p} /></li>)}
-        </ul>
-      </div>
-    </section>
-  )}
+  <section id="comments" class="scroll-mt-28 bg-cream px-4 pb-20 md:px-8" aria-labelledby="comments-title">
+    <div class="mx-auto flex max-w-[760px] flex-col gap-7">
+      <h2 id="comments-title" class="flex items-center gap-2.5 text-display-xs font-bold md:text-display-sm">
+        Comments <span class="rounded-full bg-brand-25 px-2.5 py-0.5 text-base font-bold text-brand-800">{comments}</span>
+      </h2>
 
+      <!-- TODO: action = the comment service once chosen (see the note at the top of this file). -->
+      <form method="post" class="flex flex-col gap-4 rounded-3xl border border-line bg-white p-6 shadow-md sm:p-7" aria-labelledby="comment-form-title">
+        <h3 id="comment-form-title" class="text-xl font-bold">Join the conversation</h3>
+        <div class="flex flex-col gap-1.5">
+          <label for="comment-body" class="font-bold">Your comment<span class="sr-only"> (required)</span></label>
+          <textarea id="comment-body" name="comment" rows="4" required placeholder="Share your thoughts or a question…" class="w-full rounded-xl border-[1.5px] border-field bg-white px-4 py-3 text-md text-ink placeholder:text-muted"></textarea>
+        </div>
+        <div class="grid gap-4 sm:grid-cols-2">
+          <FormField id="comment-name" label="Name" autocomplete="name" required />
+          <FormField id="comment-email" label="Email (not published)" type="email" autocomplete="email" placeholder="you@school.org" required />
+        </div>
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <p class="text-sm text-muted">Comments are reviewed before they appear. See our <a href="/privacy" class="text-brand-700 underline hover:text-brand-800">privacy policy</a>.</p>
+          <Button type="submit" variant="dark" class="shrink-0">Post comment</Button>
+        </div>
+      </form>
+
+      {comments === 0 && (
+        <p class="rounded-3xl border border-dashed border-line-strong px-6 py-8 text-center font-medium text-muted">No comments yet. Be the first to share your thoughts.</p>
+      )}
+    </div>
+  </section>
+
+  <section class="bg-white px-4 py-16 md:px-8 lg:py-24" aria-labelledby="recent-title">
+    <div class="mx-auto flex max-w-[1200px] flex-col gap-8">
+      <div class="flex items-center justify-between gap-4">
+        <h2 id="recent-title" class="text-display-xs font-bold md:text-display-sm">Recent posts</h2>
+        <a href={site.blog} class="font-semibold text-brand-700 hover:text-brand-800">See all posts →</a>
+      </div>
+      <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {recent.map((p) => <li class="flex"><PostCard post={p} class="w-full" /></li>)}
+      </ul>
+    </div>
+  </section>
 </Base>
+
+<script>
+  // Share links: swap the live-article address for this page's once we know it.
+  const here = encodeURIComponent(location.href.split('#')[0]);
+  const title = encodeURIComponent(document.querySelector('h1')?.textContent ?? document.title);
+  const build: Record<string, string> = {
+    facebook: `https://www.facebook.com/sharer/sharer.php?u=${here}`,
+    x: `https://twitter.com/intent/tweet?url=${here}&text=${title}`,
+    linkedin: `https://www.linkedin.com/sharing/share-offsite/?url=${here}`,
+  };
+  document.querySelectorAll<HTMLAnchorElement>('[data-network]').forEach((a) => { a.href = build[a.dataset.network!] ?? a.href; });
+</script>
+
+<style>
+  .article :global(a) { color: var(--color-brand-700); text-decoration: underline; text-underline-offset: 3px; }
+  .article :global(a:hover) { color: var(--color-brand-800); }
+</style>

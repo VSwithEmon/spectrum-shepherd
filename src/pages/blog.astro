@@ -1,31 +1,22 @@
 ---
-// Blog ("Perspectives") — Figma "Blog (Perspectives) — v2 · tabs (For educators selected)" (node 38892:15284,
-// final design Oct 27, 2026): sky header with clouds and hills, "For educators" / "For families" tabs, card grid.
-// Posts written in the Sanity Studio (/studio) come first and open on this site (/blog/<slug>); the articles
-// that still live on spectrumshepherd.com follow (src/data/posts.ts). The search box filters the cards.
+// Blog ("Perspectives") — Figma "Blog (Perspectives) — v2 · tabs" (Oct 27, 2026; nodes 39004:81809 /
+// 39004:82055): sky hero with search, then "For educators" / "For families" tabs, each a grid of the
+// shared PostCard (newest first; the separate "Latest" card was removed in Figma). Every card opens
+// the post page (/blog/<slug>).
+// Tabs: WAI-ARIA tabs (arrow keys, Home/End); the open tab is kept in the URL hash (#families). Without
+// JavaScript both groups simply show one after the other. Search filters the open tab.
 import Base from '../layouts/Base.astro';
 import HeroHills from '../components/v3/HeroHills.astro';
 import SkyDecor from '../components/v3/SkyDecor.astro';
-import { posts as livePosts } from '../data/posts';
-import { getPosts, imageUrl, shortDate, readTime } from '../lib/blog';
+import PostCard from '../components/v3/PostCard.astro';
+import { getAllPosts } from '../lib/blog';
 
-type Card = { key: string; title: string; excerpt: string; meta: string; url: string; thumb: string; alt: string; group: 'educators' | 'families' };
+const posts = await getAllPosts();
 
-const cms = await getPosts();
-const cmsCards: Card[] = cms.map((p) => ({
-  key: p.slug, title: p.title, excerpt: p.excerpt, meta: `${shortDate(p.publishedAt)} · ${readTime(p.words)}`,
-  url: `/blog/${p.slug}`, thumb: imageUrl(p.coverImage, 768, 572), alt: p.coverImage?.alt ?? '', group: p.audience ?? 'educators',
-}));
-const taken = new Set(cmsCards.map((c) => c.key));
-const liveCards: Card[] = livePosts.filter((p) => !taken.has(p.slug)).map((p) => ({
-  key: p.slug, title: p.title, excerpt: p.excerpt, meta: `${p.date} · ${p.read} read`, url: p.url, thumb: p.thumb, alt: '', group: p.group,
-}));
-const all = [...cmsCards, ...liveCards];
-const tabs = [
-  { id: 'educators', label: 'For educators', intro: 'Transition planning, IEP goals and measuring progress in the classroom.' },
-  { id: 'families', label: 'For families', intro: 'Stories and guides for parents navigating life after high school.' },
-] as const;
-const text = (c: Card) => `${c.title} ${c.excerpt}`.toLowerCase();
+const groups = [
+  { id: 'educators', label: 'For educators', lede: 'Transition planning, IEP goals and measuring progress in the classroom.', posts: posts.filter((p) => p.group === 'educators') },
+  { id: 'families', label: 'For families', lede: 'Stories and guides for parents navigating life after high school.', posts: posts.filter((p) => p.group === 'families') },
+];
 ---
 <Base
   title="Perspectives: special education transition resources | Spectrum Shepherd"
@@ -33,7 +24,7 @@ const text = (c: Card) => `${c.title} ${c.excerpt}`.toLowerCase();
 >
   <section class="relative overflow-hidden bg-linear-to-b from-cream via-haze via-10% to-mist" aria-labelledby="blog-title">
     <SkyDecor />
-    <HeroHills class="absolute inset-x-0 bottom-0 z-[1] h-[81px] sm:h-[140px] lg:h-[180px]" />
+    <HeroHills class="absolute inset-x-0 bottom-0 h-[81px] sm:h-[140px] lg:h-auto" />
     <div class="relative z-10 mx-auto flex max-w-[900px] flex-col items-center gap-5 px-4 pt-12 pb-32 text-center md:px-8 lg:pt-[72px] lg:pb-[200px]">
       <p class="flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3.5 py-1.5 text-sm font-semibold text-brand-800">
         <span aria-hidden="true" class="size-2 rounded-full bg-brand-600"></span>The Shepherd blog
@@ -52,82 +43,86 @@ const text = (c: Card) => `${c.title} ${c.excerpt}`.toLowerCase();
     </div>
   </section>
 
-  <section class="bg-cream px-4 pt-12 pb-16 md:px-8 lg:pt-[72px] lg:pb-24" aria-label="Articles">
+  <section class="bg-cream px-4 pt-12 pb-16 md:px-8 lg:pt-16 lg:pb-[96px]" aria-label="Articles">
     <div class="mx-auto flex max-w-[1200px] flex-col gap-10">
-      <div class="flex justify-center">
-        <div role="tablist" aria-label="Articles for" class="flex gap-1.5 rounded-full border border-brand-50 bg-brand-25 p-1.5">
-          {tabs.map((t, i) => (
-            <button type="button" role="tab" id={`tab-${t.id}`} aria-controls={`panel-${t.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1}
-              class="min-h-11 rounded-full px-5 py-3 text-md font-semibold text-ink aria-selected:bg-white aria-selected:font-bold aria-selected:text-brand-800 aria-selected:shadow-[0_1px_2px_rgb(26_51_26/0.06),0_2px_8px_rgb(26_51_26/0.12)] sm:px-8 sm:py-3.5 sm:text-lg">
-              {t.label}
-            </button>
-          ))}
-        </div>
+      <div role="tablist" aria-label="Who the articles are for" hidden data-tabs class="mx-auto flex gap-1.5 rounded-full border border-brand-50 bg-brand-25 p-1.5">
+        {groups.map((g, i) => (
+          <button
+            type="button"
+            role="tab"
+            id={`tab-${g.id}`}
+            aria-controls={`panel-${g.id}`}
+            aria-selected={i === 0 ? 'true' : 'false'}
+            tabindex={i === 0 ? 0 : -1}
+            data-tab={g.id}
+            class="min-h-12 rounded-full px-5 font-semibold text-ink transition-colors hover:text-brand-800 aria-selected:bg-white aria-selected:font-bold aria-selected:text-brand-800 aria-selected:shadow-md sm:px-8 sm:text-lg"
+          >{g.label}</button>
+        ))}
       </div>
 
-      {tabs.map((t, i) => (
-        <div role="tabpanel" id={`panel-${t.id}`} aria-labelledby={`tab-${t.id}`} data-panel class="flex flex-col gap-10" data-initial-hidden={i > 0 ? '' : undefined}>
+      {groups.map((g) => (
+        <div id={`panel-${g.id}`} role="tabpanel" aria-labelledby={`tab-${g.id}`} data-panel={g.id} class="flex flex-col gap-8 scroll-mt-28">
           <div class="flex flex-col gap-2">
-            <h2 class="text-display-sm font-bold md:text-display-md">{t.label}</h2>
-            <p class="text-lg text-muted">{t.intro}</p>
+            <h2 class="text-display-xs font-bold md:text-display-md">{g.label}</h2>
+            <p class="text-lg text-muted">{g.lede}</p>
           </div>
           <ul class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {all.filter((c) => c.group === t.id).map((c) => (
-              <li data-post data-text={text(c)} class="relative flex flex-col overflow-hidden rounded-[28px] border border-line bg-white focus-within:shadow-xl hover:shadow-xl lg:h-[560px]">
-                <img src={c.thumb} width="768" height="572" loading="lazy" alt={c.alt} class="aspect-[384/286] w-full shrink-0 object-cover" />
-                <div class="flex flex-1 flex-col gap-2.5 px-7 pt-6 pb-7">
-                  <p class="text-sm font-medium text-muted">{c.meta}</p>
-                  <h3 class="text-xl font-semibold"><a href={c.url} class="after:absolute after:inset-0 after:content-[''] focus-visible:outline-none">{c.title}</a></h3>
-                  <p class="text-muted">{c.excerpt}</p>
-                  <p aria-hidden="true" class="mt-auto pt-2 text-sm font-semibold text-brand-700">Read article →</p>
-                </div>
-              </li>
-            ))}
+            {g.posts.map((p) => <li class="flex"><PostCard post={p} class="w-full" /></li>)}
           </ul>
+          <p data-empty hidden class="py-8 text-center text-lg font-medium text-muted">No articles match your search. Try a different word.</p>
         </div>
       ))}
-      <p id="blog-empty" hidden class="py-8 text-center text-lg font-medium text-muted">No articles match your search. Try a different word.</p>
     </div>
   </section>
+
 </Base>
 
 <script>
-  const tabs = [...document.querySelectorAll<HTMLButtonElement>('[role=tab]')];
+  const tablist = document.querySelector<HTMLElement>('[data-tabs]')!;
+  const tabs = [...tablist.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
   const panels = [...document.querySelectorAll<HTMLElement>('[data-panel]')];
-  const items = [...document.querySelectorAll<HTMLElement>('[data-post]')];
   const input = document.getElementById('blog-search') as HTMLInputElement;
   const status = document.getElementById('blog-status')!;
-  const empty = document.getElementById('blog-empty')!;
-  let current = 0;
-  // Without JavaScript both lists show; with it, the tabs switch between them.
-  const show = (i: number) => {
-    current = i;
-    tabs.forEach((t, k) => { t.setAttribute('aria-selected', String(k === i)); t.tabIndex = k === i ? 0 : -1; });
-    filter();
-  };
+
   const filter = () => {
     const q = input.value.trim().toLowerCase();
+    const panel = panels.find((p) => !p.hidden)!;
     let shown = 0;
-    items.forEach((el) => { const hit = !q || (el.dataset.text ?? '').includes(q); el.hidden = !hit; });
-    panels.forEach((p, k) => {
-      const hits = p.querySelectorAll('[data-post]:not([hidden])').length;
-      // While searching, every list with a match shows; otherwise only the selected tab.
-      p.hidden = q ? hits === 0 : k !== current;
-      if (!p.hidden) shown += hits;
+    panel.querySelectorAll<HTMLElement>('[data-post]').forEach((card) => {
+      const hit = !q || (card.dataset.text ?? '').includes(q);
+      card.parentElement!.hidden = !hit;
+      if (hit) shown++;
     });
-    empty.hidden = shown > 0;
+    panel.querySelector<HTMLElement>('[data-empty]')!.hidden = shown > 0;
     status.textContent = q ? `${shown} article${shown === 1 ? '' : 's'} found` : '';
   };
+
+  const select = (id: string, focus = false) => {
+    tabs.forEach((t) => {
+      const on = t.dataset.tab === id;
+      t.setAttribute('aria-selected', String(on));
+      t.tabIndex = on ? 0 : -1;
+      if (on && focus) t.focus();
+    });
+    panels.forEach((p) => { p.hidden = p.dataset.panel !== id; });
+    history.replaceState(null, '', id === tabs[0].dataset.tab ? location.pathname : `#${id}`);
+    filter();
+  };
+
+  tablist.hidden = false;
+  const fromHash = tabs.find((t) => `#${t.dataset.tab}` === location.hash)?.dataset.tab;
+  select(fromHash ?? tabs[0].dataset.tab!);
+
   tabs.forEach((t, i) => {
-    t.addEventListener('click', () => { input.value = ''; show(i); });
+    t.addEventListener('click', () => select(t.dataset.tab!));
     t.addEventListener('keydown', (e) => {
-      const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-      if (!d) return;
-      const n = (i + d + tabs.length) % tabs.length;
-      tabs[n].focus(); tabs[n].click();
+      const next = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 }[e.key];
+      if (next === undefined) return;
+      e.preventDefault();
+      select(tabs[(next + tabs.length) % tabs.length].dataset.tab!, true);
     });
   });
+
   document.getElementById('blog-form')!.addEventListener('submit', (e) => e.preventDefault());
   input.addEventListener('input', filter);
-  show(0);
 </script>

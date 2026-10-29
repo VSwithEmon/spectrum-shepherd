@@ -1,0 +1,48 @@
+---
+// Share icon button (Figma "Blog / Post card" — the share arrow replaces the old ⋮ menu). Opens the
+// phone's share sheet where the browser has one (navigator.share); elsewhere it copies the link and
+// says so in a polite live region. `href` is a site path; the full URL is built in the browser.
+interface Props { href: string; title: string; class?: string }
+const { href, title, class: className = '' } = Astro.props;
+---
+<button
+  type="button"
+  data-share={href}
+  data-share-title={title}
+  class={`flex size-10 shrink-0 items-center justify-center rounded-full text-ink transition-colors hover:bg-brand-25 hover:text-brand-800 ${className}`}
+>
+  <svg aria-hidden="true" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M14 5l7 6.5-7 6.5v-4c-5 0-8.5 1.5-11 5 .8-5 3.5-10 11-11V5z" /></svg>
+  <span class="sr-only">Share “{title}”</span>
+</button>
+
+<script>
+  let toast: HTMLElement | null = null;
+  const say = (msg: string) => {
+    if (!toast) {
+      toast = document.createElement('p');
+      toast.setAttribute('role', 'status');
+      toast.className = 'pointer-events-none fixed bottom-6 left-1/2 z-[70] -translate-x-1/2 rounded-full bg-ink px-5 py-3 font-semibold text-white opacity-0 shadow-xl transition-opacity';
+      document.body.append(toast);
+    }
+    toast.textContent = msg;
+    toast.style.opacity = '1';
+    window.setTimeout(() => { if (toast) toast.style.opacity = '0'; }, 2400);
+  };
+  document.addEventListener('click', async (e) => {
+    const btn = (e.target as HTMLElement).closest<HTMLElement>('[data-share]');
+    if (!btn) return;
+    e.preventDefault();
+    const url = new URL(btn.dataset.share!, location.href).href;
+    const title = btn.dataset.shareTitle ?? document.title;
+    if (navigator.share) {
+      try { await navigator.share({ title, url }); } catch { /* closed by the user */ }
+      return;
+    }
+    try {
+      await navigator.clipboard.writeText(url);
+      say('Link copied');
+    } catch {
+      say(url);
+    }
+  });
+</script>

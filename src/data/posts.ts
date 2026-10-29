@@ -1,19 +1,23 @@
-// Blog ("Perspectives") posts, as listed on spectrumshepherd.com/blog. Individual posts still live on
-// the current site, so `url` points there until the articles are migrated. Years are shown only
-// where the live listing shows them. `thumb` is the live post image; `icon` / `tone` are the v1 tiles.
-// `group` splits the v2 page into "For educators" and "For families" (our labels, not the live site's).
+// Blog ("Perspectives") posts, as listed on spectrumshepherd.com/blog. Each post has a page here
+// (`href`, /blog/<slug>: summary, stats, comments); the full article text still lives on the current
+// site (`url`) until it is migrated. Years are shown only where the live listing shows them. `thumb`
+// is the live post image. `group` = the blog tab, "For educators" / "For families" (our labels).
+// `views` / `comments` are copied from the live listing where we have them (Oct 27, 2026); the cards
+// and post page show 0 for a post we don't have a count for yet (the live counts load in the browser
+// and aren't in the page source — update the `stats` table below when the client sends them).
 import type { IconName } from '../components/v3/BrandIcon.astro';
 
 const live = 'https://www.spectrumshepherd.com/post/';
 export type Post = {
   slug: string; title: string; date: string; read: string; excerpt: string;
   icon: IconName; tone: 'brand' | 'yellow' | 'orange'; url: string; thumb: string; group: 'educators' | 'families';
+  views?: number; comments?: number;
 };
 
 const p = (slug: string, title: string, date: string, read: string, excerpt: string, icon: IconName, tone: Post['tone'], thumb: string, group: Post['group']): Post =>
   ({ slug, title, date, read, excerpt, icon, tone, url: live + slug, thumb: `/images/blog/${thumb}.jpg`, group });
 
-export const posts: Post[] = [
+const list: Post[] = [
   p('self-advocacy-activities-high-school-special-education', '5 Self-Advocacy Activities for High School Special Education', 'Oct 13', '4 min',
     'Five practical self-advocacy activities with whole-class setups, flexible communication supports and simple progress checks for special education teachers.', 'people', 'brand', 'self-advocacy', 'educators'),
   p('measuring-what-matters-in-life-and-functional-skills', 'Measuring what matters in life and functional skills', 'Aug 19', '5 min',
@@ -42,3 +46,12 @@ export const posts: Post[] = [
   { slug: 'enhancing-adult-life', title: 'Enhancing Adult Life for Autistic Individuals with…', date: 'Feb 20, 2025', read: '2 min',
     excerpt: 'Navigating the challenges of adulthood can be daunting for individuals on the autism spectrum.', icon: 'growth', tone: 'brand', url: 'https://www.spectrumshepherd.com/blog', thumb: '/images/blog/enhancing-adult-life.jpg', group: 'families' },
 ];
+
+// Counts from the live listing (Oct 27, 2026).
+const stats: Record<string, Pick<Post, 'views' | 'comments'>> = {
+  'self-advocacy-activities-high-school-special-education': { views: 4, comments: 0 },
+  'measuring-what-matters-in-life-and-functional-skills': { views: 2, comments: 0 },
+  'functional-skills-vs-life-skills-special-education': { views: 12, comments: 0 },
+};
+export const posts: Post[] = list.map((post) => ({ ...post, ...stats[post.slug] }));
+export const postHref = (post: Post) => `/blog/${post.slug}`;

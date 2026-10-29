@@ -1,0 +1,18 @@
+---
+// "shepherd" wordmark with the swirl (the product's logo, not the "Spectrum Shepherd" company logo;
+// client feedback, Oct 28, 2026). `onGreen` = the app's green top bar (swirl on a small white disc,
+// white word); `light` = report headers on white (green word).
+interface Props { tone?: 'onGreen' | 'light'; class?: string }
+const { tone = 'onGreen', class: className = '' } = Astro.props;
+---
+{tone === 'onGreen' ? (
+  <span class={`flex items-center gap-1.5 font-bold ${className}`}>
+    <span aria-hidden="true" class="flex size-[1.45em] shrink-0 items-center justify-center rounded-full bg-white">
+      <img src="/images/logo-mark.png" width="80" height="80" alt="" class="size-[1.1em]" />
+    </span>shepherd
+  </span>
+) : (
+  <span class={`flex items-center gap-1.5 font-bold text-brand-700 ${className}`}>
+    <img src="/images/logo-mark.png" width="80" height="80" alt="" class="size-[1.3em] shrink-0" />shepherd
+  </span>
+)}
