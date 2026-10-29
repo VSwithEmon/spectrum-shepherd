@@ -18,18 +18,17 @@ import NightDay from '../components/v3/NightDay.astro';
 import { site } from '../data/site';
 
 const before = [
-  'Hunt for age-appropriate materials',
-  'Rewrite lessons for different reading levels',
-  'Create additional versions for students needing support',
-  'Reconstruct progress before IEP meetings',
+  'Hunt for materials that are age-appropriate and don’t feel babyish',
+  'Rewrite each one for a different reading level',
+  'Make a second version for the student who needs more support',
+  'Reconstruct what happened from memory before the IEP meeting',
   'Do it again next week!',
 ];
 const after = [
-  'Ready-to-use, age-appropriate life skills lessons',
-  'Lessons personalized to each student’s abilities',
-  'Individualized learning plans for every student',
-  'Progress documented automatically as students work',
-  'Next week’s lessons are ready',
+  'Transition lessons already built for this age group',
+  'Each student’s path personalized to their goals automatically',
+  'Students work independently, at their own level',
+  'Progress documented as they go, tied to IEP goals',
 ];
 // Card 1 is kept only if the original survey supports it (client note); confirm before launch.
 const stats = [
@@ -141,15 +140,19 @@ const faqs = [
             </span>
           </figcaption>
         </figure>
-        <div class="on-dark relative flex min-h-[320px] flex-col justify-end gap-2 overflow-hidden rounded-[32px] bg-brand-700 p-8 text-white sm:p-10">
+        <!-- Teacher story video (from spectrumshepherd.com/teachers). Figma card look; the play button swaps in
+             the real player with controls. -->
+        <div data-story class="on-dark relative flex min-h-[320px] flex-col justify-end gap-2 overflow-hidden rounded-[32px] bg-brand-700 p-8 text-white sm:p-10">
           <span aria-hidden="true" class="swirl pointer-events-none absolute -top-[60px] left-[220px] size-[360px] bg-white opacity-10"></span>
-          <!-- [VIDEO — Emily Colisimo teacher story] placeholder until the client supplies the video link -->
-          <a href="#" aria-label="Play Emily Colisimo's teacher story" class="absolute top-8 left-8 flex size-[72px] items-center justify-center rounded-full bg-white text-brand-800 hover:bg-brand-25 sm:top-10 sm:left-10">
+          <button type="button" data-story-play aria-label="Play Emily Colisimo's teacher story (2 minutes)" class="absolute top-8 left-8 flex size-[72px] cursor-pointer items-center justify-center rounded-full bg-white text-brand-800 hover:bg-brand-25 sm:top-10 sm:left-10">
             <svg aria-hidden="true" width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z" /></svg>
-          </a>
-          <p class="text-sm font-semibold text-yellow-300">Teacher story · 2 min</p>
-          <p class="text-display-xs font-bold">Emily Colisimo</p>
-          <p class="text-brand-50">Capstone Teacher, Cotting School, Lexington, MA</p>
+          </button>
+          <p class="relative text-sm font-semibold text-yellow-300">Teacher story · 2 min</p>
+          <p class="relative text-display-xs font-bold">Emily Colisimo</p>
+          <p class="relative text-brand-50">Capstone Teacher, Cotting School, Lexington, MA</p>
+          <video data-story-video hidden controls preload="none" playsinline poster="/images/photos/emily-story-poster.jpg" class="absolute inset-0 z-10 size-full bg-black object-contain" aria-label="Emily Colisimo, Capstone Teacher at Cotting School, on what Shepherd changed in her classroom">
+            <source src="/videos/emily-colisimo-teacher-story.mp4" type="video/mp4" />
+          </video>
         </div>
       </div>
     </div>
@@ -159,6 +162,20 @@ const faqs = [
 
   <TrialCta v3 />
 </Base>
+
+<script>
+  // Teacher story: swap the card for the player and start it.
+  document.querySelectorAll<HTMLElement>('[data-story]').forEach((card) => {
+    const btn = card.querySelector<HTMLButtonElement>('[data-story-play]');
+    const video = card.querySelector<HTMLVideoElement>('[data-story-video]');
+    btn?.addEventListener('click', () => {
+      if (!video) return;
+      video.hidden = false;
+      video.play().catch(() => {});
+      video.focus();
+    });
+  });
+</script>
 
 <style>
   .swirl {
