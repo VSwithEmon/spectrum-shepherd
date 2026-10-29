@@ -20,7 +20,7 @@ const fields = [
 ];
 ---
 <Base
-  title={`${w.title} | Spectrum Shepherd webinar`}
+  title={`${w.title} — Spectrum Shepherd webinar`}
   description={w.description}
 >
   <section class="bg-cream px-4 pt-8 pb-20 md:px-8 lg:pb-28" aria-labelledby="webinar-title">
@@ -33,7 +33,7 @@ const fields = [
             {w.duration && <li class="rounded-full bg-yellow-300 px-3 py-1.5 text-sm font-bold">{w.duration}</li>}
             {w.tags.map((t) => <li class="rounded-full bg-haze px-3 py-1.5 text-sm font-semibold text-brand-800">{t}</li>)}
           </ul>
-          <h1 id="webinar-title" class="text-display-md font-bold break-words sm:text-display-lg lg:text-display-md xl:text-display-lg">{w.title}</h1>
+          <h1 id="webinar-title" class="text-display-md font-bold sm:text-display-lg lg:text-display-xl">{w.title}</h1>
           <div class="flex flex-col gap-5 text-lg text-muted sm:text-xl">
             {paragraphs.map((p) => <p>{p}</p>)}
           </div>

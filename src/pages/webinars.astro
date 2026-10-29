@@ -10,7 +10,7 @@ import { site } from '../data/site';
 const panels = ['bg-brand-700', 'bg-brand-800', 'bg-brand-600', 'bg-brand-900'];
 ---
 <Base
-  title="Webinars: special education transition webinars | Spectrum Shepherd"
+  title="Webinars — special education transition webinars — Spectrum Shepherd"
   description="Short, practical on-demand sessions for special education and transition teams."
  
 >
@@ -18,12 +18,12 @@ const panels = ['bg-brand-700', 'bg-brand-800', 'bg-brand-600', 'bg-brand-900'];
     <span aria-hidden="true" class="absolute -top-28 -right-24 size-[320px] rounded-full bg-yellow-200 lavender:bg-lavender-200"></span>
     <div class="relative mx-auto flex max-w-[1200px] flex-col gap-5">
       <h1 id="webinars-title" class="text-display-lg font-bold sm:text-display-xl">Webinars</h1>
-      <p class="max-w-[760px] text-lg text-muted sm:text-xl">Short, practical sessions for special education and transition teams. Most are “5 in 25”: five strategies you can use tomorrow, in 25 minutes. Watch on demand, any time.</p>
+      <p class="max-w-[760px] text-lg text-muted sm:text-xl">Short, practical sessions for special education and transition teams — most are “5 in 25”: five strategies you can use tomorrow, in 25 minutes. Watch on demand, any time.</p>
     </div>
   </section>
 
   <section class="bg-cream px-4 pb-16 md:px-8 lg:pb-24" aria-label="On-demand webinars">
-    <ul class="mx-auto grid max-w-[1200px] items-start gap-6 md:grid-cols-2">
+    <ul class="mx-auto grid max-w-[1200px] gap-6 md:grid-cols-2">
       {webinars.map((w, i) => (
         <li class="flex flex-col overflow-hidden rounded-[28px] border border-line bg-white">
           <div aria-hidden="true" class={`relative flex h-[240px] items-center justify-between px-8 ${panels[i % panels.length]}`}>
@@ -40,7 +40,7 @@ const panels = ['bg-brand-700', 'bg-brand-800', 'bg-brand-600', 'bg-brand-900'];
             </ul>
             <h2 class="text-display-xs font-semibold">{w.title}</h2>
             <p class="text-muted">{w.description}</p>
-            <Button href={w.url} class="mt-1">Watch webinar<span class="sr-only">: {w.title}</span></Button>
+            <Button href={w.url} class="mt-auto">Watch webinar<span class="sr-only">: {w.title}</span></Button>
           </div>
         </li>
       ))}
@@ -48,7 +48,6 @@ const panels = ['bg-brand-700', 'bg-brand-800', 'bg-brand-600', 'bg-brand-900'];
   </section>
 
   <CtaPanel
-    topPad={false}
     id="briefing"
     variant="clouds"
     title="Request a 15-minute briefing"

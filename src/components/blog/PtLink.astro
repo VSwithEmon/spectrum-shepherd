@@ -1,7 +1,0 @@
----
-// Link mark inside an article body; external links open in a new tab and say so.
-const { node } = Astro.props;
-const href: string = node?.markDef?.href ?? '#';
-const external = /^https?:\/\//.test(href) && !href.includes('spectrumshepherd');
----
-<a href={href} {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}><slot />{external && <span class="sr-only"> (opens in a new tab)</span>}</a>

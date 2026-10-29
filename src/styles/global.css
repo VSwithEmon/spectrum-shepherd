@@ -35,7 +35,6 @@
   --color-mist: #dcefdd;       /* hero sky at the horizon: cream → haze → mist gradient */
 
   --color-periwinkle-100: #dce6f7; /* Schools hero "Evidence" card */
-  --color-yellow-25: #fef9e1;
   --color-yellow-50: #fefbe8;
   --color-yellow-100: #fef7c3;
   --color-yellow-200: #feee95;
@@ -47,12 +46,6 @@
   --color-orange-200: #f9dbaf;
   --color-orange-400: #f38744;
   --color-orange-700: #b93815;
-  --color-success-25: #ecfdf3; /* Figma status chips (Progress by Skill Area, Impact report) */
-  --color-error-25: #fef3f2;
-  --color-error-700: #b42318;
-  --color-warning-25: #fffaeb;
-  --color-warning-700: #b54708;
-  --color-track: #eef0ee;
   --color-red-600: #d92d20;     /* Figma Error/600: low-progress bar on the Schools V3 value card */
   --color-orange-800: #932f19;
   --color-orange-alert: #c4320a;

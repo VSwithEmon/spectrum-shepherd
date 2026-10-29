@@ -6,7 +6,7 @@
 // hands off to the Shepherd app. The marketing site never stores passwords: `appTrial` and
 // `appLogin` are the app's own sign-up and log-in endpoints, which the forms submit to / link to.
 export const site = {
-  home: '/',
+  home: '/v1',
   trial: '/sign-up',
   signup: '/sign-up',
   login: '/login',
@@ -31,9 +31,7 @@ export type PageSet = {
   about: string; blog: string; webinars: string; research: string;
 };
 export const pagesV1: PageSet = {
-  home: '/', teachers: '/teachers', schools: '/schools', app: '/the-platform',
+  home: '/v1', teachers: '/teachers', schools: '/schools', app: '/the-platform',
   about: '/about', blog: '/blog', webinars: '/webinars', research: '/beyond-the-transition-plan',
 };
-// The v2 alternates were retired when the design was finalized (Oct 27, 2026); both sets now link the final pages.
-export const pagesV2: PageSet = pagesV1;
-export const pagesFor = (palette?: 'lavender'): PageSet => (palette === 'lavender' ? pagesV2 : pagesV1);
+

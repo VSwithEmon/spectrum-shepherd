@@ -18,17 +18,18 @@ import NightDay from '../components/v3/NightDay.astro';
 import { site } from '../data/site';
 
 const before = [
-  'Hunt for materials that are age-appropriate and don’t feel babyish',
-  'Rewrite each one for a different reading level',
-  'Make a second version for the student who needs more support',
-  'Reconstruct what happened from memory before the IEP meeting',
+  'Hunt for age-appropriate materials',
+  'Rewrite lessons for different reading levels',
+  'Create additional versions for students needing support',
+  'Reconstruct progress before IEP meetings',
   'Do it again next week!',
 ];
 const after = [
-  'Transition lessons already built for this age group',
-  'Each student’s path personalized to their goals automatically',
-  'Students work independently, at their own level',
-  'Progress documented as they go, tied to IEP goals',
+  'Ready-to-use, age-appropriate life skills lessons',
+  'Lessons personalized to each student’s abilities',
+  'Individualized learning plans for every student',
+  'Progress documented automatically as students work',
+  'Next week’s lessons are ready',
 ];
 // Card 1 is kept only if the original survey supports it (client note); confirm before launch.
 const stats = [
@@ -48,13 +49,13 @@ const faqs = [
 ];
 ---
 <Base
-  title="Transition curriculum for special education teachers | Spectrum Shepherd"
-  description="Individualized learning plans, personalized life skills lessons and automatic progress documentation for special education teachers. Free for 45 days."
+  title="Transition curriculum for special education teachers — Spectrum Shepherd"
+  description="Individualized learning plans, personalized life skills lessons and automatic progress documentation for special education teachers — free for 45 days."
   navUpdated
 >
   <PageHero
     title="Transition curriculum"
-    accent="you don’t have to build"
+    accent="you don’t have to build."
     lede="Individualized learning plans, personalized life skills lessons and automatic progress documentation."
     primary={{ label: 'Start your 45-day free trial', href: site.trial }}
     secondary={{ label: 'See how it works', href: '#how-it-works' }}
@@ -96,7 +97,7 @@ const faqs = [
   </section>
 
   <!-- Stats -->
-  <section class="bg-white px-4 py-12 md:px-8 lg:py-14" aria-label="Teacher results">
+  <section class="bg-white px-4 py-16 md:px-8 lg:py-24" aria-label="Teacher results">
     <div class="mx-auto max-w-[1200px]">
       <StatPanel items={stats} />
     </div>
@@ -128,8 +129,8 @@ const faqs = [
   <section class="bg-brand-50 px-4 py-16 md:px-8 lg:py-24" aria-labelledby="story-title">
     <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-12">
       <h2 id="story-title" class="text-center text-display-sm font-bold md:text-display-md lg:text-display-lg">What it changed in the classroom.</h2>
-      <div class="grid w-full gap-6 lg:grid-cols-[1fr_480px]">
-        <figure class="flex flex-col justify-between gap-4 rounded-[32px] bg-white p-8 sm:p-12 lg:gap-0">
+      <div class="grid w-full gap-6 lg:grid-cols-2">
+        <figure class="flex flex-col justify-between gap-8 rounded-[32px] bg-white p-8 sm:p-12">
           <span aria-hidden="true" class="text-[96px] leading-[64px] font-bold text-brand-300">“</span>
           <blockquote class="text-display-xs font-semibold sm:text-display-sm">It was beautiful to see him use the learning to advocate for himself and get what he needed.</blockquote>
           <figcaption class="flex items-center gap-3.5 border-t border-line pt-6">
@@ -140,14 +141,14 @@ const faqs = [
             </span>
           </figcaption>
         </figure>
-        <div data-story class="on-dark relative flex min-h-[320px] flex-col justify-end gap-2 overflow-hidden rounded-[32px] bg-brand-700 p-8 text-white sm:p-10">
+        <div class="on-dark relative flex min-h-[320px] flex-col justify-end gap-2 overflow-hidden rounded-[32px] bg-brand-700 p-8 text-white sm:p-10">
           <span aria-hidden="true" class="swirl pointer-events-none absolute -top-16 -right-10 size-[300px] bg-white opacity-10"></span>
-          <!-- Teacher story video (from spectrumshepherd.com/teachers): the play button swaps in the real player with controls. -->
-          <button type="button" data-story-play aria-label="Play Emily Colisimo's teacher story video (2 minutes)" class="group absolute inset-0 z-10 flex cursor-pointer items-start p-8 text-left sm:p-10">
+          <!-- [VIDEO — Emily Colisimo teacher story] placeholder until the client supplies the video link -->
+          <a href="#" aria-label="Play Emily Colisimo's teacher story video (2 minutes)" class="group absolute inset-0 z-10 flex items-start p-8 sm:p-10">
             <span class="flex size-24 items-center justify-center rounded-full bg-white text-brand-800 shadow-xl transition-transform group-hover:scale-105 group-focus-visible:scale-105">
               <svg aria-hidden="true" width="36" height="36" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5.5v13l11-6.5z" /></svg>
             </span>
-          </button>
+          </a>
           <p class="text-sm font-semibold text-yellow-300">▶ Watch the video · 2 min</p>
           <p class="text-display-xs font-bold">Emily Colisimo</p>
           <p class="text-brand-50">Capstone Teacher, Cotting School, Lexington, MA</p>
@@ -155,9 +156,6 @@ const faqs = [
             <span class="relative h-1 flex-1 rounded-full bg-white/35"><span class="absolute inset-y-0 left-0 w-[12%] rounded-full bg-yellow-300"></span></span>
             <span class="text-[13px] font-semibold">0:00 / 2:00</span>
           </div>
-          <video data-story-video hidden controls preload="none" playsinline poster="/images/photos/emily-story-poster.jpg" class="absolute inset-0 z-20 size-full bg-black object-contain" aria-label="Emily Colisimo, Capstone Teacher at Cotting School, on what Shepherd changed in her classroom">
-            <source src="/videos/emily-colisimo-teacher-story.mp4" type="video/mp4" />
-          </video>
         </div>
       </div>
     </div>
@@ -167,20 +165,6 @@ const faqs = [
 
   <TrialCta v3 />
 </Base>
-
-<script>
-  // Teacher story: swap the card for the player and start it.
-  document.querySelectorAll<HTMLElement>('[data-story]').forEach((card) => {
-    const btn = card.querySelector<HTMLButtonElement>('[data-story-play]');
-    const video = card.querySelector<HTMLVideoElement>('[data-story-video]');
-    btn?.addEventListener('click', () => {
-      if (!video) return;
-      video.hidden = false;
-      video.play().catch(() => {});
-      video.focus();
-    });
-  });
-</script>
 
 <style>
   .swirl {

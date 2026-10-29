@@ -19,8 +19,6 @@ interface Props {
   trial?: boolean;
   /** Photo on the sun; defaults to the two-teachers photo. */
   image?: string;
-  /** Top product chip on the photo (Schools uses "Report ready"). */
-  chip?: { title: string; caption: string };
 }
 const {
   heading = 'Be the reason',
@@ -28,7 +26,6 @@ const {
   lede = 'See how Shepherd works for your students, teachers and school.',
   trial = true,
   image = '/images/photos/demo-teachers.jpg',
-  chip = { title: 'Lesson complete', caption: 'Budgeting for a concert ticket' },
 } = Astro.props;
 const steps = ['Tell us about your school', 'We’ll find a time that works', 'See the platform and ask questions'];
 ---
@@ -52,9 +49,9 @@ const steps = ['Tell us about your school', 'We’ll find a time that works', 'S
         height="733"
         loading="lazy"
         alt=""
-        class="absolute top-[12%] left-[3%] aspect-[43/32] w-[86%] rounded-3xl border-[6px] border-white object-cover shadow-[0_24px_48px_rgb(10_13_18/0.16)] sm:top-[22%] sm:rounded-[32px] sm:border-8"
+        class="absolute top-[12%] left-[3%] aspect-[43/32] w-[86%] rounded-3xl border-[6px] border-white object-cover object-[center_35%] shadow-2xl sm:top-[22%] sm:rounded-[32px] sm:border-8"
       />
-      <StatusChip title={chip.title} caption={chip.caption} class="top-[8%] left-[-2%] hidden origin-top-left sm:flex" />
+      <StatusChip title="Lesson complete" caption="Budgeting for a concert ticket" class="top-[8%] left-[-2%] hidden origin-top-left sm:flex" />
       <StatusChip title="Progress note saved" caption="Linked to IEP goal" class="right-[-2%] bottom-[-2%] origin-bottom-right max-sm:scale-[0.8] sm:bottom-[8%]" />
     </div>
 

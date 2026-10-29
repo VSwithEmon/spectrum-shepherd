@@ -8,10 +8,9 @@
 import Base from '../layouts/Base.astro';
 import HeroHills from '../components/v3/HeroHills.astro';
 import SkyDecor from '../components/v3/SkyDecor.astro';
+import DownloadBanner from '../components/v3/DownloadBanner.astro';
 import PostCard from '../components/v3/PostCard.astro';
-import { getAllPosts } from '../lib/blog';
-
-const posts = await getAllPosts();
+import { posts } from '../data/posts';
 
 const groups = [
   { id: 'educators', label: 'For educators', lede: 'Transition planning, IEP goals and measuring progress in the classroom.', posts: posts.filter((p) => p.group === 'educators') },
@@ -19,26 +18,23 @@ const groups = [
 ];
 ---
 <Base
-  title="Perspectives: special education transition resources | Spectrum Shepherd"
+  title="Perspectives — special education transition resources — Spectrum Shepherd"
   description="Practical advice, heartfelt stories, and expert viewpoints on navigating the journey to independence for autistic young adults."
 >
   <section class="relative overflow-hidden bg-linear-to-b from-cream via-haze via-10% to-mist" aria-labelledby="blog-title">
     <SkyDecor />
     <HeroHills class="absolute inset-x-0 bottom-0 h-[81px] sm:h-[140px] lg:h-auto" />
-    <div class="relative z-10 mx-auto flex max-w-[900px] flex-col items-center gap-5 px-4 pt-12 pb-32 text-center md:px-8 lg:pt-[72px] lg:pb-[200px]">
+    <div class="relative z-10 mx-auto flex max-w-[760px] flex-col items-center gap-5 px-4 pt-12 pb-32 text-center md:px-8 lg:pt-[72px] lg:pb-[150px]">
       <p class="flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3.5 py-1.5 text-sm font-semibold text-brand-800">
         <span aria-hidden="true" class="size-2 rounded-full bg-brand-600"></span>The Shepherd blog
       </p>
       <h1 id="blog-title" class="text-display-md font-bold sm:text-display-lg lg:text-display-xl">Welcome to <span class="text-brand-600">Perspectives</span></h1>
-      <p class="max-w-[760px] text-lg font-medium text-muted sm:text-xl">Practical advice, heartfelt stories, and expert viewpoints on navigating the journey to independence for autistic young adults.</p>
-      <div class="flex w-full flex-col items-center justify-center gap-3 pt-3 sm:flex-row">
-        <p class="rounded-full bg-brand-700 px-[18px] py-2.5 text-sm font-semibold text-white">All posts</p>
-        <form role="search" class="relative w-full sm:w-[320px]" id="blog-form">
-          <label for="blog-search" class="sr-only">Search articles</label>
-          <svg aria-hidden="true" class="absolute top-1/2 left-[18px] size-4 -translate-y-1/2 text-ink" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" /></svg>
-          <input id="blog-search" type="search" placeholder="Search articles" autocomplete="off" class="min-h-11 w-full rounded-full border border-line bg-white pr-4 pl-11 text-sm placeholder:text-muted" />
-        </form>
-      </div>
+      <p class="text-lg text-muted sm:text-xl">Practical advice, heartfelt stories, and expert viewpoints on navigating the journey to independence for autistic young adults.</p>
+      <form role="search" class="relative w-full pt-2 sm:w-[380px]" id="blog-form">
+        <label for="blog-search" class="sr-only">Search articles</label>
+        <svg aria-hidden="true" class="absolute top-1/2 left-4 mt-1 size-5 -translate-y-1/2 text-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7" /><path d="M20 20l-3.5-3.5" /></svg>
+        <input id="blog-search" type="search" placeholder="Search articles" autocomplete="off" class="min-h-12 w-full rounded-full border-[1.5px] border-line-strong bg-white pr-4 pl-11 text-md placeholder:text-muted" />
+      </form>
       <p id="blog-status" class="sr-only" role="status"></p>
     </div>
   </section>
@@ -75,6 +71,7 @@ const groups = [
     </div>
   </section>
 
+  <DownloadBanner />
 </Base>
 
 <script>

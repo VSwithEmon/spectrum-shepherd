@@ -11,10 +11,8 @@ interface Props {
   secondary?: { label: string; href: string };
   id?: string;
   variant?: 'sun' | 'clouds';
-  /** false = no top padding on large screens (Figma: the panel sits right under the previous section). */
-  topPad?: boolean;
 }
-const { title, body, primary, secondary, id, variant = 'sun', topPad = true } = Astro.props;
+const { title, body, primary, secondary, id, variant = 'sun' } = Astro.props;
 const bez = (t: number, a: number, b: number, c: number, d: number) => (1 - t) ** 3 * a + 3 * (1 - t) ** 2 * t * b + 3 * (1 - t) * t * t * c + t ** 3 * d;
 const dots = Array.from({ length: 22 }, (_, k) => {
   const t = k / 21;
@@ -22,7 +20,7 @@ const dots = Array.from({ length: 22 }, (_, k) => {
 });
 const clouds = variant === 'clouds';
 ---
-<section id={id} class={`px-4 py-16 md:px-8 lg:py-24 ${topPad ? '' : 'lg:pt-0'}`} aria-labelledby={`${id ?? 'cta'}-title`}>
+<section id={id} class="px-4 py-16 md:px-8 lg:py-24" aria-labelledby={`${id ?? 'cta'}-title`}>
   <div class={`on-dark relative mx-auto flex max-w-[1200px] flex-col items-center gap-5 overflow-hidden rounded-[40px] bg-brand-700 px-6 text-center text-white sm:px-16 ${clouds ? 'pt-16 pb-28 lg:pt-20 lg:pb-32' : 'py-16 lg:py-20'}`}>
     {clouds ? (
       <Fragment>
