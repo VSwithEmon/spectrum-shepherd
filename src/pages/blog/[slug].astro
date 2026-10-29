@@ -15,12 +15,18 @@ import PostCard from '../../components/v3/PostCard.astro';
 import ShareButton from '../../components/v3/ShareButton.astro';
 import LikeButton from '../../components/v3/LikeButton.astro';
 import { site } from '../../data/site';
-import { posts, postHref, type Post } from '../../data/posts';
+import { PortableText } from 'astro-portabletext';
+import PtImage from '../../components/blog/PtImage.astro';
+import PtLink from '../../components/blog/PtLink.astro';
+import { getAllPosts, type BlogPost as Post } from '../../lib/blog';
+import { postHref } from '../../data/posts';
 
-export function getStaticPaths() {
-  return posts.map((post) => ({ params: { slug: post.slug }, props: { post } }));
+// Sanity posts (written at /studio) come first and render their Portable Text body; the rest are the copied articles.
+export async function getStaticPaths() {
+  const posts = await getAllPosts();
+  return posts.map((post) => ({ params: { slug: post.slug }, props: { post, posts } }));
 }
-const { post } = Astro.props as { post: Post };
+const { post, posts } = Astro.props as { post: Post; posts: Post[] };
 type Block =
   | { type: 'p' | 'quote'; html: string }
   | { type: 'h'; level: number; html: string }
@@ -40,7 +46,7 @@ const shares = [
   { name: 'LinkedIn', network: 'linkedin', href: `https://www.linkedin.com/sharing/share-offsite/?url=${enc(post.url)}`, icon: '<path fill="currentColor" stroke="none" d="M4.5 3.5a2 2 0 110 4 2 2 0 010-4zM3 9h3v12H3V9zm6 0h2.9v1.7c.4-.8 1.4-1.9 3.4-1.9 3.6 0 4.2 2.4 4.2 5.4V21h-3v-6c0-1.4 0-3.3-2-3.3s-2.4 1.6-2.4 3.2V21H9V9z"/>' },
 ];
 ---
-<Base title={`${post.title} — Perspectives — Spectrum Shepherd`} description={post.excerpt}>
+<Base title={`${post.title} | Perspectives | Spectrum Shepherd`} description={post.excerpt}>
   <article class="bg-cream px-4 pt-8 pb-14 md:px-8 lg:pt-14" aria-labelledby="post-title">
     <div class="mx-auto flex max-w-[760px] flex-col gap-7">
       <a href={`${site.blog}${post.group === 'families' ? '#families' : ''}`} class="flex items-center gap-1.5 self-start font-semibold text-brand-700 hover:text-brand-800">
@@ -69,10 +75,11 @@ const shares = [
         <h1 id="post-title" class="text-display-md font-bold sm:text-display-lg">{post.title}</h1>
       </header>
 
-      <img src={post.thumb} width="800" height="600" alt="" class="aspect-[384/286] w-full rounded-3xl object-cover" />
+      <img src={post.thumb} width="800" height="600" alt={post.cms?.coverAlt ?? ""} class="aspect-[384/286] w-full rounded-3xl object-cover" />
 
       <div class="article flex flex-col gap-5 text-lg/8 text-ink">
-        {blocks.map((b) => {
+        {post.cms && <div class="prose-blog"><PortableText value={post.cms.body} components={{ type: { image: PtImage }, mark: { link: PtLink } }} /></div>}
+        {!post.cms && blocks.map((b) => {
           if (b.type === 'h') return b.level <= 2
             ? <h2 class="pt-4 text-display-xs font-bold md:text-display-sm" set:html={b.html} />
             : <h3 class="pt-2 text-xl font-bold md:text-display-xs" set:html={b.html} />;

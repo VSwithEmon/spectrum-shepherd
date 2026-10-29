@@ -25,26 +25,29 @@ const tints: Record<string, string> = {
   'audience-students': 'bg-orange-50',
 };
 ---
-<section class="px-4 py-16 md:px-8 lg:py-24" aria-labelledby="audiences-title">
-  <div class="mx-auto flex max-w-[1200px] flex-col gap-10">
-    <h2 id="audiences-title" class="text-center text-display-sm font-bold md:text-display-md lg:text-display-lg">One platform for everyone in a student's corner.</h2>
-    <ul class="flex flex-col gap-8">
+<section class="px-5 py-14 md:px-8 lg:py-24" aria-labelledby="audiences-title">
+  <!-- Phones follow Figma "Audiences (stacked)" (390 frame): full-bleed 220px photo, 24px semibold heading,
+       16px benefits and a light secondary button; from lg the rows alternate photo left/right. -->
+  <div class="mx-auto flex max-w-[1200px] flex-col gap-5 lg:gap-10">
+    <h2 id="audiences-title" class="text-center text-display-sm font-bold tracking-[-0.6px] md:text-display-md md:tracking-normal lg:text-display-lg xl:whitespace-nowrap">One platform for everyone in a student's corner.</h2>
+    <ul class="flex flex-col gap-5 lg:gap-8">
       {(v3 ? audienceSlidesV3 : audienceSlides).map((s, i) => (
-        <li class={`flex flex-col items-center gap-8 rounded-[32px] p-4 sm:p-6 lg:gap-14 lg:rounded-[40px] ${tints[s.id]} ${i % 2 ? 'lg:flex-row-reverse' : 'lg:flex-row'}`}>
-          <div class="relative h-[240px] w-full shrink-0 overflow-hidden rounded-[28px] sm:h-[320px] lg:h-[380px] lg:w-[580px]">
+        <li class={`flex flex-col items-center overflow-hidden rounded-3xl border border-line lg:gap-14 lg:rounded-[40px] lg:border-0 lg:p-6 ${tints[s.id]} ${i % 2 ? 'lg:flex-row-reverse' : 'lg:flex-row'}`}>
+          <div class="relative h-[220px] w-full shrink-0 overflow-hidden sm:h-[320px] lg:h-[380px] lg:w-[580px] lg:rounded-[28px]">
             <img src={s.image.src} alt={s.image.alt} width="1100" height="825" loading="lazy" class="size-full object-cover" />
             {'label' in s
-              ? <p class="absolute right-5 bottom-5 left-5 flex w-fit items-center gap-2.5 rounded-2xl bg-white px-4 py-2.5 text-md font-bold shadow-lg sm:rounded-full sm:text-lg"><span aria-hidden="true" class="size-3 shrink-0 rounded-full bg-yellow-400"></span>{s.label}</p>
+              ? <p class="absolute bottom-3.5 left-4 flex max-w-[calc(100%-32px)] items-center gap-2 rounded-2xl bg-white py-2.5 pr-4 pl-3.5 text-[15px]/[22px] font-bold shadow-lg sm:right-5 sm:bottom-5 sm:left-5 sm:w-fit sm:gap-2.5 sm:rounded-full sm:text-lg"><span aria-hidden="true" class="size-2.5 shrink-0 rounded-full bg-yellow-400 sm:size-3"></span>{s.label}</p>
               : <FloatingStat value={s.stat.value} caption={s.stat.caption} class="bottom-5 left-5" />}
           </div>
-          <div class={`flex w-full flex-col items-start gap-5 px-2 pb-4 sm:px-4 lg:pb-0 ${i % 2 ? 'lg:pl-8' : 'lg:pr-8'}`}>
-            <h3 class="text-display-xs font-bold sm:text-display-sm">
-              {s.headline.map((line, k) => <Fragment>{line}{k < s.headline.length - 1 && <br />}</Fragment>)}
+          <div class={`flex w-full flex-col items-start gap-5 px-7 pt-7 pb-7 lg:px-0 lg:pt-0 lg:pb-0 ${i % 2 ? 'lg:pl-8' : 'lg:pr-8'}`}>
+            <h3 class="text-display-xs font-semibold sm:text-display-sm lg:font-bold">
+              {s.headline.map((line, k) => <Fragment>{line}{k < s.headline.length - 1 && <br class="hidden sm:inline" />}{k < s.headline.length - 1 && ' '}</Fragment>)}
             </h3>
-            <ul class="flex flex-col gap-3 text-lg">
+            <ul class="flex flex-col gap-3 text-md lg:text-lg">
               {s.benefits.map((b) => <CheckItem v2>{b}</CheckItem>)}
             </ul>
-            <Button href={hrefs[s.id]}>{typeof s.cta === 'string' ? s.cta : s.cta.label}</Button>
+            <Button href={hrefs[s.id]} variant="secondary" class="mt-2 lg:hidden">{typeof s.cta === 'string' ? s.cta : s.cta.label}</Button>
+            <Button href={hrefs[s.id]} class="max-lg:hidden">{typeof s.cta === 'string' ? s.cta : s.cta.label}</Button>
           </div>
         </li>
       ))}

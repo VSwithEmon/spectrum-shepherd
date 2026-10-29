@@ -1,7 +1,6 @@
 ---
 // Results (Oct 2026 feedback; Figma "Results", compacted Oct 28): headline, one green panel with three equal results
-// (priority still open with the client), yellow only as a small accent. A varied-size dotted path
-// curls in from each side of the headline (the right one mirrors the left). All static.
+// (priority still open with the client), yellow only as a small accent. Static.
 import StatPanel from './StatPanel.astro';
 import type { IconName } from './BrandIcon.astro';
 
@@ -19,19 +18,8 @@ const results: { icon: IconName; value: string; label: string }[] = items ?? [
   { icon: 'spark', value: '77%', label: caption('of students say it’s more engaging than other school learning') },
   { icon: 'progress', value: 'IEP-ready', label: caption('progress reports teachers don’t have to write') },
 ];
-// Dots from the Figma path (x, y, size in a 260×150 box), echoing the dots in the Shepherd swirl.
-const dots: [number, number, number][] = [
-  [18, 8, 4], [37, 8, 6], [55, 9, 7], [74, 11, 8], [91, 15, 9], [108, 20, 9], [124, 26, 10], [138, 33, 10],
-  [152, 42, 10], [164, 52, 10], [175, 63, 9], [185, 76, 8], [194, 90, 7], [203, 105, 6], [210, 121, 5], [218, 138, 4],
-];
-const arcs = ['left-[calc(50%-570px)]', 'left-[calc(50%+340px)] -scale-x-100'];
 ---
 <section class="relative overflow-hidden bg-white px-4 pt-12 pb-8 md:px-8 lg:py-[72px]" aria-labelledby="results-title">
-  {arcs.map((pos) => (
-    <svg aria-hidden="true" class={`absolute top-[60px] hidden h-[150px] w-[260px] lg:block ${pos}`} viewBox="0 0 260 150">
-      {dots.map(([x, y, s]) => <circle cx={x + s / 2} cy={y + s / 2} r={s / 2} class="fill-brand-300" />)}
-    </svg>
-  ))}
 
   <div class="relative mx-auto flex max-w-[1200px] flex-col gap-6 lg:gap-7">
     <h2 id="results-title" class="text-center text-[26px]/[34px] font-bold md:text-display-md lg:text-[40px]/[50px]">

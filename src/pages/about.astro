@@ -10,8 +10,8 @@ import SkyDecor from '../components/v3/SkyDecor.astro';
 import { site } from '../data/site';
 
 const founders = [
-  { name: 'William Fayerweather', photo: '/images/photos/founder-william.jpg', alt: 'Portrait of William Fayerweather, co-founder of Spectrum Shepherd', tilt: 'lg:rotate-3 lg:mt-0' },
-  { name: 'Kevin Darlington', photo: '/images/photos/founder-kevin.jpg', alt: 'Portrait of Kevin Darlington, co-founder of Spectrum Shepherd', tilt: 'lg:-rotate-3 lg:mt-10' },
+  { name: 'William Fayerweather', photo: '/images/photos/founder-william.jpg', alt: 'Portrait of William Fayerweather, co-founder of Spectrum Shepherd', tilt: 'xl:-rotate-3' },
+  { name: 'Kevin Darlington', photo: '/images/photos/founder-kevin.jpg', alt: 'Portrait of Kevin Darlington, co-founder of Spectrum Shepherd', tilt: 'xl:rotate-3' },
 ];
 const collaborators: { title: string; body: string; icon: IconName }[] = [
   { title: 'Educators bring classroom experience', body: 'Teachers help us understand the realities of instruction, from preparing individualized lessons to documenting student progress.', icon: 'lesson' },
@@ -32,19 +32,19 @@ const story = [
 ];
 ---
 <Base
-  title="About Spectrum Shepherd — built with educators, shaped by students"
+  title="About Spectrum Shepherd | Built with educators, shaped by students"
   description="Spectrum Shepherd is building a better way to teach life skills to neurodivergent students, guided by the educators, students and schools who know what works in real classrooms."
 >
   <section class="relative overflow-hidden bg-linear-to-b from-cream via-haze via-10% to-mist" aria-labelledby="page-title">
     <SkyDecor />
     <HeroHills class="absolute inset-x-0 bottom-0 h-[81px] sm:h-[140px] lg:h-auto" />
-    <div class="relative z-10 mx-auto flex max-w-[1200px] flex-col items-center gap-6 px-4 pt-12 pb-28 text-center sm:pb-32 md:px-8 lg:pt-20 lg:pb-[190px]">
+    <div class="relative z-10 mx-auto flex max-w-[1200px] flex-col items-center gap-6 px-4 pt-12 pb-28 text-center sm:pb-32 md:px-8 lg:pt-20 lg:pb-[210px]">
       <p class="flex items-center gap-2 rounded-full border border-brand-200 bg-brand-50 px-3.5 py-1.5 text-sm font-semibold text-brand-800">
         <span aria-hidden="true" class="size-2 rounded-full bg-brand-600"></span>About Spectrum Shepherd
       </p>
-      <h1 id="page-title" class="max-w-[900px] text-display-md font-bold sm:text-display-lg lg:text-display-xl">Built with educators. <span class="text-brand-600">Shaped by students.</span></h1>
+      <h1 id="page-title" class="max-w-[900px] text-display-md font-bold sm:text-display-lg lg:text-display-xl">Built with educators. <span class="text-brand-600 lg:block">Shaped by students.</span></h1>
       <p class="max-w-[720px] text-lg font-medium text-muted sm:text-xl">Spectrum Shepherd is building a better way to teach life skills to neurodivergent students, guided by the educators, students and schools who know what works in real classrooms.</p>
-      <p class="mt-4 max-w-[640px] rounded-[32px] bg-white px-8 py-8 text-display-xs font-bold shadow-2xl sm:px-12 lg:-rotate-[1.5deg]">We bring together special education expertise, research, instructional design and technology to help students build skills for greater independence.</p>
+      <p class="max-w-[656px] rounded-[32px] bg-white px-8 pt-9 pb-10 text-xl font-bold shadow-[0_20px_20px_rgb(20_38_20/0.16)] sm:px-12 sm:text-[22px]/[34px] sm:tracking-[-0.44px] lg:rotate-[1.5deg]">We bring together special education expertise, research, instructional design and technology to help students build skills for greater independence.</p>
     </div>
   </section>
 
@@ -91,47 +91,48 @@ const story = [
     </div>
   </section>
 
-  <section id="founders" class="scroll-mt-4 overflow-hidden bg-haze px-4 py-16 md:px-8 lg:py-28" aria-labelledby="founders-title">
-    <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-14">
+  <section id="founders" class="scroll-mt-4 overflow-hidden bg-haze px-4 py-16 md:px-8 lg:pt-28 lg:pb-[140px]" aria-labelledby="founders-title">
+    <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-12">
       <h2 id="founders-title" class="text-center text-display-sm font-bold md:text-display-md lg:text-display-lg">How it started</h2>
-      <div class="relative flex w-full flex-col items-center gap-10 lg:flex-row lg:justify-center lg:gap-0">
-        <span aria-hidden="true" class="absolute top-1/2 left-1/2 hidden size-[520px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-yellow-300/55 lg:block"></span>
-        <span aria-hidden="true" class="absolute top-1/2 left-1/2 hidden size-[640px] -translate-x-1/2 -translate-y-1/2 rounded-full border-[3px] border-dotted border-brand-300 lg:block"></span>
+      <!-- Figma "Founders" stage (1000 × 600): sun, dashed ring and two tilted polaroids at fixed positions from xl. -->
+      <div class="relative flex w-full flex-col items-center gap-10 lg:flex-row lg:justify-center lg:gap-6 xl:block xl:h-[600px] xl:w-[1000px]">
+        <span aria-hidden="true" class="absolute top-[40px] left-[240px] hidden size-[520px] rounded-full bg-yellow-300/55 xl:block"></span>
+        <span aria-hidden="true" class="absolute -top-[20px] left-[180px] hidden size-[640px] rounded-full border-2 border-dashed border-brand-400/70 xl:block"></span>
         {founders.map((f, i) => (
-          <figure class={`relative w-full max-w-[390px] rounded-[28px] bg-white p-[18px] pb-6 shadow-2xl ${f.tilt} ${i ? 'lg:-ml-6' : ''}`}>
-            <span aria-hidden="true" class="absolute -top-3.5 left-1/2 hidden h-[30px] w-[110px] -translate-x-1/2 rounded bg-yellow-300/90 lg:block"></span>
+          <figure class={`relative w-full max-w-[390px] rounded-[28px] bg-white p-[18px] pb-6 shadow-[0_24px_24px_rgb(20_38_20/0.2)] xl:absolute xl:w-[390px] ${f.tilt} ${i ? 'xl:top-[80px] xl:left-[527px]' : 'xl:top-[19px] xl:left-[83px]'}`}>
+            <span aria-hidden="true" class={`absolute -top-3.5 left-1/2 hidden h-[30px] w-[110px] -translate-x-1/2 rounded bg-yellow-300/90 xl:block ${i ? '-rotate-[4.5deg]' : 'rotate-[4.5deg]'}`}></span>
             <img src={f.photo} width="400" height="400" loading="lazy" alt={f.alt} class="aspect-[354/400] w-full rounded-[20px] object-cover" />
-            <figcaption class="pt-4 text-center text-xl font-bold sm:text-display-xs">{f.name}</figcaption>
+            <figcaption class="pt-[18px] text-center text-xl font-bold sm:text-display-xs xl:text-display-sm">{f.name}</figcaption>
           </figure>
         ))}
       </div>
       <div class="flex max-w-[760px] flex-col gap-4">
-        <p class="text-xl font-bold">Spectrum Shepherd began with a personal experience.</p>
-        {story.map((p) => <p class="text-lg text-muted">{p}</p>)}
+        <p class="text-xl font-bold lg:text-[22px]/8">Spectrum Shepherd began with a personal experience.</p>
+        {story.map((p) => <p class="text-lg font-medium text-muted lg:leading-[30px]">{p}</p>)}
       </div>
     </div>
   </section>
 
   <section class="px-4 py-16 md:px-8 lg:py-28" aria-labelledby="mission-title">
-    <div class="mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[1fr_520px] lg:gap-14">
+    <div class="mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[1fr_440px] lg:gap-10 xl:grid-cols-[620px_528px] xl:gap-14">
       <div class="flex flex-col gap-5">
         <span aria-hidden="true" class="h-1.5 w-16 rounded-full bg-yellow-300"></span>
         <h2 id="mission-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">What we’re working toward</h2>
-        <p class="text-lg text-muted">We believe every student deserves meaningful opportunities to develop the skills and confidence to navigate everyday life.</p>
+        <p class="text-lg text-muted lg:mb-11">We believe every student deserves meaningful opportunities to develop the skills and confidence to navigate everyday life.</p>
         <p class="text-lg text-muted">That means giving teachers practical tools for personalized instruction, helping schools understand student progress, and keeping students’ interests, abilities and goals at the center.</p>
       </div>
-      <blockquote class="flex flex-col gap-3 rounded-[32px] bg-yellow-300 px-11 py-12 shadow-xl lg:rotate-[1.5deg]">
-        <span aria-hidden="true" class="h-10 text-[88px]/[88px] font-bold text-brand-800">“</span>
+      <blockquote class="flex flex-col gap-3 rounded-[32px] bg-yellow-300 px-11 py-12 shadow-[0_16px_18px_rgb(20_38_20/0.12)] xl:w-[520px] lg:-rotate-[1.5deg]">
+        <span aria-hidden="true" class="h-[62px] text-[88px]/[0.7] font-bold tracking-[-1.76px] text-brand-800">“</span>
         <p class="text-display-xs font-bold md:text-display-sm">We’re building Shepherd with the people who understand those needs best.</p>
       </blockquote>
     </div>
   </section>
 
-  <section id="briefing" class="px-4 pb-16 md:px-8 lg:pb-24" aria-labelledby="briefing-title">
-    <div class="on-dark relative mx-auto flex max-w-[1200px] flex-col items-center gap-5 overflow-hidden rounded-[40px] bg-brand-700 px-6 pt-16 pb-28 text-center text-white sm:px-16 lg:pt-20 lg:pb-32">
+  <section id="briefing" class="px-4 pb-16 md:px-8 lg:pt-6 lg:pb-24" aria-labelledby="briefing-title">
+    <div class="on-dark relative mx-auto flex max-w-[1200px] flex-col items-center gap-5 overflow-hidden rounded-[40px] bg-brand-700 px-6 pt-16 pb-28 text-center text-white sm:px-16 lg:h-[406px] lg:pt-20 lg:pb-0">
       <img src="/images/hero/cloud-bank.svg" width="470" height="122" alt="" aria-hidden="true" class="pointer-events-none absolute -bottom-9 -left-20 max-w-none opacity-60" />
       <img src="/images/hero/cloud-bank.svg" width="470" height="122" alt="" aria-hidden="true" class="pointer-events-none absolute -right-20 -bottom-8 max-w-none -scale-x-100 opacity-60" />
-      <h2 id="briefing-title" class="relative max-w-[900px] text-display-sm font-bold md:text-display-md lg:text-display-lg">Help students prepare for what’s next.</h2>
+      <h2 id="briefing-title" class="relative max-w-[960px] text-display-sm font-bold md:text-display-md lg:text-display-lg">Help students prepare for what’s next.</h2>
       <p class="relative max-w-[760px] text-lg text-brand-50 sm:text-xl">See how Shepherd can support your students, teachers and transition program.</p>
       <div class="relative pt-2"><Button href={site.demo} variant="light">Book a Demo</Button></div>
     </div>

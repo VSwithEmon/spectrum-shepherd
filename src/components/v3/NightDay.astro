@@ -18,14 +18,14 @@ const stars = [
       <p class="text-lg text-muted sm:text-xl">The lessons are already written. The personalization happens on its own. The paperwork writes itself as students work.</p>
     </div>
 
-    <div class="relative grid w-full overflow-hidden rounded-[32px] shadow-xl md:grid-cols-2 lg:rounded-[40px]">
-      <section aria-labelledby="before-title" class="on-dark relative flex flex-col gap-6 overflow-hidden bg-brand-900 px-6 py-10 text-white sm:px-12 md:pr-[72px] md:pb-14 lg:px-14">
+    <div class="relative grid w-full overflow-hidden rounded-[32px] shadow-[0_20px_24px_-4px_rgb(10_13_18/0.08),0_8px_8px_-4px_rgb(10_13_18/0.03)] md:grid-cols-2 lg:rounded-[40px]">
+      <section aria-labelledby="before-title" class="on-dark relative flex flex-col gap-6 overflow-hidden bg-brand-900 px-6 py-10 text-white sm:px-12 md:pt-14 md:pr-[72px] md:pb-14 lg:pl-14">
         <svg aria-hidden="true" class="absolute top-10 right-8 hidden size-[72px] md:block" viewBox="0 0 72 72"><path d="M50 58A28 28 0 1 1 42 6a22 22 0 1 0 8 52z" class="fill-lavender-50" /></svg>
         {stars.map((s) => <span aria-hidden="true" class={`absolute hidden rounded-full bg-white/70 md:block ${s}`}></span>)}
         <p class="relative flex items-center gap-2 self-start rounded-full bg-white/12 px-3.5 py-1.5 text-sm font-semibold text-brand-50">
           <span aria-hidden="true" class="size-2 rounded-full bg-yellow-300 lavender:bg-lavender-200"></span>Sunday night, without Shepherd
         </p>
-        <h3 id="before-title" class="relative text-display-xs font-bold sm:text-display-sm">Building it yourself</h3>
+        <h3 id="before-title" class="relative text-display-xs font-semibold sm:text-display-sm">Building it yourself</h3>
         <ul class="relative flex flex-col gap-4.5">
           {before.map((t) => (
             <li class="flex items-start gap-3.5 text-lg text-brand-100">
@@ -36,20 +36,19 @@ const stars = [
         </ul>
       </section>
 
-      <section aria-labelledby="after-title" class="relative flex flex-col gap-6 overflow-hidden bg-yellow-50 px-6 pt-10 pb-44 sm:px-12 md:pb-[240px] md:pl-[72px] lg:px-14 lg:pl-[88px] lavender:bg-lavender-50">
-        <span aria-hidden="true" class="absolute right-16 bottom-12 hidden size-[180px] rounded-full md:block bg-linear-to-b from-yellow-300 to-orange-200 lavender:from-lavender-200 lavender:to-blush-200"></span>
+      <section aria-labelledby="after-title" class="relative flex flex-col gap-6 overflow-hidden bg-yellow-50 px-6 pt-10 pb-44 sm:px-12 md:pt-14 md:pb-[150px] md:pl-[72px] lg:pr-14 lavender:bg-lavender-50">
+        <span aria-hidden="true" class="absolute right-[20px] -bottom-[69px] hidden size-[220px] rounded-full md:block bg-linear-to-b from-yellow-300 to-yellow-200 lavender:from-lavender-200 lavender:to-blush-200"></span>
         <svg aria-hidden="true" class="absolute inset-x-0 bottom-0 h-auto w-full" viewBox="0 0 640 150" preserveAspectRatio="xMidYMax slice">
           <path d="M0 70C120 30 230 40 330 70S520 110 640 50V150H0Z" class="fill-brand-200" />
           <path d="M0 105C140 80 260 78 380 98S560 118 640 95V150H0Z" class="fill-brand-500" />
           <path d="M0 130C160 118 300 115 440 126S580 136 640 124V150H0Z" class="fill-brand-700" />
-          <g class="fill-brand-900"><rect x="58" y="76" width="4" height="22" rx="2" /><rect x="84" y="80" width="4" height="20" rx="2" /><rect x="548" y="70" width="4" height="22" rx="2" /><rect x="574" y="66" width="4" height="26" rx="2" /></g>
+          <g class="fill-brand-900"><rect x="58" y="76" width="4" height="22" rx="2" /><rect x="84" y="80" width="4" height="20" rx="2" /></g>
           <path d="M60 30L74 74H46Z" class="fill-brand-700" /><ellipse cx="86" cy="64" rx="14" ry="16" class="fill-brand-600" />
-          <ellipse cx="550" cy="54" rx="14" ry="16" class="fill-brand-600" /><path d="M576 20L590 66H562Z" class="fill-brand-700" />
         </svg>
         <p class="relative flex items-center gap-2 self-start rounded-full bg-white px-3.5 py-1.5 text-sm font-semibold text-brand-800">
           <span aria-hidden="true" class="size-2 rounded-full bg-brand-600"></span>Sunday night, with Shepherd
         </p>
-        <h3 id="after-title" class="relative text-display-xs font-bold sm:text-display-sm">Next week is already there.</h3>
+        <h3 id="after-title" class="relative text-display-xs font-semibold sm:text-display-sm">Next week is already there.</h3>
         <ul class="relative flex flex-col gap-4.5">
           {after.map((t) => (
             <li class="flex items-start gap-3.5 text-lg font-medium"><BrandIcon name="check" class="mt-0.5 size-6" />{t}</li>

@@ -8,8 +8,8 @@ import DemoSection from '../components/DemoSection.astro';
 
 const covers = [
   { icon: 'progress' as const, title: 'See the Transition Evidence Report', body: 'A sample report built from real student activity: mastery against every goal, and what to practice next.' },
-  { icon: 'shield' as const, title: 'Get your privacy questions answered', body: 'FERPA, student data security and what IT reviewers ask about — straight answers.' },
-  { icon: 'download' as const, title: 'Talk through funding options', body: "Designed for IDEA Part B and Title IV-A use — we'll show how programs cover Shepherd." },
+  { icon: 'shield' as const, title: 'Get your privacy questions answered', body: 'FERPA, student data security and what IT reviewers ask about, with straight answers.' },
+  { icon: 'download' as const, title: 'Talk through funding options', body: "Designed for IDEA Part B and Title IV-A use. We'll show how programs cover Shepherd." },
 ];
 const review = [
   { icon: 'download' as const, title: 'IDEA Part B & Title IV-A', body: 'Designed for compliance with both funding sources.' },
@@ -19,11 +19,11 @@ const review = [
 ];
 ---
 <Base
-  title="Book a demo — Spectrum Shepherd"
+  title="Book a demo | Spectrum Shepherd"
   description="Book a 15-minute Spectrum Shepherd walkthrough for special education and transition leaders."
  
 >
-  <section class="relative overflow-hidden bg-cream px-4 pt-12 pb-4 md:px-8 lg:pt-[72px]" aria-labelledby="demo-page-title">
+  <section class="relative overflow-hidden bg-cream px-4 pt-12 pb-4 md:px-8 lg:pt-[72px] lg:pb-10" aria-labelledby="demo-page-title">
     <span aria-hidden="true" class="absolute -top-28 -right-24 size-[320px] rounded-full bg-yellow-200 lavender:bg-lavender-200"></span>
     <div class="relative mx-auto flex max-w-[760px] flex-col items-center gap-4 text-center">
       <h1 id="demo-page-title" class="text-display-md font-bold sm:text-display-xl">Book a <span class="text-brand-600">15-minute demo.</span></h1>
@@ -31,7 +31,7 @@ const review = [
     </div>
   </section>
 
-  <DemoSection heading="The evidence report, privacy answers and funding — in one call." />
+  <DemoSection heading="The evidence report, privacy answers and funding in one call." page />
 
   <section class="bg-white px-4 py-16 md:px-8 lg:py-24" aria-labelledby="cover-title">
     <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-12">

@@ -28,10 +28,10 @@ const barHeights = ['h-[40%]', 'h-[55%]', 'h-[65%]', 'h-[75%]', 'h-[85%]'];
 const doneFor = ['Lesson prep', 'Progress notes', 'IEP evidence'];
 // "Progress by Skill Area" (client: dashboard from Jess's brochure, progress against targets). Sample data.
 const status = {
-  on: { label: 'On track', chip: 'bg-brand-50 text-brand-800', bar: 'bg-brand-700' },
-  ahead: { label: 'Ahead', chip: 'bg-brand-50 text-brand-800', bar: 'bg-brand-700' },
-  watch: { label: 'Watch', chip: 'bg-yellow-100 text-yellow-800', bar: 'bg-yellow-400' },
-  support: { label: 'Needs support', chip: 'bg-orange-50 text-orange-700', bar: 'bg-orange-700' },
+  on: { label: 'On track', chip: 'bg-success-25 text-brand-700', bar: 'bg-brand-700' },
+  ahead: { label: 'Ahead', chip: 'bg-success-25 text-brand-700', bar: 'bg-brand-700' },
+  watch: { label: 'Watch', chip: 'bg-warning-25 text-warning-700', bar: 'bg-warning-700' },
+  support: { label: 'Needs support', chip: 'bg-error-25 text-error-700', bar: 'bg-error-700' },
 };
 const skillAreas: { name: string; value: number; target: number; status: keyof typeof status }[] = [
   { name: 'Daily Living & Self-Care', value: 78, target: 80, status: 'on' },
@@ -70,7 +70,7 @@ const points = {
 const h2 = 'text-display-sm font-bold md:text-display-md lg:text-[44px]/[54px]';
 ---
 <Base
-  title="Life skills curriculum and transition progress tracking for schools — Spectrum Shepherd"
+  title="Life skills curriculum and transition progress tracking for schools | Spectrum Shepherd"
   description="Spectrum Shepherd helps schools deliver consistent, personalized life skills instruction, reduce teacher workload and track student progress toward IEP goals."
   demoHref="#demo"
   navUpdated
@@ -135,9 +135,11 @@ const h2 = 'text-display-sm font-bold md:text-display-md lg:text-[44px]/[54px]';
     <div class="mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[1fr_560px] lg:gap-[72px]">
       <div class="flex flex-col gap-5">
         <h2 id="progress-title" class={h2}>See where students are. Know what comes next.</h2>
-        <p class="text-lg text-muted">Track student performance and progress toward learning goals. See which skills students are developing, where they need more support and how they’re progressing over time.</p>
+        <p class="text-lg/[29px] text-muted">Track student performance and progress toward learning goals. See which skills students are developing, where they need more support and how they’re progressing over time.</p>
       </div>
-      <figure class="flex flex-col gap-4 rounded-3xl border border-line bg-white p-5 shadow-2xl sm:p-6">
+      <!-- Figma "Visual" is a 470px-tall slot with the card at its top. -->
+      <div class="lg:h-[470px]">
+      <figure class="flex flex-col gap-4 rounded-3xl border border-line bg-white p-5 shadow-[0_20px_48px_rgb(10_13_18/0.12)] sm:p-6">
         <div class="flex items-center gap-4">
           <AppLogo tone="light" class="shrink-0 text-base" />
           <p class="flex flex-col">
@@ -145,28 +147,30 @@ const h2 = 'text-display-sm font-bold md:text-display-md lg:text-[44px]/[54px]';
             <span class="text-xs font-medium text-muted">Lantern Hill School · all classrooms · this term</span>
           </p>
         </div>
-        <ul class="flex flex-col gap-3.5">
+        <ul class="flex flex-col gap-4">
           {skillAreas.map((s) => (
             <li class="grid grid-cols-[1fr_40px_112px] items-center gap-x-3 gap-y-1.5 sm:grid-cols-[196px_1fr_40px_112px] sm:gap-x-3.5">
-              <p class="col-span-3 sm:col-span-1">
-                <span class="block text-sm font-semibold sm:whitespace-nowrap">{s.name}</span>
-                <span class="block text-xs text-muted">Target {s.target}%</span>
+              <p class="col-span-3 flex flex-col gap-px sm:col-span-1">
+                <span class="block text-[13px]/[18px] font-semibold sm:whitespace-nowrap">{s.name}</span>
+                <span class="block text-[11px]/4 text-muted">Target {s.target}%</span>
               </p>
-              <span aria-hidden="true" class="relative h-2.5 rounded-full bg-line">
-                <span class={`absolute inset-y-0 left-0 rounded-full ${status[s.status].bar}`} style={`width:${s.value}%`}></span>
+              <span aria-hidden="true" class="relative h-2.5 rounded-[5px] bg-track">
+                <span class={`absolute inset-y-0 left-0 rounded-[5px] ${status[s.status].bar}`} style={`width:${s.value}%`}></span>
                 <span class="absolute -top-1 h-[18px] w-0.5 bg-ink" style={`left:${s.target}%`}></span>
               </span>
-              <span class="text-right text-sm font-bold">{s.value}%</span>
-              <span class={`rounded-full px-2 py-0.5 text-center text-[11px] font-bold whitespace-nowrap uppercase ${status[s.status].chip}`}>{status[s.status].label}</span>
+              <span class="text-right text-[13px] font-bold">{s.value}%</span>
+              <span class={`rounded-full px-2 py-[3px] text-center text-[10px] font-bold whitespace-nowrap uppercase ${status[s.status].chip}`}>{status[s.status].label}</span>
             </li>
           ))}
         </ul>
-        <figcaption class="flex flex-wrap gap-x-4 gap-y-1 text-xs text-muted">
+        <figcaption class="flex flex-wrap gap-x-4 gap-y-1 text-[11px]/4 text-muted">
           <span class="flex items-center gap-1.5"><span aria-hidden="true" class="h-2 w-5 rounded-full bg-brand-700"></span>Current progress</span>
           <span class="flex items-center gap-1.5"><span aria-hidden="true" class="h-3.5 w-0.5 bg-ink"></span>Target</span>
           <span>Sample data for illustration.</span>
         </figcaption>
       </figure>
+      </div>
+      </div>
     </div>
   </section>
 
@@ -175,7 +179,7 @@ const h2 = 'text-display-sm font-bold md:text-display-md lg:text-[44px]/[54px]';
     <div class="mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[600px_1fr] lg:gap-16">
       <div class="flex flex-col gap-5 lg:order-2">
         <h2 id="curriculum-title" class={h2}>One curriculum. Personalized for every student.</h2>
-        <p class="text-lg text-muted">Give teachers a shared foundation of ready-to-use life skills lessons while allowing instruction to adapt to each student’s goals, abilities and interests.</p>
+        <p class="text-lg/[29px] text-muted">Give teachers a shared foundation of ready-to-use life skills lessons while allowing instruction to adapt to each student’s goals, abilities and interests.</p>
         <ul class="flex flex-col gap-4 pt-2">
           {points.curriculum.map(([t, b]) => (
             <li class="flex gap-3.5"><BrandIcon name="check" class="mt-0.5 size-7" /><span class="flex flex-col"><span class="text-lg font-bold">{t}</span><span class="text-muted">{b}</span></span></li>
@@ -215,7 +219,7 @@ const h2 = 'text-display-sm font-bold md:text-display-md lg:text-[44px]/[54px]';
     <div class="mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[1fr_540px] lg:gap-[72px]">
       <div class="flex flex-col gap-5">
         <h2 id="teachers-title" class={h2}>Give teachers more time to teach.</h2>
-        <p class="text-lg text-muted">Shepherd reduces the time teachers spend preparing lessons, adapting materials and documenting progress. With personalized lessons and automatic performance tracking, teachers can spend more time working directly with students.</p>
+        <p class="text-lg/[29px] text-muted">Shepherd reduces the time teachers spend preparing lessons, adapting materials and documenting progress. With personalized lessons and automatic performance tracking, teachers can spend more time working directly with students.</p>
         <ul class="flex flex-col gap-4 pt-2">
           {points.teachers.map(([t, b]) => (
             <li class="flex gap-3.5"><BrandIcon name="check" class="mt-0.5 size-7" /><span class="flex flex-col"><span class="text-lg font-bold">{t}</span><span class="text-muted">{b}</span></span></li>
@@ -228,10 +232,10 @@ const h2 = 'text-display-sm font-bold md:text-display-md lg:text-[44px]/[54px]';
 
   <!-- 6. IEP documentation and transition planning -->
   <section class="bg-brand-25 px-4 py-16 md:px-8 lg:py-[104px]" aria-labelledby="iep-title">
-    <div class="mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[600px_1fr] lg:gap-[72px]">
+    <div class="mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[648px_1fr] lg:gap-[72px]">
       <div class="flex flex-col gap-5 lg:order-2">
         <h2 id="iep-title" class={h2}>Walk into every IEP meeting with clearer evidence.</h2>
-        <p class="text-lg text-muted">Shepherd automatically captures student performance as lessons are completed, giving teachers and administrators documented progress to support IEP reviews, transition planning and instructional decisions.</p>
+        <p class="text-lg/[29px] text-muted">Shepherd automatically captures student performance as lessons are completed, giving teachers and administrators documented progress to support IEP reviews, transition planning and instructional decisions.</p>
         <ul class="flex flex-col gap-4 pt-2">
           {points.iep.map(([t, b]) => (
             <li class="flex gap-3.5"><BrandIcon name="check" class="mt-0.5 size-7" /><span class="flex flex-col"><span class="text-lg font-bold">{t}</span><span class="text-muted">{b}</span></span></li>
@@ -243,7 +247,7 @@ const h2 = 'text-display-sm font-bold md:text-display-md lg:text-[44px]/[54px]';
   </section>
 
   <!-- 7. Proof and credibility statistics -->
-  <section class="bg-white px-4 pt-16 pb-16 md:px-8 lg:pb-[104px]" aria-label="Proof and credibility statistics">
+  <section class="bg-white px-4 pt-12 pb-12 md:px-8 lg:pt-6 lg:pb-14" aria-label="Proof and credibility statistics">
     <div class="mx-auto max-w-[1200px]">
       <StatPanel items={proof} />
     </div>
@@ -259,6 +263,7 @@ const h2 = 'text-display-sm font-bold md:text-display-md lg:text-[44px]/[54px]';
     lede="See how personalized life skills instruction, automatic progress tracking and clear reporting can support your teachers, students and transition program."
     trial={false}
     image="/images/photos/schools-demo.jpg"
+    chip={{ title: 'Report ready', caption: 'Transition progress, all classrooms' }}
   />
 </Base>
 

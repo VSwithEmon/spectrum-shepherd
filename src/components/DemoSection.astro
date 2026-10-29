@@ -11,8 +11,10 @@ interface Props {
   heading?: string;
   /** Homepages: the trial strip sits 48px above the footer hills (Figma) instead of 96px. */
   compact?: boolean;
+  /** /book-a-demo: the panel sits 24px under the intro and 48px above the next section (Figma 38916:12398). */
+  page?: boolean;
 }
-const { heading = 'Be the reason they’re ready.', compact = false } = Astro.props;
+const { heading = 'Be the reason they’re ready.', compact = false, page = false } = Astro.props;
 // Dotted trail from the Figma panel (x, y, size in a 780×400 box), echoing the Shepherd swirl.
 const trailDots: [number, number, number][] = [
   [19, 379, 3], [52, 380, 3], [85, 380, 4], [117, 379, 5], [150, 377, 6], [182, 374, 7], [214, 369, 8], [246, 364, 8], [277, 357, 9],
@@ -26,7 +28,7 @@ const steps = [
   'Walk through the evidence report, privacy and funding',
 ];
 ---
-<section id="demo" class={`scroll-mt-4 px-4 pt-12 pb-4 sm:py-16 md:px-8 lg:pt-24 ${compact ? 'lg:pb-12' : 'lg:pb-24'}`} aria-labelledby="demo-title">
+<section id="demo" class={`scroll-mt-4 px-4 pt-12 pb-4 sm:py-16 md:px-8 ${page ? 'lg:pt-6 lg:pb-12' : compact ? 'lg:pt-24 lg:pb-12' : 'lg:pt-24 lg:pb-24'}`} aria-labelledby="demo-title">
   <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-6">
     <div class="on-dark relative flex w-full flex-col gap-10 overflow-hidden rounded-[40px] bg-brand-700 p-6 text-white sm:p-10 lg:flex-row lg:items-start lg:gap-12 lg:p-12">
       <span aria-hidden="true" class="absolute -top-20 -right-20 size-44 rounded-full bg-yellow-300 lg:-top-[110px] lg:-right-[90px] lg:size-[260px] lavender:bg-lavender-200"></span>

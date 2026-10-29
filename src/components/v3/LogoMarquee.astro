@@ -16,35 +16,35 @@ const beats = [
   { lead: 'Shaped in', word: 'classrooms.', tilt: 'rotate-2' },
 ];
 const pin = (s: School, i: number) =>
-  `flex size-[45px] items-center justify-center overflow-hidden rounded-full border-[3px] shadow-lg ${s.bg ?? 'bg-white'} ${
+  `flex size-9 items-center justify-center overflow-hidden rounded-full border-[2.5px] shadow-lg sm:size-[45px] sm:border-[3px] ${s.bg ?? 'bg-white'} ${
     i % 2 ? 'border-orange-400' : 'border-yellow-300'
   }`;
 ---
-<section class={`overflow-hidden bg-brand-700 pt-4 text-white ${logos ? 'pb-16' : 'pb-14 lg:pb-16'}`} aria-labelledby="schools-title">
-  <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-10 px-4 md:px-8">
-    <h2 id="schools-title" class="flex flex-wrap items-center justify-center gap-3 text-center text-xl font-bold sm:text-display-xs md:text-display-sm lg:text-display-md">
+<section class={`overflow-hidden bg-brand-700 pt-6 text-white sm:pt-4 ${logos ? 'pb-8 sm:pb-16' : 'pb-14 lg:pb-16'}`} aria-labelledby="schools-title">
+  <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-6 px-4 sm:gap-10 md:px-8">
+    <h2 id="schools-title" class="flex flex-wrap items-center justify-center gap-x-2 gap-y-2.5 text-center text-[20px]/[25px] font-bold tracking-[-0.4px] sm:gap-x-3 sm:gap-y-3 sm:tracking-normal sm:text-display-xs md:text-display-sm lg:text-display-md">
       {beats.map((b) => (
-        <span class="flex items-center gap-2 sm:gap-3">
+        <span class="flex items-center gap-1 sm:gap-3">
           {b.lead}
-          <span class={`inline-block rounded-full bg-yellow-300 px-3 py-0.5 text-ink sm:px-4 lavender:bg-lavender-200 ${b.tilt}`}>{b.word}</span>
+          <span class={`inline-block rounded-full bg-yellow-300 px-2.5 py-px text-ink sm:px-4 sm:py-0.5 ${b.tilt}`}>{b.word}</span>
         </span>
       ))}
     </h2>
   </div>
 
   {logos && (
-  <div class="marquee relative mt-10" data-marquee>
+  <div class="marquee relative mt-6 h-[72px] sm:mt-10 sm:h-auto" data-marquee>
     <div class="track flex w-max">
       {[0, 1].map((copy) => (
-        <ul class="flex shrink-0 items-start gap-12 pr-12 sm:gap-[72px] sm:pr-[72px]" aria-label={copy ? undefined : 'Schools that helped shape Shepherd'} aria-hidden={copy ? 'true' : undefined}>
+        <ul class="flex shrink-0 items-start gap-10 pt-1 pr-10 sm:gap-[72px] sm:pt-0 sm:pr-[72px]" aria-label={copy ? undefined : 'Schools that helped shape Shepherd'} aria-hidden={copy ? 'true' : undefined}>
           {schools.map((s, i) => (
-            <li class="flex flex-col items-center gap-2 text-center">
+            <li class="flex flex-col items-center gap-1.5 text-center sm:gap-2">
               <span aria-hidden="true" class={pin(s, i)}>
                 {s.logo
-                  ? <img src={s.logo} width="256" height="256" loading="lazy" alt="" class="object-contain" style={`width:${s.logoSize}px;height:${s.logoSize}px`} />
+                  ? <img src={s.logo} width="256" height="256" loading="lazy" alt="" class="size-[calc(var(--s)*0.8)] object-contain sm:size-(--s)" style={`--s:${s.logoSize}px`} />
                   : <span class="text-sm font-bold text-brand-800">{s.mono}</span>}
               </span>
-              <span class="text-sm font-bold whitespace-nowrap text-brand-50 sm:text-md">{s.name}</span>
+              <span class="text-[12.8px]/[19px] font-bold whitespace-nowrap text-brand-50 sm:text-md">{s.name}</span>
             </li>
           ))}
         </ul>

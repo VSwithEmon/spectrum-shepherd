@@ -1,0 +1,11 @@
+---
+// Image block inside an article body (Portable Text).
+import { imageUrl } from '../../lib/blog';
+const { node } = Astro.props;
+---
+{node?.asset && (
+  <figure class="my-10">
+    <img src={imageUrl(node, 1440)} width="1440" height="900" loading="lazy" alt={node.alt ?? ''} class="h-auto w-full rounded-3xl" />
+    {node.caption && <figcaption class="mt-3 text-center text-sm text-muted">{node.caption}</figcaption>}
+  </figure>
+)}

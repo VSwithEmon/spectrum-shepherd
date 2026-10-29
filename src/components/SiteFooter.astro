@@ -26,25 +26,27 @@ const social = [
 ];
 ---
 {hills && <HeroHills sun="setting" class={`h-[100px] sm:h-[140px] lg:h-auto ${hillsBg}`} />}
-<footer class="on-dark relative overflow-hidden bg-brand-800 px-4 pt-12 md:px-8">
+<footer class="on-dark relative overflow-hidden bg-brand-800 px-5 pt-8 md:px-8 lg:pt-12">
   <div class="relative mx-auto max-w-[1200px]">
-    <div class="flex flex-col gap-12 pb-12 lg:flex-row">
-      <div class="flex flex-col gap-3 lg:flex-1">
-        <img src="/images/logo-white.png" width="140" height="49" alt="Spectrum Shepherd" class="h-[49px] w-auto self-start" />
+    <!-- Phones (Figma 390 footer): brand beside Product, Company beside the social links. -->
+    <div class="flex flex-wrap gap-x-6 gap-y-7 pb-12 sm:gap-x-8 lg:flex-nowrap lg:gap-12">
+      <div class="flex min-w-[150px] flex-1 flex-col gap-3">
+        <img src="/images/logo-white.png" width="140" height="49" alt="Spectrum Shepherd" class="hidden h-[49px] w-auto self-start lg:block" />
+        <p class="text-display-xs font-bold text-white lg:hidden">Spectrum Shepherd</p>
         <p class="font-semibold text-brand-50">6 Liberty Square, Boston, MA 02109</p>
         <p class="text-brand-50">Proprietary platform designed for IDEA Part B and Title IV-A compliance.</p>
       </div>
-      <div class="flex flex-wrap gap-12">
-        {columns.map((c) => (
-          <nav aria-labelledby={`footer-${c.title}`} class="w-[160px]">
+      <div class="contents lg:flex lg:gap-12">
+        {columns.map((c, i) => (
+          <nav aria-labelledby={`footer-${c.title}`} class={`w-[150px] lg:order-none lg:w-[160px] ${i ? 'order-3' : 'order-2'}`}>
             <h2 id={`footer-${c.title}`} class="mb-2 font-bold text-white">{c.title}</h2>
             <ul class="flex flex-col gap-2">
               {c.links.map((l) => <li><a href={l.href} class="text-brand-50 hover:text-white hover:underline">{l.label}</a></li>)}
             </ul>
           </nav>
         ))}
-        <div class="flex flex-col gap-4">
-          <h2 class="font-bold text-white">Join our community</h2>
+        <div class="order-4 flex flex-1 flex-col gap-4 lg:order-none lg:flex-none">
+          <h2 class="font-bold whitespace-nowrap text-white">Join our community</h2>
           <ul class="flex gap-3">
             {social.map((s) => (
               <li>
@@ -58,7 +60,7 @@ const social = [
       </div>
     </div>
 
-    <div class="flex flex-col gap-3 border-t border-brand-600 pt-5 pb-8 text-sm text-brand-50 sm:flex-row sm:items-center sm:justify-between">
+    <div class="flex flex-col items-center gap-0.5 border-t border-brand-600 pt-5 pb-7 text-sm text-brand-50 sm:flex-row sm:justify-between sm:gap-3 sm:pb-8">
       <p>© 2026 Spectrum Shepherd</p>
       <ul class="flex flex-wrap gap-5">
         <li><a href="/privacy" class="underline hover:text-white">Privacy policy</a></li>

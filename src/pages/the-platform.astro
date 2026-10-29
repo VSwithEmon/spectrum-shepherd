@@ -71,7 +71,7 @@ const skillAreas: { name: string; value: number; target: number; status: keyof t
 const h2 = 'text-display-sm font-bold md:text-display-md lg:text-[44px]/[54px]';
 ---
 <Base
-  title="The Platform — life skills curriculum, personalized instruction and progress tracking — Spectrum Shepherd"
+  title="The Platform: life skills curriculum, personalized instruction and progress tracking | Spectrum Shepherd"
   description="Shepherd brings a life skills curriculum, personalized instruction, classroom tools and automatic progress tracking together in one platform."
   demoHref={site.demo}
 >
@@ -117,7 +117,7 @@ const h2 = 'text-display-sm font-bold md:text-display-md lg:text-[44px]/[54px]';
     <div class="mx-auto flex max-w-[1200px] flex-col items-center gap-12">
       <div class="flex max-w-[820px] flex-col items-center gap-5 text-center">
         <h2 id="curriculum-title" class={h2}>Real-world skills. Ready to teach.</h2>
-        <p class="text-lg text-muted">Shepherd provides a ready-to-use life skills curriculum with modern, engaging lessons covering everyday skills, independence and transition goals. Lessons are personalized to each student’s abilities, interests and learning goals, so teachers can spend less time creating materials and more time teaching.</p>
+        <p class="text-lg/[29px] text-muted">Shepherd provides a ready-to-use life skills curriculum with modern, engaging lessons covering everyday skills, independence and transition goals. Lessons are personalized to each student’s abilities, interests and learning goals, so teachers can spend less time creating materials and more time teaching.</p>
       </div>
       <!-- The six Life Skills Pillars as classic columns (capital, shaft, base) holding up the curriculum beam,
            on one shared plinth (client feedback Oct 28, 2026: replaces the arch shapes). No lesson or skill-suite counts. -->
@@ -146,7 +146,7 @@ const h2 = 'text-display-sm font-bold md:text-display-md lg:text-[44px]/[54px]';
     <div class="mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[600px_1fr] lg:gap-16">
       <div class="flex flex-col gap-5 lg:order-2">
         <h2 id="dashboard-title" class={h2}>Your classroom. All in one place.</h2>
-        <p class="text-lg text-muted">Shepherd helps teachers create individualized learning plans based on each student’s goals, abilities and interests. From there, teachers can manage lessons, follow student activity and track progress, all from one place.</p>
+        <p class="text-lg/[29px] text-muted">Shepherd helps teachers create individualized learning plans based on each student’s goals, abilities and interests. From there, teachers can manage lessons, follow student activity and track progress, all from one place.</p>
         <ul class="flex flex-col gap-4 pt-2">
           {points.dashboard.map(([t, b]) => (
             <li class="flex gap-3.5"><BrandIcon name="check" class="mt-0.5 size-7" /><span class="flex flex-col"><span class="text-lg font-bold">{t}</span><span class="text-muted">{b}</span></span></li>
@@ -195,7 +195,7 @@ const h2 = 'text-display-sm font-bold md:text-display-md lg:text-[44px]/[54px]';
     <div class="mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[1fr_540px] lg:gap-[72px]">
       <div class="flex flex-col gap-5">
         <h2 id="student-title" class={h2}>Learning that feels personal. Because it is.</h2>
-        <p class="text-lg text-muted">Shepherd turns life skills instruction into short, modern, interactive lessons tailored to each student’s abilities, interests and learning goals. Students practice real-world skills at their own level, building confidence and independence along the way.</p>
+        <p class="text-lg/[29px] text-muted">Shepherd turns life skills instruction into short, modern, interactive lessons tailored to each student’s abilities, interests and learning goals. Students practice real-world skills at their own level, building confidence and independence along the way.</p>
         <ul class="flex flex-col gap-4 pt-2">
           {points.student.map(([t, b]) => (
             <li class="flex gap-3.5"><BrandIcon name="check" class="mt-0.5 size-7" /><span class="flex flex-col"><span class="text-lg font-bold">{t}</span><span class="text-muted">{b}</span></span></li>
@@ -218,14 +218,14 @@ const h2 = 'text-display-sm font-bold md:text-display-md lg:text-[44px]/[54px]';
     <div class="mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[600px_1fr] lg:gap-[72px]">
       <div class="flex flex-col gap-5 lg:order-2">
         <h2 id="evidence-title" class={h2}>Less paperwork. A clearer picture of progress.</h2>
-        <p class="text-lg text-muted">Shepherd automatically captures student performance as lessons are completed, turning everyday learning into clear, organized evidence of progress. Teachers can see how students are developing skills over time and use that information to support IEP reviews, transition planning and instructional decisions.</p>
+        <p class="text-lg/[29px] text-muted">Shepherd automatically captures student performance as lessons are completed, turning everyday learning into clear, organized evidence of progress. Teachers can see how students are developing skills over time and use that information to support IEP reviews, transition planning and instructional decisions.</p>
         <ul class="flex flex-col gap-4 pt-2">
           {points.evidence.map(([t, b]) => (
             <li class="flex gap-3.5"><BrandIcon name="check" class="mt-0.5 size-7" /><span class="flex flex-col"><span class="text-lg font-bold">{t}</span><span class="text-muted">{b}</span></span></li>
           ))}
         </ul>
       </div>
-      <div class="lg:order-1"><EvidenceReport /></div>
+      <div class="lg:order-1"><EvidenceReport sample /></div>
     </div>
   </section>
 
@@ -234,7 +234,7 @@ const h2 = 'text-display-sm font-bold md:text-display-md lg:text-[44px]/[54px]';
     <div class="mx-auto grid max-w-[1200px] items-center gap-12 lg:grid-cols-[1fr_560px] lg:gap-[72px]">
       <div class="flex flex-col gap-5">
         <h2 id="impact-title" class={h2}>See the impact across your school.</h2>
-        <p class="text-lg text-muted">Shepherd brings student activity, skill development and curriculum coverage together in a school-level impact report. Administrators can see where students are making progress, identify opportunities for additional support and understand how Shepherd is giving teachers time back.</p>
+        <p class="text-lg/[29px] text-muted">Shepherd brings student activity, skill development and curriculum coverage together in a school-level impact report. Administrators can see where students are making progress, identify opportunities for additional support and understand how Shepherd is giving teachers time back.</p>
         <ul class="flex flex-col gap-4 pt-2">
           {points.impact.map(([t, b]) => (
             <li class="flex gap-3.5"><BrandIcon name="check" class="mt-0.5 size-7" /><span class="flex flex-col"><span class="text-lg font-bold">{t}</span><span class="text-muted">{b}</span></span></li>
@@ -284,13 +284,15 @@ const h2 = 'text-display-sm font-bold md:text-display-md lg:text-[44px]/[54px]';
   </section>
 
   <!-- 7. Final CTA -->
-  <section id="demo" class="scroll-mt-4 px-4 pb-16 md:px-8 lg:pb-[104px]" aria-labelledby="demo-title">
-    <div class="relative mx-auto flex max-w-[1200px] flex-col items-center gap-6 overflow-hidden rounded-[32px] border border-brand-100 bg-linear-to-br from-brand-25 to-yellow-50 px-6 py-14 text-center sm:px-16 lg:rounded-[40px] lg:py-[88px]">
-      <span aria-hidden="true" class="absolute -top-16 -left-16 size-[200px] rounded-full bg-brand-100/70"></span>
-      <span aria-hidden="true" class="absolute -right-12 -bottom-20 size-[320px] rounded-full bg-yellow-200/70"></span>
-      <h2 id="demo-title" class="relative max-w-[600px] text-[36px]/[44px] font-bold sm:text-display-lg lg:text-[56px]/[64px]">See how it all <span class="text-brand-600">comes together.</span></h2>
+  <section id="demo" class="scroll-mt-4 px-4 py-16 md:px-8 lg:py-[104px]" aria-labelledby="demo-title">
+    <!-- Figma "Final CTA (#demo)" 38892:16397: 564px panel, green → cream gradient, corner circle and sun. -->
+    <div class="relative mx-auto flex max-w-[1200px] flex-col items-center justify-center gap-4 overflow-hidden rounded-[32px] border border-brand-100 bg-linear-to-r from-brand-25 to-yellow-25 px-6 py-14 text-center sm:px-16 lg:h-[564px] lg:rounded-[40px] lg:py-20 lg:pr-14 lg:pl-[72px]">
+      <span aria-hidden="true" class="absolute -top-[65px] -left-[65px] size-[200px] rounded-full bg-brand-100/70"></span>
+      <span aria-hidden="true" class="absolute top-[323px] left-[927px] hidden size-[320px] rounded-full bg-yellow-200/80 lg:block"></span>
+      <span aria-hidden="true" class="absolute -right-16 -bottom-24 size-[220px] rounded-full bg-yellow-200/80 lg:hidden"></span>
+      <h2 id="demo-title" class="relative max-w-[640px] text-[36px]/[44px] font-bold sm:text-display-lg lg:text-[56px]/[64px]">See how it all <span class="text-brand-600">comes together.</span></h2>
       <p class="relative max-w-[760px] text-lg text-muted sm:text-xl">See how Shepherd connects life skills curriculum, personalized instruction, classroom tools and progress reporting to support your students, teachers and school.</p>
-      <div class="relative flex w-full flex-col justify-center gap-3 pt-2 sm:w-auto sm:flex-row">
+      <div class="relative flex w-full flex-col justify-center gap-3 pt-4 sm:w-auto sm:flex-row">
         <Button href={site.demo} variant="dark" class="px-7 sm:text-lg">Book a Demo</Button>
         <Button href={site.trial} variant="secondary" class="px-7 sm:text-lg">Start Your Free Trial</Button>
       </div>

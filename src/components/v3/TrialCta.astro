@@ -18,7 +18,7 @@ const { v3 = false } = Astro.props;
 const checks = ['No credit card', 'No district approval', v3 ? 'Set up in minutes' : 'Set up in about 10 minutes'];
 ---
 <section id="trial" class="px-4 py-16 md:px-8 lg:py-24" aria-labelledby="trial-title">
-  <div class="on-dark relative mx-auto flex max-w-[1200px] flex-col items-center gap-10 overflow-hidden rounded-[32px] bg-brand-800 px-6 pt-12 pb-40 text-white sm:px-12 lg:flex-row lg:gap-14 lg:rounded-[40px] lg:px-[72px] lg:pt-16 lg:pb-32">
+  <div class="on-dark relative mx-auto flex max-w-[1200px] flex-col items-center gap-10 overflow-hidden rounded-[32px] bg-brand-800 px-6 pt-12 pb-40 text-white sm:px-12 lg:flex-row lg:gap-14 lg:rounded-[40px] lg:pr-14 lg:pl-[72px] lg:pt-16 lg:pb-32">
     <span aria-hidden="true" class="swirl pointer-events-none absolute -top-28 -left-20 size-[360px] bg-white opacity-[0.07]"></span>
     <svg aria-hidden="true" class="absolute inset-x-0 bottom-0 h-auto w-full" viewBox="0 0 1200 130" preserveAspectRatio="xMidYMax slice">
       <path d="M0 60C200 10 380 20 600 60S1000 100 1200 30V130H0Z" class="fill-brand-600" fill-opacity="0.55" />
@@ -29,7 +29,7 @@ const checks = ['No credit card', 'No district approval', v3 ? 'Set up in minute
     <div class="relative flex flex-1 flex-col items-start gap-5">
       <h2 id="trial-title" class="text-display-sm font-bold md:text-display-md lg:text-display-lg">
         Try it with one student.<br />
-        <span class="text-yellow-300 lavender:text-lavender-200">Or your whole classroom.</span>
+        <span class="text-yellow-300 xl:whitespace-nowrap lavender:text-lavender-200">Or your whole classroom.</span>
       </h2>
       <p class="text-lg text-brand-50 sm:text-xl">{v3 ? 'Try Shepherd free for 45 days. Set up your class in minutes. No credit card or district approval needed.' : 'Forty-five days, free, no setup needed.'}</p>
       <div class="flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
@@ -41,7 +41,7 @@ const checks = ['No credit card', 'No district approval', v3 ? 'Set up in minute
       </ul>
     </div>
 
-    <div class="relative w-full max-w-[420px] rounded-[32px] bg-white p-7 text-ink shadow-2xl sm:p-9 lg:w-[400px] lg:shrink-0 lg:rotate-2">
+    <div class="relative w-full max-w-[420px] rounded-[32px] bg-white p-7 text-ink shadow-2xl sm:p-9 lg:w-[400px] lg:shrink-0">
       <div class="flex items-center gap-4 pb-5">
         <p class="flex size-24 shrink-0 flex-col items-center justify-center rounded-full bg-yellow-300 text-center lavender:bg-lavender-200">
           <span class="text-display-md font-bold">45</span><span class="text-xs font-bold">days free</span>
